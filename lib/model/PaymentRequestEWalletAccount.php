@@ -1,0 +1,368 @@
+<?php
+
+/**
+ * PHP SDK for Cardpay API v3. All rights reserved.
+ */
+
+namespace Cardpay\model;
+
+use \ArrayAccess;
+use \Cardpay\ObjectSerializer;
+
+class PaymentRequestEWalletAccount implements ModelInterface, ArrayAccess
+{
+    const DISCRIMINATOR = null;
+
+    /**
+      * The original name of the model.
+      *
+      * @var string
+      */
+    protected static $swaggerModelName = 'PaymentRequestEWalletAccount';
+
+    /**
+      * Array of property to type mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
+    protected static $swaggerTypes = [
+        'bank_code' => 'string',
+        'expiration' => 'string',
+        'id' => 'string',
+        'verification_code' => 'string'
+    ];
+
+    /**
+      * Array of property to format mappings. Used for (de)serialization
+      *
+      * @var string[]
+      */
+    protected static $swaggerFormats = [
+        'bank_code' => null,
+        'expiration' => null,
+        'id' => null,
+        'verification_code' => null
+    ];
+
+    /**
+     * Array of property to type mappings. Used for (de)serialization
+     *
+     * @return array
+     */
+    public static function swaggerTypes()
+    {
+        return self::$swaggerTypes;
+    }
+
+    /**
+     * Array of property to format mappings. Used for (de)serialization
+     *
+     * @return array
+     */
+    public static function swaggerFormats()
+    {
+        return self::$swaggerFormats;
+    }
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static $attributeMap = [
+        'bank_code' => 'bank_code',
+        'expiration' => 'expiration',
+        'id' => 'id',
+        'verification_code' => 'verification_code'
+    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static $setters = [
+        'bank_code' => 'setBankCode',
+        'expiration' => 'setExpiration',
+        'id' => 'setId',
+        'verification_code' => 'setVerificationCode'
+    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static $getters = [
+        'bank_code' => 'getBankCode',
+        'expiration' => 'getExpiration',
+        'id' => 'getId',
+        'verification_code' => 'getVerificationCode'
+    ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
+     *
+     * @return array
+     */
+    public static function attributeMap()
+    {
+        return self::$attributeMap;
+    }
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @return array
+     */
+    public static function setters()
+    {
+        return self::$setters;
+    }
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @return array
+     */
+    public static function getters()
+    {
+        return self::$getters;
+    }
+
+    /**
+     * The original name of the model.
+     *
+     * @return string
+     */
+    public function getModelName()
+    {
+        return self::$swaggerModelName;
+    }
+
+    
+
+    
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['bank_code'] = isset($data['bank_code']) ? $data['bank_code'] : null;
+        $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['verification_code'] = isset($data['verification_code']) ? $data['verification_code'] : null;
+    }
+
+    /**
+     * Show all the invalid properties with reasons.
+     *
+     * @return array invalid properties with reasons
+     */
+    public function listInvalidProperties()
+    {
+        $invalidProperties = [];
+
+        if (!is_null($this->container['expiration']) && !preg_match("/^\\d{1,2}\/\\d{4}/", $this->container['expiration'])) {
+            $invalidProperties[] = "invalid value for 'expiration', must be conform to the pattern /^\\d{1,2}\/\\d{4}/.";
+        }
+
+        return $invalidProperties;
+    }
+
+    /**
+     * Validate all the properties in the model
+     * return true if all passed
+     *
+     * @return bool True if all properties are valid
+     */
+    public function valid()
+    {
+        return count($this->listInvalidProperties()) === 0;
+    }
+
+
+    /**
+     * Gets bank_code
+     *
+     * @return string
+     */
+    public function getBankCode()
+    {
+        return $this->container['bank_code'];
+    }
+
+    /**
+     * Sets bank_code
+     *
+     * @param string $bank_code Card issuer's code. For DIRECTBANKINGNGA: Customer bank code (3 digits). Mandatory for DIRECTBANKINGNGA payment method only.
+     *
+     * @return $this
+     */
+    public function setBankCode($bank_code)
+    {
+        $this->container['bank_code'] = $bank_code;
+
+        return $this;
+    }
+
+    /**
+     * Gets expiration
+     *
+     * @return string
+     */
+    public function getExpiration()
+    {
+        return $this->container['expiration'];
+    }
+
+    /**
+     * Sets expiration
+     *
+     * @param string $expiration Card expiration date
+     *
+     * @return $this
+     */
+    public function setExpiration($expiration)
+    {
+
+        if (!is_null($expiration) && (!preg_match("/^\\d{1,2}\/\\d{4}/", $expiration))) {
+            throw new \InvalidArgumentException("invalid value for $expiration when calling PaymentRequestEWalletAccount., must conform to the pattern /^\\d{1,2}\/\\d{4}/.");
+        }
+
+        $this->container['expiration'] = $expiration;
+
+        return $this;
+    }
+
+    /**
+     * Gets id
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->container['id'];
+    }
+
+    /**
+     * Sets id
+     *
+     * @param string $id For QIWI: Customer phone number (from 1 to 15 digits). For NETELLER: email address of Customer. For 'Latin America': Customer personal identification number: CPF or CNPJ for Brazil, DNI for Argentina and ID for other countries. For AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE and TIGO: phone number linked to Customer's mobile money account. For DIRECTBANKINGNGA: bank account number Mandatory for QIWI, NETELLER, 'Latin America', AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO and DIRECTBANKINGNGA payment methods only.
+     *
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets verification_code
+     *
+     * @return string
+     */
+    public function getVerificationCode()
+    {
+        return $this->container['verification_code'];
+    }
+
+    /**
+     * Sets verification_code
+     *
+     * @param string $verification_code Provider security code. For NETELLER: member's 6 digits Secure Id or Google Authenticator OTP For VODAFONE: Customer voucher code (6 digits) For UBA bank in DIRECTBANKINGNGA: Customer BVN (bank verification number) number, 11 digits Mandatory for NETELLER, VODAFONE and DIRECTBANKINGNGA payment methods only.
+     *
+     * @return $this
+     */
+    public function setVerificationCode($verification_code)
+    {
+        $this->container['verification_code'] = $verification_code;
+
+        return $this;
+    }
+    /**
+     * Returns true if offset exists. False otherwise.
+     *
+     * @param integer $offset Offset
+     *
+     * @return boolean
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->container[$offset]);
+    }
+
+    /**
+     * Gets offset.
+     *
+     * @param integer $offset Offset
+     *
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
+    }
+
+    /**
+     * Sets value based on offset.
+     *
+     * @param integer $offset Offset
+     * @param mixed   $value  Value to be set
+     *
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        if (is_null($offset)) {
+            $this->container[] = $value;
+        } else {
+            $this->container[$offset] = $value;
+        }
+    }
+
+    /**
+     * Unsets offset.
+     *
+     * @param integer $offset Offset
+     *
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->container[$offset]);
+    }
+
+    /**
+     * Gets the string presentation of the object
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if (defined('JSON_PRETTY_PRINT')) { // use JSON pretty print
+            return json_encode(
+                ObjectSerializer::sanitizeForSerialization($this),
+                JSON_PRETTY_PRINT
+            );
+        }
+
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
+    }
+}
+
