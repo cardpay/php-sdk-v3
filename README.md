@@ -1,5 +1,5 @@
-# PHP SDK for CardPay API v3
-The CardPay API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
+# PHP SDK for Cardpay API v3
+The Cardpay API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
 - Package version: 1.0.0
@@ -23,11 +23,11 @@ To install the bindings via [Composer](http://getcomposer.org/), add the followi
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/cardpay/php-sdk.git"
+      "url": "https://github.com/cardpay/php-sdk-v3.git"
     }
   ],
   "require": {
-    "cardpay/php-sdk": "*@dev"
+    "cardpay/php-sdk-v3": "*@dev"
   }
 }
 ```
@@ -39,7 +39,7 @@ Then run `composer install`
 Download the files and include `autoload.php`:
 
 ```php
-    require_once('./cardpay-php-sdk/vendor/autoload.php');
+    require_once('./vendor/autoload.php');
 ```
 
 ## Tests
