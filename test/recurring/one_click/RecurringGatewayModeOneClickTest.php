@@ -4,7 +4,6 @@ namespace Cardpay\recurring\one_click;
 
 use Cardpay\ApiException;
 use Cardpay\model\RecurringResponseRecurringData;
-use Cardpay\recurring\RecurringOneClickUtils;
 use PHPUnit\Framework\TestCase;
 
 class RecurringGatewayModeOneClickTest extends TestCase

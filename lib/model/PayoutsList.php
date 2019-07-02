@@ -192,7 +192,7 @@ class PayoutsList implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Cardpay\model\PayoutResponse[] $data Data
+     * @param \Cardpay\model\PayoutResponse[] $data List of found objects
      *
      * @return $this
      */

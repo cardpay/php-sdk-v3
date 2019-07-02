@@ -32,7 +32,7 @@ class PaymentResponse implements ModelInterface, ArrayAccess
         'payment_data' => '\Cardpay\model\PaymentResponsePaymentData',
         'card_account' => '\Cardpay\model\PaymentResponseCardAccount',
         'cryptocurrency_account' => '\Cardpay\model\PaymentResponseCryptocurrencyAccount',
-        'customer' => '\Cardpay\model\PaymentRequestCustomer'
+        'customer' => '\Cardpay\model\PaymentResponseCustomer'
     ];
 
     /**
@@ -356,7 +356,7 @@ class PaymentResponse implements ModelInterface, ArrayAccess
     /**
      * Gets customer
      *
-     * @return \Cardpay\model\PaymentRequestCustomer
+     * @return \Cardpay\model\PaymentResponseCustomer
      */
     public function getCustomer()
     {
@@ -366,7 +366,7 @@ class PaymentResponse implements ModelInterface, ArrayAccess
     /**
      * Sets customer
      *
-     * @param \Cardpay\model\PaymentRequestCustomer $customer Customer data
+     * @param \Cardpay\model\PaymentResponseCustomer $customer Customer data
      *
      * @return $this
      */

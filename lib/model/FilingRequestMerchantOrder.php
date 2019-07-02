@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class Check3DsResponse implements ModelInterface, ArrayAccess
+class FilingRequestMerchantOrder implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class Check3DsResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'Check3DsResponse';
+    protected static $swaggerModelName = 'FilingRequestMerchantOrder';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,9 +26,9 @@ class Check3DsResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'md' => 'string',
-        'pa_req' => 'string',
-        'redirect_url' => 'string'
+        'description' => 'string',
+        'id' => 'string',
+        'shipping_address' => '\Cardpay\model\ShippingAddress'
     ];
 
     /**
@@ -37,9 +37,9 @@ class Check3DsResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'md' => null,
-        'pa_req' => null,
-        'redirect_url' => null
+        'description' => null,
+        'id' => null,
+        'shipping_address' => null
     ];
 
     /**
@@ -69,9 +69,9 @@ class Check3DsResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'md' => 'MD',
-        'pa_req' => 'PaReq',
-        'redirect_url' => 'redirect_url'
+        'description' => 'description',
+        'id' => 'id',
+        'shipping_address' => 'shipping_address'
     ];
 
     /**
@@ -80,9 +80,9 @@ class Check3DsResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'md' => 'setMd',
-        'pa_req' => 'setPaReq',
-        'redirect_url' => 'setRedirectUrl'
+        'description' => 'setDescription',
+        'id' => 'setId',
+        'shipping_address' => 'setShippingAddress'
     ];
 
     /**
@@ -91,9 +91,9 @@ class Check3DsResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'md' => 'getMd',
-        'pa_req' => 'getPaReq',
-        'redirect_url' => 'getRedirectUrl'
+        'description' => 'getDescription',
+        'id' => 'getId',
+        'shipping_address' => 'getShippingAddress'
     ];
 
     /**
@@ -156,9 +156,9 @@ class Check3DsResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['md'] = isset($data['md']) ? $data['md'] : null;
-        $this->container['pa_req'] = isset($data['pa_req']) ? $data['pa_req'] : null;
-        $this->container['redirect_url'] = isset($data['redirect_url']) ? $data['redirect_url'] : null;
+        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['shipping_address'] = isset($data['shipping_address']) ? $data['shipping_address'] : null;
     }
 
     /**
@@ -170,12 +170,28 @@ class Check3DsResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['md'] === null) {
-            $invalidProperties[] = "'md' can't be null";
+        if ($this->container['description'] === null) {
+            $invalidProperties[] = "'description' can't be null";
         }
-        if ($this->container['pa_req'] === null) {
-            $invalidProperties[] = "'pa_req' can't be null";
+        if ((mb_strlen($this->container['description']) > 200)) {
+            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 200.";
         }
+
+        if ((mb_strlen($this->container['description']) < 1)) {
+            $invalidProperties[] = "invalid value for 'description', the character length must be bigger than or equal to 1.";
+        }
+
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ((mb_strlen($this->container['id']) > 50)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 50.";
+        }
+
+        if ((mb_strlen($this->container['id']) < 1)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -192,73 +208,87 @@ class Check3DsResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets md
+     * Gets description
      *
      * @return string
      */
-    public function getMd()
+    public function getDescription()
     {
-        return $this->container['md'];
+        return $this->container['description'];
     }
 
     /**
-     * Sets md
+     * Sets description
      *
-     * @param string $md Merchant Data
+     * @param string $description Description of product/service being sold
      *
      * @return $this
      */
-    public function setMd($md)
+    public function setDescription($description)
     {
-        $this->container['md'] = $md;
+        if ((mb_strlen($description) > 200)) {
+            throw new \InvalidArgumentException('invalid length for $description when calling FilingRequestMerchantOrder., must be smaller than or equal to 200.');
+        }
+        if ((mb_strlen($description) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $description when calling FilingRequestMerchantOrder., must be bigger than or equal to 1.');
+        }
+
+        $this->container['description'] = $description;
 
         return $this;
     }
 
     /**
-     * Gets pa_req
+     * Gets id
      *
      * @return string
      */
-    public function getPaReq()
+    public function getId()
     {
-        return $this->container['pa_req'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets pa_req
+     * Sets id
      *
-     * @param string $pa_req Bank authentication request
+     * @param string $id Merchant's ID of the order
      *
      * @return $this
      */
-    public function setPaReq($pa_req)
+    public function setId($id)
     {
-        $this->container['pa_req'] = $pa_req;
+        if ((mb_strlen($id) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling FilingRequestMerchantOrder., must be smaller than or equal to 50.');
+        }
+        if ((mb_strlen($id) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling FilingRequestMerchantOrder., must be bigger than or equal to 1.');
+        }
+
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets redirect_url
+     * Gets shipping_address
      *
-     * @return string
+     * @return \Cardpay\model\ShippingAddress
      */
-    public function getRedirectUrl()
+    public function getShippingAddress()
     {
-        return $this->container['redirect_url'];
+        return $this->container['shipping_address'];
     }
 
     /**
-     * Sets redirect_url
+     * Sets shipping_address
      *
-     * @param string $redirect_url URL Customer should be redirected to
+     * @param \Cardpay\model\ShippingAddress $shipping_address Shipping address is the address where the order will be delivered.  It is used in Anti-fraud System and also can be seen in Merchant Account (Transactions).  But this address field may be omitted and all the subfields inside it may be omitted too except Country.
      *
      * @return $this
      */
-    public function setRedirectUrl($redirect_url)
+    public function setShippingAddress($shipping_address)
     {
-        $this->container['redirect_url'] = $redirect_url;
+        $this->container['shipping_address'] = $shipping_address;
 
         return $this;
     }

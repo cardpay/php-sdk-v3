@@ -7,7 +7,6 @@ use Cardpay\model\PaymentUpdateTransactionData;
 use Cardpay\model\RecurringPatchRequest;
 use Cardpay\model\Request;
 use Cardpay\model\ResponseUpdatedTransactionData;
-use Cardpay\recurring\RecurringOneClickUtils;
 use Cardpay\test\Config;
 use Constants;
 use PHPUnit\Framework\TestCase;

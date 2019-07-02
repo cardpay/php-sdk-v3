@@ -347,7 +347,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     /**
      * Sets generate_token
      *
-     * @param bool $generate_token If set to `true`, token will be generated and returned in the response *(for BANKCARD payment method only)*
+     * @param bool $generate_token If set to `true`, token will be generated and returned in the response. Token can be generated only for successful transactions (not for declined transactions) *(for BANKCARD payment method only)*
      *
      * @return $this
      */

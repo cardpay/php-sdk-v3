@@ -192,7 +192,7 @@ class PaymentsList implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Cardpay\model\PaymentResponse[] $data Data
+     * @param \Cardpay\model\PaymentResponse[] $data List of found objects
      *
      * @return $this
      */

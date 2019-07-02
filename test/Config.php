@@ -16,5 +16,5 @@ class Config
     const GATEWAY_TERMINAL_CODE_POSTPONED = '18399';                 // postponed refunds and payouts
     const GATEWAY_PASSWORD_POSTPONED = 'jehE149L7bHU';
 
-    const TERMINAL_CURRENCY = "USD";
+    const TERMINAL_CURRENCY = 'USD';
 }

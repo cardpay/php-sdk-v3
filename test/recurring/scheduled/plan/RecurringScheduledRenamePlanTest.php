@@ -1,12 +1,12 @@
 <?php
 
-namespace Cardpay\recurring\scheduled;
+namespace Cardpay\recurring\scheduled\plan;
 
 use Cardpay\ApiException;
 use Cardpay\model\PlanUpdateRequest;
 use Cardpay\model\PlanUpdateRequestPlanData;
 use Cardpay\model\Request;
-use Cardpay\recurring\RecurringPlanUtils;
+use Cardpay\recurring\scheduled\RecurringPlanUtils;
 use Cardpay\test\Config;
 use Constants;
 use PHPUnit\Framework\TestCase;

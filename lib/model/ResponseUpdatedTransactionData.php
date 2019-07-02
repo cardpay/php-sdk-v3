@@ -31,7 +31,7 @@ class ResponseUpdatedTransactionData implements ModelInterface, ArrayAccess
         'is_executed' => 'bool',
         'status' => 'string',
         'status_to' => 'string',
-        'updated' => 'string'
+        'updated' => '\DateTime'
     ];
 
     /**
@@ -45,7 +45,7 @@ class ResponseUpdatedTransactionData implements ModelInterface, ArrayAccess
         'is_executed' => null,
         'status' => null,
         'status_to' => null,
-        'updated' => null
+        'updated' => 'date-time'
     ];
 
     /**
@@ -163,8 +163,8 @@ class ResponseUpdatedTransactionData implements ModelInterface, ArrayAccess
     const STATUS_VOIDED = 'VOIDED';
     const STATUS_CHARGED_BACK = 'CHARGED_BACK';
     const STATUS_CHARGEBACK_RESOLVED = 'CHARGEBACK_RESOLVED';
-    const STATUS_TO_COMPLETE = 'COMPLETE';
     const STATUS_TO_REVERSE = 'REVERSE';
+    const STATUS_TO_COMPLETE = 'COMPLETE';
     
 
     
@@ -198,8 +198,8 @@ class ResponseUpdatedTransactionData implements ModelInterface, ArrayAccess
     public function getStatusToAllowableValues()
     {
         return [
-            self::STATUS_TO_COMPLETE,
             self::STATUS_TO_REVERSE,
+            self::STATUS_TO_COMPLETE,
         ];
     }
     
@@ -420,7 +420,7 @@ class ResponseUpdatedTransactionData implements ModelInterface, ArrayAccess
     /**
      * Gets updated
      *
-     * @return string
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -430,7 +430,7 @@ class ResponseUpdatedTransactionData implements ModelInterface, ArrayAccess
     /**
      * Sets updated
      *
-     * @param string $updated Transaction update date
+     * @param \DateTime $updated Transaction update date and time up to milliseconds in ISO 8601 format. Return only for successful updates operations.
      *
      * @return $this
      */

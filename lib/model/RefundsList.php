@@ -192,7 +192,7 @@ class RefundsList implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Cardpay\model\RefundResponse[] $data Data
+     * @param \Cardpay\model\RefundResponse[] $data List of found objects
      *
      * @return $this
      */

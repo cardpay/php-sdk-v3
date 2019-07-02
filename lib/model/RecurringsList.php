@@ -192,7 +192,7 @@ class RecurringsList implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Cardpay\model\RecurringResponse[] $data Data
+     * @param \Cardpay\model\RecurringResponse[] $data List of found objects
      *
      * @return $this
      */

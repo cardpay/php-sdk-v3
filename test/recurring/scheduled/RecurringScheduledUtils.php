@@ -1,9 +1,9 @@
 <?php
 
-namespace Cardpay\recurring;
+namespace Cardpay\recurring\scheduled;
 
-require_once(__DIR__ . "/../Config.php");
-require_once(__DIR__ . "/../Constants.php");
+require_once(__DIR__ . "/../../Config.php");
+require_once(__DIR__ . "/../../Constants.php");
 
 use Cardpay\api\RecurringsApi;
 use Cardpay\ApiException;
@@ -13,18 +13,21 @@ use Cardpay\HeaderSelector;
 use Cardpay\model\PaymentRequestCard;
 use Cardpay\model\PaymentRequestCardAccount;
 use Cardpay\model\PaymentRequestMerchantOrder;
+use Cardpay\model\Plan;
+use Cardpay\model\RecurringCreationRequest;
 use Cardpay\model\RecurringCustomer;
-use Cardpay\model\RecurringRequest;
-use Cardpay\model\RecurringRequestFiling;
 use Cardpay\model\RecurringRequestRecurringData;
 use Cardpay\model\RecurringResponse;
 use Cardpay\model\Request;
+use Cardpay\model\SubscriptionUpdateRequest;
+use Cardpay\model\SubscriptionUpdateRequestSubscriptionData;
+use Cardpay\model\SubscriptionUpdateResponse;
 use Cardpay\test\Config;
 use Constants;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class RecurringOneClickUtils
+class RecurringScheduledUtils
 {
     /**
      * @var RecurringsApi
@@ -46,24 +49,51 @@ class RecurringOneClickUtils
      */
     private $headerSelector;
 
+    private $terminalCode;
+
+    private $password;
+
+    /**
+     * RecurringScheduledUtils constructor.
+     * @param $terminalCode
+     * @param $password
+     * @throws ApiException
+     */
+    public function __construct($terminalCode, $password)
+    {
+        $this->terminalCode = $terminalCode;
+        $this->password = $password;
+
+        if (null == $this->config) {
+            $authUtils = new AuthUtils();
+            $this->config = $authUtils->getConfig($terminalCode, $password);
+        }
+
+        if (null == $this->client) {
+            $this->client = new Client();
+        }
+
+        if (null == $this->headerSelector) {
+            $this->headerSelector = new HeaderSelector();
+        }
+
+        if (null == $this->recurringsApi) {
+            $this->recurringsApi = new RecurringsApi($this->client, $this->config, $this->headerSelector);
+        }
+    }
+
     /**
      * @param $orderId
      * @param string $terminalCode
      * @param string $password
-     * @param string $filingId
-     * @param bool $preAuth
+     * @param string $planId
+     * @param string $subscriptionStart
      * @return string|null
      * @throws ApiException
      */
-    public function createRecurringInPaymentPageMode(
-        $orderId,
-        $terminalCode = Config::PAYMENTPAGE_TERMINAL_CODE,
-        $password = Config::PAYMENTPAGE_PASSWORD,
-        $filingId = null,
-        $preAuth = false
-    )
+    public function createScheduledSubscriptionInPaymentPageMode($orderId, $planId = null, $subscriptionStart = null)
     {
-        $redirectUrl = $this->createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth);
+        $redirectUrl = $this->createScheduledSubscription($orderId, $planId, $subscriptionStart);
 
         return $redirectUrl;
     }
@@ -72,57 +102,34 @@ class RecurringOneClickUtils
      * @param $orderId
      * @param string $terminalCode
      * @param string $password
-     * @param string $filingId
-     * @param bool $preAuth
+     * @param string $planId
+     * @param string $subscriptionStart
      * @return RecurringResponse|null
      * @throws ApiException
      */
-    public function createRecurringInGatewayMode(
-        $orderId,
-        $terminalCode = Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY,
-        $password = Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY,
-        $filingId = null,
-        $preAuth = false
-    )
+    public function createScheduledSubscriptionInGatewayMode($orderId, $planId = null, $subscriptionStart = null)
     {
         /** @var RecurringResponse $recurringResponse */
-        $recurringResponse = $this->createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth);
+        $recurringResponse = $this->createScheduledSubscription($orderId, $planId, $subscriptionStart);
 
         return $recurringResponse;
     }
 
     /**
      * @param $orderId
-     * @param $terminalCode
-     * @param $password
-     * @param $filingId
-     * @param $preAuth
+     * @param $planId
+     * @param $subscriptionStart
      * @return RecurringResponse|string|null
      * @throws ApiException
      */
-    private function createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth)
+    private function createScheduledSubscription($orderId, $planId, $subscriptionStart)
     {
-        date_default_timezone_set('UTC');
-
-        $orderDescription = 'Order description (one-click recurring)';
-        $orderAmount = rand(Constants::MIN_PAYMENT_AMOUNT, Constants::MAX_PAYMENT_AMOUNT);
-        $orderCurrency = Config::TERMINAL_CURRENCY;
+        $orderDescription = 'Order description (scheduled subscription)';
         $customerId = time();
         $customerEmail = substr(sha1(rand()), 0, 20) . '@mailinator.com';
 
-        if (null == $this->config) {
-            $authUtils = new AuthUtils();
-            $this->config = $authUtils->getConfig($terminalCode, $password);
-        }
-        if (null == $this->client) {
-            $this->client = new Client();
-        }
-        if (null == $this->headerSelector) {
-            $this->headerSelector = new HeaderSelector();
-        }
-
-        $isGatewayMode = ($terminalCode == Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY
-            || $terminalCode == Config::GATEWAY_TERMINAL_CODE_POSTPONED);
+        $isGatewayMode = ($this->terminalCode == Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY
+            || $this->terminalCode == Config::GATEWAY_TERMINAL_CODE_POSTPONED);
 
         $request = new Request([
             'id' => microtime(true),
@@ -134,19 +141,16 @@ class RecurringOneClickUtils
             'description' => $orderDescription
         ]);
 
+        $plan = new Plan([
+            'id' => $planId
+        ]);
+
         $recurringData = new RecurringRequestRecurringData([
             'initiator' => Constants::INITIATOR_CIT,
-            'amount' => $orderAmount,
-            'currency' => $orderCurrency,
+            'plan' => $plan
         ]);
-        if (!empty($filingId)) {
-            $filing = new RecurringRequestFiling([
-                'id' => $filingId
-            ]);
-            $recurringData['filing'] = $filing;
-        }
-        if (true === $preAuth) {
-            $recurringData['preauth'] = true;
+        if (!empty($subscriptionStart)) {
+            $recurringData['subscription_start'] = $subscriptionStart;
         }
 
         $recurringCustomer = new RecurringCustomer([
@@ -154,7 +158,7 @@ class RecurringOneClickUtils
             'email' => $customerEmail
         ]);
 
-        $recurringRequest = new RecurringRequest([
+        $recurringRequest = new RecurringCreationRequest([
             'request' => $request,
             'merchant_order' => $paymentMerchantOrder,
             'payment_method' => Constants::PAYMENT_METHOD,
@@ -162,7 +166,7 @@ class RecurringOneClickUtils
             'customer' => $recurringCustomer
         ]);
 
-        if ($isGatewayMode && empty($filingId)) {
+        if ($isGatewayMode) {
             $card = new PaymentRequestCard([
                 'pan' => Constants::TEST_CARD_PAN,
                 'holder' => Constants::TEST_CARD_HOLDER,
@@ -177,9 +181,6 @@ class RecurringOneClickUtils
             $recurringRequest['card_account'] = $cardAccount;
         }
 
-        if (null == $this->recurringsApi) {
-            $this->recurringsApi = new RecurringsApi($this->client, $this->config, $this->headerSelector);
-        }
         $recurringCreationResponse = $this->recurringsApi->createRecurring($recurringRequest);
 
         // redirect customer to redirect URL
@@ -212,10 +213,46 @@ class RecurringOneClickUtils
     }
 
     /**
+     * @param string $subscriptionId
+     * @param string $statusTo
+     * @return SubscriptionUpdateResponse
+     * @throws ApiException
+     */
+    public function changeSubscriptionStatus($subscriptionId, $statusTo)
+    {
+        $request = new Request([
+            'id' => microtime(true),
+            'time' => date(Constants::DATETIME_FORMAT)
+        ]);
+
+        $subscriptionData = new SubscriptionUpdateRequestSubscriptionData([
+            'status_to' => $statusTo
+        ]);
+
+        $subscriptionUpdateRequest = new SubscriptionUpdateRequest([
+            'request' => $request,
+            'operation' => SubscriptionUpdateRequest::OPERATION_CHANGE_STATUS,
+            'subscription_data' => $subscriptionData
+        ]);
+
+        $subscriptionUpdateResponse = $this->recurringsApi->updateSubscription($subscriptionId, $subscriptionUpdateRequest);
+
+        return $subscriptionUpdateResponse;
+    }
+
+    /**
      * @return RecurringsApi
      */
     public function getRecurringsApi()
     {
         return $this->recurringsApi;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 }

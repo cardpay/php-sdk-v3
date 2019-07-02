@@ -28,8 +28,8 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
         'operation' => 'string',
-        'pa_res' => 'string',
-        'recurring_data' => '\Cardpay\model\PaymentUpdateTransactionData'
+        'recurring_data' => '\Cardpay\model\PaymentUpdateTransactionData',
+        'pa_res' => 'string'
     ];
 
     /**
@@ -40,8 +40,8 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'request' => null,
         'operation' => null,
-        'pa_res' => null,
-        'recurring_data' => null
+        'recurring_data' => null,
+        'pa_res' => null
     ];
 
     /**
@@ -73,8 +73,8 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'request' => 'request',
         'operation' => 'operation',
-        'pa_res' => 'PaRes',
-        'recurring_data' => 'recurring_data'
+        'recurring_data' => 'recurring_data',
+        'pa_res' => 'PaRes'
     ];
 
     /**
@@ -85,8 +85,8 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
     protected static $setters = [
         'request' => 'setRequest',
         'operation' => 'setOperation',
-        'pa_res' => 'setPaRes',
-        'recurring_data' => 'setRecurringData'
+        'recurring_data' => 'setRecurringData',
+        'pa_res' => 'setPaRes'
     ];
 
     /**
@@ -97,8 +97,8 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
     protected static $getters = [
         'request' => 'getRequest',
         'operation' => 'getOperation',
-        'pa_res' => 'getPaRes',
-        'recurring_data' => 'getRecurringData'
+        'recurring_data' => 'getRecurringData',
+        'pa_res' => 'getPaRes'
     ];
 
     /**
@@ -178,8 +178,8 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
     {
         $this->container['request'] = isset($data['request']) ? $data['request'] : null;
         $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
-        $this->container['pa_res'] = isset($data['pa_res']) ? $data['pa_res'] : null;
         $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
+        $this->container['pa_res'] = isset($data['pa_res']) ? $data['pa_res'] : null;
     }
 
     /**
@@ -281,30 +281,6 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets pa_res
-     *
-     * @return string
-     */
-    public function getPaRes()
-    {
-        return $this->container['pa_res'];
-    }
-
-    /**
-     * Sets pa_res
-     *
-     * @param string $pa_res Bank authentication result *(for BANKCARD payment method only)*
-     *
-     * @return $this
-     */
-    public function setPaRes($pa_res)
-    {
-        $this->container['pa_res'] = $pa_res;
-
-        return $this;
-    }
-
-    /**
      * Gets recurring_data
      *
      * @return \Cardpay\model\PaymentUpdateTransactionData
@@ -324,6 +300,30 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
     public function setRecurringData($recurring_data)
     {
         $this->container['recurring_data'] = $recurring_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets pa_res
+     *
+     * @return string
+     */
+    public function getPaRes()
+    {
+        return $this->container['pa_res'];
+    }
+
+    /**
+     * Sets pa_res
+     *
+     * @param string $pa_res Bank authentication result *(for BANKCARD payment method only)*
+     *
+     * @return $this
+     */
+    public function setPaRes($pa_res)
+    {
+        $this->container['pa_res'] = $pa_res;
 
         return $this;
     }

@@ -3,32 +3,32 @@
 namespace Cardpay\recurring\scheduled;
 
 use Cardpay\ApiException;
-use Cardpay\recurring\RecurringPlanUtils;
-use Cardpay\recurring\RecurringScheduledUtils;
 use Cardpay\test\Config;
-use PHPUnit\Framework\TestCase;
 
-class RecurringCreateScheduledSubscriptionGatewayTest extends TestCase
+class RecurringCreateScheduledSubscriptionGatewayTest extends RecurringScheduledTestCase
 {
+    public function __construct()
+    {
+        parent::__construct(Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY, Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY);
+    }
+
     /**
      * @throws ApiException
      */
     public function testCreateScheduledSubscriptionInGatewayMode()
     {
         // create new plan
-        $recurringPlanUtils = new RecurringPlanUtils();
-        $recurringPlanResponse = $recurringPlanUtils->createPlan(Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY, Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY);
+        $recurringPlanResponse = $this->recurringPlanUtils->createPlan($this->terminalCode, $this->password);
         $planId = $recurringPlanResponse->getPlanData()->getId();
 
-        // create scheduled subscription
-        $recurringScheduledUtils = new RecurringScheduledUtils();
-        $recurringResponse = $recurringScheduledUtils->createScheduledSubscriptionInGatewayMode(
-            time(),
-            Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY,
-            Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY,
-            $planId
-        );
+        self::assertNotEmpty($planId);
 
-        self::assertNotEmpty($recurringResponse->getRecurringData()->getSubscription()->getId());
+        // create scheduled subscription
+        $recurringResponse = $this->recurringScheduledUtils
+            ->createScheduledSubscriptionInGatewayMode(time(), $planId);
+
+        $this->subscriptionId = $recurringResponse->getRecurringData()->getSubscription()->getId();
+
+        self::assertNotEmpty($this->subscriptionId);
     }
 }

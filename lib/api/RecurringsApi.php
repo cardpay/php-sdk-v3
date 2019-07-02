@@ -58,7 +58,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation createFilingUsingPOST
+     * Operation createFiling
      *
      * Create filing
      *
@@ -68,14 +68,14 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\PaymentCreationResponse
      */
-    public function createFilingUsingPOST($filing_request = null)
+    public function createFiling($filing_request = null)
     {
-        list($response) = $this->createFilingUsingPOSTWithHttpInfo($filing_request);
+        list($response) = $this->createFilingWithHttpInfo($filing_request);
         return $response;
     }
 
     /**
-     * Operation createFilingUsingPOSTWithHttpInfo
+     * Operation createFilingWithHttpInfo
      *
      * Create filing
      *
@@ -85,10 +85,10 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\PaymentCreationResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createFilingUsingPOSTWithHttpInfo($filing_request = null)
+    public function createFilingWithHttpInfo($filing_request = null)
     {
         $returnType = '\Cardpay\model\PaymentCreationResponse';
-        $request = $this->createFilingUsingPOSTRequest($filing_request);
+        $request = $this->createFilingRequest($filing_request);
 
         try {
             $options = $this->createHttpClientOption();
@@ -147,7 +147,7 @@ class RecurringsApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\BadRequestError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -155,7 +155,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -164,6 +164,14 @@ class RecurringsApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Cardpay\model\OAuthError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -182,7 +190,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation createFilingUsingPOSTAsync
+     * Operation createFilingAsync
      *
      * Create filing
      *
@@ -191,9 +199,9 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createFilingUsingPOSTAsync($filing_request = null)
+    public function createFilingAsync($filing_request = null)
     {
-        return $this->createFilingUsingPOSTAsyncWithHttpInfo($filing_request)
+        return $this->createFilingAsyncWithHttpInfo($filing_request)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -202,7 +210,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation createFilingUsingPOSTAsyncWithHttpInfo
+     * Operation createFilingAsyncWithHttpInfo
      *
      * Create filing
      *
@@ -211,10 +219,10 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createFilingUsingPOSTAsyncWithHttpInfo($filing_request = null)
+    public function createFilingAsyncWithHttpInfo($filing_request = null)
     {
         $returnType = '\Cardpay\model\PaymentCreationResponse';
-        $request = $this->createFilingUsingPOSTRequest($filing_request);
+        $request = $this->createFilingRequest($filing_request);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -254,14 +262,14 @@ class RecurringsApi
     }
 
     /**
-     * Create request for operation 'createFilingUsingPOST'
+     * Create request for operation 'createFiling'
      *
      * @param  \Cardpay\model\FilingRequest $filing_request Filing request parameters (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function createFilingUsingPOSTRequest($filing_request = null)
+    protected function createFilingRequest($filing_request = null)
     {
 
         $resourcePath = '/api/recurring_filings';
@@ -435,7 +443,7 @@ class RecurringsApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\BadRequestError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -443,7 +451,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -644,7 +652,7 @@ class RecurringsApi
      *
      * Create recurring
      *
-     * @param  \Cardpay\model\RecurringRequest $recurring_request recurringRequest (required)
+     * @param  \Cardpay\model\RecurringCreationRequest $recurring_request Recurring Request (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -661,7 +669,7 @@ class RecurringsApi
      *
      * Create recurring
      *
-     * @param  \Cardpay\model\RecurringRequest $recurring_request recurringRequest (required)
+     * @param  \Cardpay\model\RecurringCreationRequest $recurring_request Recurring Request (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
@@ -729,7 +737,7 @@ class RecurringsApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\BadRequestError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -737,7 +745,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -746,6 +754,14 @@ class RecurringsApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Cardpay\model\OAuthError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -768,7 +784,7 @@ class RecurringsApi
      *
      * Create recurring
      *
-     * @param  \Cardpay\model\RecurringRequest $recurring_request recurringRequest (required)
+     * @param  \Cardpay\model\RecurringCreationRequest $recurring_request Recurring Request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -788,7 +804,7 @@ class RecurringsApi
      *
      * Create recurring
      *
-     * @param  \Cardpay\model\RecurringRequest $recurring_request recurringRequest (required)
+     * @param  \Cardpay\model\RecurringCreationRequest $recurring_request Recurring Request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -838,7 +854,7 @@ class RecurringsApi
     /**
      * Create request for operation 'createRecurring'
      *
-     * @param  \Cardpay\model\RecurringRequest $recurring_request recurringRequest (required)
+     * @param  \Cardpay\model\RecurringCreationRequest $recurring_request Recurring Request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
@@ -1000,7 +1016,7 @@ class RecurringsApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\BadRequestError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1008,7 +1024,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1024,7 +1040,7 @@ class RecurringsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1117,7 +1133,7 @@ class RecurringsApi
             );
         }
 
-        $resourcePath = '/api/recurring_plans/{planId}';
+        $resourcePath = '/api/recurring_plans/{plan_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -1128,7 +1144,7 @@ class RecurringsApi
         // path params
         if ($plan_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'planId' . '}',
+                '{' . 'plan_id' . '}',
                 ObjectSerializer::toPathValue($plan_id),
                 $resourcePath
             );
@@ -1204,9 +1220,9 @@ class RecurringsApi
     }
 
     /**
-     * Operation getChangeStatusClaimUsingGET
+     * Operation getChangeStatusClaim
      *
-     * Get subscription information
+     * Get information about Change subscription status claim
      *
      * @param  string $claim_id claimId (required)
      * @param  string $subscription_id subscription id (required)
@@ -1215,16 +1231,16 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\ChangeSubscriptionStatusClaimResponse
      */
-    public function getChangeStatusClaimUsingGET($claim_id, $subscription_id)
+    public function getChangeStatusClaim($claim_id, $subscription_id)
     {
-        list($response) = $this->getChangeStatusClaimUsingGETWithHttpInfo($claim_id, $subscription_id);
+        list($response) = $this->getChangeStatusClaimWithHttpInfo($claim_id, $subscription_id);
         return $response;
     }
 
     /**
-     * Operation getChangeStatusClaimUsingGETWithHttpInfo
+     * Operation getChangeStatusClaimWithHttpInfo
      *
-     * Get subscription information
+     * Get information about Change subscription status claim
      *
      * @param  string $claim_id claimId (required)
      * @param  string $subscription_id subscription id (required)
@@ -1233,10 +1249,10 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\ChangeSubscriptionStatusClaimResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getChangeStatusClaimUsingGETWithHttpInfo($claim_id, $subscription_id)
+    public function getChangeStatusClaimWithHttpInfo($claim_id, $subscription_id)
     {
         $returnType = '\Cardpay\model\ChangeSubscriptionStatusClaimResponse';
-        $request = $this->getChangeStatusClaimUsingGETRequest($claim_id, $subscription_id);
+        $request = $this->getChangeStatusClaimRequest($claim_id, $subscription_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1295,7 +1311,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1311,7 +1327,7 @@ class RecurringsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1330,9 +1346,9 @@ class RecurringsApi
     }
 
     /**
-     * Operation getChangeStatusClaimUsingGETAsync
+     * Operation getChangeStatusClaimAsync
      *
-     * Get subscription information
+     * Get information about Change subscription status claim
      *
      * @param  string $claim_id claimId (required)
      * @param  string $subscription_id subscription id (required)
@@ -1340,9 +1356,9 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getChangeStatusClaimUsingGETAsync($claim_id, $subscription_id)
+    public function getChangeStatusClaimAsync($claim_id, $subscription_id)
     {
-        return $this->getChangeStatusClaimUsingGETAsyncWithHttpInfo($claim_id, $subscription_id)
+        return $this->getChangeStatusClaimAsyncWithHttpInfo($claim_id, $subscription_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1351,9 +1367,9 @@ class RecurringsApi
     }
 
     /**
-     * Operation getChangeStatusClaimUsingGETAsyncWithHttpInfo
+     * Operation getChangeStatusClaimAsyncWithHttpInfo
      *
-     * Get subscription information
+     * Get information about Change subscription status claim
      *
      * @param  string $claim_id claimId (required)
      * @param  string $subscription_id subscription id (required)
@@ -1361,10 +1377,10 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getChangeStatusClaimUsingGETAsyncWithHttpInfo($claim_id, $subscription_id)
+    public function getChangeStatusClaimAsyncWithHttpInfo($claim_id, $subscription_id)
     {
         $returnType = '\Cardpay\model\ChangeSubscriptionStatusClaimResponse';
-        $request = $this->getChangeStatusClaimUsingGETRequest($claim_id, $subscription_id);
+        $request = $this->getChangeStatusClaimRequest($claim_id, $subscription_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1404,7 +1420,7 @@ class RecurringsApi
     }
 
     /**
-     * Create request for operation 'getChangeStatusClaimUsingGET'
+     * Create request for operation 'getChangeStatusClaim'
      *
      * @param  string $claim_id claimId (required)
      * @param  string $subscription_id subscription id (required)
@@ -1412,18 +1428,18 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getChangeStatusClaimUsingGETRequest($claim_id, $subscription_id)
+    protected function getChangeStatusClaimRequest($claim_id, $subscription_id)
     {
         // verify the required parameter 'claim_id' is set
         if ($claim_id === null || (is_array($claim_id) && count($claim_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $claim_id when calling getChangeStatusClaimUsingGET'
+                'Missing the required parameter $claim_id when calling getChangeStatusClaim'
             );
         }
         // verify the required parameter 'subscription_id' is set
         if ($subscription_id === null || (is_array($subscription_id) && count($subscription_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $subscription_id when calling getChangeStatusClaimUsingGET'
+                'Missing the required parameter $subscription_id when calling getChangeStatusClaim'
             );
         }
 
@@ -1522,7 +1538,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation getFilingUsingGET
+     * Operation getFiling
      *
      * Get filing order information
      *
@@ -1530,16 +1546,16 @@ class RecurringsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Cardpay\model\TransactionResponse
+     * @return \Cardpay\model\RecurringResponse
      */
-    public function getFilingUsingGET($filing_id)
+    public function getFiling($filing_id)
     {
-        list($response) = $this->getFilingUsingGETWithHttpInfo($filing_id);
+        list($response) = $this->getFilingWithHttpInfo($filing_id);
         return $response;
     }
 
     /**
-     * Operation getFilingUsingGETWithHttpInfo
+     * Operation getFilingWithHttpInfo
      *
      * Get filing order information
      *
@@ -1547,12 +1563,12 @@ class RecurringsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Cardpay\model\TransactionResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Cardpay\model\RecurringResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getFilingUsingGETWithHttpInfo($filing_id)
+    public function getFilingWithHttpInfo($filing_id)
     {
-        $returnType = '\Cardpay\model\TransactionResponse';
-        $request = $this->getFilingUsingGETRequest($filing_id);
+        $returnType = '\Cardpay\model\RecurringResponse';
+        $request = $this->getFilingRequest($filing_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1603,7 +1619,7 @@ class RecurringsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\TransactionResponse',
+                        '\Cardpay\model\RecurringResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1611,7 +1627,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1627,7 +1643,7 @@ class RecurringsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1646,7 +1662,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation getFilingUsingGETAsync
+     * Operation getFilingAsync
      *
      * Get filing order information
      *
@@ -1655,9 +1671,9 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFilingUsingGETAsync($filing_id)
+    public function getFilingAsync($filing_id)
     {
-        return $this->getFilingUsingGETAsyncWithHttpInfo($filing_id)
+        return $this->getFilingAsyncWithHttpInfo($filing_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1666,7 +1682,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation getFilingUsingGETAsyncWithHttpInfo
+     * Operation getFilingAsyncWithHttpInfo
      *
      * Get filing order information
      *
@@ -1675,10 +1691,10 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getFilingUsingGETAsyncWithHttpInfo($filing_id)
+    public function getFilingAsyncWithHttpInfo($filing_id)
     {
-        $returnType = '\Cardpay\model\TransactionResponse';
-        $request = $this->getFilingUsingGETRequest($filing_id);
+        $returnType = '\Cardpay\model\RecurringResponse';
+        $request = $this->getFilingRequest($filing_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1718,19 +1734,19 @@ class RecurringsApi
     }
 
     /**
-     * Create request for operation 'getFilingUsingGET'
+     * Create request for operation 'getFiling'
      *
      * @param  string $filing_id filing order id (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getFilingUsingGETRequest($filing_id)
+    protected function getFilingRequest($filing_id)
     {
         // verify the required parameter 'filing_id' is set
         if ($filing_id === null || (is_array($filing_id) && count($filing_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $filing_id when calling getFilingUsingGET'
+                'Missing the required parameter $filing_id when calling getFiling'
             );
         }
 
@@ -1910,7 +1926,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1926,7 +1942,7 @@ class RecurringsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2033,7 +2049,7 @@ class RecurringsApi
             );
         }
 
-        $resourcePath = '/api/recurring_plans/{planId}';
+        $resourcePath = '/api/recurring_plans/{plan_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -2044,7 +2060,7 @@ class RecurringsApi
         // path params
         if ($plan_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'planId' . '}',
+                '{' . 'plan_id' . '}',
                 ObjectSerializer::toPathValue($plan_id),
                 $resourcePath
             );
@@ -2215,7 +2231,7 @@ class RecurringsApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\BadRequestError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2223,7 +2239,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2549,7 +2565,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2565,7 +2581,7 @@ class RecurringsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2764,21 +2780,22 @@ class RecurringsApi
      * Get recurring list information
      *
      * @param  string $request_id Request ID (required)
-     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code (optional)
-     * @param  string $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (optional)
+     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
+     * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
      * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
-     * @param  string $merchant_order_id Merchant&#39;s ID of the order (optional)
+     * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
-     * @param  string $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (optional)
+     * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  string $type Filter recurring payments by certain type (applicable to /api/recurrings endpoint only): &#x60;SCHEDULED&#x60; for scheduled recurring payments &#x60;ONECLICK&#x60; for one-click payments &#x60;INSTALLMENT&#x60; for installment payments (optional)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\RecurringsList
      */
-    public function getRecurrings($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null)
+    public function getRecurrings($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null, $type = null)
     {
-        list($response) = $this->getRecurringsWithHttpInfo($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time);
+        list($response) = $this->getRecurringsWithHttpInfo($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time, $type);
         return $response;
     }
 
@@ -2788,22 +2805,23 @@ class RecurringsApi
      * Get recurring list information
      *
      * @param  string $request_id Request ID (required)
-     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code (optional)
-     * @param  string $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (optional)
+     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
+     * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
      * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
-     * @param  string $merchant_order_id Merchant&#39;s ID of the order (optional)
+     * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
-     * @param  string $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (optional)
+     * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  string $type Filter recurring payments by certain type (applicable to /api/recurrings endpoint only): &#x60;SCHEDULED&#x60; for scheduled recurring payments &#x60;ONECLICK&#x60; for one-click payments &#x60;INSTALLMENT&#x60; for installment payments (optional)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\RecurringsList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getRecurringsWithHttpInfo($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null)
+    public function getRecurringsWithHttpInfo($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null, $type = null)
     {
         $returnType = '\Cardpay\model\RecurringsList';
-        $request = $this->getRecurringsRequest($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time);
+        $request = $this->getRecurringsRequest($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time, $type);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2862,7 +2880,7 @@ class RecurringsApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\BadRequestError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2870,7 +2888,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -2902,20 +2920,21 @@ class RecurringsApi
      * Get recurring list information
      *
      * @param  string $request_id Request ID (required)
-     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code (optional)
-     * @param  string $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (optional)
+     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
+     * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
      * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
-     * @param  string $merchant_order_id Merchant&#39;s ID of the order (optional)
+     * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
-     * @param  string $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (optional)
+     * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  string $type Filter recurring payments by certain type (applicable to /api/recurrings endpoint only): &#x60;SCHEDULED&#x60; for scheduled recurring payments &#x60;ONECLICK&#x60; for one-click payments &#x60;INSTALLMENT&#x60; for installment payments (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getRecurringsAsync($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null)
+    public function getRecurringsAsync($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null, $type = null)
     {
-        return $this->getRecurringsAsyncWithHttpInfo($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time)
+        return $this->getRecurringsAsyncWithHttpInfo($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time, $type)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2929,21 +2948,22 @@ class RecurringsApi
      * Get recurring list information
      *
      * @param  string $request_id Request ID (required)
-     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code (optional)
-     * @param  string $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (optional)
+     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
+     * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
      * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
-     * @param  string $merchant_order_id Merchant&#39;s ID of the order (optional)
+     * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
-     * @param  string $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (optional)
+     * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  string $type Filter recurring payments by certain type (applicable to /api/recurrings endpoint only): &#x60;SCHEDULED&#x60; for scheduled recurring payments &#x60;ONECLICK&#x60; for one-click payments &#x60;INSTALLMENT&#x60; for installment payments (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getRecurringsAsyncWithHttpInfo($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null)
+    public function getRecurringsAsyncWithHttpInfo($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null, $type = null)
     {
         $returnType = '\Cardpay\model\RecurringsList';
-        $request = $this->getRecurringsRequest($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time);
+        $request = $this->getRecurringsRequest($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time, $type);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2986,18 +3006,19 @@ class RecurringsApi
      * Create request for operation 'getRecurrings'
      *
      * @param  string $request_id Request ID (required)
-     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code (optional)
-     * @param  string $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (optional)
+     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
+     * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
      * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
-     * @param  string $merchant_order_id Merchant&#39;s ID of the order (optional)
+     * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
-     * @param  string $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (optional)
+     * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  string $type Filter recurring payments by certain type (applicable to /api/recurrings endpoint only): &#x60;SCHEDULED&#x60; for scheduled recurring payments &#x60;ONECLICK&#x60; for one-click payments &#x60;INSTALLMENT&#x60; for installment payments (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getRecurringsRequest($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null)
+    protected function getRecurringsRequest($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null, $type = null)
     {
         // verify the required parameter 'request_id' is set
         if ($request_id === null || (is_array($request_id) && count($request_id) === 0)) {
@@ -3074,6 +3095,10 @@ class RecurringsApi
         if ($start_time !== null) {
             $queryParams['start_time'] = ObjectSerializer::toQueryValue($start_time);
         }
+        // query params
+        if ($type !== null) {
+            $queryParams['type'] = ObjectSerializer::toQueryValue($type);
+        }
 
 
         // body params
@@ -3146,7 +3171,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation getSubscriptionUsingGET
+     * Operation getSubscription
      *
      * Get subscription information
      *
@@ -3156,14 +3181,14 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\SubscriptionGetResponse
      */
-    public function getSubscriptionUsingGET($subscription_id)
+    public function getSubscription($subscription_id)
     {
-        list($response) = $this->getSubscriptionUsingGETWithHttpInfo($subscription_id);
+        list($response) = $this->getSubscriptionWithHttpInfo($subscription_id);
         return $response;
     }
 
     /**
-     * Operation getSubscriptionUsingGETWithHttpInfo
+     * Operation getSubscriptionWithHttpInfo
      *
      * Get subscription information
      *
@@ -3173,10 +3198,10 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\SubscriptionGetResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSubscriptionUsingGETWithHttpInfo($subscription_id)
+    public function getSubscriptionWithHttpInfo($subscription_id)
     {
         $returnType = '\Cardpay\model\SubscriptionGetResponse';
-        $request = $this->getSubscriptionUsingGETRequest($subscription_id);
+        $request = $this->getSubscriptionRequest($subscription_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3235,7 +3260,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3251,7 +3276,7 @@ class RecurringsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3270,7 +3295,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation getSubscriptionUsingGETAsync
+     * Operation getSubscriptionAsync
      *
      * Get subscription information
      *
@@ -3279,9 +3304,9 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSubscriptionUsingGETAsync($subscription_id)
+    public function getSubscriptionAsync($subscription_id)
     {
-        return $this->getSubscriptionUsingGETAsyncWithHttpInfo($subscription_id)
+        return $this->getSubscriptionAsyncWithHttpInfo($subscription_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3290,7 +3315,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation getSubscriptionUsingGETAsyncWithHttpInfo
+     * Operation getSubscriptionAsyncWithHttpInfo
      *
      * Get subscription information
      *
@@ -3299,10 +3324,10 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSubscriptionUsingGETAsyncWithHttpInfo($subscription_id)
+    public function getSubscriptionAsyncWithHttpInfo($subscription_id)
     {
         $returnType = '\Cardpay\model\SubscriptionGetResponse';
-        $request = $this->getSubscriptionUsingGETRequest($subscription_id);
+        $request = $this->getSubscriptionRequest($subscription_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3342,19 +3367,19 @@ class RecurringsApi
     }
 
     /**
-     * Create request for operation 'getSubscriptionUsingGET'
+     * Create request for operation 'getSubscription'
      *
      * @param  string $subscription_id subscription id (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSubscriptionUsingGETRequest($subscription_id)
+    protected function getSubscriptionRequest($subscription_id)
     {
         // verify the required parameter 'subscription_id' is set
         if ($subscription_id === null || (is_array($subscription_id) && count($subscription_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $subscription_id when calling getSubscriptionUsingGET'
+                'Missing the required parameter $subscription_id when calling getSubscription'
             );
         }
 
@@ -3445,57 +3470,57 @@ class RecurringsApi
     }
 
     /**
-     * Operation getSubscriptionsUsingGET
+     * Operation getSubscriptions
      *
      * Get subscription information
      *
      * @param  string $request_id Request ID (required)
-     * @param  string $account_id account_id (optional)
-     * @param  string $currency currency (optional)
-     * @param  string $end_time end_time (optional)
-     * @param  int $max_count Limit number of returned plans (must be less than 10000, default is 1000) (optional)
+     * @param  string $account_id Merchant identifier of customer account (optional)
+     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
+     * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  int $max_count Limit number of returned subscriptions (must be less than 10000, default is 1000) (optional)
      * @param  int $offset Offset (must be less than 10000) (optional)
-     * @param  string $plan_id plan_id (optional)
-     * @param  string $recurring_type recurring_type (optional)
+     * @param  string $plan_id Id of plan. Use for searching scheduled subscriptions by plan (optional)
      * @param  string $sort_order Sort based on order of results. &#39;asc&#39; for ascending order or &#39;desc&#39; for descending order (default value) (optional)
-     * @param  string $start_time start_time (optional)
-     * @param  string $status status (optional)
+     * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  string $status Status of subscription (optional)
+     * @param  string $type Type of subscription. &#39;ONECLICK&#39; type will be ignored. (optional)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Cardpay\model\SubscriptionGetResponseList
+     * @return \Cardpay\model\SubscriptionList
      */
-    public function getSubscriptionsUsingGET($request_id, $account_id = null, $currency = null, $end_time = null, $max_count = null, $offset = null, $plan_id = null, $recurring_type = null, $sort_order = null, $start_time = null, $status = null)
+    public function getSubscriptions($request_id, $account_id = null, $currency = null, $end_time = null, $max_count = null, $offset = null, $plan_id = null, $sort_order = null, $start_time = null, $status = null, $type = null)
     {
-        list($response) = $this->getSubscriptionsUsingGETWithHttpInfo($request_id, $account_id, $currency, $end_time, $max_count, $offset, $plan_id, $recurring_type, $sort_order, $start_time, $status);
+        list($response) = $this->getSubscriptionsWithHttpInfo($request_id, $account_id, $currency, $end_time, $max_count, $offset, $plan_id, $sort_order, $start_time, $status, $type);
         return $response;
     }
 
     /**
-     * Operation getSubscriptionsUsingGETWithHttpInfo
+     * Operation getSubscriptionsWithHttpInfo
      *
      * Get subscription information
      *
      * @param  string $request_id Request ID (required)
-     * @param  string $account_id (optional)
-     * @param  string $currency (optional)
-     * @param  string $end_time (optional)
-     * @param  int $max_count Limit number of returned plans (must be less than 10000, default is 1000) (optional)
+     * @param  string $account_id Merchant identifier of customer account (optional)
+     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
+     * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  int $max_count Limit number of returned subscriptions (must be less than 10000, default is 1000) (optional)
      * @param  int $offset Offset (must be less than 10000) (optional)
-     * @param  string $plan_id (optional)
-     * @param  string $recurring_type (optional)
+     * @param  string $plan_id Id of plan. Use for searching scheduled subscriptions by plan (optional)
      * @param  string $sort_order Sort based on order of results. &#39;asc&#39; for ascending order or &#39;desc&#39; for descending order (default value) (optional)
-     * @param  string $start_time (optional)
-     * @param  string $status (optional)
+     * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  string $status Status of subscription (optional)
+     * @param  string $type Type of subscription. &#39;ONECLICK&#39; type will be ignored. (optional)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Cardpay\model\SubscriptionGetResponseList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Cardpay\model\SubscriptionList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getSubscriptionsUsingGETWithHttpInfo($request_id, $account_id = null, $currency = null, $end_time = null, $max_count = null, $offset = null, $plan_id = null, $recurring_type = null, $sort_order = null, $start_time = null, $status = null)
+    public function getSubscriptionsWithHttpInfo($request_id, $account_id = null, $currency = null, $end_time = null, $max_count = null, $offset = null, $plan_id = null, $sort_order = null, $start_time = null, $status = null, $type = null)
     {
-        $returnType = '\Cardpay\model\SubscriptionGetResponseList';
-        $request = $this->getSubscriptionsUsingGETRequest($request_id, $account_id, $currency, $end_time, $max_count, $offset, $plan_id, $recurring_type, $sort_order, $start_time, $status);
+        $returnType = '\Cardpay\model\SubscriptionList';
+        $request = $this->getSubscriptionsRequest($request_id, $account_id, $currency, $end_time, $max_count, $offset, $plan_id, $sort_order, $start_time, $status, $type);
 
         try {
             $options = $this->createHttpClientOption();
@@ -3546,7 +3571,7 @@ class RecurringsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\SubscriptionGetResponseList',
+                        '\Cardpay\model\SubscriptionList',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3554,7 +3579,7 @@ class RecurringsApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\BadRequestError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3562,7 +3587,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -3589,28 +3614,28 @@ class RecurringsApi
     }
 
     /**
-     * Operation getSubscriptionsUsingGETAsync
+     * Operation getSubscriptionsAsync
      *
      * Get subscription information
      *
      * @param  string $request_id Request ID (required)
-     * @param  string $account_id (optional)
-     * @param  string $currency (optional)
-     * @param  string $end_time (optional)
-     * @param  int $max_count Limit number of returned plans (must be less than 10000, default is 1000) (optional)
+     * @param  string $account_id Merchant identifier of customer account (optional)
+     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
+     * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  int $max_count Limit number of returned subscriptions (must be less than 10000, default is 1000) (optional)
      * @param  int $offset Offset (must be less than 10000) (optional)
-     * @param  string $plan_id (optional)
-     * @param  string $recurring_type (optional)
+     * @param  string $plan_id Id of plan. Use for searching scheduled subscriptions by plan (optional)
      * @param  string $sort_order Sort based on order of results. &#39;asc&#39; for ascending order or &#39;desc&#39; for descending order (default value) (optional)
-     * @param  string $start_time (optional)
-     * @param  string $status (optional)
+     * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  string $status Status of subscription (optional)
+     * @param  string $type Type of subscription. &#39;ONECLICK&#39; type will be ignored. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSubscriptionsUsingGETAsync($request_id, $account_id = null, $currency = null, $end_time = null, $max_count = null, $offset = null, $plan_id = null, $recurring_type = null, $sort_order = null, $start_time = null, $status = null)
+    public function getSubscriptionsAsync($request_id, $account_id = null, $currency = null, $end_time = null, $max_count = null, $offset = null, $plan_id = null, $sort_order = null, $start_time = null, $status = null, $type = null)
     {
-        return $this->getSubscriptionsUsingGETAsyncWithHttpInfo($request_id, $account_id, $currency, $end_time, $max_count, $offset, $plan_id, $recurring_type, $sort_order, $start_time, $status)
+        return $this->getSubscriptionsAsyncWithHttpInfo($request_id, $account_id, $currency, $end_time, $max_count, $offset, $plan_id, $sort_order, $start_time, $status, $type)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -3619,29 +3644,29 @@ class RecurringsApi
     }
 
     /**
-     * Operation getSubscriptionsUsingGETAsyncWithHttpInfo
+     * Operation getSubscriptionsAsyncWithHttpInfo
      *
      * Get subscription information
      *
      * @param  string $request_id Request ID (required)
-     * @param  string $account_id (optional)
-     * @param  string $currency (optional)
-     * @param  string $end_time (optional)
-     * @param  int $max_count Limit number of returned plans (must be less than 10000, default is 1000) (optional)
+     * @param  string $account_id Merchant identifier of customer account (optional)
+     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
+     * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  int $max_count Limit number of returned subscriptions (must be less than 10000, default is 1000) (optional)
      * @param  int $offset Offset (must be less than 10000) (optional)
-     * @param  string $plan_id (optional)
-     * @param  string $recurring_type (optional)
+     * @param  string $plan_id Id of plan. Use for searching scheduled subscriptions by plan (optional)
      * @param  string $sort_order Sort based on order of results. &#39;asc&#39; for ascending order or &#39;desc&#39; for descending order (default value) (optional)
-     * @param  string $start_time (optional)
-     * @param  string $status (optional)
+     * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  string $status Status of subscription (optional)
+     * @param  string $type Type of subscription. &#39;ONECLICK&#39; type will be ignored. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getSubscriptionsUsingGETAsyncWithHttpInfo($request_id, $account_id = null, $currency = null, $end_time = null, $max_count = null, $offset = null, $plan_id = null, $recurring_type = null, $sort_order = null, $start_time = null, $status = null)
+    public function getSubscriptionsAsyncWithHttpInfo($request_id, $account_id = null, $currency = null, $end_time = null, $max_count = null, $offset = null, $plan_id = null, $sort_order = null, $start_time = null, $status = null, $type = null)
     {
-        $returnType = '\Cardpay\model\SubscriptionGetResponseList';
-        $request = $this->getSubscriptionsUsingGETRequest($request_id, $account_id, $currency, $end_time, $max_count, $offset, $plan_id, $recurring_type, $sort_order, $start_time, $status);
+        $returnType = '\Cardpay\model\SubscriptionList';
+        $request = $this->getSubscriptionsRequest($request_id, $account_id, $currency, $end_time, $max_count, $offset, $plan_id, $sort_order, $start_time, $status, $type);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3681,68 +3706,68 @@ class RecurringsApi
     }
 
     /**
-     * Create request for operation 'getSubscriptionsUsingGET'
+     * Create request for operation 'getSubscriptions'
      *
      * @param  string $request_id Request ID (required)
-     * @param  string $account_id (optional)
-     * @param  string $currency (optional)
-     * @param  string $end_time (optional)
-     * @param  int $max_count Limit number of returned plans (must be less than 10000, default is 1000) (optional)
+     * @param  string $account_id Merchant identifier of customer account (optional)
+     * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
+     * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  int $max_count Limit number of returned subscriptions (must be less than 10000, default is 1000) (optional)
      * @param  int $offset Offset (must be less than 10000) (optional)
-     * @param  string $plan_id (optional)
-     * @param  string $recurring_type (optional)
+     * @param  string $plan_id Id of plan. Use for searching scheduled subscriptions by plan (optional)
      * @param  string $sort_order Sort based on order of results. &#39;asc&#39; for ascending order or &#39;desc&#39; for descending order (default value) (optional)
-     * @param  string $start_time (optional)
-     * @param  string $status (optional)
+     * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
+     * @param  string $status Status of subscription (optional)
+     * @param  string $type Type of subscription. &#39;ONECLICK&#39; type will be ignored. (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getSubscriptionsUsingGETRequest($request_id, $account_id = null, $currency = null, $end_time = null, $max_count = null, $offset = null, $plan_id = null, $recurring_type = null, $sort_order = null, $start_time = null, $status = null)
+    protected function getSubscriptionsRequest($request_id, $account_id = null, $currency = null, $end_time = null, $max_count = null, $offset = null, $plan_id = null, $sort_order = null, $start_time = null, $status = null, $type = null)
     {
         // verify the required parameter 'request_id' is set
         if ($request_id === null || (is_array($request_id) && count($request_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $request_id when calling getSubscriptionsUsingGET'
+                'Missing the required parameter $request_id when calling getSubscriptions'
             );
         }
         if (strlen($request_id) > 50) {
-            throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsApi.getSubscriptionsUsingGET, must be smaller than or equal to 50.');
+            throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsApi.getSubscriptions, must be smaller than or equal to 50.');
         }
         if (strlen($request_id) < 1) {
-            throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsApi.getSubscriptionsUsingGET, must be bigger than or equal to 1.');
+            throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsApi.getSubscriptions, must be bigger than or equal to 1.');
         }
 
         if ($account_id !== null && strlen($account_id) > 32) {
-            throw new \InvalidArgumentException('invalid length for "$account_id" when calling RecurringsApi.getSubscriptionsUsingGET, must be smaller than or equal to 32.');
+            throw new \InvalidArgumentException('invalid length for "$account_id" when calling RecurringsApi.getSubscriptions, must be smaller than or equal to 32.');
         }
         if ($account_id !== null && strlen($account_id) < 0) {
-            throw new \InvalidArgumentException('invalid length for "$account_id" when calling RecurringsApi.getSubscriptionsUsingGET, must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid length for "$account_id" when calling RecurringsApi.getSubscriptions, must be bigger than or equal to 0.');
         }
 
         if ($max_count !== null && $max_count > 10000) {
-            throw new \InvalidArgumentException('invalid value for "$max_count" when calling RecurringsApi.getSubscriptionsUsingGET, must be smaller than or equal to 10000.');
+            throw new \InvalidArgumentException('invalid value for "$max_count" when calling RecurringsApi.getSubscriptions, must be smaller than or equal to 10000.');
         }
         if ($max_count !== null && $max_count < 1) {
-            throw new \InvalidArgumentException('invalid value for "$max_count" when calling RecurringsApi.getSubscriptionsUsingGET, must be bigger than or equal to 1.');
+            throw new \InvalidArgumentException('invalid value for "$max_count" when calling RecurringsApi.getSubscriptions, must be bigger than or equal to 1.');
         }
 
         if ($offset !== null && $offset > 10000) {
-            throw new \InvalidArgumentException('invalid value for "$offset" when calling RecurringsApi.getSubscriptionsUsingGET, must be smaller than or equal to 10000.');
+            throw new \InvalidArgumentException('invalid value for "$offset" when calling RecurringsApi.getSubscriptions, must be smaller than or equal to 10000.');
         }
         if ($offset !== null && $offset < 0) {
-            throw new \InvalidArgumentException('invalid value for "$offset" when calling RecurringsApi.getSubscriptionsUsingGET, must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid value for "$offset" when calling RecurringsApi.getSubscriptions, must be bigger than or equal to 0.');
         }
 
         if ($plan_id !== null && strlen($plan_id) > 32) {
-            throw new \InvalidArgumentException('invalid length for "$plan_id" when calling RecurringsApi.getSubscriptionsUsingGET, must be smaller than or equal to 32.');
+            throw new \InvalidArgumentException('invalid length for "$plan_id" when calling RecurringsApi.getSubscriptions, must be smaller than or equal to 32.');
         }
         if ($plan_id !== null && strlen($plan_id) < 0) {
-            throw new \InvalidArgumentException('invalid length for "$plan_id" when calling RecurringsApi.getSubscriptionsUsingGET, must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid length for "$plan_id" when calling RecurringsApi.getSubscriptions, must be bigger than or equal to 0.');
         }
 
         if ($sort_order !== null && !preg_match("/asc|desc/", $sort_order)) {
-            throw new \InvalidArgumentException("invalid value for \"sort_order\" when calling RecurringsApi.getSubscriptionsUsingGET, must conform to the pattern /asc|desc/.");
+            throw new \InvalidArgumentException("invalid value for \"sort_order\" when calling RecurringsApi.getSubscriptions, must conform to the pattern /asc|desc/.");
         }
 
 
@@ -3755,7 +3780,7 @@ class RecurringsApi
 
         // query params
         if ($account_id !== null) {
-            $queryParams['accountId'] = ObjectSerializer::toQueryValue($account_id);
+            $queryParams['account_id'] = ObjectSerializer::toQueryValue($account_id);
         }
         // query params
         if ($currency !== null) {
@@ -3763,11 +3788,11 @@ class RecurringsApi
         }
         // query params
         if ($end_time !== null) {
-            $queryParams['endTime'] = ObjectSerializer::toQueryValue($end_time);
+            $queryParams['end_time'] = ObjectSerializer::toQueryValue($end_time);
         }
         // query params
         if ($max_count !== null) {
-            $queryParams['maxCount'] = ObjectSerializer::toQueryValue($max_count);
+            $queryParams['max_count'] = ObjectSerializer::toQueryValue($max_count);
         }
         // query params
         if ($offset !== null) {
@@ -3775,27 +3800,27 @@ class RecurringsApi
         }
         // query params
         if ($plan_id !== null) {
-            $queryParams['planId'] = ObjectSerializer::toQueryValue($plan_id);
-        }
-        // query params
-        if ($recurring_type !== null) {
-            $queryParams['recurringType'] = ObjectSerializer::toQueryValue($recurring_type);
+            $queryParams['plan_id'] = ObjectSerializer::toQueryValue($plan_id);
         }
         // query params
         if ($request_id !== null) {
-            $queryParams['requestId'] = ObjectSerializer::toQueryValue($request_id);
+            $queryParams['request_id'] = ObjectSerializer::toQueryValue($request_id);
         }
         // query params
         if ($sort_order !== null) {
-            $queryParams['sortOrder'] = ObjectSerializer::toQueryValue($sort_order);
+            $queryParams['sort_order'] = ObjectSerializer::toQueryValue($sort_order);
         }
         // query params
         if ($start_time !== null) {
-            $queryParams['startTime'] = ObjectSerializer::toQueryValue($start_time);
+            $queryParams['start_time'] = ObjectSerializer::toQueryValue($start_time);
         }
         // query params
         if ($status !== null) {
             $queryParams['status'] = ObjectSerializer::toQueryValue($status);
+        }
+        // query params
+        if ($type !== null) {
+            $queryParams['type'] = ObjectSerializer::toQueryValue($type);
         }
 
 
@@ -3862,340 +3887,6 @@ class RecurringsApi
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'GET',
-            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
-            $headers,
-            $httpBody
-        );
-    }
-
-    /**
-     * Operation updateFilingUsingPATCH
-     *
-     * Update filing
-     *
-     * @param  string $filing_id filingId (required)
-     * @param  string $recurring_id Recurring id (required)
-     * @param  \Cardpay\model\Confirm3dsRequest $filing_update_request PaRes (optional)
-     *
-     * @throws \Cardpay\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return \Cardpay\model\RecurringResponse
-     */
-    public function updateFilingUsingPATCH($filing_id, $recurring_id, $filing_update_request = null)
-    {
-        list($response) = $this->updateFilingUsingPATCHWithHttpInfo($filing_id, $recurring_id, $filing_update_request);
-        return $response;
-    }
-
-    /**
-     * Operation updateFilingUsingPATCHWithHttpInfo
-     *
-     * Update filing
-     *
-     * @param  string $filing_id filingId (required)
-     * @param  string $recurring_id Recurring id (required)
-     * @param  \Cardpay\model\Confirm3dsRequest $filing_update_request PaRes (optional)
-     *
-     * @throws \Cardpay\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
-     * @return array of \Cardpay\model\RecurringResponse, HTTP status code, HTTP response headers (array of strings)
-     */
-    public function updateFilingUsingPATCHWithHttpInfo($filing_id, $recurring_id, $filing_update_request = null)
-    {
-        $returnType = '\Cardpay\model\RecurringResponse';
-        $request = $this->updateFilingUsingPATCHRequest($filing_id, $recurring_id, $filing_update_request);
-
-        try {
-            $options = $this->createHttpClientOption();
-            try {
-                $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw new ApiException(
-                    "[{$e->getCode()}] {$e->getMessage()}",
-                    $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
-                );
-            }
-
-            $statusCode = $response->getStatusCode();
-
-            if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        $statusCode,
-                        $request->getUri()
-                    ),
-                    $statusCode,
-                    $response->getHeaders(),
-                    $response->getBody()
-                );
-            }
-
-            $responseBody = $response->getBody();
-            if ($returnType === '\SplFileObject') {
-                $content = $responseBody; //stream goes to serializer
-            } else {
-                $content = $responseBody->getContents();
-                if ($returnType !== 'string') {
-                    $content = json_decode($content);
-                }
-            }
-
-            return [
-                ObjectSerializer::deserialize($content, $returnType, []),
-                $response->getStatusCode(),
-                $response->getHeaders()
-            ];
-
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Cardpay\model\RecurringResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 403:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 404:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 500:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-            }
-            throw $e;
-        }
-    }
-
-    /**
-     * Operation updateFilingUsingPATCHAsync
-     *
-     * Update filing
-     *
-     * @param  string $filing_id filingId (required)
-     * @param  string $recurring_id Recurring id (required)
-     * @param  \Cardpay\model\Confirm3dsRequest $filing_update_request PaRes (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function updateFilingUsingPATCHAsync($filing_id, $recurring_id, $filing_update_request = null)
-    {
-        return $this->updateFilingUsingPATCHAsyncWithHttpInfo($filing_id, $recurring_id, $filing_update_request)
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation updateFilingUsingPATCHAsyncWithHttpInfo
-     *
-     * Update filing
-     *
-     * @param  string $filing_id filingId (required)
-     * @param  string $recurring_id Recurring id (required)
-     * @param  \Cardpay\model\Confirm3dsRequest $filing_update_request PaRes (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function updateFilingUsingPATCHAsyncWithHttpInfo($filing_id, $recurring_id, $filing_update_request = null)
-    {
-        $returnType = '\Cardpay\model\RecurringResponse';
-        $request = $this->updateFilingUsingPATCHRequest($filing_id, $recurring_id, $filing_update_request);
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
-                }
-            );
-    }
-
-    /**
-     * Create request for operation 'updateFilingUsingPATCH'
-     *
-     * @param  string $filing_id filingId (required)
-     * @param  string $recurring_id Recurring id (required)
-     * @param  \Cardpay\model\Confirm3dsRequest $filing_update_request PaRes (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    protected function updateFilingUsingPATCHRequest($filing_id, $recurring_id, $filing_update_request = null)
-    {
-        // verify the required parameter 'filing_id' is set
-        if ($filing_id === null || (is_array($filing_id) && count($filing_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $filing_id when calling updateFilingUsingPATCH'
-            );
-        }
-        // verify the required parameter 'recurring_id' is set
-        if ($recurring_id === null || (is_array($recurring_id) && count($recurring_id) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $recurring_id when calling updateFilingUsingPATCH'
-            );
-        }
-
-        $resourcePath = '/api/recurring_filings/{filingId}';
-        $formParams = [];
-        $queryParams = [];
-        $headerParams = [];
-        $httpBody = '';
-        $multipart = false;
-
-
-        // path params
-        if ($filing_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'filingId' . '}',
-                ObjectSerializer::toPathValue($filing_id),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($recurring_id !== null) {
-            $resourcePath = str_replace(
-                '{' . 'recurringId' . '}',
-                ObjectSerializer::toPathValue($recurring_id),
-                $resourcePath
-            );
-        }
-
-        // body params
-        $_tempBody = null;
-        if (isset($filing_update_request)) {
-            $_tempBody = $filing_update_request;
-        }
-
-        if ($multipart) {
-            $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['application/json']
-            );
-        } else {
-            $headers = $this->headerSelector->selectHeaders(
-                ['application/json'],
-                ['application/json']
-            );
-        }
-
-        // for model (json/xml)
-        if (isset($_tempBody)) {
-            // $_tempBody is the method argument, if present
-            $httpBody = $_tempBody;
-            // \stdClass has no __toString(), so we should encode it manually
-            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($httpBody);
-            }
-        } elseif (count($formParams) > 0) {
-            if ($multipart) {
-                $multipartContents = [];
-                foreach ($formParams as $formParamName => $formParamValue) {
-                    $multipartContents[] = [
-                        'name' => $formParamName,
-                        'contents' => $formParamValue
-                    ];
-                }
-                // for HTTP post (form)
-                $httpBody = new MultipartStream($multipartContents);
-
-            } elseif ($headers['Content-Type'] === 'application/json') {
-                $httpBody = \GuzzleHttp\json_encode($formParams);
-
-            } else {
-                // for HTTP post (form)
-                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
-            }
-        }
-
-        // this endpoint requires API key authentication
-        $apiKey = $this->config->getApiKeyWithPrefix('Authorization');
-        if ($apiKey !== null) {
-            $headers['Authorization'] = $apiKey;
-        }
-
-        $defaultHeaders = [];
-        if ($this->config->getUserAgent()) {
-            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
-        }
-
-        $headers = array_merge(
-            $defaultHeaders,
-            $headerParams,
-            $headers
-        );
-
-        $query = \GuzzleHttp\Psr7\build_query($queryParams);
-        return new Request(
-            'PATCH',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -4294,7 +3985,7 @@ class RecurringsApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\BadRequestError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4302,7 +3993,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4318,7 +4009,7 @@ class RecurringsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4434,7 +4125,7 @@ class RecurringsApi
             );
         }
 
-        $resourcePath = '/api/recurring_plans/{planId}';
+        $resourcePath = '/api/recurring_plans/{plan_id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -4445,7 +4136,7 @@ class RecurringsApi
         // path params
         if ($plan_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'planId' . '}',
+                '{' . 'plan_id' . '}',
                 ObjectSerializer::toPathValue($plan_id),
                 $resourcePath
             );
@@ -4615,7 +4306,7 @@ class RecurringsApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\BadRequestError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4623,7 +4314,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4639,7 +4330,7 @@ class RecurringsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4936,7 +4627,7 @@ class RecurringsApi
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\BadRequestError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4944,7 +4635,7 @@ class RecurringsApi
                 case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\OAuthError',
+                        '\Cardpay\model\AuthenticationError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -4960,7 +4651,7 @@ class RecurringsApi
                 case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

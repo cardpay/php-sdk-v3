@@ -254,7 +254,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     /**
      * Sets token
      *
-     * @param string $token Card token value used instead of card information. For payment: see PaymentRequestPaymentData for token generation. For recurring: this attribute is valid only for first recurring payment. It isn't valid for continue recurring payments (with filing id), see RecurringRequestRecurringData for token generation.
+     * @param string $token Card token value used instead of card information, except card.security_code (it's mandatory). For payment: see PaymentRequestPaymentData for token generation. For recurring: this attribute is valid only for first recurring payment. It isn't valid for continue recurring payments (with filing id), see RecurringRequestRecurringData for token generation.
      *
      * @return $this
      */

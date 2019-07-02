@@ -1,9 +1,9 @@
 <?php
 
-namespace Cardpay\recurring;
+namespace Cardpay\recurring\scheduled;
 
-require_once(__DIR__ . "/../Config.php");
-require_once(__DIR__ . "/../Constants.php");
+require_once(__DIR__ . "/../../Config.php");
+require_once(__DIR__ . "/../../Constants.php");
 
 use Cardpay\api\RecurringsApi;
 use Cardpay\ApiException;
@@ -43,10 +43,11 @@ class RecurringPlanUtils
     /**
      * @param string $terminalCode
      * @param string $password
+     * @param int $retries
      * @return RecurringPlanResponse
      * @throws ApiException
      */
-    public function createPlan($terminalCode, $password)
+    public function createPlan($terminalCode, $password, $retries = 0)
     {
         $planeName = substr(sha1(rand()), 0, 20);
         $period = RecurringPlanRequestPlanData::PERIOD_WEEK;
@@ -77,6 +78,9 @@ class RecurringPlanUtils
             'currency' => $orderCurrency,
             'amount' => $orderAmount
         ]);
+        if ($retries > 0) {
+            $planData['retries'] = $retries;
+        }
 
         $recurringPlanRequest = new RecurringPlanRequest([
             'request' => $request,

@@ -28,7 +28,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'id' => 'string',
         'name' => 'string',
-        'created' => 'string',
+        'created' => '\DateTime',
         'status' => 'string',
         'period' => 'string',
         'interval' => 'int',
@@ -45,7 +45,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'id' => null,
         'name' => null,
-        'created' => null,
+        'created' => 'date-time',
         'status' => null,
         'period' => null,
         'interval' => 'int32',
@@ -348,7 +348,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
     /**
      * Gets created
      *
-     * @return string
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -358,7 +358,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
     /**
      * Sets created
      *
-     * @param string $created Creation time, [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format
+     * @param \DateTime $created Creation time, [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format
      *
      * @return $this
      */
@@ -448,7 +448,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
     /**
      * Sets interval
      *
-     * @param int $interval Interval of created plan
+     * @param int $interval Interval of plan
      *
      * @return $this
      */

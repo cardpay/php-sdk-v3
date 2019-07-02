@@ -28,7 +28,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'amount_due' => 'float',
         'amount_total' => 'float',
-        'created' => 'string',
+        'created' => '\DateTime',
         'currency' => 'string',
         'customer' => '\Cardpay\model\PayoutResponseCustomer',
         'description' => 'string',
@@ -41,7 +41,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
         'retries' => 'int',
         'status' => 'string',
         'status_reason' => 'string',
-        'subscription_start' => 'string',
+        'subscription_start' => '\DateTime',
         'type' => 'string'
     ];
 
@@ -53,7 +53,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'amount_due' => null,
         'amount_total' => null,
-        'created' => null,
+        'created' => 'date-time',
         'currency' => null,
         'customer' => null,
         'description' => null,
@@ -66,7 +66,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
         'retries' => 'int32',
         'status' => null,
         'status_reason' => null,
-        'subscription_start' => null,
+        'subscription_start' => 'date-time',
         'type' => null
     ];
 
@@ -422,7 +422,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Gets created
      *
-     * @return string
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -432,7 +432,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets created
      *
-     * @param string $created Creation time [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format
+     * @param \DateTime $created Creation time [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format
      *
      * @return $this
      */
@@ -752,7 +752,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Gets subscription_start
      *
-     * @return string
+     * @return \DateTime
      */
     public function getSubscriptionStart()
     {
@@ -762,7 +762,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets subscription_start
      *
-     * @param string $subscription_start The time in 'yyyy-MM-dd' format when subscription actually becomes activated (grace period)
+     * @param \DateTime $subscription_start The time in 'yyyy-MM-dd' format when subscription actually becomes activated (grace period)
      *
      * @return $this
      */

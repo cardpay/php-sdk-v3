@@ -27,7 +27,7 @@ class Request implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'id' => 'string',
-        'time' => 'string'
+        'time' => '\DateTime'
     ];
 
     /**
@@ -37,7 +37,7 @@ class Request implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'id' => null,
-        'time' => null
+        'time' => 'date-time'
     ];
 
     /**
@@ -227,7 +227,7 @@ class Request implements ModelInterface, ArrayAccess
     /**
      * Gets time
      *
-     * @return string
+     * @return \DateTime
      */
     public function getTime()
     {
@@ -237,7 +237,7 @@ class Request implements ModelInterface, ArrayAccess
     /**
      * Sets time
      *
-     * @param string $time Request attempt date and time up to milliseconds in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (milliseconds is optional part) (example of format - yyyy-MM dd'T'HH:mm:ss.SSS'Z') Should be current server time of request (UTC time) or shouldn't be more than +3 hours or less than -3 hours from current UTC time.
+     * @param \DateTime $time Request attempt date and time up to milliseconds in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (example of format - yyyy-MM dd'T'HH:mm:ss'Z') Should be current server time of request (UTC time) or shouldn't be more than +3 hours or less than -3 hours from current UTC time.
      *
      * @return $this
      */

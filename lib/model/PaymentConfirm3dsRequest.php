@@ -28,8 +28,8 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
         'operation' => 'string',
-        'pa_res' => 'string',
-        'payment_data' => '\Cardpay\model\PaymentUpdateTransactionData'
+        'payment_data' => '\Cardpay\model\PaymentUpdateTransactionData',
+        'pa_res' => 'string'
     ];
 
     /**
@@ -40,8 +40,8 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'request' => null,
         'operation' => null,
-        'pa_res' => null,
-        'payment_data' => null
+        'payment_data' => null,
+        'pa_res' => null
     ];
 
     /**
@@ -73,8 +73,8 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'request' => 'request',
         'operation' => 'operation',
-        'pa_res' => 'PaRes',
-        'payment_data' => 'payment_data'
+        'payment_data' => 'payment_data',
+        'pa_res' => 'PaRes'
     ];
 
     /**
@@ -85,8 +85,8 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
     protected static $setters = [
         'request' => 'setRequest',
         'operation' => 'setOperation',
-        'pa_res' => 'setPaRes',
-        'payment_data' => 'setPaymentData'
+        'payment_data' => 'setPaymentData',
+        'pa_res' => 'setPaRes'
     ];
 
     /**
@@ -97,8 +97,8 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
     protected static $getters = [
         'request' => 'getRequest',
         'operation' => 'getOperation',
-        'pa_res' => 'getPaRes',
-        'payment_data' => 'getPaymentData'
+        'payment_data' => 'getPaymentData',
+        'pa_res' => 'getPaRes'
     ];
 
     /**
@@ -178,8 +178,8 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
     {
         $this->container['request'] = isset($data['request']) ? $data['request'] : null;
         $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
-        $this->container['pa_res'] = isset($data['pa_res']) ? $data['pa_res'] : null;
         $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
+        $this->container['pa_res'] = isset($data['pa_res']) ? $data['pa_res'] : null;
     }
 
     /**
@@ -281,30 +281,6 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets pa_res
-     *
-     * @return string
-     */
-    public function getPaRes()
-    {
-        return $this->container['pa_res'];
-    }
-
-    /**
-     * Sets pa_res
-     *
-     * @param string $pa_res Bank authentication result *(for BANKCARD payment method only)*
-     *
-     * @return $this
-     */
-    public function setPaRes($pa_res)
-    {
-        $this->container['pa_res'] = $pa_res;
-
-        return $this;
-    }
-
-    /**
      * Gets payment_data
      *
      * @return \Cardpay\model\PaymentUpdateTransactionData
@@ -324,6 +300,30 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
     public function setPaymentData($payment_data)
     {
         $this->container['payment_data'] = $payment_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets pa_res
+     *
+     * @return string
+     */
+    public function getPaRes()
+    {
+        return $this->container['pa_res'];
+    }
+
+    /**
+     * Sets pa_res
+     *
+     * @param string $pa_res Bank authentication result *(for BANKCARD payment method only)*
+     *
+     * @return $this
+     */
+    public function setPaRes($pa_res)
+    {
+        $this->container['pa_res'] = $pa_res;
 
         return $this;
     }

@@ -158,14 +158,11 @@ class FilingRequestSubscriptionData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ((mb_strlen($this->container['id']) > 32)) {
+        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 32)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 32.";
         }
 
-        if ((mb_strlen($this->container['id']) < 0)) {
+        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) < 0)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
         }
 
@@ -197,16 +194,16 @@ class FilingRequestSubscriptionData implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id id
+     * @param string $id ID of subscription. If specified, then card binding for this subscription will be replaced with new filing id.
      *
      * @return $this
      */
     public function setId($id)
     {
-        if ((mb_strlen($id) > 32)) {
+        if (!is_null($id) && (mb_strlen($id) > 32)) {
             throw new \InvalidArgumentException('invalid length for $id when calling FilingRequestSubscriptionData., must be smaller than or equal to 32.');
         }
-        if ((mb_strlen($id) < 0)) {
+        if (!is_null($id) && (mb_strlen($id) < 0)) {
             throw new \InvalidArgumentException('invalid length for $id when calling FilingRequestSubscriptionData., must be bigger than or equal to 0.');
         }
 

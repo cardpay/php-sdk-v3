@@ -189,7 +189,7 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id CardPay's initial payment id, that can be used for payout creating instead of 'card_account'
+     * @param string $id CardPay’s initial payment id (or recurring id), that can be used for payout creating instead of 'card_account’
      *
      * @return $this
      */

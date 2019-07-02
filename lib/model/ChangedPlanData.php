@@ -28,7 +28,7 @@ class ChangedPlanData implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'id' => 'string',
         'details' => 'string',
-        'updated' => 'string',
+        'updated' => '\DateTime',
         'is_executed' => 'bool',
         'name_to' => 'string',
         'name' => 'string',
@@ -44,7 +44,7 @@ class ChangedPlanData implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'id' => null,
         'details' => null,
-        'updated' => null,
+        'updated' => 'date-time',
         'is_executed' => null,
         'name_to' => null,
         'name' => null,
@@ -312,7 +312,7 @@ class ChangedPlanData implements ModelInterface, ArrayAccess
     /**
      * Gets updated
      *
-     * @return string
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -322,7 +322,7 @@ class ChangedPlanData implements ModelInterface, ArrayAccess
     /**
      * Sets updated
      *
-     * @param string $updated Plan update date
+     * @param \DateTime $updated Plan update date
      *
      * @return $this
      */
@@ -370,7 +370,7 @@ class ChangedPlanData implements ModelInterface, ArrayAccess
     /**
      * Sets name_to
      *
-     * @param string $name_to Requested action (name to be set). Will be returned for `RENAME` operation
+     * @param string $name_to New plan name -  for RENAME operation only
      *
      * @return $this
      */
@@ -418,7 +418,7 @@ class ChangedPlanData implements ModelInterface, ArrayAccess
     /**
      * Sets status_to
      *
-     * @param string $status_to Requested action (status to be set). Will be returned for `CHANGE_STATUS` operation
+     * @param string $status_to New state of plan (active or hold) -  for CHANGE_STATUS operation only
      *
      * @return $this
      */

@@ -192,7 +192,7 @@ class PlanDataList implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Cardpay\model\ResponsePlanData[] $data Data
+     * @param \Cardpay\model\ResponsePlanData[] $data List of found objects
      *
      * @return $this
      */

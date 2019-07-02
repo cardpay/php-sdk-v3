@@ -26,14 +26,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'redirect_url' => 'string',
-        'pa_req' => 'string',
-        'md' => 'string',
-        'customer' => '\Cardpay\model\PaymentRequestCustomer',
-        'payment_data' => '\Cardpay\model\PaymentResponsePaymentData',
-        'card_account' => '\Cardpay\model\PaymentResponseCardAccount',
-        'cryptocurrency_account' => '\Cardpay\model\PaymentResponseCryptocurrencyAccount',
-        'ewallet_account' => '\Cardpay\model\TransactionResponseEWalletAccount'
+        'redirect_url' => 'string'
     ];
 
     /**
@@ -42,14 +35,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'redirect_url' => null,
-        'pa_req' => null,
-        'md' => null,
-        'customer' => null,
-        'payment_data' => null,
-        'card_account' => null,
-        'cryptocurrency_account' => null,
-        'ewallet_account' => null
+        'redirect_url' => null
     ];
 
     /**
@@ -79,14 +65,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'redirect_url' => 'redirect_url',
-        'pa_req' => 'PaReq',
-        'md' => 'MD',
-        'customer' => 'customer',
-        'payment_data' => 'payment_data',
-        'card_account' => 'card_account',
-        'cryptocurrency_account' => 'cryptocurrency_account',
-        'ewallet_account' => 'ewallet_account'
+        'redirect_url' => 'redirect_url'
     ];
 
     /**
@@ -95,14 +74,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'redirect_url' => 'setRedirectUrl',
-        'pa_req' => 'setPaReq',
-        'md' => 'setMd',
-        'customer' => 'setCustomer',
-        'payment_data' => 'setPaymentData',
-        'card_account' => 'setCardAccount',
-        'cryptocurrency_account' => 'setCryptocurrencyAccount',
-        'ewallet_account' => 'setEwalletAccount'
+        'redirect_url' => 'setRedirectUrl'
     ];
 
     /**
@@ -111,14 +83,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'redirect_url' => 'getRedirectUrl',
-        'pa_req' => 'getPaReq',
-        'md' => 'getMd',
-        'customer' => 'getCustomer',
-        'payment_data' => 'getPaymentData',
-        'card_account' => 'getCardAccount',
-        'cryptocurrency_account' => 'getCryptocurrencyAccount',
-        'ewallet_account' => 'getEwalletAccount'
+        'redirect_url' => 'getRedirectUrl'
     ];
 
     /**
@@ -182,13 +147,6 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['redirect_url'] = isset($data['redirect_url']) ? $data['redirect_url'] : null;
-        $this->container['pa_req'] = isset($data['pa_req']) ? $data['pa_req'] : null;
-        $this->container['md'] = isset($data['md']) ? $data['md'] : null;
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
-        $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
-        $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
-        $this->container['cryptocurrency_account'] = isset($data['cryptocurrency_account']) ? $data['cryptocurrency_account'] : null;
-        $this->container['ewallet_account'] = isset($data['ewallet_account']) ? $data['ewallet_account'] : null;
     }
 
     /**
@@ -235,174 +193,6 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
     public function setRedirectUrl($redirect_url)
     {
         $this->container['redirect_url'] = $redirect_url;
-
-        return $this;
-    }
-
-    /**
-     * Gets pa_req
-     *
-     * @return string
-     */
-    public function getPaReq()
-    {
-        return $this->container['pa_req'];
-    }
-
-    /**
-     * Sets pa_req
-     *
-     * @param string $pa_req Bank authentication request
-     *
-     * @return $this
-     */
-    public function setPaReq($pa_req)
-    {
-        $this->container['pa_req'] = $pa_req;
-
-        return $this;
-    }
-
-    /**
-     * Gets md
-     *
-     * @return string
-     */
-    public function getMd()
-    {
-        return $this->container['md'];
-    }
-
-    /**
-     * Sets md
-     *
-     * @param string $md Merchant Data
-     *
-     * @return $this
-     */
-    public function setMd($md)
-    {
-        $this->container['md'] = $md;
-
-        return $this;
-    }
-
-    /**
-     * Gets customer
-     *
-     * @return \Cardpay\model\PaymentRequestCustomer
-     */
-    public function getCustomer()
-    {
-        return $this->container['customer'];
-    }
-
-    /**
-     * Sets customer
-     *
-     * @param \Cardpay\model\PaymentRequestCustomer $customer Customer data
-     *
-     * @return $this
-     */
-    public function setCustomer($customer)
-    {
-        $this->container['customer'] = $customer;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_data
-     *
-     * @return \Cardpay\model\PaymentResponsePaymentData
-     */
-    public function getPaymentData()
-    {
-        return $this->container['payment_data'];
-    }
-
-    /**
-     * Sets payment_data
-     *
-     * @param \Cardpay\model\PaymentResponsePaymentData $payment_data Payment data
-     *
-     * @return $this
-     */
-    public function setPaymentData($payment_data)
-    {
-        $this->container['payment_data'] = $payment_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets card_account
-     *
-     * @return \Cardpay\model\PaymentResponseCardAccount
-     */
-    public function getCardAccount()
-    {
-        return $this->container['card_account'];
-    }
-
-    /**
-     * Sets card_account
-     *
-     * @param \Cardpay\model\PaymentResponseCardAccount $card_account Card account data *(for BANKCARD payment method only)*
-     *
-     * @return $this
-     */
-    public function setCardAccount($card_account)
-    {
-        $this->container['card_account'] = $card_account;
-
-        return $this;
-    }
-
-    /**
-     * Gets cryptocurrency_account
-     *
-     * @return \Cardpay\model\PaymentResponseCryptocurrencyAccount
-     */
-    public function getCryptocurrencyAccount()
-    {
-        return $this->container['cryptocurrency_account'];
-    }
-
-    /**
-     * Sets cryptocurrency_account
-     *
-     * @param \Cardpay\model\PaymentResponseCryptocurrencyAccount $cryptocurrency_account Cryptocurrency account data *(for BITCOIN payment method only)*
-     *
-     * @return $this
-     */
-    public function setCryptocurrencyAccount($cryptocurrency_account)
-    {
-        $this->container['cryptocurrency_account'] = $cryptocurrency_account;
-
-        return $this;
-    }
-
-    /**
-     * Gets ewallet_account
-     *
-     * @return \Cardpay\model\TransactionResponseEWalletAccount
-     */
-    public function getEwalletAccount()
-    {
-        return $this->container['ewallet_account'];
-    }
-
-    /**
-     * Sets ewallet_account
-     *
-     * @param \Cardpay\model\TransactionResponseEWalletAccount $ewallet_account eWallet account data *(for ALIPAY, QIWI, WEBMONEY, NETELLER, YANDEXMONEY, DIRECTBANKINGNGA, AQRCODE, AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO and 'Latin America' payment methods only)*
-     *
-     * @return $this
-     */
-    public function setEwalletAccount($ewallet_account)
-    {
-        $this->container['ewallet_account'] = $ewallet_account;
 
         return $this;
     }

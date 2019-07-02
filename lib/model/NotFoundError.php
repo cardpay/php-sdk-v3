@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class UpdatedSubscriptionDataPaymentData implements ModelInterface, ArrayAccess
+class NotFoundError implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class UpdatedSubscriptionDataPaymentData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'UpdatedSubscriptionDataPaymentData';
+    protected static $swaggerModelName = 'NotFoundError';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,7 +26,9 @@ class UpdatedSubscriptionDataPaymentData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'string'
+        'message' => 'string',
+        'name' => 'string',
+        'request_id' => 'string'
     ];
 
     /**
@@ -35,7 +37,9 @@ class UpdatedSubscriptionDataPaymentData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => null
+        'message' => null,
+        'name' => null,
+        'request_id' => null
     ];
 
     /**
@@ -65,7 +69,9 @@ class UpdatedSubscriptionDataPaymentData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id'
+        'message' => 'message',
+        'name' => 'name',
+        'request_id' => 'request_id'
     ];
 
     /**
@@ -74,7 +80,9 @@ class UpdatedSubscriptionDataPaymentData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId'
+        'message' => 'setMessage',
+        'name' => 'setName',
+        'request_id' => 'setRequestId'
     ];
 
     /**
@@ -83,7 +91,9 @@ class UpdatedSubscriptionDataPaymentData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId'
+        'message' => 'getMessage',
+        'name' => 'getName',
+        'request_id' => 'getRequestId'
     ];
 
     /**
@@ -146,7 +156,9 @@ class UpdatedSubscriptionDataPaymentData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
+        $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
     }
 
     /**
@@ -158,6 +170,12 @@ class UpdatedSubscriptionDataPaymentData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['message'] === null) {
+            $invalidProperties[] = "'message' can't be null";
+        }
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -174,25 +192,73 @@ class UpdatedSubscriptionDataPaymentData implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets id
+     * Gets message
      *
      * @return string
      */
-    public function getId()
+    public function getMessage()
     {
-        return $this->container['id'];
+        return $this->container['message'];
     }
 
     /**
-     * Sets id
+     * Sets message
      *
-     * @param string $id CardPay's subscription id (token format).
+     * @param string $message A human-readable explanation specific to this occurrence of the problem.
      *
      * @return $this
      */
-    public function setId($id)
+    public function setMessage($message)
     {
-        $this->container['id'] = $id;
+        $this->container['message'] = $message;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param string $name A short, human-readable summary of the problem that *should not* change from occurrence to occurrence of the problem, except for purposes of localization.
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string $request_id Request ID
+     *
+     * @return $this
+     */
+    public function setRequestId($request_id)
+    {
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }

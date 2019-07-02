@@ -1,6 +1,6 @@
 <?php
 
-namespace Cardpay\recurring\retry;
+namespace Cardpay\recurring\scheduled\retry;
 
 use PHPUnit\Framework\TestCase;
 

@@ -3,8 +3,6 @@
 namespace Cardpay\recurring\scheduled;
 
 use Cardpay\ApiException;
-use Cardpay\recurring\RecurringPlanUtils;
-use Cardpay\recurring\RecurringScheduledUtils;
 use Cardpay\test\Config;
 use PHPUnit\Framework\TestCase;
 
@@ -21,13 +19,8 @@ class RecurringCreateScheduledSubscriptionPaymentPageTest extends TestCase
         $planId = $recurringPlanResponse->getPlanData()->getId();
 
         // create subscription
-        $recurringScheduledUtils = new RecurringScheduledUtils();
-        $redirectUrl = $recurringScheduledUtils->createScheduledSubscriptionInPaymentPageMode(
-            time(),
-            Config::PAYMENTPAGE_TERMINAL_CODE,
-            Config::PAYMENTPAGE_PASSWORD,
-            $planId
-        );
+        $recurringScheduledUtils = new RecurringScheduledUtils(Config::PAYMENTPAGE_TERMINAL_CODE, Config::PAYMENTPAGE_PASSWORD);
+        $redirectUrl = $recurringScheduledUtils->createScheduledSubscriptionInPaymentPageMode(time(), $planId);
 
         self::assertNotEmpty($redirectUrl);
     }

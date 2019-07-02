@@ -210,7 +210,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
     /**
      * Sets expiration
      *
-     * @param string $expiration Customer’s card expiration date. Returned only if setting 'Callback: card expiry' in a wallet in PM system is ON
+     * @param string $expiration Customer’s card expiration date. Format: mm/yyyy. Returned only if setting 'Callback: card expiry' in a wallet in PM system is ON
      *
      * @return $this
      */
@@ -306,7 +306,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
     /**
      * Sets token
      *
-     * @param string $token Generated card token value. For payment: PaymentResponsePaymentData, for recurring: RecurringResponseRecurringData. Presented in response only in case if first recurring request contained 'generate_token' = `true`
+     * @param string $token Generated card token value. For payment: PaymentResponsePaymentData, for recurring: RecurringResponseRecurringData. Token can be returned only for successful transactions (not for declined transactions)
      *
      * @return $this
      */

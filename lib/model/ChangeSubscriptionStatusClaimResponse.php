@@ -26,12 +26,12 @@ class ChangeSubscriptionStatusClaimResponse implements ModelInterface, ArrayAcce
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'created' => 'string',
+        'created' => '\DateTime',
         'details' => 'string',
         'id' => 'string',
         'status' => 'string',
         'subscription_data' => '\Cardpay\model\ClaimResponseSubscriptionData',
-        'updated' => 'string'
+        'updated' => '\DateTime'
     ];
 
     /**
@@ -40,12 +40,12 @@ class ChangeSubscriptionStatusClaimResponse implements ModelInterface, ArrayAcce
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'created' => null,
+        'created' => 'date-time',
         'details' => null,
         'id' => null,
         'status' => null,
         'subscription_data' => null,
-        'updated' => null
+        'updated' => 'date-time'
     ];
 
     /**
@@ -246,7 +246,7 @@ class ChangeSubscriptionStatusClaimResponse implements ModelInterface, ArrayAcce
     /**
      * Gets created
      *
-     * @return string
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -256,7 +256,7 @@ class ChangeSubscriptionStatusClaimResponse implements ModelInterface, ArrayAcce
     /**
      * Sets created
      *
-     * @param string $created Creation time, [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+     * @param \DateTime $created Creation time, [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
      *
      * @return $this
      */
@@ -375,7 +375,7 @@ class ChangeSubscriptionStatusClaimResponse implements ModelInterface, ArrayAcce
     /**
      * Gets updated
      *
-     * @return string
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -385,7 +385,7 @@ class ChangeSubscriptionStatusClaimResponse implements ModelInterface, ArrayAcce
     /**
      * Sets updated
      *
-     * @param string $updated Time when claim got the new status, [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+     * @param \DateTime $updated Time when claim got the new status, [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
      *
      * @return $this
      */

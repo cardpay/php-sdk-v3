@@ -27,13 +27,11 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'redirect_url' => 'string',
-        'pa_req' => 'string',
-        'md' => 'string',
-        'customer' => '\Cardpay\model\PaymentRequestCustomer',
+        'payment_method' => 'string',
+        'merchant_order' => '\Cardpay\model\TransactionResponseMerchantOrder',
         'recurring_data' => '\Cardpay\model\RecurringResponseRecurringData',
-        'card_account' => '\Cardpay\model\PaymentResponseCardAccount',
-        'cryptocurrency_account' => '\Cardpay\model\PaymentResponseCryptocurrencyAccount',
-        'ewallet_account' => '\Cardpay\model\TransactionResponseEWalletAccount'
+        'customer' => '\Cardpay\model\PaymentRequestCustomer',
+        'card_account' => '\Cardpay\model\PaymentResponseCardAccount'
     ];
 
     /**
@@ -43,13 +41,11 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'redirect_url' => null,
-        'pa_req' => null,
-        'md' => null,
-        'customer' => null,
+        'payment_method' => null,
+        'merchant_order' => null,
         'recurring_data' => null,
-        'card_account' => null,
-        'cryptocurrency_account' => null,
-        'ewallet_account' => null
+        'customer' => null,
+        'card_account' => null
     ];
 
     /**
@@ -80,13 +76,11 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'redirect_url' => 'redirect_url',
-        'pa_req' => 'PaReq',
-        'md' => 'MD',
-        'customer' => 'customer',
+        'payment_method' => 'payment_method',
+        'merchant_order' => 'merchant_order',
         'recurring_data' => 'recurring_data',
-        'card_account' => 'card_account',
-        'cryptocurrency_account' => 'cryptocurrency_account',
-        'ewallet_account' => 'ewallet_account'
+        'customer' => 'customer',
+        'card_account' => 'card_account'
     ];
 
     /**
@@ -96,13 +90,11 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'redirect_url' => 'setRedirectUrl',
-        'pa_req' => 'setPaReq',
-        'md' => 'setMd',
-        'customer' => 'setCustomer',
+        'payment_method' => 'setPaymentMethod',
+        'merchant_order' => 'setMerchantOrder',
         'recurring_data' => 'setRecurringData',
-        'card_account' => 'setCardAccount',
-        'cryptocurrency_account' => 'setCryptocurrencyAccount',
-        'ewallet_account' => 'setEwalletAccount'
+        'customer' => 'setCustomer',
+        'card_account' => 'setCardAccount'
     ];
 
     /**
@@ -112,13 +104,11 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'redirect_url' => 'getRedirectUrl',
-        'pa_req' => 'getPaReq',
-        'md' => 'getMd',
-        'customer' => 'getCustomer',
+        'payment_method' => 'getPaymentMethod',
+        'merchant_order' => 'getMerchantOrder',
         'recurring_data' => 'getRecurringData',
-        'card_account' => 'getCardAccount',
-        'cryptocurrency_account' => 'getCryptocurrencyAccount',
-        'ewallet_account' => 'getEwalletAccount'
+        'customer' => 'getCustomer',
+        'card_account' => 'getCardAccount'
     ];
 
     /**
@@ -182,13 +172,11 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['redirect_url'] = isset($data['redirect_url']) ? $data['redirect_url'] : null;
-        $this->container['pa_req'] = isset($data['pa_req']) ? $data['pa_req'] : null;
-        $this->container['md'] = isset($data['md']) ? $data['md'] : null;
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
+        $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
+        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
         $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
+        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
         $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
-        $this->container['cryptocurrency_account'] = isset($data['cryptocurrency_account']) ? $data['cryptocurrency_account'] : null;
-        $this->container['ewallet_account'] = isset($data['ewallet_account']) ? $data['ewallet_account'] : null;
     }
 
     /**
@@ -240,73 +228,49 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets pa_req
+     * Gets payment_method
      *
      * @return string
      */
-    public function getPaReq()
+    public function getPaymentMethod()
     {
-        return $this->container['pa_req'];
+        return $this->container['payment_method'];
     }
 
     /**
-     * Sets pa_req
+     * Sets payment_method
      *
-     * @param string $pa_req Bank authentication request
+     * @param string $payment_method Payment method
      *
      * @return $this
      */
-    public function setPaReq($pa_req)
+    public function setPaymentMethod($payment_method)
     {
-        $this->container['pa_req'] = $pa_req;
+        $this->container['payment_method'] = $payment_method;
 
         return $this;
     }
 
     /**
-     * Gets md
+     * Gets merchant_order
      *
-     * @return string
+     * @return \Cardpay\model\TransactionResponseMerchantOrder
      */
-    public function getMd()
+    public function getMerchantOrder()
     {
-        return $this->container['md'];
+        return $this->container['merchant_order'];
     }
 
     /**
-     * Sets md
+     * Sets merchant_order
      *
-     * @param string $md Merchant Data
+     * @param \Cardpay\model\TransactionResponseMerchantOrder $merchant_order Merchant order data
      *
      * @return $this
      */
-    public function setMd($md)
+    public function setMerchantOrder($merchant_order)
     {
-        $this->container['md'] = $md;
-
-        return $this;
-    }
-
-    /**
-     * Gets customer
-     *
-     * @return \Cardpay\model\PaymentRequestCustomer
-     */
-    public function getCustomer()
-    {
-        return $this->container['customer'];
-    }
-
-    /**
-     * Sets customer
-     *
-     * @param \Cardpay\model\PaymentRequestCustomer $customer Customer data
-     *
-     * @return $this
-     */
-    public function setCustomer($customer)
-    {
-        $this->container['customer'] = $customer;
+        $this->container['merchant_order'] = $merchant_order;
 
         return $this;
     }
@@ -336,6 +300,30 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets customer
+     *
+     * @return \Cardpay\model\PaymentRequestCustomer
+     */
+    public function getCustomer()
+    {
+        return $this->container['customer'];
+    }
+
+    /**
+     * Sets customer
+     *
+     * @param \Cardpay\model\PaymentRequestCustomer $customer Customer data
+     *
+     * @return $this
+     */
+    public function setCustomer($customer)
+    {
+        $this->container['customer'] = $customer;
+
+        return $this;
+    }
+
+    /**
      * Gets card_account
      *
      * @return \Cardpay\model\PaymentResponseCardAccount
@@ -355,54 +343,6 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
     public function setCardAccount($card_account)
     {
         $this->container['card_account'] = $card_account;
-
-        return $this;
-    }
-
-    /**
-     * Gets cryptocurrency_account
-     *
-     * @return \Cardpay\model\PaymentResponseCryptocurrencyAccount
-     */
-    public function getCryptocurrencyAccount()
-    {
-        return $this->container['cryptocurrency_account'];
-    }
-
-    /**
-     * Sets cryptocurrency_account
-     *
-     * @param \Cardpay\model\PaymentResponseCryptocurrencyAccount $cryptocurrency_account Cryptocurrency account data *(for BITCOIN payment method only)*
-     *
-     * @return $this
-     */
-    public function setCryptocurrencyAccount($cryptocurrency_account)
-    {
-        $this->container['cryptocurrency_account'] = $cryptocurrency_account;
-
-        return $this;
-    }
-
-    /**
-     * Gets ewallet_account
-     *
-     * @return \Cardpay\model\TransactionResponseEWalletAccount
-     */
-    public function getEwalletAccount()
-    {
-        return $this->container['ewallet_account'];
-    }
-
-    /**
-     * Sets ewallet_account
-     *
-     * @param \Cardpay\model\TransactionResponseEWalletAccount $ewallet_account eWallet account data *(for ALIPAY, QIWI, WEBMONEY and NETELLER payment methods only)*
-     *
-     * @return $this
-     */
-    public function setEwalletAccount($ewallet_account)
-    {
-        $this->container['ewallet_account'] = $ewallet_account;
 
         return $this;
     }

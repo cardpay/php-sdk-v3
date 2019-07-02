@@ -26,7 +26,7 @@ class NextSubscriptionPayment implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'date' => 'string'
+        'date' => '\DateTime'
     ];
 
     /**
@@ -35,7 +35,7 @@ class NextSubscriptionPayment implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'date' => null
+        'date' => 'date-time'
     ];
 
     /**
@@ -176,7 +176,7 @@ class NextSubscriptionPayment implements ModelInterface, ArrayAccess
     /**
      * Gets date
      *
-     * @return string
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -186,7 +186,7 @@ class NextSubscriptionPayment implements ModelInterface, ArrayAccess
     /**
      * Sets date
      *
-     * @param string $date The date in `yyyy-MM-dd` format when the next payment on subscription will be charged
+     * @param \DateTime $date The date in `yyyy-MM-dd` format when the next payment on subscription will be charged
      *
      * @return $this
      */

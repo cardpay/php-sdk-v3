@@ -29,7 +29,7 @@ class FilingRequest implements ModelInterface, ArrayAccess
         'request' => '\Cardpay\model\Request',
         'card_account' => '\Cardpay\model\PaymentRequestCardAccount',
         'customer' => '\Cardpay\model\RecurringCustomer',
-        'merchant_order' => '\Cardpay\model\RefundRequestMerchantOrder',
+        'merchant_order' => '\Cardpay\model\FilingRequestMerchantOrder',
         'payment_method' => 'string',
         'recurring_data' => '\Cardpay\model\FilingRecurringData',
         'return_urls' => '\Cardpay\model\ReturnUrls',
@@ -203,11 +203,14 @@ class FilingRequest implements ModelInterface, ArrayAccess
         if ($this->container['request'] === null) {
             $invalidProperties[] = "'request' can't be null";
         }
-        if (!is_null($this->container['payment_method']) && (mb_strlen($this->container['payment_method']) > 100)) {
+        if ($this->container['payment_method'] === null) {
+            $invalidProperties[] = "'payment_method' can't be null";
+        }
+        if ((mb_strlen($this->container['payment_method']) > 100)) {
             $invalidProperties[] = "invalid value for 'payment_method', the character length must be smaller than or equal to 100.";
         }
 
-        if (!is_null($this->container['payment_method']) && (mb_strlen($this->container['payment_method']) < 1)) {
+        if ((mb_strlen($this->container['payment_method']) < 1)) {
             $invalidProperties[] = "invalid value for 'payment_method', the character length must be bigger than or equal to 1.";
         }
 
@@ -301,7 +304,7 @@ class FilingRequest implements ModelInterface, ArrayAccess
     /**
      * Gets merchant_order
      *
-     * @return \Cardpay\model\RefundRequestMerchantOrder
+     * @return \Cardpay\model\FilingRequestMerchantOrder
      */
     public function getMerchantOrder()
     {
@@ -311,7 +314,7 @@ class FilingRequest implements ModelInterface, ArrayAccess
     /**
      * Sets merchant_order
      *
-     * @param \Cardpay\model\RefundRequestMerchantOrder $merchant_order Merchant order
+     * @param \Cardpay\model\FilingRequestMerchantOrder $merchant_order Merchant order
      *
      * @return $this
      */
@@ -335,16 +338,16 @@ class FilingRequest implements ModelInterface, ArrayAccess
     /**
      * Sets payment_method
      *
-     * @param string $payment_method Payment method
+     * @param string $payment_method Used payment method type name from payment methods list\"
      *
      * @return $this
      */
     public function setPaymentMethod($payment_method)
     {
-        if (!is_null($payment_method) && (mb_strlen($payment_method) > 100)) {
+        if ((mb_strlen($payment_method) > 100)) {
             throw new \InvalidArgumentException('invalid length for $payment_method when calling FilingRequest., must be smaller than or equal to 100.');
         }
-        if (!is_null($payment_method) && (mb_strlen($payment_method) < 1)) {
+        if ((mb_strlen($payment_method) < 1)) {
             throw new \InvalidArgumentException('invalid length for $payment_method when calling FilingRequest., must be bigger than or equal to 1.');
         }
 

@@ -28,7 +28,6 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
         'operation' => 'string',
-        'pa_res' => 'string',
         'recurring_data' => '\Cardpay\model\PaymentUpdateTransactionData'
     ];
 
@@ -40,7 +39,6 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'request' => null,
         'operation' => null,
-        'pa_res' => null,
         'recurring_data' => null
     ];
 
@@ -73,7 +71,6 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'request' => 'request',
         'operation' => 'operation',
-        'pa_res' => 'PaRes',
         'recurring_data' => 'recurring_data'
     ];
 
@@ -85,7 +82,6 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     protected static $setters = [
         'request' => 'setRequest',
         'operation' => 'setOperation',
-        'pa_res' => 'setPaRes',
         'recurring_data' => 'setRecurringData'
     ];
 
@@ -97,7 +93,6 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     protected static $getters = [
         'request' => 'getRequest',
         'operation' => 'getOperation',
-        'pa_res' => 'getPaRes',
         'recurring_data' => 'getRecurringData'
     ];
 
@@ -178,7 +173,6 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     {
         $this->container['request'] = isset($data['request']) ? $data['request'] : null;
         $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
-        $this->container['pa_res'] = isset($data['pa_res']) ? $data['pa_res'] : null;
         $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
     }
 
@@ -273,30 +267,6 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
             );
         }
         $this->container['operation'] = $operation;
-
-        return $this;
-    }
-
-    /**
-     * Gets pa_res
-     *
-     * @return string
-     */
-    public function getPaRes()
-    {
-        return $this->container['pa_res'];
-    }
-
-    /**
-     * Sets pa_res
-     *
-     * @param string $pa_res Bank authentication result for BANKCARD payment method
-     *
-     * @return $this
-     */
-    public function setPaRes($pa_res)
-    {
-        $this->container['pa_res'] = $pa_res;
 
         return $this;
     }

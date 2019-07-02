@@ -223,7 +223,7 @@ class PlanUpdateRequestPlanData implements ModelInterface, ArrayAccess
     /**
      * Sets name_to
      *
-     * @param string $name_to New plan name
+     * @param string $name_to New plan name -  for RENAME operation only
      *
      * @return $this
      */
@@ -254,7 +254,7 @@ class PlanUpdateRequestPlanData implements ModelInterface, ArrayAccess
     /**
      * Sets status_to
      *
-     * @param string $status_to Sets new status of plan: 'ACTIVE' or 'INACTIVE'
+     * @param string $status_to New state of plan (ACTIVE or INACTIVE) -  for CHANGE_STATUS operation only
      *
      * @return $this
      */

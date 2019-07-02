@@ -50,7 +50,7 @@ To run the unit tests:
 
 ```
 composer install
-./vendor/bin/phpunit
+./vendor/bin/phpunit ./test
 ```
 
 ## Getting Started
@@ -62,9 +62,9 @@ Please follow the [installation procedure](#installation--usage) and then run th
 require_once(__DIR__ . '/vendor/autoload.php');
 
 // Configure API key authorization: Bearer
-$config = Cardpay\Configuration::getDefaultConfiguration()->setApiKey('Authorization', 'YOUR_API_KEY');
-// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-// $config = Cardpay\Configuration::getDefaultConfiguration()->setApiKeyPrefix('Authorization', 'Bearer');
+$config = Cardpay\Configuration::getDefaultConfiguration()
+    ->setApiKey('Authorization', 'YOUR_API_KEY')
+    ->setApiKeyPrefix('Authorization', 'bearer');
 
 $apiInstance = new Cardpay\Api\AuthApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -72,13 +72,13 @@ $apiInstance = new Cardpay\Api\AuthApi(
     new GuzzleHttp\Client(),
     $config
 );
-$grant_type = "grant_type_example"; // string | Token request credentials representation
+$grantType = "grant_type_example"; // string | Token request credentials representation
 $password = "\"secret\""; // string | Terminal password value (only for [password] grant type)
 $refresh_token = "\"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2bWRoQz\""; // string | Refresh token string (only for [refresh_token] grant type)
 $terminal_code = "\"1001\""; // string | Terminal code value
 
 try {
-    $result = $apiInstance->obtainTokens($grant_type, $password, $refresh_token, $terminal_code);
+    $result = $apiInstance->obtainTokens($grantType, $password, $refresh_token, $terminal_code);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling AuthApi->obtainTokens: ', $e->getMessage(), PHP_EOL;
@@ -91,22 +91,27 @@ try {
 
  - [ApiError](lib/model/ApiError.php)
  - [ApiTokens](lib/model/ApiTokens.php)
+ - [AuthenticationError](lib/model/AuthenticationError.php)
+ - [BadRequestError](lib/model/BadRequestError.php)
  - [BankCardPayoutData](lib/model/BankCardPayoutData.php)
  - [BillingAddress](lib/model/BillingAddress.php)
  - [ChangeSubscriptionStatusClaimResponse](lib/model/ChangeSubscriptionStatusClaimResponse.php)
  - [ChangedPlanData](lib/model/ChangedPlanData.php)
- - [Check3DsResponse](lib/model/Check3DsResponse.php)
  - [ClaimResponseSubscriptionData](lib/model/ClaimResponseSubscriptionData.php)
  - [Confirm3dsRequest](lib/model/Confirm3dsRequest.php)
  - [FilingRecurringData](lib/model/FilingRecurringData.php)
  - [FilingRequest](lib/model/FilingRequest.php)
+ - [FilingRequestMerchantOrder](lib/model/FilingRequestMerchantOrder.php)
  - [FilingRequestSubscriptionData](lib/model/FilingRequestSubscriptionData.php)
  - [FilterParameters](lib/model/FilterParameters.php)
  - [Flight](lib/model/Flight.php)
  - [Flights](lib/model/Flights.php)
+ - [InstallmentData](lib/model/InstallmentData.php)
  - [Item](lib/model/Item.php)
  - [NextSubscriptionPayment](lib/model/NextSubscriptionPayment.php)
+ - [NotFoundError](lib/model/NotFoundError.php)
  - [OAuthError](lib/model/OAuthError.php)
+ - [OneclickData](lib/model/OneclickData.php)
  - [PaymentCallback](lib/model/PaymentCallback.php)
  - [PaymentCreationResponse](lib/model/PaymentCreationResponse.php)
  - [PaymentPatchRequest](lib/model/PaymentPatchRequest.php)
@@ -152,6 +157,7 @@ try {
  - [PlanUpdateRequestPlanData](lib/model/PlanUpdateRequestPlanData.php)
  - [PlanUpdateResponse](lib/model/PlanUpdateResponse.php)
  - [RecurringCallback](lib/model/RecurringCallback.php)
+ - [RecurringCreationRequest](lib/model/RecurringCreationRequest.php)
  - [RecurringCreationResponse](lib/model/RecurringCreationResponse.php)
  - [RecurringCustomer](lib/model/RecurringCustomer.php)
  - [RecurringFilterParameters](lib/model/RecurringFilterParameters.php)
@@ -159,7 +165,6 @@ try {
  - [RecurringPlanRequest](lib/model/RecurringPlanRequest.php)
  - [RecurringPlanRequestPlanData](lib/model/RecurringPlanRequestPlanData.php)
  - [RecurringPlanResponse](lib/model/RecurringPlanResponse.php)
- - [RecurringRequest](lib/model/RecurringRequest.php)
  - [RecurringRequestFiling](lib/model/RecurringRequestFiling.php)
  - [RecurringRequestRecurringData](lib/model/RecurringRequestRecurringData.php)
  - [RecurringResponse](lib/model/RecurringResponse.php)
@@ -189,21 +194,22 @@ try {
  - [ResponsePlanData](lib/model/ResponsePlanData.php)
  - [ResponseUpdatedTransactionData](lib/model/ResponseUpdatedTransactionData.php)
  - [ReturnUrls](lib/model/ReturnUrls.php)
+ - [ScheduledData](lib/model/ScheduledData.php)
  - [ShippingAddress](lib/model/ShippingAddress.php)
  - [Subscription](lib/model/Subscription.php)
+ - [SubscriptionFilterParameters](lib/model/SubscriptionFilterParameters.php)
  - [SubscriptionGetResponse](lib/model/SubscriptionGetResponse.php)
- - [SubscriptionGetResponseList](lib/model/SubscriptionGetResponseList.php)
+ - [SubscriptionList](lib/model/SubscriptionList.php)
  - [SubscriptionUpdateRequest](lib/model/SubscriptionUpdateRequest.php)
  - [SubscriptionUpdateRequestSubscriptionData](lib/model/SubscriptionUpdateRequestSubscriptionData.php)
  - [SubscriptionUpdateResponse](lib/model/SubscriptionUpdateResponse.php)
  - [TransactionRequest](lib/model/TransactionRequest.php)
- - [TransactionResponse](lib/model/TransactionResponse.php)
  - [TransactionResponseEWalletAccount](lib/model/TransactionResponseEWalletAccount.php)
  - [TransactionResponseMerchantOrder](lib/model/TransactionResponseMerchantOrder.php)
  - [TransactionUpdateRequest](lib/model/TransactionUpdateRequest.php)
  - [UpdatedPlanData](lib/model/UpdatedPlanData.php)
  - [UpdatedSubscriptionData](lib/model/UpdatedSubscriptionData.php)
- - [UpdatedSubscriptionDataPaymentData](lib/model/UpdatedSubscriptionDataPaymentData.php)
+ - [UpdatedSubscriptionRecurringData](lib/model/UpdatedSubscriptionRecurringData.php)
  - [PaymentConfirm3dsRequest](lib/model/PaymentConfirm3dsRequest.php)
  - [PaymentUpdateRequest](lib/model/PaymentUpdateRequest.php)
  - [RecurringConfirm3dsRequest](lib/model/RecurringConfirm3dsRequest.php)

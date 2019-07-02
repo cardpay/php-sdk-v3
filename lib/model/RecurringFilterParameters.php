@@ -29,8 +29,8 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
         'request_id' => 'string',
         'merchant_order_id' => 'string',
         'payment_method' => 'string',
-        'start_time' => 'string',
-        'end_time' => 'string',
+        'start_time' => '\DateTime',
+        'end_time' => '\DateTime',
         'max_count' => 'int',
         'sort_order' => 'string',
         'currency' => 'string',
@@ -46,8 +46,8 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
         'request_id' => null,
         'merchant_order_id' => null,
         'payment_method' => null,
-        'start_time' => null,
-        'end_time' => null,
+        'start_time' => 'date-time',
+        'end_time' => 'date-time',
         'max_count' => 'int32',
         'sort_order' => null,
         'currency' => null,
@@ -348,7 +348,7 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
     /**
      * Sets merchant_order_id
      *
-     * @param string $merchant_order_id Merchant's ID of the order
+     * @param string $merchant_order_id Merchant order number from the merchant system
      *
      * @return $this
      */
@@ -400,7 +400,7 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
     /**
      * Gets start_time
      *
-     * @return string
+     * @return \DateTime
      */
     public function getStartTime()
     {
@@ -410,7 +410,7 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
     /**
      * Sets start_time
      *
-     * @param string $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before 'end_time' (format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z')
+     * @param \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before 'end_time' (format: yyyy-MM-dd'T'HH:mm:ss'Z')
      *
      * @return $this
      */
@@ -424,7 +424,7 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
     /**
      * Gets end_time
      *
-     * @return string
+     * @return \DateTime
      */
     public function getEndTime()
     {
@@ -434,7 +434,7 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
     /**
      * Sets end_time
      *
-     * @param string $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after 'start_time', default is current time (format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z')
+     * @param \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after 'start_time', default is current time (format: yyyy-MM-dd'T'HH:mm:ss'Z')
      *
      * @return $this
      */
@@ -525,7 +525,7 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
     /**
      * Sets currency
      *
-     * @param string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
+     * @param string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency
      *
      * @return $this
      */

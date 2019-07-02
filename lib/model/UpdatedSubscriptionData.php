@@ -31,11 +31,11 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         'filing' => '\Cardpay\model\RecurringResponseFiling',
         'id' => 'string',
         'is_executed' => 'bool',
-        'payment_data' => '\Cardpay\model\UpdatedSubscriptionDataPaymentData',
+        'recurring_data' => '\Cardpay\model\UpdatedSubscriptionRecurringData',
         'remaining_amount' => 'float',
         'status' => 'string',
         'status_to' => 'string',
-        'updated' => 'string'
+        'updated' => '\DateTime'
     ];
 
     /**
@@ -49,11 +49,11 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         'filing' => null,
         'id' => null,
         'is_executed' => null,
-        'payment_data' => null,
+        'recurring_data' => null,
         'remaining_amount' => null,
         'status' => null,
         'status_to' => null,
-        'updated' => null
+        'updated' => 'date-time'
     ];
 
     /**
@@ -88,7 +88,7 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         'filing' => 'filing',
         'id' => 'id',
         'is_executed' => 'is_executed',
-        'payment_data' => 'payment_data',
+        'recurring_data' => 'recurring_data',
         'remaining_amount' => 'remaining_amount',
         'status' => 'status',
         'status_to' => 'status_to',
@@ -106,7 +106,7 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         'filing' => 'setFiling',
         'id' => 'setId',
         'is_executed' => 'setIsExecuted',
-        'payment_data' => 'setPaymentData',
+        'recurring_data' => 'setRecurringData',
         'remaining_amount' => 'setRemainingAmount',
         'status' => 'setStatus',
         'status_to' => 'setStatusTo',
@@ -124,7 +124,7 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         'filing' => 'getFiling',
         'id' => 'getId',
         'is_executed' => 'getIsExecuted',
-        'payment_data' => 'getPaymentData',
+        'recurring_data' => 'getRecurringData',
         'remaining_amount' => 'getRemainingAmount',
         'status' => 'getStatus',
         'status_to' => 'getStatusTo',
@@ -246,7 +246,7 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['is_executed'] = isset($data['is_executed']) ? $data['is_executed'] : null;
-        $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
+        $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
         $this->container['remaining_amount'] = isset($data['remaining_amount']) ? $data['remaining_amount'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['status_to'] = isset($data['status_to']) ? $data['status_to'] : null;
@@ -426,25 +426,25 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets payment_data
+     * Gets recurring_data
      *
-     * @return \Cardpay\model\UpdatedSubscriptionDataPaymentData
+     * @return \Cardpay\model\UpdatedSubscriptionRecurringData
      */
-    public function getPaymentData()
+    public function getRecurringData()
     {
-        return $this->container['payment_data'];
+        return $this->container['recurring_data'];
     }
 
     /**
-     * Sets payment_data
+     * Sets recurring_data
      *
-     * @param \Cardpay\model\UpdatedSubscriptionDataPaymentData $payment_data Payment data
+     * @param \Cardpay\model\UpdatedSubscriptionRecurringData $recurring_data Payment data
      *
      * @return $this
      */
-    public function setPaymentData($payment_data)
+    public function setRecurringData($recurring_data)
     {
-        $this->container['payment_data'] = $payment_data;
+        $this->container['recurring_data'] = $recurring_data;
 
         return $this;
     }
@@ -542,7 +542,7 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
     /**
      * Gets updated
      *
-     * @return string
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -552,7 +552,7 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
     /**
      * Sets updated
      *
-     * @param string $updated If request is successful then date and time returned in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (format - yyyy-MM-dd'T'HH:mm:ss'Z').
+     * @param \DateTime $updated If request is successful then date and time returned in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format (format - yyyy-MM-dd'T'HH:mm:ss'Z').
      *
      * @return $this
      */

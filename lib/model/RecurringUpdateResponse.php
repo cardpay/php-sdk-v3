@@ -27,11 +27,8 @@ class RecurringUpdateResponse implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'operation' => 'string',
-        'payment_method' => 'string',
-        'merchant_data' => '\Cardpay\model\TransactionResponseMerchantOrder',
-        'recurring_data' => '\Cardpay\model\ResponseUpdatedTransactionData',
-        'card_account' => '\Cardpay\model\PaymentResponseCardAccount',
-        'customer' => '\Cardpay\model\PaymentRequestCustomer'
+        'merchant_order' => '\Cardpay\model\TransactionResponseMerchantOrder',
+        'recurring_data' => '\Cardpay\model\ResponseUpdatedTransactionData'
     ];
 
     /**
@@ -41,11 +38,8 @@ class RecurringUpdateResponse implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'operation' => null,
-        'payment_method' => null,
-        'merchant_data' => null,
-        'recurring_data' => null,
-        'card_account' => null,
-        'customer' => null
+        'merchant_order' => null,
+        'recurring_data' => null
     ];
 
     /**
@@ -76,11 +70,8 @@ class RecurringUpdateResponse implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'operation' => 'operation',
-        'payment_method' => 'payment_method',
-        'merchant_data' => 'merchant_data',
-        'recurring_data' => 'recurring_data',
-        'card_account' => 'card_account',
-        'customer' => 'customer'
+        'merchant_order' => 'merchant_order',
+        'recurring_data' => 'recurring_data'
     ];
 
     /**
@@ -90,11 +81,8 @@ class RecurringUpdateResponse implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'operation' => 'setOperation',
-        'payment_method' => 'setPaymentMethod',
-        'merchant_data' => 'setMerchantData',
-        'recurring_data' => 'setRecurringData',
-        'card_account' => 'setCardAccount',
-        'customer' => 'setCustomer'
+        'merchant_order' => 'setMerchantOrder',
+        'recurring_data' => 'setRecurringData'
     ];
 
     /**
@@ -104,11 +92,8 @@ class RecurringUpdateResponse implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'operation' => 'getOperation',
-        'payment_method' => 'getPaymentMethod',
-        'merchant_data' => 'getMerchantData',
-        'recurring_data' => 'getRecurringData',
-        'card_account' => 'getCardAccount',
-        'customer' => 'getCustomer'
+        'merchant_order' => 'getMerchantOrder',
+        'recurring_data' => 'getRecurringData'
     ];
 
     /**
@@ -187,11 +172,8 @@ class RecurringUpdateResponse implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
-        $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
-        $this->container['merchant_data'] = isset($data['merchant_data']) ? $data['merchant_data'] : null;
+        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
         $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
-        $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
     }
 
     /**
@@ -260,49 +242,25 @@ class RecurringUpdateResponse implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets payment_method
-     *
-     * @return string
-     */
-    public function getPaymentMethod()
-    {
-        return $this->container['payment_method'];
-    }
-
-    /**
-     * Sets payment_method
-     *
-     * @param string $payment_method Used payment method type name from payment methods list
-     *
-     * @return $this
-     */
-    public function setPaymentMethod($payment_method)
-    {
-        $this->container['payment_method'] = $payment_method;
-
-        return $this;
-    }
-
-    /**
-     * Gets merchant_data
+     * Gets merchant_order
      *
      * @return \Cardpay\model\TransactionResponseMerchantOrder
      */
-    public function getMerchantData()
+    public function getMerchantOrder()
     {
-        return $this->container['merchant_data'];
+        return $this->container['merchant_order'];
     }
 
     /**
-     * Sets merchant_data
+     * Sets merchant_order
      *
-     * @param \Cardpay\model\TransactionResponseMerchantOrder $merchant_data Merchant data
+     * @param \Cardpay\model\TransactionResponseMerchantOrder $merchant_order Merchant data
      *
      * @return $this
      */
-    public function setMerchantData($merchant_data)
+    public function setMerchantOrder($merchant_order)
     {
-        $this->container['merchant_data'] = $merchant_data;
+        $this->container['merchant_order'] = $merchant_order;
 
         return $this;
     }
@@ -327,54 +285,6 @@ class RecurringUpdateResponse implements ModelInterface, ArrayAccess
     public function setRecurringData($recurring_data)
     {
         $this->container['recurring_data'] = $recurring_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets card_account
-     *
-     * @return \Cardpay\model\PaymentResponseCardAccount
-     */
-    public function getCardAccount()
-    {
-        return $this->container['card_account'];
-    }
-
-    /**
-     * Sets card_account
-     *
-     * @param \Cardpay\model\PaymentResponseCardAccount $card_account Card account
-     *
-     * @return $this
-     */
-    public function setCardAccount($card_account)
-    {
-        $this->container['card_account'] = $card_account;
-
-        return $this;
-    }
-
-    /**
-     * Gets customer
-     *
-     * @return \Cardpay\model\PaymentRequestCustomer
-     */
-    public function getCustomer()
-    {
-        return $this->container['customer'];
-    }
-
-    /**
-     * Sets customer
-     *
-     * @param \Cardpay\model\PaymentRequestCustomer $customer Customer data
-     *
-     * @return $this
-     */
-    public function setCustomer($customer)
-    {
-        $this->container['customer'] = $customer;
 
         return $this;
     }

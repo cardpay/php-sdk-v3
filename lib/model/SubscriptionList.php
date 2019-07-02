@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class SubscriptionGetResponseList implements ModelInterface, ArrayAccess
+class SubscriptionList implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class SubscriptionGetResponseList implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'SubscriptionGetResponseList';
+    protected static $swaggerModelName = 'SubscriptionList';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -192,7 +192,7 @@ class SubscriptionGetResponseList implements ModelInterface, ArrayAccess
     /**
      * Sets data
      *
-     * @param \Cardpay\model\SubscriptionGetResponse[] $data Data
+     * @param \Cardpay\model\SubscriptionGetResponse[] $data List of found objects
      *
      * @return $this
      */

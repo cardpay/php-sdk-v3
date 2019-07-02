@@ -1,13 +1,13 @@
 <?php
 
-namespace Cardpay\recurring\scheduled;
+namespace Cardpay\recurring\scheduled\plan;
 
 use Cardpay\ApiException;
 use Cardpay\model\ChangedPlanData;
 use Cardpay\model\PlanUpdateRequest;
 use Cardpay\model\PlanUpdateRequestPlanData;
 use Cardpay\model\Request;
-use Cardpay\recurring\RecurringPlanUtils;
+use Cardpay\recurring\scheduled\RecurringPlanUtils;
 use Cardpay\test\Config;
 use Constants;
 use PHPUnit\Framework\TestCase;
@@ -24,6 +24,9 @@ class RecurringScheduledPlanChangeStatusTest extends TestCase
         $recurringPlanResponse = $recurringPlanUtils->createPlan(Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY, Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY);
         $planId = $recurringPlanResponse->getPlanData()->getId();
 
+        self::assertNotEmpty($planId);
+
+        // change plan status (make it inactive)
         $request = new Request([
             'id' => microtime(true),
             'time' => date(Constants::DATETIME_FORMAT)
@@ -39,7 +42,6 @@ class RecurringScheduledPlanChangeStatusTest extends TestCase
             'plan_data' => $planData
         ]);
 
-        // change plan status (make it inactive)
         $planUpdateResponse = $recurringPlanUtils->getRecurringsApi()->updatePlan($planId, $planUpdateRequest);
 
         self::assertEquals($planId, $planUpdateResponse->getPlanData()->getId());

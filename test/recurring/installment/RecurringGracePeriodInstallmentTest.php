@@ -1,6 +1,6 @@
 <?php
 
-namespace Cardpay\recurring\grace;
+namespace Cardpay\recurring\installment;
 
 use PHPUnit\Framework\TestCase;
 

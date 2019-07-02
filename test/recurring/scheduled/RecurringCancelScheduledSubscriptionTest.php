@@ -3,14 +3,9 @@
 namespace Cardpay\recurring\scheduled;
 
 use Cardpay\ApiException;
-use Cardpay\model\Request;
-use Cardpay\model\SubscriptionUpdateRequest;
 use Cardpay\model\SubscriptionUpdateRequestSubscriptionData;
 use Cardpay\model\UpdatedSubscriptionData;
-use Cardpay\recurring\RecurringPlanUtils;
-use Cardpay\recurring\RecurringScheduledUtils;
 use Cardpay\test\Config;
-use Constants;
 use PHPUnit\Framework\TestCase;
 
 class RecurringCancelScheduledSubscriptionTest extends TestCase
@@ -26,35 +21,17 @@ class RecurringCancelScheduledSubscriptionTest extends TestCase
         $planId = $recurringPlanResponse->getPlanData()->getId();
 
         // create scheduled subscription
-        $recurringScheduledUtils = new RecurringScheduledUtils();
-        $recurringResponse = $recurringScheduledUtils->createScheduledSubscriptionInGatewayMode(
-            time(),
-            Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY,
-            Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY,
-            $planId
-        );
+        $recurringScheduledUtils = new RecurringScheduledUtils(Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY, Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY);
+        $recurringResponse = $recurringScheduledUtils->createScheduledSubscriptionInGatewayMode(time(), $planId);
 
         // cancel subscription
         $subscriptionId = $recurringResponse->getRecurringData()->getSubscription()->getId();
-
-        $request = new Request([
-            'id' => microtime(true),
-            'time' => date(Constants::DATETIME_FORMAT)
-        ]);
-
-        $subscriptionData = new SubscriptionUpdateRequestSubscriptionData([
-            'status_to' => SubscriptionUpdateRequestSubscriptionData::STATUS_TO_CANCELLED
-        ]);
-
-        $subscriptionUpdateRequest = new SubscriptionUpdateRequest([
-            'request' => $request,
-            'operation' => SubscriptionUpdateRequest::OPERATION_CHANGE_STATUS,
-            'subscription_data' => $subscriptionData
-        ]);
-
-        $subscriptionUpdateResponse = $recurringPlanUtils->getRecurringsApi()->updateSubscription($subscriptionId, $subscriptionUpdateRequest);
+        $subscriptionUpdateResponse = $recurringScheduledUtils->changeSubscriptionStatus($subscriptionId, SubscriptionUpdateRequestSubscriptionData::STATUS_TO_CANCELLED);
 
         self::assertNotNull($subscriptionUpdateResponse);
+        self::assertNotNull($subscriptionUpdateResponse->getSubscriptionData());
+        self::assertTrue($subscriptionUpdateResponse->getSubscriptionData()->getIsExecuted());
         self::assertEquals(UpdatedSubscriptionData::STATUS_CANCELLED, $subscriptionUpdateResponse->getSubscriptionData()->getStatus());
+        self::assertEquals($subscriptionId, $subscriptionUpdateResponse->getSubscriptionData()->getId());
     }
 }

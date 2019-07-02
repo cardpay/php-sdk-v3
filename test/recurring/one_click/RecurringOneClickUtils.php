@@ -1,9 +1,9 @@
 <?php
 
-namespace Cardpay\recurring;
+namespace Cardpay\recurring\one_click;
 
-require_once(__DIR__ . "/../Config.php");
-require_once(__DIR__ . "/../Constants.php");
+require_once(__DIR__ . "/../../Config.php");
+require_once(__DIR__ . "/../../Constants.php");
 
 use Cardpay\api\RecurringsApi;
 use Cardpay\ApiException;
@@ -13,9 +13,9 @@ use Cardpay\HeaderSelector;
 use Cardpay\model\PaymentRequestCard;
 use Cardpay\model\PaymentRequestCardAccount;
 use Cardpay\model\PaymentRequestMerchantOrder;
-use Cardpay\model\Plan;
+use Cardpay\model\RecurringCreationRequest;
 use Cardpay\model\RecurringCustomer;
-use Cardpay\model\RecurringRequest;
+use Cardpay\model\RecurringRequestFiling;
 use Cardpay\model\RecurringRequestRecurringData;
 use Cardpay\model\RecurringResponse;
 use Cardpay\model\Request;
@@ -24,7 +24,7 @@ use Constants;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class RecurringScheduledUtils
+class RecurringOneClickUtils
 {
     /**
      * @var RecurringsApi
@@ -50,20 +50,20 @@ class RecurringScheduledUtils
      * @param $orderId
      * @param string $terminalCode
      * @param string $password
-     * @param string $planId
-     * @param string $subscriptionStart
+     * @param string $filingId
+     * @param bool $preAuth
      * @return string|null
      * @throws ApiException
      */
-    public function createScheduledSubscriptionInPaymentPageMode(
+    public function createRecurringInPaymentPageMode(
         $orderId,
         $terminalCode = Config::PAYMENTPAGE_TERMINAL_CODE,
         $password = Config::PAYMENTPAGE_PASSWORD,
-        $planId = null,
-        $subscriptionStart = null
+        $filingId = null,
+        $preAuth = false
     )
     {
-        $redirectUrl = $this->createScheduledSubscription($orderId, $terminalCode, $password, $planId, $subscriptionStart);
+        $redirectUrl = $this->createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth);
 
         return $redirectUrl;
     }
@@ -72,21 +72,21 @@ class RecurringScheduledUtils
      * @param $orderId
      * @param string $terminalCode
      * @param string $password
-     * @param string $planId
-     * @param string $subscriptionStart
+     * @param string $filingId
+     * @param bool $preAuth
      * @return RecurringResponse|null
      * @throws ApiException
      */
-    public function createScheduledSubscriptionInGatewayMode(
+    public function createRecurringInGatewayMode(
         $orderId,
         $terminalCode = Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY,
         $password = Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY,
-        $planId = null,
-        $subscriptionStart = null
+        $filingId = null,
+        $preAuth = false
     )
     {
         /** @var RecurringResponse $recurringResponse */
-        $recurringResponse = $this->createScheduledSubscription($orderId, $terminalCode, $password, $planId, $subscriptionStart);
+        $recurringResponse = $this->createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth);
 
         return $recurringResponse;
     }
@@ -95,19 +95,20 @@ class RecurringScheduledUtils
      * @param $orderId
      * @param $terminalCode
      * @param $password
-     * @param $planId
-     * @param $subscriptionStart
+     * @param $filingId
+     * @param $preAuth
      * @return RecurringResponse|string|null
      * @throws ApiException
      */
-    private function createScheduledSubscription($orderId, $terminalCode, $password, $planId, $subscriptionStart)
+    private function createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth)
     {
-        $orderDescription = 'Order description (scheduled subscription)';
+        date_default_timezone_set('UTC');
+
+        $orderDescription = 'Order description (one-click recurring)';
+        $orderAmount = rand(Constants::MIN_PAYMENT_AMOUNT, Constants::MAX_PAYMENT_AMOUNT);
+        $orderCurrency = Config::TERMINAL_CURRENCY;
         $customerId = time();
         $customerEmail = substr(sha1(rand()), 0, 20) . '@mailinator.com';
-
-        $isGatewayMode = ($terminalCode == Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY
-            || $terminalCode == Config::GATEWAY_TERMINAL_CODE_POSTPONED);
 
         if (null == $this->config) {
             $authUtils = new AuthUtils();
@@ -120,42 +121,48 @@ class RecurringScheduledUtils
             $this->headerSelector = new HeaderSelector();
         }
 
+        $isGatewayMode = ($terminalCode == Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY
+            || $terminalCode == Config::GATEWAY_TERMINAL_CODE_POSTPONED);
+
         $request = new Request([
             'id' => microtime(true),
             'time' => date(Constants::DATETIME_FORMAT)
         ]);
 
-        $paymentMerchantOrder = new PaymentRequestMerchantOrder([
+        $merchantOrder = new PaymentRequestMerchantOrder([
             'id' => $orderId,
             'description' => $orderDescription
         ]);
 
-        $plan = new Plan([
-            'id' => $planId
-        ]);
-
         $recurringData = new RecurringRequestRecurringData([
             'initiator' => Constants::INITIATOR_CIT,
-            'plan' => $plan
+            'amount' => $orderAmount,
+            'currency' => $orderCurrency
         ]);
-        if (!empty($subscriptionStart)) {
-            $recurringData['subscription_start'] = $subscriptionStart;
+        if (!empty($filingId)) {
+            $filing = new RecurringRequestFiling([
+                'id' => $filingId
+            ]);
+            $recurringData['filing'] = $filing;
+        }
+        if (true === $preAuth) {
+            $recurringData['preauth'] = true;
         }
 
-        $recurringCustomer = new RecurringCustomer([
+        $customer = new RecurringCustomer([
             'id' => $customerId,
             'email' => $customerEmail
         ]);
 
-        $recurringRequest = new RecurringRequest([
+        $recurringRequest = new RecurringCreationRequest([
             'request' => $request,
-            'merchant_order' => $paymentMerchantOrder,
+            'merchant_order' => $merchantOrder,
             'payment_method' => Constants::PAYMENT_METHOD,
             'recurring_data' => $recurringData,
-            'customer' => $recurringCustomer
+            'customer' => $customer
         ]);
 
-        if ($isGatewayMode) {
+        if ($isGatewayMode && empty($filingId)) {
             $card = new PaymentRequestCard([
                 'pan' => Constants::TEST_CARD_PAN,
                 'holder' => Constants::TEST_CARD_HOLDER,

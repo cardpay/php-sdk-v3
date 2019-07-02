@@ -132,8 +132,8 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const STATUS_TO_COMPLETE = 'COMPLETE';
     const STATUS_TO_REVERSE = 'REVERSE';
+    const STATUS_TO_COMPLETE = 'COMPLETE';
     
 
     
@@ -145,8 +145,8 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
     public function getStatusToAllowableValues()
     {
         return [
-            self::STATUS_TO_COMPLETE,
             self::STATUS_TO_REVERSE,
+            self::STATUS_TO_COMPLETE,
         ];
     }
     

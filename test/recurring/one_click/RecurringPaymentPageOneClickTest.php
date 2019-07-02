@@ -3,7 +3,6 @@
 namespace Cardpay\recurring\one_click;
 
 use Cardpay\ApiException;
-use Cardpay\recurring\RecurringOneClickUtils;
 use PHPUnit\Framework\TestCase;
 
 class RecurringPaymentPageOneClickTest extends TestCase
