@@ -1,17 +1,17 @@
 <?php
 
-namespace Cardpay\recurring\scheduled\plan;
+namespace Cardpay\test\recurring\scheduled\plan;
 
 use Cardpay\ApiException;
 use Cardpay\model\PlanUpdateRequest;
 use Cardpay\model\PlanUpdateRequestPlanData;
 use Cardpay\model\Request;
-use Cardpay\recurring\scheduled\RecurringPlanUtils;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use Constants;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\Constants;
+use Cardpay\test\recurring\scheduled\RecurringPlanUtils;
 
-class RecurringScheduledRenamePlanTest extends TestCase
+class RecurringScheduledRenamePlanTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -22,7 +22,7 @@ class RecurringScheduledRenamePlanTest extends TestCase
 
         // create new plan
         $recurringPlanUtils = new RecurringPlanUtils();
-        $recurringPlanResponse = $recurringPlanUtils->createPlan(Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY, Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY);
+        $recurringPlanResponse = $recurringPlanUtils->createPlan(Config::$gatewayTerminalCode, Config::$gatewayPassword);
         $planId = $recurringPlanResponse->getPlanData()->getId();
 
         $request = new Request([

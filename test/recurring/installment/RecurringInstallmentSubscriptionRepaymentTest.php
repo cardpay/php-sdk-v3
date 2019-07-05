@@ -1,10 +1,10 @@
 <?php
 
-namespace Cardpay\recurring\installment;
+namespace Cardpay\test\recurring\installment;
 
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\BaseTestCase;
 
-class RecurringInstallmentSubscriptionRepaymentTest extends TestCase
+class RecurringInstallmentSubscriptionRepaymentTest extends BaseTestCase
 {
     public function testSubscriptionRepayment()
     {

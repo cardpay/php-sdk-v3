@@ -1,6 +1,6 @@
 <?php
 
-namespace Cardpay\auth;
+namespace Cardpay\test\auth;
 
 use Cardpay\api\AuthApi;
 use Cardpay\ApiException;
@@ -9,8 +9,8 @@ use Cardpay\Configuration;
 class AuthUtils
 {
     /**
-     * @param $terminalCode
-     * @param $password
+     * @param string $terminalCode
+     * @param string $password
      * @return Configuration
      * @throws ApiException
      */
@@ -22,10 +22,10 @@ class AuthUtils
         $accessToken = $apiTokens->getAccessToken();
         $tokenType = $apiTokens->getTokenType();
 
-        $config = new Configuration();
-        $config->setApiKeyPrefix('Authorization', $tokenType)
+        $configuration = new Configuration();
+        $configuration->setApiKeyPrefix('Authorization', $tokenType)
             ->setApiKey('Authorization', $accessToken);
 
-        return $config;
+        return $configuration;
     }
 }

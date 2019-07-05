@@ -1,14 +1,14 @@
 <?php
 
-namespace Cardpay\refund;
+namespace Cardpay\test\refund;
 
 use Cardpay\ApiException;
 use Cardpay\model\RefundResponseRefundData;
-use Cardpay\payment\PaymentUtils;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\payment\PaymentUtils;
 
-class RefundCreateTest extends TestCase
+class RefundCreateTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -17,12 +17,12 @@ class RefundCreateTest extends TestCase
     {
         // create payment
         $paymentUtils = new PaymentUtils();
-        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time());
+        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time(), Config::$gatewayTerminalCode, Config::$gatewayPassword);
         $paymentId = $paymentResponse->getPaymentData()->getId();
 
         // create refund
         $refundUtils = new RefundUtils();
-        $refundResponse = $refundUtils->createRefund($paymentId, $paymentUtils, Config::TERMINAL_CURRENCY);
+        $refundResponse = $refundUtils->createRefund($paymentId, $paymentUtils, Config::$terminalCurrency);
 
         self::assertEquals(RefundResponseRefundData::STATUS_COMPLETED, $refundResponse->getRefundData()->getStatus());
     }

@@ -1,14 +1,12 @@
 <?php
 
-namespace Cardpay\callback;
-
-require_once(__DIR__ . "/../Config.php");
+namespace Cardpay\test\callback;
 
 use Cardpay\model\RefundResponseRefundData;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use PHPUnit\Framework\TestCase;
 
-class RefundCallbackTest extends TestCase
+class RefundCallbackTest extends BaseTestCase
 {
     public function testRefundCallback()
     {
@@ -18,7 +16,7 @@ class RefundCallbackTest extends TestCase
         // 'Signature' header example
         $signature = '2fe7a4fb4616a1a064f74b931ca48c005aa15aee1a09927f02b4cbd843df3142d625b4247f7f1eaf16dadec0d9ef7b690024abe85012394ab63ec2cbe04d1043';
 
-        $secretKey = Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY;
+        $secretKey = Config::$gatewayPassword;
 
         // validate callback
         $calculatedSignature = hash('sha512', $refundCallback . $secretKey);

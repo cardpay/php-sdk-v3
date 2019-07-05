@@ -1,16 +1,13 @@
 <?php
 
-namespace Cardpay\recurring\scheduled;
-
-require_once(__DIR__ . "/../../Config.php");
-require_once(__DIR__ . "/../../Constants.php");
+namespace Cardpay\test\recurring\scheduled;
 
 use Cardpay\ApiException;
 use Cardpay\model\SubscriptionUpdateRequestSubscriptionData;
 use Cardpay\model\UpdatedSubscriptionData;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\BaseTestCase;
 
-class RecurringScheduledTestCase extends TestCase
+class RecurringScheduledTestCase extends BaseTestCase
 {
     /** @var RecurringPlanUtils */
     protected $recurringPlanUtils;
@@ -26,8 +23,8 @@ class RecurringScheduledTestCase extends TestCase
 
     /**
      * RecurringScheduledTest constructor.
-     * @param $terminalCode
-     * @param $password
+     * @param string $terminalCode
+     * @param string $password
      * @throws ApiException
      */
     public function __construct($terminalCode, $password)

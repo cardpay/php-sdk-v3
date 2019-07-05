@@ -1,11 +1,12 @@
 <?php
 
-namespace Cardpay\recurring\one_click;
+namespace Cardpay\test\recurring\one_click;
 
 use Cardpay\ApiException;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\BaseTestCase;
+use Cardpay\test\Config;
 
-class RecurringGetOneClickListTest extends TestCase
+class RecurringGetOneClickListTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -16,8 +17,8 @@ class RecurringGetOneClickListTest extends TestCase
 
         // create one-click recurring payments
         $recurringOneClickUtils = new RecurringOneClickUtils();
-        $recurringCreationResponse1 = $recurringOneClickUtils->createRecurringInGatewayMode($orderId);
-        $recurringCreationResponse2 = $recurringOneClickUtils->createRecurringInGatewayMode($orderId);
+        $recurringCreationResponse1 = $recurringOneClickUtils->createRecurringInGatewayMode($orderId, Config::$gatewayTerminalCode, Config::$gatewayPassword);
+        $recurringCreationResponse2 = $recurringOneClickUtils->createRecurringInGatewayMode($orderId, Config::$gatewayTerminalCode, Config::$gatewayPassword);
 
         // get recurring payments list information
         $recurringList = $recurringOneClickUtils->getRecurringsApi()->getRecurrings(microtime(true), null, null, null, $orderId);

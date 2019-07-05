@@ -1,13 +1,9 @@
 <?php
 
-namespace Cardpay\payout;
-
-require_once(__DIR__ . "/../Config.php");
-require_once(__DIR__ . "/../Constants.php");
+namespace Cardpay\test\payout;
 
 use Cardpay\api\PayoutsApi;
 use Cardpay\ApiException;
-use Cardpay\auth\AuthUtils;
 use Cardpay\Configuration;
 use Cardpay\HeaderSelector;
 use Cardpay\model\PayoutRequest;
@@ -17,8 +13,9 @@ use Cardpay\model\PayoutRequestMerchantOrder;
 use Cardpay\model\PayoutRequestPayoutData;
 use Cardpay\model\PayoutResponse;
 use Cardpay\model\Request;
+use Cardpay\test\auth\AuthUtils;
 use Cardpay\test\Config;
-use Constants;
+use Cardpay\test\Constants;
 use GuzzleHttp\Client;
 
 class PayoutUtils
@@ -70,7 +67,7 @@ class PayoutUtils
 
         $payoutData = new PayoutRequestPayoutData([
             'amount' => rand(10, 100),
-            'currency' => Config::TERMINAL_CURRENCY
+            'currency' => Config::$terminalCurrency
         ]);
 
         $card = new PayoutRequestCard([

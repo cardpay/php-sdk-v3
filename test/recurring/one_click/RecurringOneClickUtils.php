@@ -1,13 +1,9 @@
 <?php
 
-namespace Cardpay\recurring\one_click;
-
-require_once(__DIR__ . "/../../Config.php");
-require_once(__DIR__ . "/../../Constants.php");
+namespace Cardpay\test\recurring\one_click;
 
 use Cardpay\api\RecurringsApi;
 use Cardpay\ApiException;
-use Cardpay\auth\AuthUtils;
 use Cardpay\Configuration;
 use Cardpay\HeaderSelector;
 use Cardpay\model\PaymentRequestCard;
@@ -19,8 +15,9 @@ use Cardpay\model\RecurringRequestFiling;
 use Cardpay\model\RecurringRequestRecurringData;
 use Cardpay\model\RecurringResponse;
 use Cardpay\model\Request;
+use Cardpay\test\auth\AuthUtils;
 use Cardpay\test\Config;
-use Constants;
+use Cardpay\test\Constants;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -55,16 +52,9 @@ class RecurringOneClickUtils
      * @return string|null
      * @throws ApiException
      */
-    public function createRecurringInPaymentPageMode(
-        $orderId,
-        $terminalCode = Config::PAYMENTPAGE_TERMINAL_CODE,
-        $password = Config::PAYMENTPAGE_PASSWORD,
-        $filingId = null,
-        $preAuth = false
-    )
+    public function createRecurringInPaymentPageMode($orderId, $terminalCode, $password, $filingId = null, $preAuth = false)
     {
         $redirectUrl = $this->createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth);
-
         return $redirectUrl;
     }
 
@@ -77,17 +67,10 @@ class RecurringOneClickUtils
      * @return RecurringResponse|null
      * @throws ApiException
      */
-    public function createRecurringInGatewayMode(
-        $orderId,
-        $terminalCode = Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY,
-        $password = Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY,
-        $filingId = null,
-        $preAuth = false
-    )
+    public function createRecurringInGatewayMode($orderId, $terminalCode, $password, $filingId = null, $preAuth = false)
     {
         /** @var RecurringResponse $recurringResponse */
         $recurringResponse = $this->createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth);
-
         return $recurringResponse;
     }
 
@@ -102,13 +85,11 @@ class RecurringOneClickUtils
      */
     private function createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth)
     {
-        date_default_timezone_set('UTC');
-
         $orderDescription = 'Order description (one-click recurring)';
         $orderAmount = rand(Constants::MIN_PAYMENT_AMOUNT, Constants::MAX_PAYMENT_AMOUNT);
-        $orderCurrency = Config::TERMINAL_CURRENCY;
+        $orderCurrency = Config::$terminalCurrency;
         $customerId = time();
-        $customerEmail = substr(sha1(rand()), 0, 20) . '@mailinator.com';
+        $customerEmail = substr(sha1(rand()), 0, 20) . '@' . Config::$emailsDomain;
 
         if (null == $this->config) {
             $authUtils = new AuthUtils();
@@ -121,8 +102,7 @@ class RecurringOneClickUtils
             $this->headerSelector = new HeaderSelector();
         }
 
-        $isGatewayMode = ($terminalCode == Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY
-            || $terminalCode == Config::GATEWAY_TERMINAL_CODE_POSTPONED);
+        $isGatewayMode = ($terminalCode == Config::$gatewayTerminalCode || $terminalCode == Config::$gatewayPostponedTerminalCode);
 
         $request = new Request([
             'id' => microtime(true),
@@ -167,7 +147,7 @@ class RecurringOneClickUtils
                 'pan' => Constants::TEST_CARD_PAN,
                 'holder' => Constants::TEST_CARD_HOLDER,
                 'security_code' => Constants::TEST_CARD_SECURITY_CODE,
-                'expiration' => Constants::TEST_CARD_EXPIRATION
+                'expiration' => '12/' . date('Y', strtotime('+1 year'))
             ]);
 
             $cardAccount = new PaymentRequestCardAccount([

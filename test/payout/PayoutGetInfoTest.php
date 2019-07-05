@@ -1,12 +1,12 @@
 <?php
 
-namespace Cardpay\payout;
+namespace Cardpay\test\payout;
 
 use Cardpay\ApiException;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use PHPUnit\Framework\TestCase;
 
-class PayoutGetInfoTest extends TestCase
+class PayoutGetInfoTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -15,7 +15,7 @@ class PayoutGetInfoTest extends TestCase
     {
         // create payout
         $payoutUtils = new PayoutUtils();
-        $payoutCreationResponse = $payoutUtils->createPayout(time(), Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY, Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY);
+        $payoutCreationResponse = $payoutUtils->createPayout(time(), Config::$gatewayTerminalCode, Config::$gatewayPassword);
         $payoutId = $payoutCreationResponse->getPayoutData()->getId();
 
         // get payout info

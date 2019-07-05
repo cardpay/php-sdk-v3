@@ -4,17 +4,112 @@ namespace Cardpay\test;
 
 class Config
 {
-    const SANDBOX_CARDPAY_API_URL = 'https://sandbox.cardpay.com/api';
-    // const PRODUCTION_CARDPAY_API_URL = 'https://cardpay.com/api';
+    public static $cardpayApiUrl;
 
-    const PAYMENTPAGE_TERMINAL_CODE = '18397';
-    const PAYMENTPAGE_PASSWORD = 'FpK2cy143POj';
+    public static $paymentpageTerminalCode;
+    public static $paymentpagePassword;
 
-    const GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY = '18833';       // process refunds and payouts immediately
-    const GATEWAY_PASSWORD_PROCESS_IMMEDIATELY = 'pzQf529Wa0AV';
+    public static $gatewayTerminalCode;
+    public static $gatewayPassword;
 
-    const GATEWAY_TERMINAL_CODE_POSTPONED = '18399';                 // postponed refunds and payouts
-    const GATEWAY_PASSWORD_POSTPONED = 'jehE149L7bHU';
+    public static $gatewayPostponedTerminalCode;
+    public static $gatewayPostponedPassword;
 
-    const TERMINAL_CURRENCY = 'USD';
+    public static $terminalCurrency;
+
+    public static $emailsDomain;
+
+    public static function init()
+    {
+        // production API URL: https://cardpay.com/api
+        self::$cardpayApiUrl = self::getEnvVariable('CARDPAY_API_URL', 'https://sandbox.cardpay.com/api');
+
+        self::$paymentpageTerminalCode = self::getEnvVariable('PAYMENTPAGE_TERMINAL_CODE', '18397');
+        self::$paymentpagePassword = self::getEnvVariable('PAYMENTPAGE_PASSWORD', 'FpK2cy143POj');
+
+        // process refunds and payouts immediately
+        self::$gatewayTerminalCode = self::getEnvVariable('GATEWAY_TERMINAL_CODE', '18833');
+        self::$gatewayPassword = self::getEnvVariable('GATEWAY_PASSWORD', 'pzQf529Wa0AV');
+
+        // postponed refunds and payouts
+        self::$gatewayPostponedTerminalCode = self::getEnvVariable('GATEWAY_POSTPONED_TERMINAL_CODE', '18399');
+        self::$gatewayPostponedPassword = self::getEnvVariable('GATEWAY_POSTPONED_PASSWORD', 'jehE149L7bHU');
+
+        self::$terminalCurrency = self::getEnvVariable('TERMINAL_CURRENCY', 'USD');
+
+        self::$emailsDomain = self::getEnvVariable('EMAILS_DOMAIN', 'mailinator.com');
+    }
+
+    private static function getEnvVariable($envVariable, $defaultValue)
+    {
+        if (!empty($envVariable) && isset($_ENV[$envVariable])) {
+            return $_ENV[$envVariable];
+        } else {
+            return $defaultValue;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getCardpayApiUrl()
+    {
+        return self::$cardpayApiUrl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getPaymentpageTerminalCode()
+    {
+        return self::$paymentpageTerminalCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getPaymentpagePassword()
+    {
+        return self::$paymentpagePassword;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getGatewayTerminalCode()
+    {
+        return self::$gatewayTerminalCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getGatewayPassword()
+    {
+        return self::$gatewayPassword;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getGatewayPostponedTerminalCode()
+    {
+        return self::$gatewayPostponedTerminalCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getGatewayPostponedPassword()
+    {
+        return self::$gatewayPostponedPassword;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getTerminalCurrency()
+    {
+        return self::$terminalCurrency;
+    }
 }

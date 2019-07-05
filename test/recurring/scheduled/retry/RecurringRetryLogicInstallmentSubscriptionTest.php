@@ -1,10 +1,10 @@
 <?php
 
-namespace Cardpay\recurring\scheduled\retry;
+namespace Cardpay\test\recurring\scheduled\retry;
 
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\BaseTestCase;
 
-class RecurringRetryLogicInstallmentSubscriptionTest extends TestCase
+class RecurringRetryLogicInstallmentSubscriptionTest extends BaseTestCase
 {
     public function testRetryLogicInstallmentSubscription()
     {

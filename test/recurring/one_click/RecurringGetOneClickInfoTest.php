@@ -1,11 +1,12 @@
 <?php
 
-namespace Cardpay\recurring\one_click;
+namespace Cardpay\test\recurring\one_click;
 
 use Cardpay\ApiException;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\BaseTestCase;
+use Cardpay\test\Config;
 
-class RecurringGetOneClickInfoTest extends TestCase
+class RecurringGetOneClickInfoTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -14,7 +15,7 @@ class RecurringGetOneClickInfoTest extends TestCase
     {
         // create one-click recurring
         $recurringOneClickUtils = new RecurringOneClickUtils();
-        $recurringResponse = $recurringOneClickUtils->createRecurringInGatewayMode(time());
+        $recurringResponse = $recurringOneClickUtils->createRecurringInGatewayMode(time(), Config::$gatewayTerminalCode, Config::$gatewayPassword);
         $recurringId = $recurringResponse->getRecurringData()->getId();
 
         // get recurring info

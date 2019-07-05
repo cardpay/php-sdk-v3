@@ -1,17 +1,17 @@
 <?php
 
-namespace Cardpay\recurring\one_click;
+namespace Cardpay\test\recurring\one_click;
 
 use Cardpay\ApiException;
 use Cardpay\model\PaymentUpdateTransactionData;
 use Cardpay\model\RecurringPatchRequest;
 use Cardpay\model\Request;
 use Cardpay\model\ResponseUpdatedTransactionData;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use Constants;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\Constants;
 
-class RecurringChangeOneClickStatusReverseTest extends TestCase
+class RecurringChangeOneClickStatusReverseTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -22,8 +22,8 @@ class RecurringChangeOneClickStatusReverseTest extends TestCase
         $recurringOneClickUtils = new RecurringOneClickUtils();
         $recurringResponse = $recurringOneClickUtils->createRecurringInGatewayMode(
             time(),
-            Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY,
-            Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY,
+            Config::$gatewayTerminalCode,
+            Config::$gatewayPassword,
             null,
             true
         );

@@ -1,11 +1,12 @@
 <?php
 
-namespace Cardpay\recurring\one_click;
+namespace Cardpay\test\recurring\one_click;
 
 use Cardpay\ApiException;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\BaseTestCase;
+use Cardpay\test\Config;
 
-class RecurringPaymentPageOneClickTest extends TestCase
+class RecurringPaymentPageOneClickTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -13,7 +14,7 @@ class RecurringPaymentPageOneClickTest extends TestCase
     public function testRecurringPaymentPageOneClick()
     {
         $recurringOneClickUtils = new RecurringOneClickUtils();
-        $redirectUrl = $recurringOneClickUtils->createRecurringInPaymentPageMode(time());
+        $redirectUrl = $recurringOneClickUtils->createRecurringInPaymentPageMode(time(), Config::$paymentpageTerminalCode, Config::$paymentpagePassword);
 
         self::assertNotEmpty($redirectUrl);
     }

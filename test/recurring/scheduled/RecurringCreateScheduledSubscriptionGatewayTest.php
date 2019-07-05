@@ -1,6 +1,6 @@
 <?php
 
-namespace Cardpay\recurring\scheduled;
+namespace Cardpay\test\recurring\scheduled;
 
 use Cardpay\ApiException;
 use Cardpay\test\Config;
@@ -9,7 +9,7 @@ class RecurringCreateScheduledSubscriptionGatewayTest extends RecurringScheduled
 {
     public function __construct()
     {
-        parent::__construct(Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY, Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY);
+        parent::__construct(Config::$gatewayTerminalCode, Config::$gatewayPassword);
     }
 
     /**

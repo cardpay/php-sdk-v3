@@ -1,18 +1,18 @@
 <?php
 
-namespace Cardpay\refund;
+namespace Cardpay\test\refund;
 
 use Cardpay\ApiException;
 use Cardpay\model\RefundUpdateRequest;
 use Cardpay\model\Request;
 use Cardpay\model\RequestUpdatedTransactionData;
 use Cardpay\model\ResponseUpdatedTransactionData;
-use Cardpay\payment\PaymentUtils;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use Constants;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\Constants;
+use Cardpay\test\payment\PaymentUtils;
 
-class RefundChangeStatusTest extends TestCase
+class RefundChangeStatusTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -21,12 +21,12 @@ class RefundChangeStatusTest extends TestCase
     {
         // create payment
         $paymentUtils = new PaymentUtils();
-        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time(), Config::GATEWAY_TERMINAL_CODE_POSTPONED, $password = Config::GATEWAY_PASSWORD_POSTPONED);
+        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time(), Config::$gatewayPostponedTerminalCode, $password = Config::$gatewayPostponedPassword);
         $paymentId = $paymentResponse->getPaymentData()->getId();
 
         // create refund
         $refundUtils = new RefundUtils();
-        $refundCreationResponse = $refundUtils->createRefund($paymentId, $paymentUtils, Config::TERMINAL_CURRENCY);
+        $refundCreationResponse = $refundUtils->createRefund($paymentId, $paymentUtils, Config::$terminalCurrency);
         $refundId = $refundCreationResponse->getRefundData()->getId();
 
         // change refund status (reverse)

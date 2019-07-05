@@ -1,6 +1,6 @@
 <?php
 
-namespace Cardpay\recurring\scheduled\update_billing_info;
+namespace Cardpay\test\recurring\scheduled\update_billing_info;
 
 use Cardpay\ApiException;
 use Cardpay\model\FilingRecurringData;
@@ -11,16 +11,16 @@ use Cardpay\model\PaymentCreationResponse;
 use Cardpay\model\PaymentRequestCard;
 use Cardpay\model\PaymentRequestCardAccount;
 use Cardpay\model\Request;
-use Cardpay\recurring\scheduled\RecurringScheduledTestCase;
 use Cardpay\test\Config;
-use Constants;
+use Cardpay\test\Constants;
+use Cardpay\test\recurring\scheduled\RecurringScheduledTestCase;
 use GuzzleHttp\Exception\GuzzleException;
 
 class RecurringScheduledUpdateBillingInfoTest extends RecurringScheduledTestCase
 {
     public function __construct()
     {
-        parent::__construct(Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY, Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY);
+        parent::__construct(Config::$gatewayTerminalCode, Config::$gatewayPassword);
     }
 
     /**
@@ -69,7 +69,7 @@ class RecurringScheduledUpdateBillingInfoTest extends RecurringScheduledTestCase
             'pan' => Constants::TEST_CARD_PAN,
             'holder' => Constants::TEST_CARD_HOLDER,
             'security_code' => Constants::TEST_CARD_SECURITY_CODE,
-            'expiration' => Constants::TEST_CARD_EXPIRATION
+            'expiration' => '12/' . date('Y', strtotime('+1 year'))
         ]);
 
         $cardAccount = new PaymentRequestCardAccount([

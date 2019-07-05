@@ -1,8 +1,6 @@
 <?php
 
-namespace Cardpay\refund;
-
-require_once(__DIR__ . "/../Constants.php");
+namespace Cardpay\test\refund;
 
 use Cardpay\api\RefundsApi;
 use Cardpay\ApiException;
@@ -11,8 +9,8 @@ use Cardpay\model\RefundRequestPaymentData;
 use Cardpay\model\RefundRequestRefundData;
 use Cardpay\model\RefundResponse;
 use Cardpay\model\Request;
-use Cardpay\payment\PaymentUtils;
-use Constants;
+use Cardpay\test\Constants;
+use Cardpay\test\payment\PaymentUtils;
 
 class RefundUtils
 {

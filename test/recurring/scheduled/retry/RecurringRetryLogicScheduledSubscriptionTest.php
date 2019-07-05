@@ -1,17 +1,17 @@
 <?php
 
-namespace Cardpay\recurring\scheduled\retry;
+namespace Cardpay\test\recurring\scheduled\retry;
 
 use Cardpay\ApiException;
 use Cardpay\model\ResponsePlanData;
-use Cardpay\recurring\scheduled\RecurringScheduledTestCase;
 use Cardpay\test\Config;
+use Cardpay\test\recurring\scheduled\RecurringScheduledTestCase;
 
 class RecurringRetryLogicScheduledSubscriptionTest extends RecurringScheduledTestCase
 {
     public function __construct()
     {
-        parent::__construct(Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY, Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY);
+        parent::__construct(Config::$gatewayTerminalCode, Config::$gatewayPassword);
     }
 
     /**

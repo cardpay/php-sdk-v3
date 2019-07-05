@@ -1,12 +1,13 @@
 <?php
 
-namespace Cardpay\recurring\one_click;
+namespace Cardpay\test\recurring\one_click;
 
 use Cardpay\ApiException;
 use Cardpay\model\RecurringResponseRecurringData;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\BaseTestCase;
+use Cardpay\test\Config;
 
-class RecurringGatewayModeOneClickTest extends TestCase
+class RecurringGatewayModeOneClickTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -14,7 +15,7 @@ class RecurringGatewayModeOneClickTest extends TestCase
     public function testRecurringGatewayModeOneClick()
     {
         $recurringOneClickUtils = new RecurringOneClickUtils();
-        $recurringResponse = $recurringOneClickUtils->createRecurringInGatewayMode(time());
+        $recurringResponse = $recurringOneClickUtils->createRecurringInGatewayMode(time(), Config::$gatewayTerminalCode, Config::$gatewayPassword);
 
         self::assertEquals(RecurringResponseRecurringData::STATUS_COMPLETED, $recurringResponse->getRecurringData()->getStatus());
     }

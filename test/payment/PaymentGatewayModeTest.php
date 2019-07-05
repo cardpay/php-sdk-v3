@@ -1,11 +1,12 @@
 <?php
 
-namespace Cardpay\payment;
+namespace Cardpay\test\payment;
 
 use Cardpay\ApiException;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\BaseTestCase;
+use Cardpay\test\Config;
 
-class PaymentGatewayModeTest extends TestCase
+class PaymentGatewayModeTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -13,7 +14,7 @@ class PaymentGatewayModeTest extends TestCase
     public function testGateway()
     {
         $paymentUtils = new PaymentUtils();
-        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time());
+        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time(), Config::$gatewayTerminalCode, Config::$gatewayPassword);
 
         self::assertNotEmpty($paymentResponse->getPaymentData()->getId());
     }

@@ -1,21 +1,18 @@
 <?php
 
-namespace Cardpay\recurring\scheduled;
-
-require_once(__DIR__ . "/../../Config.php");
-require_once(__DIR__ . "/../../Constants.php");
+namespace Cardpay\test\recurring\scheduled;
 
 use Cardpay\api\RecurringsApi;
 use Cardpay\ApiException;
-use Cardpay\auth\AuthUtils;
 use Cardpay\Configuration;
 use Cardpay\HeaderSelector;
 use Cardpay\model\RecurringPlanRequest;
 use Cardpay\model\RecurringPlanRequestPlanData;
 use Cardpay\model\RecurringPlanResponse;
 use Cardpay\model\Request;
+use Cardpay\test\auth\AuthUtils;
 use Cardpay\test\Config;
-use Constants;
+use Cardpay\test\Constants;
 use GuzzleHttp\Client;
 
 class RecurringPlanUtils
@@ -53,7 +50,7 @@ class RecurringPlanUtils
         $period = RecurringPlanRequestPlanData::PERIOD_WEEK;
         $interval = rand(1, 52);
         $orderAmount = rand(Constants::MIN_PAYMENT_AMOUNT, Constants::MAX_PAYMENT_AMOUNT);
-        $orderCurrency = Config::TERMINAL_CURRENCY;
+        $orderCurrency = Config::$terminalCurrency;
 
         if (null == $this->config) {
             $authUtils = new AuthUtils();

@@ -1,13 +1,13 @@
 <?php
 
-namespace Cardpay\refund;
+namespace Cardpay\test\refund;
 
 use Cardpay\ApiException;
-use Cardpay\payment\PaymentUtils;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\payment\PaymentUtils;
 
-class RefundGetListTest extends TestCase
+class RefundGetListTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -18,13 +18,13 @@ class RefundGetListTest extends TestCase
 
         // create payment
         $paymentUtils = new PaymentUtils();
-        $paymentResponse = $paymentUtils->createPaymentInGatewayMode($orderId);
+        $paymentResponse = $paymentUtils->createPaymentInGatewayMode($orderId, Config::$gatewayTerminalCode, Config::$gatewayPassword);
         $paymentId = $paymentResponse->getPaymentData()->getId();
 
         // create two partial refunds
         $refundUtils = new RefundUtils();
-        $refundCreationResponse1 = $refundUtils->createRefund($paymentId, $paymentUtils, Config::TERMINAL_CURRENCY, 1);
-        $refundCreationResponse2 = $refundUtils->createRefund($paymentId, $paymentUtils, Config::TERMINAL_CURRENCY, 2);
+        $refundCreationResponse1 = $refundUtils->createRefund($paymentId, $paymentUtils, Config::$terminalCurrency, 1);
+        $refundCreationResponse2 = $refundUtils->createRefund($paymentId, $paymentUtils, Config::$terminalCurrency, 2);
 
         // get refunds list info
         $refundsApi = $refundUtils->getRefundsApi();

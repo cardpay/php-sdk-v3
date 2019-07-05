@@ -1,10 +1,10 @@
 <?php
 
-namespace Cardpay\recurring\one_click;
+namespace Cardpay\test\recurring\one_click;
 
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\BaseTestCase;
 
-class RecurringContinueOneClickTest extends TestCase
+class RecurringContinueOneClickTest extends BaseTestCase
 {
     public function testContinueOneClickPayment()
     {

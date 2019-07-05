@@ -1,17 +1,17 @@
 <?php
 
-namespace Cardpay\payout;
+namespace Cardpay\test\payout;
 
 use Cardpay\ApiException;
 use Cardpay\model\PayoutUpdateRequest;
 use Cardpay\model\Request;
 use Cardpay\model\RequestUpdatedTransactionData;
 use Cardpay\model\ResponseUpdatedTransactionData;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use Constants;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\Constants;
 
-class PayoutChangeStatusTest extends TestCase
+class PayoutChangeStatusTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -20,7 +20,7 @@ class PayoutChangeStatusTest extends TestCase
     {
         // create payout
         $payoutUtils = new PayoutUtils();
-        $payoutCreationResponse = $payoutUtils->createPayout(time(), Config::GATEWAY_TERMINAL_CODE_POSTPONED, Config::GATEWAY_PASSWORD_POSTPONED);
+        $payoutCreationResponse = $payoutUtils->createPayout(time(), Config::$gatewayPostponedTerminalCode, Config::$gatewayPostponedPassword);
         $payoutId = $payoutCreationResponse->getPayoutData()->getId();
 
         // change payout status (reverse)

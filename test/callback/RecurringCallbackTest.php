@@ -1,14 +1,12 @@
 <?php
 
-namespace Cardpay\callback;
-
-require_once(__DIR__ . "/../Config.php");
+namespace Cardpay\test\callback;
 
 use Cardpay\model\RecurringResponseRecurringData;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use PHPUnit\Framework\TestCase;
 
-class RecurringCallbackTest extends TestCase
+class RecurringCallbackTest extends BaseTestCase
 {
     public function testRecurringCallback()
     {
@@ -18,7 +16,7 @@ class RecurringCallbackTest extends TestCase
         // 'Signature' header example
         $signature = 'b9b351d70584b217d9d5f0b9039e0fc410cd6caf5f85c77afb4c27131620e2c78b8b59d27efdfd4fde7049561ad4182c251844a62a921052d9e817b7e7df10b0';
 
-        $secretKey = Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY;
+        $secretKey = Config::$gatewayPassword;
 
         // validate callback
         $calculatedSignature = hash('sha512', $recurringCallback . $secretKey);

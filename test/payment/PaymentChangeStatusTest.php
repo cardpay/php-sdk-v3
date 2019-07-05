@@ -1,17 +1,17 @@
 <?php
 
-namespace Cardpay\payment;
+namespace Cardpay\test\payment;
 
 use Cardpay\ApiException;
 use Cardpay\model\PaymentPatchRequest;
 use Cardpay\model\PaymentUpdateTransactionData;
 use Cardpay\model\Request;
 use Cardpay\model\ResponseUpdatedTransactionData;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use Constants;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\Constants;
 
-class PaymentChangeStatusTest extends TestCase
+class PaymentChangeStatusTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -22,8 +22,8 @@ class PaymentChangeStatusTest extends TestCase
         $paymentUtils = new PaymentUtils();
         $paymentResponse = $paymentUtils->createPaymentInGatewayMode(
             time(),
-            Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY,
-            Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY,
+            Config::$gatewayTerminalCode,
+            Config::$gatewayPassword,
             true
         );
         $paymentId = $paymentResponse->getPaymentData()->getId();

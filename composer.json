@@ -26,6 +26,6 @@
         "psr-4": { "Cardpay\\" : "lib/" }
     },
     "autoload-dev": {
-        "psr-4": { "Cardpay\\" : "test/" }
+        "psr-4": { "Cardpay\\test\\" : "test/" }
     }
 }

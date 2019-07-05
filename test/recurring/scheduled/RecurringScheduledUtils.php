@@ -1,13 +1,9 @@
 <?php
 
-namespace Cardpay\recurring\scheduled;
-
-require_once(__DIR__ . "/../../Config.php");
-require_once(__DIR__ . "/../../Constants.php");
+namespace Cardpay\test\recurring\scheduled;
 
 use Cardpay\api\RecurringsApi;
 use Cardpay\ApiException;
-use Cardpay\auth\AuthUtils;
 use Cardpay\Configuration;
 use Cardpay\HeaderSelector;
 use Cardpay\model\PaymentRequestCard;
@@ -22,8 +18,9 @@ use Cardpay\model\Request;
 use Cardpay\model\SubscriptionUpdateRequest;
 use Cardpay\model\SubscriptionUpdateRequestSubscriptionData;
 use Cardpay\model\SubscriptionUpdateResponse;
+use Cardpay\test\auth\AuthUtils;
 use Cardpay\test\Config;
-use Constants;
+use Cardpay\test\Constants;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -83,9 +80,7 @@ class RecurringScheduledUtils
     }
 
     /**
-     * @param $orderId
-     * @param string $terminalCode
-     * @param string $password
+     * @param string $orderId
      * @param string $planId
      * @param string $subscriptionStart
      * @return string|null
@@ -99,9 +94,7 @@ class RecurringScheduledUtils
     }
 
     /**
-     * @param $orderId
-     * @param string $terminalCode
-     * @param string $password
+     * @param string $orderId
      * @param string $planId
      * @param string $subscriptionStart
      * @return RecurringResponse|null
@@ -116,9 +109,9 @@ class RecurringScheduledUtils
     }
 
     /**
-     * @param $orderId
-     * @param $planId
-     * @param $subscriptionStart
+     * @param string $orderId
+     * @param string $planId
+     * @param string $subscriptionStart
      * @return RecurringResponse|string|null
      * @throws ApiException
      */
@@ -126,10 +119,9 @@ class RecurringScheduledUtils
     {
         $orderDescription = 'Order description (scheduled subscription)';
         $customerId = time();
-        $customerEmail = substr(sha1(rand()), 0, 20) . '@mailinator.com';
+        $customerEmail = substr(sha1(rand()), 0, 20) . '@' . Config::$emailsDomain;
 
-        $isGatewayMode = ($this->terminalCode == Config::GATEWAY_TERMINAL_CODE_PROCESS_IMMEDIATELY
-            || $this->terminalCode == Config::GATEWAY_TERMINAL_CODE_POSTPONED);
+        $isGatewayMode = ($this->terminalCode == Config::$gatewayTerminalCode || $this->terminalCode == Config::$gatewayPostponedTerminalCode);
 
         $request = new Request([
             'id' => microtime(true),
@@ -171,7 +163,7 @@ class RecurringScheduledUtils
                 'pan' => Constants::TEST_CARD_PAN,
                 'holder' => Constants::TEST_CARD_HOLDER,
                 'security_code' => Constants::TEST_CARD_SECURITY_CODE,
-                'expiration' => Constants::TEST_CARD_EXPIRATION
+                'expiration' => '12/' . date('Y', strtotime('+1 year'))
             ]);
 
             $cardAccount = new PaymentRequestCardAccount([

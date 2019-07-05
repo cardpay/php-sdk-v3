@@ -1,13 +1,13 @@
 <?php
 
-namespace Cardpay\refund;
+namespace Cardpay\test\refund;
 
 use Cardpay\ApiException;
-use Cardpay\payment\PaymentUtils;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\payment\PaymentUtils;
 
-class RefundGetInfoTest extends TestCase
+class RefundGetInfoTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -16,12 +16,12 @@ class RefundGetInfoTest extends TestCase
     {
         // create payment
         $paymentUtils = new PaymentUtils();
-        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time());
+        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time(), Config::$gatewayTerminalCode, Config::$gatewayPassword);
         $paymentId = $paymentResponse->getPaymentData()->getId();
 
         // create refund
         $refundUtils = new RefundUtils();
-        $refundCreationResponse = $refundUtils->createRefund($paymentId, $paymentUtils, Config::TERMINAL_CURRENCY);
+        $refundCreationResponse = $refundUtils->createRefund($paymentId, $paymentUtils, Config::$terminalCurrency);
         $refundId = $refundCreationResponse->getRefundData()->getId();
 
         // get refund info

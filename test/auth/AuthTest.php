@@ -1,15 +1,13 @@
 <?php
 
-namespace Cardpay\auth;
-
-require_once(__DIR__ . "/../Config.php");
+namespace Cardpay\test\auth;
 
 use Cardpay\api\AuthApi;
 use Cardpay\ApiException;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use PHPUnit\Framework\TestCase;
 
-class AuthTest extends TestCase
+class AuthTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -17,7 +15,7 @@ class AuthTest extends TestCase
     public function testAuthTokens()
     {
         $authApi = new AuthApi();
-        $apiTokens = $authApi->obtainTokens('password', Config::PAYMENTPAGE_PASSWORD, null, Config::PAYMENTPAGE_TERMINAL_CODE);
+        $apiTokens = $authApi->obtainTokens('password', Config::$paymentpagePassword, null, Config::$paymentpageTerminalCode);
 
         $accessToken = $apiTokens->getAccessToken();
         $accessTokenExpiresIn = $apiTokens->getExpiresIn();

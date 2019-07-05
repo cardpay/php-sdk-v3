@@ -1,12 +1,12 @@
 <?php
 
-namespace Cardpay\test;
+namespace Cardpay\test\payment;
 
 use Cardpay\ApiException;
-use Cardpay\payment\PaymentUtils;
-use PHPUnit\Framework\TestCase;
+use Cardpay\test\BaseTestCase;
+use Cardpay\test\Config;
 
-class PaymentPaymentPageTest extends TestCase
+class PaymentPaymentPageTest extends BaseTestCase
 {
     /**
      * @throws ApiException
@@ -14,7 +14,7 @@ class PaymentPaymentPageTest extends TestCase
     public function testPaymentPage()
     {
         $paymentUtils = new PaymentUtils();
-        $redirectUrl = $paymentUtils->createPaymentInPaymentPageMode(time(), Config::PAYMENTPAGE_TERMINAL_CODE, Config::PAYMENTPAGE_PASSWORD);
+        $redirectUrl = $paymentUtils->createPaymentInPaymentPageMode(time(), Config::$paymentpageTerminalCode, Config::$paymentpagePassword);
 
         self::assertNotEmpty($redirectUrl);
     }

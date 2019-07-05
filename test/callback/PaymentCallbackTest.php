@@ -1,14 +1,12 @@
 <?php
 
-namespace Cardpay\callback;
-
-require_once(__DIR__ . "/../Config.php");
+namespace Cardpay\test\callback;
 
 use Cardpay\model\PaymentResponsePaymentData;
+use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use PHPUnit\Framework\TestCase;
 
-class PaymentCallbackTest extends TestCase
+class PaymentCallbackTest extends BaseTestCase
 {
     public function testPaymentCallback()
     {
@@ -18,7 +16,7 @@ class PaymentCallbackTest extends TestCase
         // 'Signature' header example
         $signature = '626598d3465770829f83e35910f99cf897fbb25ff0e7cb0f75934c29339cf9d9a9a6d602d99b2f3e7272301b609247b43981f90d313b646b16d802de212f671a';
 
-        $secretKey = Config::GATEWAY_PASSWORD_PROCESS_IMMEDIATELY;
+        $secretKey = Config::$gatewayPassword;
 
         // validate callback
         $calculatedSignature = hash('sha512', $paymentCallback . $secretKey);
