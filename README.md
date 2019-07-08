@@ -42,6 +42,28 @@ Download the files and include `autoload.php`:
     require_once('./vendor/autoload.php');
 ```
 
+
+## Getting Started
+
+**Important:** please note that current implementation is using temporary files storage (see [FileTokensAuthApi](lib/api/FileTokensAuthApi.php)), to save and reuse received access and refresh API tokens.
+You may implement another tokens storage (session, Memcached, Redis, etc) by implementing [TokensAuthApiInterface](lib/api/TokensAuthApiInterface.php) interface.
+
+Please follow the [installation procedure](#installation--usage) and then run the following:
+
+```php
+<?php
+
+use Cardpay\model\FileTokensAuthApi;
+
+$fileTokensAuthApi = new FileTokensAuthApi();
+$apiTokens = $fileTokensAuthApi->obtainApiTokens($terminalCode, $password);
+
+$accessToken = $apiTokens->getAccessToken();
+$refreshToken = $apiTokens->getRefreshToken();
+$tokenType = $apiTokens->getTokenType();
+```
+
+
 ## Tests
 
 Open ./test/Config.php and set terminal code, password and currency.
@@ -50,42 +72,9 @@ To run the unit tests:
 
 ```
 composer install
-./vendor/bin/phpunit ./test
+./vendor/bin/phpunit --configuration ./phpunit.xml
 ```
 
-## Getting Started
-
-Please follow the [installation procedure](#installation--usage) and then run the following:
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-// Configure API key authorization: Bearer
-$config = Cardpay\Configuration::getDefaultConfiguration()
-    ->setApiKey('Authorization', 'YOUR_API_KEY')
-    ->setApiKeyPrefix('Authorization', 'bearer');
-
-$apiInstance = new Cardpay\Api\AuthApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$grantType = "grant_type_example"; // string | Token request credentials representation
-$password = "\"secret\""; // string | Terminal password value (only for [password] grant type)
-$refresh_token = "\"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ2bWRoQz\""; // string | Refresh token string (only for [refresh_token] grant type)
-$terminal_code = "\"1001\""; // string | Terminal code value
-
-try {
-    $result = $apiInstance->obtainTokens($grantType, $password, $refresh_token, $terminal_code);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling AuthApi->obtainTokens: ', $e->getMessage(), PHP_EOL;
-}
-
-?>
-```
 
 ## Documentation for models
 

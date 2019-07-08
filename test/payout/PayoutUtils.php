@@ -41,19 +41,17 @@ class PayoutUtils
     private $headerSelector;
 
     /**
-     * @param $orderId
-     * @param $terminalCode
-     * @param $password
+     * @param string $orderId
+     * @param string $terminalCode
+     * @param string $password
      * @return PayoutResponse
      * @throws ApiException
      */
     public function createPayout($orderId, $terminalCode, $password)
     {
-        date_default_timezone_set('UTC');
-
         if (null == $this->config) {
             $authUtils = new AuthUtils();
-            $this->config = $authUtils->getConfig($terminalCode, $password);
+            $this->config = $authUtils->getConfiguration($terminalCode, $password);
         }
 
         $request = new Request([

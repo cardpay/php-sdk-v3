@@ -40,6 +40,11 @@ class Config
         self::$emailsDomain = self::getEnvVariable('EMAILS_DOMAIN', 'mailinator.com');
     }
 
+    /**
+     * @param string $envVariable
+     * @param string $defaultValue
+     * @return mixed
+     */
     private static function getEnvVariable($envVariable, $defaultValue)
     {
         if (!empty($envVariable) && isset($_ENV[$envVariable])) {
@@ -47,69 +52,5 @@ class Config
         } else {
             return $defaultValue;
         }
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getCardpayApiUrl()
-    {
-        return self::$cardpayApiUrl;
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getPaymentpageTerminalCode()
-    {
-        return self::$paymentpageTerminalCode;
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getPaymentpagePassword()
-    {
-        return self::$paymentpagePassword;
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getGatewayTerminalCode()
-    {
-        return self::$gatewayTerminalCode;
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getGatewayPassword()
-    {
-        return self::$gatewayPassword;
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getGatewayPostponedTerminalCode()
-    {
-        return self::$gatewayPostponedTerminalCode;
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getGatewayPostponedPassword()
-    {
-        return self::$gatewayPostponedPassword;
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getTerminalCurrency()
-    {
-        return self::$terminalCurrency;
     }
 }

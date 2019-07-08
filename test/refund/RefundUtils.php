@@ -20,7 +20,7 @@ class RefundUtils
     private $refundsApi;
 
     /**
-     * @param $paymentId
+     * @param string $paymentId
      * @param PaymentUtils $paymentUtils
      * @param int $refundAmount
      * @param string $refundCurrency

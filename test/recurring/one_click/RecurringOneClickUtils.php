@@ -44,7 +44,7 @@ class RecurringOneClickUtils
     private $headerSelector;
 
     /**
-     * @param $orderId
+     * @param string $orderId
      * @param string $terminalCode
      * @param string $password
      * @param string $filingId
@@ -59,7 +59,7 @@ class RecurringOneClickUtils
     }
 
     /**
-     * @param $orderId
+     * @param string $orderId
      * @param string $terminalCode
      * @param string $password
      * @param string $filingId
@@ -75,11 +75,11 @@ class RecurringOneClickUtils
     }
 
     /**
-     * @param $orderId
-     * @param $terminalCode
-     * @param $password
-     * @param $filingId
-     * @param $preAuth
+     * @param string $orderId
+     * @param string $terminalCode
+     * @param string $password
+     * @param string $filingId
+     * @param bool $preAuth
      * @return RecurringResponse|string|null
      * @throws ApiException
      */
@@ -93,7 +93,7 @@ class RecurringOneClickUtils
 
         if (null == $this->config) {
             $authUtils = new AuthUtils();
-            $this->config = $authUtils->getConfig($terminalCode, $password);
+            $this->config = $authUtils->getConfiguration($terminalCode, $password);
         }
         if (null == $this->client) {
             $this->client = new Client();

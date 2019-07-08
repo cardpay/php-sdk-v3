@@ -54,7 +54,7 @@ class RecurringPlanUtils
 
         if (null == $this->config) {
             $authUtils = new AuthUtils();
-            $this->config = $authUtils->getConfig($terminalCode, $password);
+            $this->config = $authUtils->getConfiguration($terminalCode, $password);
         }
         if (null == $this->client) {
             $this->client = new Client();

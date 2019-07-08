@@ -51,9 +51,10 @@ class RecurringScheduledUtils
     private $password;
 
     /**
-     * RecurringScheduledUtils constructor.
-     * @param $terminalCode
-     * @param $password
+     * RecurringScheduledUtils constructor
+     *
+     * @param string $terminalCode
+     * @param string $password
      * @throws ApiException
      */
     public function __construct($terminalCode, $password)
@@ -63,7 +64,7 @@ class RecurringScheduledUtils
 
         if (null == $this->config) {
             $authUtils = new AuthUtils();
-            $this->config = $authUtils->getConfig($terminalCode, $password);
+            $this->config = $authUtils->getConfiguration($terminalCode, $password);
         }
 
         if (null == $this->client) {

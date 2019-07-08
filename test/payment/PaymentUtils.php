@@ -81,8 +81,6 @@ class PaymentUtils
      */
     private function createPayment($orderId, $terminalCode, $password, $preAuth)
     {
-        date_default_timezone_set('UTC');
-
         $orderDescription = 'Order description';
         $orderAmount = rand(Constants::MIN_PAYMENT_AMOUNT, Constants::MAX_PAYMENT_AMOUNT);
         $orderCurrency = Config::$terminalCurrency;
@@ -90,7 +88,7 @@ class PaymentUtils
 
         if (null == $this->config) {
             $authUtils = new AuthUtils();
-            $this->config = $authUtils->getConfig($terminalCode, $password);
+            $this->config = $authUtils->getConfiguration($terminalCode, $password);
         }
         if (null == $this->client) {
             $this->client = new Client();
@@ -167,8 +165,7 @@ class PaymentUtils
             }
 
             // get payment response
-            $paymentsList = $this->paymentsApi
-                ->getPayments(microtime(true), null, null, null, $orderId);
+            $paymentsList = $this->paymentsApi->getPayments(microtime(true), null, null, null, $orderId);
 
             $data = $paymentsList->getData();
             if (false === isset($data[0])) {
