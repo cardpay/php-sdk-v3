@@ -53,7 +53,7 @@ Please follow the [installation procedure](#installation--usage) and then run th
 ```php
 <?php
 
-use Cardpay\model\FileTokensAuthApi;
+use Cardpay\api\FileTokensAuthApi;
 
 $fileTokensAuthApi = new FileTokensAuthApi();
 $apiTokens = $fileTokensAuthApi->obtainApiTokens($terminalCode, $password);
