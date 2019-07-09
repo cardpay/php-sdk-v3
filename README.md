@@ -6,12 +6,10 @@ The Cardpay API uses HTTP verbs and a RESTful endpoint structure. Request and re
 
 For more information, please visit [https://integration.cardpay.com/v3/](https://integration.cardpay.com/v3/)
 
-
 ## Requirements
 
 - PHP 5.6 or later
 - curl, json, openssl extensions
-
 
 ## Installation & Usage
 ### Composer

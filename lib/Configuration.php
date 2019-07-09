@@ -50,14 +50,14 @@ class Configuration
      *
      * @var string
      */
-    protected $host = 'https://sandbox.cardpay.com';
+    protected $host = '';
 
     /**
      * User agent of the HTTP request, set to "PHP-Swagger" by default
      *
      * @var string
      */
-    protected $userAgent = 'CardpaySDK/1.4.4/PHP';
+    protected $userAgent = 'CardpaySdk/1.4.4.8/PHP';
 
     /**
      * Debug switch (default set to false)
@@ -86,6 +86,12 @@ class Configuration
     public function __construct()
     {
         $this->tempFolderPath = sys_get_temp_dir();
+
+        if (isset($_ENV['CARDPAY_API_URL'])) {
+            $this->host = $_ENV['CARDPAY_API_URL'];
+        } else {
+            $this->host = 'https://sandbox.cardpay.com';
+        }
     }
 
     /**
@@ -366,7 +372,7 @@ class Configuration
         $report .= '    OS: ' . php_uname() . PHP_EOL;
         $report .= '    PHP Version: ' . PHP_VERSION . PHP_EOL;
         $report .= '    OpenAPI Spec Version: 3.0' . PHP_EOL;
-        $report .= '    SDK Package Version: 1.4.4' . PHP_EOL;
+        $report .= '    SDK Package Version: 1.4.4.8' . PHP_EOL;
         $report .= '    Temp Folder Path: ' . self::getDefaultConfiguration()->getTempFolderPath() . PHP_EOL;
 
         return $report;
