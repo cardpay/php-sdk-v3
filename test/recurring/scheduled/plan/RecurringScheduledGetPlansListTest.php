@@ -3,6 +3,7 @@
 namespace Cardpay\test\recurring\scheduled\plan;
 
 use Cardpay\ApiException;
+use Cardpay\model\ResponsePlanData;
 use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
 use Cardpay\test\recurring\scheduled\RecurringPlanUtils;
@@ -27,6 +28,9 @@ class RecurringScheduledGetPlansListTest extends BaseTestCase
         $planResponse1 = $data[1];
 
         self::assertNotEmpty($planResponse1->getId());
+        self::assertEquals(ResponsePlanData::STATUS_ACTIVE, $planResponse1->getStatus());
+
         self::assertNotEmpty($planResponse2->getId());
+        self::assertEquals(ResponsePlanData::STATUS_ACTIVE, $planResponse2->getStatus());
     }
 }

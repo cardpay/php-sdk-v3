@@ -46,7 +46,6 @@ class FileTokensAuthApi implements TokensAuthApiInterface
 
         $this->terminalCode = $terminalCode;
         $this->password = $password;
-
         $this->apiTokensTempFilepath = $this->getTempFilepath($terminalCode);
 
         if (false === file_exists($this->apiTokensTempFilepath)) {
@@ -80,7 +79,7 @@ class FileTokensAuthApi implements TokensAuthApiInterface
 
         /** @var ApiTokens $apiTokens */
         $apiTokens = $authApi->obtainTokens('password', $this->password, null, $this->terminalCode);
-        $this->saveTokensToTempFile($apiTokens);
+        $this->writeApiTokensToTempFile($apiTokens);
 
         return $apiTokens;
     }
@@ -96,9 +95,35 @@ class FileTokensAuthApi implements TokensAuthApiInterface
 
         /** @var ApiTokens $apiTokens */
         $apiTokens = $authApi->obtainTokens('refresh_token', null, $refreshToken, null);
-        $this->saveTokensToTempFile($apiTokens);
+        $this->writeApiTokensToTempFile($apiTokens);
 
         return $apiTokens;
+    }
+
+    /**
+     * @param ApiTokens $apiTokens
+     * @return bool
+     * @throws ApiException
+     */
+    private function writeApiTokensToTempFile(ApiTokens $apiTokens)
+    {
+        $currentTimeMilliseconds = $this->getCurrentTimeMilliseconds();
+
+        $accessTokenExpiresIn = $apiTokens->getExpiresIn();
+        $apiTokens->setExpiresIn($accessTokenExpiresIn * 1000 + $currentTimeMilliseconds);
+
+        $refreshTokenExpiresIn = $apiTokens->getRefreshExpiresIn();
+        $apiTokens->setRefreshExpiresIn($refreshTokenExpiresIn * 1000 + $currentTimeMilliseconds);
+
+        $apiTokensSerialized = serialize($apiTokens);
+
+        /** @var bool $areTokensSaved */
+        $areTokensSaved = file_put_contents($this->apiTokensTempFilepath, $apiTokensSerialized);
+        if (false === $areTokensSaved) {
+            throw new ApiException('Unable to write API tokens to temporary file');
+        }
+
+        return true;
     }
 
     /**
@@ -113,8 +138,10 @@ class FileTokensAuthApi implements TokensAuthApiInterface
         }
 
         if (empty($apiTokensFileContents)) {
+            /** @var ApiTokens $apiTokens */
             $apiTokens = $this->obtainTokensByPassword();
-            $this->saveTokensToTempFile($apiTokens);
+            $this->writeApiTokensToTempFile($apiTokens);
+
         } else {
             $apiTokens = unserialize($apiTokensFileContents);
             if (false === $apiTokens) {
@@ -126,44 +153,6 @@ class FileTokensAuthApi implements TokensAuthApiInterface
         }
 
         return $apiTokens;
-    }
-
-    /**
-     * @param ApiTokens $apiTokens
-     * @return bool
-     * @throws ApiException
-     */
-    private function saveTokensToTempFile(ApiTokens $apiTokens)
-    {
-        $currentTimeMilliseconds = $this->getCurrentTimeMilliseconds();
-
-        $accessTokenExpiresIn = $apiTokens->getExpiresIn();
-        $apiTokens->setExpiresIn($accessTokenExpiresIn * 1000 + $currentTimeMilliseconds);
-
-        $refreshTokenExpiresIn = $apiTokens->getRefreshExpiresIn();
-        $apiTokens->setRefreshExpiresIn($refreshTokenExpiresIn * 1000 + $currentTimeMilliseconds);
-
-        /** @var bool $areTokensSaved */
-        $areTokensSaved = $this->writeTokensToTempFile($apiTokens);
-
-        return $areTokensSaved;
-    }
-
-    /**
-     * @param ApiTokens $apiTokens
-     * @return bool
-     * @throws ApiException
-     */
-    public function writeTokensToTempFile(ApiTokens $apiTokens)
-    {
-        $apiTokensSerialized = serialize($apiTokens);
-
-        $isFileWritten = file_put_contents($this->apiTokensTempFilepath, $apiTokensSerialized);
-        if (false === $isFileWritten) {
-            throw new ApiException('Unable to write API tokens to temporary file');
-        }
-
-        return true;
     }
 
     private function isTokenExpired($expiresAt)

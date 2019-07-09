@@ -20,6 +20,9 @@ class PayoutGetListTest extends BaseTestCase
         $payoutCreationResponse1 = $payoutUtils->createPayout($orderId, Config::$gatewayTerminalCode, Config::$gatewayPassword);
         $payoutCreationResponse2 = $payoutUtils->createPayout($orderId, Config::$gatewayTerminalCode, Config::$gatewayPassword);
 
+        self::assertNotEmpty($payoutCreationResponse1->getPayoutData()->getId());
+        self::assertNotEmpty($payoutCreationResponse2->getPayoutData()->getId());
+
         // get payouts list information
         $payoutsList = $payoutUtils->getPayoutsApi()->getPayouts(microtime(true), null, null, null, $orderId);
 
@@ -27,7 +30,10 @@ class PayoutGetListTest extends BaseTestCase
         $payoutsResponse2 = $data[0];
         $payoutsResponse1 = $data[1];
 
-        self::assertEquals($payoutCreationResponse1->getPayoutData()->getId(), $payoutsResponse1->getPayoutData()->getId());
-        self::assertEquals($payoutCreationResponse2->getPayoutData()->getId(), $payoutsResponse2->getPayoutData()->getId());
+        self::assertNotEmpty($payoutsResponse1->getPayoutData()->getId());
+        self::assertEquals($orderId, $payoutsResponse1->getMerchantOrder()->getId());
+
+        self::assertNotEmpty($payoutsResponse2->getPayoutData()->getId());
+        self::assertEquals($orderId, $payoutsResponse2->getMerchantOrder()->getId());
     }
 }

@@ -46,7 +46,7 @@ Download the files and include `autoload.php`:
 ## Getting Started
 
 **Important:** please note that current implementation is using temporary files storage (see [FileTokensAuthApi](lib/api/FileTokensAuthApi.php)), to save and reuse received access and refresh API tokens.
-You may implement another tokens storage (session, Memcached, Redis, etc) by implementing [TokensAuthApiInterface](lib/api/TokensAuthApiInterface.php) interface.
+You may implement another tokens storage (session, database, Memcached, Redis, etc) by implementing [TokensAuthApiInterface](lib/api/TokensAuthApiInterface.php) interface.
 
 Please follow the [installation procedure](#installation--usage) and then run the following:
 

@@ -26,6 +26,9 @@ class RefundGetListTest extends BaseTestCase
         $refundCreationResponse1 = $refundUtils->createRefund($paymentId, $paymentUtils, Config::$terminalCurrency, 1);
         $refundCreationResponse2 = $refundUtils->createRefund($paymentId, $paymentUtils, Config::$terminalCurrency, 2);
 
+        self::assertNotEmpty($refundCreationResponse1->getRefundData()->getId());
+        self::assertNotEmpty($refundCreationResponse2->getRefundData()->getId());
+
         // get refunds list info
         $refundsApi = $refundUtils->getRefundsApi();
         $refundsList = $refundsApi->getRefunds(microtime(true), null, null, null, $orderId);
@@ -35,6 +38,9 @@ class RefundGetListTest extends BaseTestCase
         $refundsResponse1 = $data[1];
 
         self::assertEquals($refundCreationResponse1->getPaymentData()->getId(), $refundsResponse1->getPaymentData()->getId());
+        self::assertEquals($orderId, $refundsResponse1->getMerchantOrder()->getId());
+
         self::assertEquals($refundCreationResponse2->getPaymentData()->getId(), $refundsResponse2->getPaymentData()->getId());
+        self::assertEquals($orderId, $refundsResponse2->getMerchantOrder()->getId());
     }
 }

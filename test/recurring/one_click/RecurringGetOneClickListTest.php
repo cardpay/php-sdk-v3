@@ -20,6 +20,9 @@ class RecurringGetOneClickListTest extends BaseTestCase
         $recurringCreationResponse1 = $recurringOneClickUtils->createRecurringInGatewayMode($orderId, Config::$gatewayTerminalCode, Config::$gatewayPassword);
         $recurringCreationResponse2 = $recurringOneClickUtils->createRecurringInGatewayMode($orderId, Config::$gatewayTerminalCode, Config::$gatewayPassword);
 
+        self::assertNotEmpty($recurringCreationResponse1->getRecurringData()->getId());
+        self::assertNotEmpty($recurringCreationResponse2->getRecurringData()->getId());
+
         // get recurring payments list information
         $recurringList = $recurringOneClickUtils->getRecurringsApi()->getRecurrings(microtime(true), null, null, null, $orderId);
 
@@ -28,6 +31,9 @@ class RecurringGetOneClickListTest extends BaseTestCase
         $recurringResponse1 = $data[1];
 
         self::assertEquals($recurringCreationResponse1->getRecurringData()->getId(), $recurringResponse1->getRecurringData()->getId());
+        self::assertEquals($orderId, $recurringResponse1->getMerchantOrder()->getId());
+
         self::assertEquals($recurringCreationResponse2->getRecurringData()->getId(), $recurringResponse2->getRecurringData()->getId());
+        self::assertEquals($orderId, $recurringResponse2->getMerchantOrder()->getId());
     }
 }
