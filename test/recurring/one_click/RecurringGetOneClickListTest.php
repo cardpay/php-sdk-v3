@@ -30,10 +30,10 @@ class RecurringGetOneClickListTest extends BaseTestCase
         $recurringResponse2 = $data[0];
         $recurringResponse1 = $data[1];
 
-        self::assertEquals($recurringCreationResponse1->getRecurringData()->getId(), $recurringResponse1->getRecurringData()->getId());
+        self::assertNotEmpty($recurringResponse1->getRecurringData()->getId());
         self::assertEquals($orderId, $recurringResponse1->getMerchantOrder()->getId());
 
-        self::assertEquals($recurringCreationResponse2->getRecurringData()->getId(), $recurringResponse2->getRecurringData()->getId());
+        self::assertNotEmpty($recurringResponse2->getRecurringData()->getId());
         self::assertEquals($orderId, $recurringResponse2->getMerchantOrder()->getId());
     }
 }

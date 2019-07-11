@@ -2,10 +2,11 @@
 
 namespace Cardpay\test\auth;
 
+use Cardpay\api\AuthApiClient;
+use Cardpay\api\FileTokensStorageApi;
 use Cardpay\ApiException;
 use Cardpay\Configuration;
 use Cardpay\model\ApiTokens;
-use Cardpay\api\FileTokensAuthApi;
 
 class AuthUtils
 {
@@ -17,10 +18,11 @@ class AuthUtils
      */
     public function getConfiguration($terminalCode, $password)
     {
-        $fileTokensAuthApi = new FileTokensAuthApi();
+        $fileTokensStorageApi = new FileTokensStorageApi($terminalCode);
+        $authApiClient = new AuthApiClient($terminalCode, $password, $fileTokensStorageApi);
 
         /** @var ApiTokens $apiTokens */
-        $apiTokens = $fileTokensAuthApi->obtainApiTokens($terminalCode, $password);
+        $apiTokens = $authApiClient->obtainApiTokens();
 
         $accessToken = $apiTokens->getAccessToken();
         $tokenType = $apiTokens->getTokenType();

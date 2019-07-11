@@ -37,10 +37,10 @@ class RefundGetListTest extends BaseTestCase
         $refundsResponse2 = $data[0];
         $refundsResponse1 = $data[1];
 
-        self::assertEquals($refundCreationResponse1->getPaymentData()->getId(), $refundsResponse1->getPaymentData()->getId());
+        self::assertNotEmpty($refundsResponse1->getPaymentData()->getId());
         self::assertEquals($orderId, $refundsResponse1->getMerchantOrder()->getId());
 
-        self::assertEquals($refundCreationResponse2->getPaymentData()->getId(), $refundsResponse2->getPaymentData()->getId());
+        self::assertNotEmpty($refundsResponse2->getPaymentData()->getId());
         self::assertEquals($orderId, $refundsResponse2->getMerchantOrder()->getId());
     }
 }

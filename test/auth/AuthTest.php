@@ -2,7 +2,8 @@
 
 namespace Cardpay\test\auth;
 
-use Cardpay\api\FileTokensAuthApi;
+use Cardpay\api\AuthApiClient;
+use Cardpay\api\FileTokensStorageApi;
 use Cardpay\ApiException;
 use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
@@ -14,8 +15,9 @@ class AuthTest extends BaseTestCase
      */
     public function testAuthTokens()
     {
-        $fileTokensAuthApi = new FileTokensAuthApi();
-        $apiTokens = $fileTokensAuthApi->obtainApiTokens(Config::$paymentpageTerminalCode, Config::$paymentpagePassword);
+        $fileTokensStorageApi = new FileTokensStorageApi(Config::$paymentpageTerminalCode);
+        $authApiClient = new AuthApiClient(Config::$paymentpageTerminalCode, Config::$paymentpagePassword, $fileTokensStorageApi);
+        $apiTokens = $authApiClient->obtainApiTokens();
 
         $accessToken = $apiTokens->getAccessToken();
         $accessTokenExpiresIn = $apiTokens->getExpiresIn();
