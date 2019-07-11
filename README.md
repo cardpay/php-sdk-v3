@@ -34,10 +34,10 @@ Then run `composer install`
 
 ### Manual Installation
 
-Download the files and include `autoload.php`:
+Download the files, run `composer install` and include `autoload.php`:
 
 ```php
-    require_once('./vendor/autoload.php');
+require_once('./vendor/autoload.php');
 ```
 
 
@@ -70,7 +70,7 @@ $tokenType = $apiTokens->getTokenType();
 
 ## Tests
 
-Open ./test/Config.php and set terminal code, password and currency.
+Open ./test/Config.php and set terminal code, password and terminal currency.
 
 To run the unit tests:
 
