@@ -2,7 +2,7 @@
 
 namespace Cardpay\test;
 
-use Cardpay\api\FileTokensAuthApi;
+use Cardpay\api\FileTokensStorageApi;
 use Cardpay\ApiException;
 use PHPUnit_Framework_BaseTestListener;
 use PHPUnit_Framework_TestSuite;
@@ -32,10 +32,9 @@ class TestSuiteListener extends PHPUnit_Framework_BaseTestListener
         $isSuiteName = ('PhpSdkCardpayApiV3TestSuite' == $suite->getName());
 
         if ($isDirectoryName || $isSuiteName) {
-            $fileTokensAuthApi = new FileTokensAuthApi();
-
             foreach ($this->terminalCodes as $terminalCode) {
-                $fileTokensAuthApi->deleteTempApiTokenFile($terminalCode);
+                $fileTokensStorageApi = new FileTokensStorageApi($terminalCode);
+                $fileTokensStorageApi->deleteApiTokens($terminalCode);
             }
         }
     }

@@ -97,8 +97,7 @@ class PaymentUtils
             $this->headerSelector = new HeaderSelector();
         }
 
-        $isGatewayMode = ($terminalCode == Config::$gatewayTerminalCode
-            || $terminalCode == Config::$gatewayPostponedTerminalCode);
+        $isGatewayMode = ($terminalCode == Config::$gatewayTerminalCode || $terminalCode == Config::$gatewayPostponedTerminalCode);
 
         // create payment
         $request = new Request([

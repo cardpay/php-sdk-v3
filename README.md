@@ -6,12 +6,10 @@ The Cardpay API uses HTTP verbs and a RESTful endpoint structure. Request and re
 
 For more information, please visit [https://integration.cardpay.com/v3/](https://integration.cardpay.com/v3/)
 
-
 ## Requirements
 
 - PHP 5.6 or later
 - curl, json, openssl extensions
-
 
 ## Installation & Usage
 ### Composer
@@ -45,18 +43,24 @@ Download the files and include `autoload.php`:
 
 ## Getting Started
 
-**Important:** please note that current implementation is using temporary files storage (see [FileTokensAuthApi](lib/api/FileTokensAuthApi.php)), to save and reuse received access and refresh API tokens.
-You may implement another tokens storage (session, database, Memcached, Redis, etc) by implementing [TokensAuthApiInterface](lib/api/TokensAuthApiInterface.php) interface.
+**Important:** please note that current implementation is using temporary files storage (see [FileTokensStorageApi](lib/api/FileTokensStorageApi.php)), to save, read and delete (if needed) the API tokens.
+You may implement another tokens storage (session, database, Memcached, Redis, etc) by implementing [TokensStorageApi](lib/api/TokensStorageApi.php) interface.
+
+In order to obtain the API tokens please use [AuthApiClient](lib/api/AuthApiClient.php). It requires API terminal code and password, provided by Cardpay.
 
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```php
 <?php
 
-use Cardpay\api\FileTokensAuthApi;
+use Cardpay\api\AuthApiClient;
+use Cardpay\api\FileTokensStorageApi;
 
-$fileTokensAuthApi = new FileTokensAuthApi();
-$apiTokens = $fileTokensAuthApi->obtainApiTokens($terminalCode, $password);
+$fileTokensStorageApi = new FileTokensStorageApi($terminalCode);
+$authApiClient = new AuthApiClient($terminalCode, $password, $fileTokensStorageApi);
+
+/** @var ApiTokens $apiTokens */
+$apiTokens = $authApiClient->obtainApiTokens();
 
 $accessToken = $apiTokens->getAccessToken();
 $refreshToken = $apiTokens->getRefreshToken();
