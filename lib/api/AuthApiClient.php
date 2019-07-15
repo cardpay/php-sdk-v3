@@ -12,6 +12,7 @@ use Cardpay\model\ApiTokens;
 class AuthApiClient
 {
     const API_TOKEN_MIN_VALIDITY = 10000;
+    const MILLISECONDS_IN_ONE_SECOND = 1000;
 
     private $terminalCode;
     private $password;
@@ -67,15 +68,15 @@ class AuthApiClient
         /** @var ApiTokens $apiTokens */
         $apiTokens = $this->tokensStorageApi->readApiTokens();
 
+        // if refresh token is expired
+        if ($this->isTokenExpired($apiTokens->getRefreshExpiresIn())) {
+            return $this->obtainTokensByPassword();
+        }
+
         // if access token is expired
         if ($this->isTokenExpired($apiTokens->getExpiresIn())) {
             $refreshToken = $apiTokens->getRefreshToken();
             return $this->obtainTokensByRefreshToken($refreshToken);
-        }
-
-        // if refresh token is expired
-        if ($this->isTokenExpired($apiTokens->getRefreshExpiresIn())) {
-            return $this->obtainTokensByPassword();
         }
 
         return $apiTokens;
@@ -91,7 +92,7 @@ class AuthApiClient
 
         /** @var ApiTokens $apiTokens */
         $apiTokens = $authApi->obtainTokens('password', $this->password, null, $this->terminalCode);
-        $this->tokensStorageApi->saveApiTokens($apiTokens);
+        $this->saveApiTokens($apiTokens);
 
         return $apiTokens;
     }
@@ -107,15 +108,36 @@ class AuthApiClient
 
         /** @var ApiTokens $apiTokens */
         $apiTokens = $authApi->obtainTokens('refresh_token', null, $refreshToken, null);
-        $this->tokensStorageApi->saveApiTokens($apiTokens);
+        $this->saveApiTokens($apiTokens);
 
         return $apiTokens;
     }
 
+    /**
+     * @param ApiTokens $apiTokens
+     */
+    private function saveApiTokens($apiTokens)
+    {
+        $currentTimeMilliseconds = $this->getCurrentTimeMilliseconds();
+
+        $accessTokenExpiresIn = $apiTokens->getExpiresIn();
+        $apiTokens->setExpiresIn($accessTokenExpiresIn * self::MILLISECONDS_IN_ONE_SECOND + $currentTimeMilliseconds);
+
+        $refreshTokenExpiresIn = $apiTokens->getRefreshExpiresIn();
+        $apiTokens->setRefreshExpiresIn($refreshTokenExpiresIn * self::MILLISECONDS_IN_ONE_SECOND + $currentTimeMilliseconds);
+
+        $this->tokensStorageApi->saveApiTokens($apiTokens);
+    }
+
     private function isTokenExpired($expiresAt)
     {
-        $currentTimeMilliseconds = round(microtime(true) * 1000);
+        $currentTimeMilliseconds = $this->getCurrentTimeMilliseconds();
 
         return $expiresAt - $currentTimeMilliseconds < self::API_TOKEN_MIN_VALIDITY;
+    }
+
+    private function getCurrentTimeMilliseconds()
+    {
+        return round(microtime(true) * self::MILLISECONDS_IN_ONE_SECOND);
     }
 }

@@ -51,14 +51,6 @@ class FileTokensStorageApi implements TokensStorageApi
      */
     public function saveApiTokens(ApiTokens $apiTokens)
     {
-        $currentTimeMilliseconds = round(microtime(true) * 1000);
-
-        $accessTokenExpiresIn = $apiTokens->getExpiresIn();
-        $apiTokens->setExpiresIn($accessTokenExpiresIn * 1000 + $currentTimeMilliseconds);
-
-        $refreshTokenExpiresIn = $apiTokens->getRefreshExpiresIn();
-        $apiTokens->setRefreshExpiresIn($refreshTokenExpiresIn * 1000 + $currentTimeMilliseconds);
-
         $serializedApiTokens = serialize($apiTokens);
 
         /** @var bool $areTokensSaved */
