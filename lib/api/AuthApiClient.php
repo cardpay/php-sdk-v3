@@ -129,6 +129,10 @@ class AuthApiClient
         $this->tokensStorageApi->saveApiTokens($apiTokens);
     }
 
+    /**
+     * @param $expiresAt
+     * @return bool
+     */
     private function isTokenExpired($expiresAt)
     {
         $currentTimeMilliseconds = $this->getCurrentTimeMilliseconds();
