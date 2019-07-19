@@ -13,6 +13,7 @@ use Cardpay\model\Request;
 use Cardpay\test\auth\AuthUtils;
 use Cardpay\test\Config;
 use Cardpay\test\Constants;
+use DateTime;
 use GuzzleHttp\Client;
 
 class RecurringPlanUtils
@@ -65,7 +66,7 @@ class RecurringPlanUtils
 
         $request = new Request([
             'id' => microtime(true),
-            'time' => date(Constants::DATETIME_FORMAT)
+            'time' => new DateTime()
         ]);
 
         $planData = new RecurringPlanRequestPlanData([

@@ -9,8 +9,8 @@ use Cardpay\model\RequestUpdatedTransactionData;
 use Cardpay\model\ResponseUpdatedTransactionData;
 use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use Cardpay\test\Constants;
 use Cardpay\test\payment\PaymentUtils;
+use DateTime;
 
 class RefundChangeStatusTest extends BaseTestCase
 {
@@ -32,7 +32,7 @@ class RefundChangeStatusTest extends BaseTestCase
         // change refund status (reverse)
         $changeStatusRequest = new Request([
             'id' => microtime(true),
-            'time' => date(Constants::DATETIME_FORMAT)
+            'time' => new DateTime()
         ]);
 
         $refundData = new RequestUpdatedTransactionData([

@@ -14,6 +14,7 @@ use Cardpay\model\Request;
 use Cardpay\test\Config;
 use Cardpay\test\Constants;
 use Cardpay\test\recurring\scheduled\RecurringScheduledTestCase;
+use DateTime;
 use GuzzleHttp\Exception\GuzzleException;
 
 class RecurringScheduledUpdateBillingInfoWithoutSubscriptionTest extends RecurringScheduledTestCase
@@ -35,7 +36,7 @@ class RecurringScheduledUpdateBillingInfoWithoutSubscriptionTest extends Recurri
         // create new card binding
         $request = new Request([
             'id' => microtime(true),
-            'time' => date(Constants::DATETIME_FORMAT)
+            'time' => new DateTime()
         ]);
 
         $merchantOrder = new FilingRequestMerchantOrder([

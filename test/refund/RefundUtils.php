@@ -9,8 +9,8 @@ use Cardpay\model\RefundRequestPaymentData;
 use Cardpay\model\RefundRequestRefundData;
 use Cardpay\model\RefundResponse;
 use Cardpay\model\Request;
-use Cardpay\test\Constants;
 use Cardpay\test\payment\PaymentUtils;
+use DateTime;
 
 class RefundUtils
 {
@@ -31,7 +31,7 @@ class RefundUtils
     {
         $requestRefund = new Request([
             'id' => microtime(true),
-            'time' => date(Constants::DATETIME_FORMAT)
+            'time' => new DateTime()
         ]);
 
         $refundPaymentData = new RefundRequestPaymentData([

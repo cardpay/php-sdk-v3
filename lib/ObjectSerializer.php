@@ -22,7 +22,17 @@ class ObjectSerializer
         if (is_scalar($data) || null === $data) {
             return $data;
         } elseif ($data instanceof \DateTime) {
-            return ($format === 'date') ? $data->format('Y-m-d') : $data->format(\DateTime::ATOM);
+            if ($format === 'date') {
+                return $data->format('Y-m-d');
+            } else {
+                $microSeconds = $data->format('u');
+                if (!empty($microSeconds)) {
+                    $milliSeconds = substr($microSeconds, 0, 3);
+                    return $data->format('Y-m-d\TH:i:s') . '.' . $milliSeconds . 'Z';
+                } else {
+                    return $data->format('Y-m-d\TH:i:s\Z');
+                }
+            }
         } elseif (is_array($data)) {
             foreach ($data as $property => $value) {
                 $data[$property] = self::sanitizeForSerialization($value);

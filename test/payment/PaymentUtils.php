@@ -17,6 +17,8 @@ use Cardpay\model\Request;
 use Cardpay\test\auth\AuthUtils;
 use Cardpay\test\Config;
 use Cardpay\test\Constants;
+use DateTime;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -78,6 +80,7 @@ class PaymentUtils
      * @param bool $preAuth
      * @return PaymentResponse|string|null
      * @throws ApiException
+     * @throws Exception
      */
     private function createPayment($orderId, $terminalCode, $password, $preAuth)
     {
@@ -102,7 +105,7 @@ class PaymentUtils
         // create payment
         $request = new Request([
             'id' => microtime(true),
-            'time' => date(Constants::DATETIME_FORMAT)
+            'time' => new DateTime()
         ]);
 
         $merchantOrder = new PaymentRequestMerchantOrder([

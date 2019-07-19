@@ -4,8 +4,6 @@ namespace Cardpay\test;
 
 class Constants
 {
-    const DATETIME_FORMAT = 'Y-m-d\TH:i:s\Z';
-
     const PAYMENT_METHOD = 'BANKCARD';
 
     const INITIATOR_CIT = 'cit';

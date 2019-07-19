@@ -8,8 +8,8 @@ use Cardpay\model\PlanUpdateRequestPlanData;
 use Cardpay\model\Request;
 use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use Cardpay\test\Constants;
 use Cardpay\test\recurring\scheduled\RecurringPlanUtils;
+use DateTime;
 
 class RecurringScheduledRenamePlanTest extends BaseTestCase
 {
@@ -27,7 +27,7 @@ class RecurringScheduledRenamePlanTest extends BaseTestCase
 
         $request = new Request([
             'id' => microtime(true),
-            'time' => date(Constants::DATETIME_FORMAT)
+            'time' => new DateTime()
         ]);
 
         $planData = new PlanUpdateRequestPlanData([

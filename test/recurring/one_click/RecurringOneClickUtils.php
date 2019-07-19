@@ -18,6 +18,7 @@ use Cardpay\model\Request;
 use Cardpay\test\auth\AuthUtils;
 use Cardpay\test\Config;
 use Cardpay\test\Constants;
+use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -106,7 +107,7 @@ class RecurringOneClickUtils
 
         $request = new Request([
             'id' => microtime(true),
-            'time' => date(Constants::DATETIME_FORMAT)
+            'time' => new DateTime()
         ]);
 
         $merchantOrder = new PaymentRequestMerchantOrder([

@@ -9,7 +9,7 @@ use Cardpay\model\RequestUpdatedTransactionData;
 use Cardpay\model\ResponseUpdatedTransactionData;
 use Cardpay\test\BaseTestCase;
 use Cardpay\test\Config;
-use Cardpay\test\Constants;
+use DateTime;
 
 class PayoutChangeStatusTest extends BaseTestCase
 {
@@ -26,7 +26,7 @@ class PayoutChangeStatusTest extends BaseTestCase
         // change payout status (reverse)
         $request = new Request([
             'id' => microtime(true),
-            'time' => date(Constants::DATETIME_FORMAT)
+            'time' => new DateTime()
         ]);
 
         $updatedTransactionData = new RequestUpdatedTransactionData([
