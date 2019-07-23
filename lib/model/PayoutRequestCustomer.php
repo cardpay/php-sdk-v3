@@ -278,7 +278,7 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets city
      *
-     * @param string $city Customer city. For 'Asia' methods: <ul><li>mandatory</li><li>for `CNY` currency: must be in Simplified Chinese</li></ul>
+     * @param string $city Customer city.
      *
      * @return $this
      */
@@ -350,7 +350,7 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets email
      *
-     * @param string $email Customer e-mail address *(mandatory for 'Latin America' and 'Asia' methods only)* For 'Latin America' is required for methods where country = CO
+     * @param string $email Customer e-mail address *(mandatory for 'Latin America' methods only)* For 'Latin America' is required for methods where country = CO
      *
      * @return $this
      */
@@ -398,7 +398,7 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets full_name
      *
-     * @param string $full_name Customer full name. Mandatory for 'Asia' and DIRECTBANKINGNGA methods only: For 'Asia': for `CNY` currency only in Simplified Chinese For DIRECTBANKINGNGA: only for non NGN currency
+     * @param string $full_name Customer full name. Mandatory for DIRECTBANKINGNGA methods only: For DIRECTBANKINGNGA: only for non NGN currency
      *
      * @return $this
      */
@@ -501,7 +501,7 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets province
      *
-     * @param string $province Customer province. For 'Asia' methods: <ul><li>mandatory</li><li>must be in Simplified Chinese</li></ul>
+     * @param string $province Customer province.
      *
      * @return $this
      */

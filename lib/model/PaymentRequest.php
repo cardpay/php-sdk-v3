@@ -321,7 +321,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets customer
      *
-     * @param \Cardpay\model\PaymentRequestCustomer $customer Information about Customer
+     * @param \Cardpay\model\PaymentRequestCustomer $customer Customer data
      *
      * @return $this
      */
@@ -393,7 +393,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets payment_data
      *
-     * @param \Cardpay\model\PaymentRequestPaymentData $payment_data Information for payment.
+     * @param \Cardpay\model\PaymentRequestPaymentData $payment_data Payment data
      *
      * @return $this
      */

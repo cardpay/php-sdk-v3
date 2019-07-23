@@ -189,7 +189,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id For QIWI: Customer phone number (from 1 to 15 digits) For WEBMONEY: Customer account number For NETELLER: Customer email For 'Latin America': Customer personal identification number For 'Asia': Customer bank account number For YANDEXMONEY: Customer wallet number, 11 to 16 digits, begins with `410` For DIRECTBANKINGNGA: bank account number For AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE and TIGO: Customer account number
+     * @param string $id For QIWI: Customer phone number (from 1 to 15 digits) For WEBMONEY: Customer account number For NETELLER: Customer email For 'Latin America': Customer personal identification number For YANDEXMONEY: Customer wallet number, 11 to 16 digits, begins with `410` For DIRECTBANKINGNGA: bank account number For AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE and TIGO: Customer account number
      *
      * @return $this
      */

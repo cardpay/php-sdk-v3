@@ -430,7 +430,7 @@ class ResponseUpdatedTransactionData implements ModelInterface, ArrayAccess
     /**
      * Sets updated
      *
-     * @param \DateTime $updated Transaction update date and time up to milliseconds in ISO 8601 format. Return only for successful updates operations.
+     * @param \DateTime $updated Transaction update date and time up to milliseconds in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Returned only for successful update operations.
      *
      * @return $this
      */

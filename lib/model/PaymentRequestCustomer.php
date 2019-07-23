@@ -272,7 +272,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets email
      *
-     * @param string $email Email address of Customer *(mandatory by default for BANKCARD, 'Asia', 'Latin America', AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO, DIRECTBANKINGNGA and AQRCODE payment methods only)*. Can be defined as optional by CardPay manager.
+     * @param string $email Email address of Customer *(mandatory by default for BANKCARD, PAYPAL, 'Latin America', AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO, DIRECTBANKINGNGA and AQRCODE payment methods only)*. Can be defined as optional by CardPay manager.
      *
      * @return $this
      */
@@ -303,7 +303,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets full_name
      *
-     * @param string $full_name Customer full name *(mandatory for 'Latin America' and 'Asia' payment methods only)*
+     * @param string $full_name Customer full name *(mandatory for 'Latin America' payment methods only)*
      *
      * @return $this
      */
@@ -389,7 +389,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets phone
      *
-     * @param string $phone Customer phone number. Format: `+` sign and 10 or 11 digits, example: `+12345678901` Mandatory for 'Asia' and DIRECTBANKINGNGA payment methods. For other payment methods: optional by default, can be defined as mandatory by CardPay manager.
+     * @param string $phone Customer phone number. Format: `+` sign and 10 or 11 digits, example: `+12345678901` Mandatory for DIRECTBANKINGNGA payment method. For other payment methods: optional by default, can be defined as mandatory by CardPay manager.
      *
      * @return $this
      */

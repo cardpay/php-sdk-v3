@@ -27,7 +27,6 @@ class OneclickData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
-        'begin' => 'bool',
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
         'filing' => '\Cardpay\model\RecurringRequestFiling',
@@ -44,7 +43,6 @@ class OneclickData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'amount' => null,
-        'begin' => null,
         'currency' => null,
         'dynamic_descriptor' => null,
         'filing' => null,
@@ -82,7 +80,6 @@ class OneclickData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'amount' => 'amount',
-        'begin' => 'begin',
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
         'filing' => 'filing',
@@ -99,7 +96,6 @@ class OneclickData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'amount' => 'setAmount',
-        'begin' => 'setBegin',
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'filing' => 'setFiling',
@@ -116,7 +112,6 @@ class OneclickData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'amount' => 'getAmount',
-        'begin' => 'getBegin',
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'filing' => 'getFiling',
@@ -187,7 +182,6 @@ class OneclickData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['begin'] = isset($data['begin']) ? $data['begin'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
@@ -272,30 +266,6 @@ class OneclickData implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets begin
-     *
-     * @return bool
-     */
-    public function getBegin()
-    {
-        return $this->container['begin'];
-    }
-
-    /**
-     * Sets begin
-     *
-     * @param bool $begin begin
-     *
-     * @return $this
-     */
-    public function setBegin($begin)
-    {
-        $this->container['begin'] = $begin;
-
-        return $this;
-    }
-
-    /**
      * Gets currency
      *
      * @return string
@@ -332,7 +302,7 @@ class OneclickData implements ModelInterface, ArrayAccess
     /**
      * Sets dynamic_descriptor
      *
-     * @param string $dynamic_descriptor dynamic_descriptor
+     * @param string $dynamic_descriptor Short description of the service or product, must be enabled by CardPay manager to be used.
      *
      * @return $this
      */
@@ -387,7 +357,7 @@ class OneclickData implements ModelInterface, ArrayAccess
     /**
      * Sets generate_token
      *
-     * @param bool $generate_token generate_token
+     * @param bool $generate_token This attribute can be received only in first recurring request. If set to 'true', Card token will be generated and returned in GET response for all successful transactions (can't be generated for declined transactions). In all requests with filing_id card.token can't be generated.
      *
      * @return $this
      */
@@ -411,7 +381,7 @@ class OneclickData implements ModelInterface, ArrayAccess
     /**
      * Sets initiator
      *
-     * @param string $initiator initiator
+     * @param string $initiator Can be only 2 values - 'mit' (merchant initiated transaction), 'cit' (cardholder initiated transaction).
      *
      * @return $this
      */
@@ -440,7 +410,7 @@ class OneclickData implements ModelInterface, ArrayAccess
     /**
      * Sets note
      *
-     * @param string $note note
+     * @param string $note Note about the recurring that will not be displayed to customer.
      *
      * @return $this
      */
@@ -471,7 +441,7 @@ class OneclickData implements ModelInterface, ArrayAccess
     /**
      * Sets preauth
      *
-     * @param bool $preauth If set to `true`, the amount will not be captured but only blocked *(for BANKCARD payment method only)*.
+     * @param bool $preauth This parameter allowed to be used only for first recurring payment. If set to 'true', the amount will not be captured but only blocked. One-click payments with 'preauth' attribute will be captured automatically in 7 days from the time of creating the preauth transaction. In continue recurring request (with 'filing_id') this parameter shouldn't be used.
      *
      * @return $this
      */

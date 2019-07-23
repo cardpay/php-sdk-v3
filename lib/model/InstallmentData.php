@@ -369,7 +369,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Sets dynamic_descriptor
      *
-     * @param string $dynamic_descriptor dynamic_descriptor
+     * @param string $dynamic_descriptor Short description of the service or product, must be enabled by CardPay manager to be used.
      *
      * @return $this
      */
@@ -400,7 +400,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Sets generate_token
      *
-     * @param bool $generate_token generate_token
+     * @param bool $generate_token This attribute can be received only in first recurring request. In all requests with recurring_id card.token can't be generated. If set to 'true', Card token will be generated and returned in GET response. Will be generated only for successful transactions (not for declined).
      *
      * @return $this
      */
@@ -424,7 +424,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Sets initiator
      *
-     * @param string $initiator initiator
+     * @param string $initiator Use `cit` for initiator attribute (cardholder initiated transaction).
      *
      * @return $this
      */
@@ -482,7 +482,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Sets note
      *
-     * @param string $note note
+     * @param string $note Note about the recurring that will not be displayed to customer.
      *
      * @return $this
      */

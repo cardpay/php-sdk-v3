@@ -26,13 +26,13 @@ class PaymentResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'ewallet_account' => '\Cardpay\model\TransactionResponseEWalletAccount',
+        'customer' => '\Cardpay\model\PaymentRequestCustomer',
         'payment_method' => 'string',
         'merchant_order' => '\Cardpay\model\TransactionResponseMerchantOrder',
         'payment_data' => '\Cardpay\model\PaymentResponsePaymentData',
         'card_account' => '\Cardpay\model\PaymentResponseCardAccount',
         'cryptocurrency_account' => '\Cardpay\model\PaymentResponseCryptocurrencyAccount',
-        'customer' => '\Cardpay\model\PaymentResponseCustomer'
+        'ewallet_account' => '\Cardpay\model\TransactionResponseEWalletAccount'
     ];
 
     /**
@@ -41,13 +41,13 @@ class PaymentResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'ewallet_account' => null,
+        'customer' => null,
         'payment_method' => null,
         'merchant_order' => null,
         'payment_data' => null,
         'card_account' => null,
         'cryptocurrency_account' => null,
-        'customer' => null
+        'ewallet_account' => null
     ];
 
     /**
@@ -77,13 +77,13 @@ class PaymentResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'ewallet_account' => 'ewallet_account',
+        'customer' => 'customer',
         'payment_method' => 'payment_method',
         'merchant_order' => 'merchant_order',
         'payment_data' => 'payment_data',
         'card_account' => 'card_account',
         'cryptocurrency_account' => 'cryptocurrency_account',
-        'customer' => 'customer'
+        'ewallet_account' => 'ewallet_account'
     ];
 
     /**
@@ -92,13 +92,13 @@ class PaymentResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'ewallet_account' => 'setEwalletAccount',
+        'customer' => 'setCustomer',
         'payment_method' => 'setPaymentMethod',
         'merchant_order' => 'setMerchantOrder',
         'payment_data' => 'setPaymentData',
         'card_account' => 'setCardAccount',
         'cryptocurrency_account' => 'setCryptocurrencyAccount',
-        'customer' => 'setCustomer'
+        'ewallet_account' => 'setEwalletAccount'
     ];
 
     /**
@@ -107,13 +107,13 @@ class PaymentResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'ewallet_account' => 'getEwalletAccount',
+        'customer' => 'getCustomer',
         'payment_method' => 'getPaymentMethod',
         'merchant_order' => 'getMerchantOrder',
         'payment_data' => 'getPaymentData',
         'card_account' => 'getCardAccount',
         'cryptocurrency_account' => 'getCryptocurrencyAccount',
-        'customer' => 'getCustomer'
+        'ewallet_account' => 'getEwalletAccount'
     ];
 
     /**
@@ -176,13 +176,13 @@ class PaymentResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['ewallet_account'] = isset($data['ewallet_account']) ? $data['ewallet_account'] : null;
+        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
         $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
         $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
         $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
         $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
         $this->container['cryptocurrency_account'] = isset($data['cryptocurrency_account']) ? $data['cryptocurrency_account'] : null;
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
+        $this->container['ewallet_account'] = isset($data['ewallet_account']) ? $data['ewallet_account'] : null;
     }
 
     /**
@@ -210,25 +210,25 @@ class PaymentResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets ewallet_account
+     * Gets customer
      *
-     * @return \Cardpay\model\TransactionResponseEWalletAccount
+     * @return \Cardpay\model\PaymentRequestCustomer
      */
-    public function getEwalletAccount()
+    public function getCustomer()
     {
-        return $this->container['ewallet_account'];
+        return $this->container['customer'];
     }
 
     /**
-     * Sets ewallet_account
+     * Sets customer
      *
-     * @param \Cardpay\model\TransactionResponseEWalletAccount $ewallet_account eWallet account data *(for ALIPAY, QIWI, WEBMONEY, NETELLER, YANDEXMONEY, DIRECTBANKINGNGA, AQRCODE, AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO and 'Latin America' payment methods only)*
+     * @param \Cardpay\model\PaymentRequestCustomer $customer Customer data
      *
      * @return $this
      */
-    public function setEwalletAccount($ewallet_account)
+    public function setCustomer($customer)
     {
-        $this->container['ewallet_account'] = $ewallet_account;
+        $this->container['customer'] = $customer;
 
         return $this;
     }
@@ -246,7 +246,7 @@ class PaymentResponse implements ModelInterface, ArrayAccess
     /**
      * Sets payment_method
      *
-     * @param string $payment_method Used payment method type name from payment methods list
+     * @param string $payment_method Payment method
      *
      * @return $this
      */
@@ -318,7 +318,7 @@ class PaymentResponse implements ModelInterface, ArrayAccess
     /**
      * Sets card_account
      *
-     * @param \Cardpay\model\PaymentResponseCardAccount $card_account Bank card data *(for BANKCARD payment method only)*
+     * @param \Cardpay\model\PaymentResponseCardAccount $card_account Card account data *(for BANKCARD payment method only)*
      *
      * @return $this
      */
@@ -354,25 +354,25 @@ class PaymentResponse implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets customer
+     * Gets ewallet_account
      *
-     * @return \Cardpay\model\PaymentResponseCustomer
+     * @return \Cardpay\model\TransactionResponseEWalletAccount
      */
-    public function getCustomer()
+    public function getEwalletAccount()
     {
-        return $this->container['customer'];
+        return $this->container['ewallet_account'];
     }
 
     /**
-     * Sets customer
+     * Sets ewallet_account
      *
-     * @param \Cardpay\model\PaymentResponseCustomer $customer Customer data
+     * @param \Cardpay\model\TransactionResponseEWalletAccount $ewallet_account eWallet account data *(for ALIPAY, QIWI, WEBMONEY, NETELLER, YANDEXMONEY, DIRECTBANKINGNGA, AQRCODE, AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO and 'Latin America' payment methods only)*
      *
      * @return $this
      */
-    public function setCustomer($customer)
+    public function setEwalletAccount($ewallet_account)
     {
-        $this->container['customer'] = $customer;
+        $this->container['ewallet_account'] = $ewallet_account;
 
         return $this;
     }

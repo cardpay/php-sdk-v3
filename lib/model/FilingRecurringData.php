@@ -182,9 +182,6 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['currency'] === null) {
-            $invalidProperties[] = "'currency' can't be null";
-        }
         if (!is_null($this->container['dynamic_descriptor']) && (mb_strlen($this->container['dynamic_descriptor']) > 25)) {
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be smaller than or equal to 25.";
         }
@@ -288,7 +285,7 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
     /**
      * Sets generate_token
      *
-     * @param bool $generate_token If set to `true`, token will be generated and returned in the response
+     * @param bool $generate_token This attribute can be received only in first recurring request. If set to 'true', Card token will be generated and returned in GET response for all successful transactions (can't be generated for declined transactions).
      *
      * @return $this
      */

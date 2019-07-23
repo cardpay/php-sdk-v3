@@ -27,7 +27,6 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
-        'filing' => '\Cardpay\model\RecurringRequestFiling',
         'status_to' => 'string'
     ];
 
@@ -38,7 +37,6 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
       */
     protected static $swaggerFormats = [
         'amount' => null,
-        'filing' => null,
         'status_to' => null
     ];
 
@@ -70,7 +68,6 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
      */
     protected static $attributeMap = [
         'amount' => 'amount',
-        'filing' => 'filing',
         'status_to' => 'status_to'
     ];
 
@@ -81,7 +78,6 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
      */
     protected static $setters = [
         'amount' => 'setAmount',
-        'filing' => 'setFiling',
         'status_to' => 'setStatusTo'
     ];
 
@@ -92,7 +88,6 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
      */
     protected static $getters = [
         'amount' => 'getAmount',
-        'filing' => 'getFiling',
         'status_to' => 'getStatusTo'
     ];
 
@@ -182,7 +177,6 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['status_to'] = isset($data['status_to']) ? $data['status_to'] : null;
     }
 
@@ -238,30 +232,6 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
     public function setAmount($amount)
     {
         $this->container['amount'] = $amount;
-
-        return $this;
-    }
-
-    /**
-     * Gets filing
-     *
-     * @return \Cardpay\model\RecurringRequestFiling
-     */
-    public function getFiling()
-    {
-        return $this->container['filing'];
-    }
-
-    /**
-     * Sets filing
-     *
-     * @param \Cardpay\model\RecurringRequestFiling $filing Filing data. Mandatory for `CHANGE_FILING` operation only.
-     *
-     * @return $this
-     */
-    public function setFiling($filing)
-    {
-        $this->container['filing'] = $filing;
 
         return $this;
     }

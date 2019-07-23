@@ -179,9 +179,6 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['amount'] === null) {
-            $invalidProperties[] = "'amount' can't be null";
-        }
         $allowedValues = $this->getStatusToAllowableValues();
         if (!is_null($this->container['status_to']) && !in_array($this->container['status_to'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(

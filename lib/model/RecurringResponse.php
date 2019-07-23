@@ -27,7 +27,7 @@ class RecurringResponse implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'payment_method' => 'string',
-        'merchant_order' => '\Cardpay\model\TransactionResponseMerchantOrder',
+        'merchant_order' => '\Cardpay\model\RecurringResponseMerchantOrder',
         'recurring_data' => '\Cardpay\model\RecurringResponseRecurringData',
         'card_account' => '\Cardpay\model\PaymentResponseCardAccount',
         'customer' => '\Cardpay\model\RecurringCustomer'
@@ -224,7 +224,7 @@ class RecurringResponse implements ModelInterface, ArrayAccess
     /**
      * Gets merchant_order
      *
-     * @return \Cardpay\model\TransactionResponseMerchantOrder
+     * @return \Cardpay\model\RecurringResponseMerchantOrder
      */
     public function getMerchantOrder()
     {
@@ -234,7 +234,7 @@ class RecurringResponse implements ModelInterface, ArrayAccess
     /**
      * Sets merchant_order
      *
-     * @param \Cardpay\model\TransactionResponseMerchantOrder $merchant_order Merchant order data
+     * @param \Cardpay\model\RecurringResponseMerchantOrder $merchant_order Merchant order data
      *
      * @return $this
      */

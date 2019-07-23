@@ -317,18 +317,6 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['created'] === null) {
-            $invalidProperties[] = "'created' can't be null";
-        }
-        if ($this->container['customer'] === null) {
-            $invalidProperties[] = "'customer' can't be null";
-        }
-        if ($this->container['description'] === null) {
-            $invalidProperties[] = "'description' can't be null";
-        }
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
         $allowedValues = $this->getPeriodAllowableValues();
         if (!is_null($this->container['period']) && !in_array($this->container['period'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -337,9 +325,6 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
             );
         }
 
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
-        }
         $allowedValues = $this->getStatusAllowableValues();
         if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -681,7 +666,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets retries
      *
-     * @param int $retries Number of retries in retry logic
+     * @param int $retries Number of daily basis retry attempts in case of payment has not been captured successfully.
      *
      * @return $this
      */
@@ -712,7 +697,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     public function setStatus($status)
     {
         $allowedValues = $this->getStatusAllowableValues();
-        if (!in_array($status, $allowedValues, true)) {
+        if (!is_null($status) && !in_array($status, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'status', must be one of '%s'",
@@ -738,7 +723,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets status_reason
      *
-     * @param string $status_reason Reason of subscription cancellation that was made by Cardpay
+     * @param string $status_reason Reason of subscription cancellation that was made by CardPay
      *
      * @return $this
      */

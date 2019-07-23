@@ -226,7 +226,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
     /**
      * Sets amount
      *
-     * @param float $amount Represents the amount to be transferred to Customer's card, must be less than 100 millions. For 'Asia' methods: for `IDR` currency only integer amount is using
+     * @param float $amount Represents the amount to be transferred to Customer's card, must be less than 100 millions.
      *
      * @return $this
      */

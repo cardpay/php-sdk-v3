@@ -27,7 +27,6 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
-        'begin' => 'bool',
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
         'filing' => '\Cardpay\model\RecurringRequestFiling',
@@ -50,7 +49,6 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'amount' => null,
-        'begin' => null,
         'currency' => null,
         'dynamic_descriptor' => null,
         'filing' => null,
@@ -94,7 +92,6 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'amount' => 'amount',
-        'begin' => 'begin',
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
         'filing' => 'filing',
@@ -117,7 +114,6 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'amount' => 'setAmount',
-        'begin' => 'setBegin',
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'filing' => 'setFiling',
@@ -140,7 +136,6 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'amount' => 'getAmount',
-        'begin' => 'getBegin',
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'filing' => 'getFiling',
@@ -238,7 +233,6 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['begin'] = isset($data['begin']) ? $data['begin'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
@@ -263,9 +257,6 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['currency'] === null) {
-            $invalidProperties[] = "'currency' can't be null";
-        }
         if (!is_null($this->container['dynamic_descriptor']) && (mb_strlen($this->container['dynamic_descriptor']) > 25)) {
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be smaller than or equal to 25.";
         }
@@ -354,30 +345,6 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets begin
-     *
-     * @return bool
-     */
-    public function getBegin()
-    {
-        return $this->container['begin'];
-    }
-
-    /**
-     * Sets begin
-     *
-     * @param bool $begin begin
-     *
-     * @return $this
-     */
-    public function setBegin($begin)
-    {
-        $this->container['begin'] = $begin;
-
-        return $this;
-    }
-
-    /**
      * Gets currency
      *
      * @return string
@@ -414,7 +381,7 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     /**
      * Sets dynamic_descriptor
      *
-     * @param string $dynamic_descriptor Short description of the service or product, must be enabled by CardPay manager to be used
+     * @param string $dynamic_descriptor Short description of the service or product, must be enabled by CardPay manager to be used.
      *
      * @return $this
      */
@@ -469,7 +436,7 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     /**
      * Sets generate_token
      *
-     * @param bool $generate_token If set to `true`, token will be generated and returned in the response
+     * @param bool $generate_token This attribute can be received only in first recurring request. In all requests with recurring_id card.token can't be generated. If set to 'true', card token will be generated and returned in GET response. Will be generated only for successful transactions (not for declined).
      *
      * @return $this
      */
@@ -551,7 +518,7 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     /**
      * Sets note
      *
-     * @param string $note Note about the transaction that will not be displayed to customer
+     * @param string $note Note about the recurring that will not be displayed to customer.
      *
      * @return $this
      */

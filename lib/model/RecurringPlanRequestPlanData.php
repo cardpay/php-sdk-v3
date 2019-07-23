@@ -233,6 +233,10 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'name', the character length must be bigger than or equal to 0.";
         }
 
+        if (!preg_match("/^[A-Za-z0-9!@#<>№\"$%^&*()_+=~|;:,\\'\\-\/\\.\\?\\s]+$/", $this->container['name'])) {
+            $invalidProperties[] = "invalid value for 'name', must be conform to the pattern /^[A-Za-z0-9!@#<>№\"$%^&*()_+=~|;:,\\'\\-\/\\.\\?\\s]+$/.";
+        }
+
         if ($this->container['period'] === null) {
             $invalidProperties[] = "'period' can't be null";
         }
@@ -368,6 +372,9 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         }
         if ((mb_strlen($name) < 0)) {
             throw new \InvalidArgumentException('invalid length for $name when calling RecurringPlanRequestPlanData., must be bigger than or equal to 0.');
+        }
+        if ((!preg_match("/^[A-Za-z0-9!@#<>№\"$%^&*()_+=~|;:,\\'\\-\/\\.\\?\\s]+$/", $name))) {
+            throw new \InvalidArgumentException("invalid value for $name when calling RecurringPlanRequestPlanData., must conform to the pattern /^[A-Za-z0-9!@#<>№\"$%^&*()_+=~|;:,\\'\\-\/\\.\\?\\s]+$/.");
         }
 
         $this->container['name'] = $name;

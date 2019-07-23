@@ -196,8 +196,8 @@ class PaymentResponseCustomer implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['full_name']) && (mb_strlen($this->container['full_name']) > 255)) {
-            $invalidProperties[] = "invalid value for 'full_name', the character length must be smaller than or equal to 255.";
+        if (!is_null($this->container['full_name']) && (mb_strlen($this->container['full_name']) > 256)) {
+            $invalidProperties[] = "invalid value for 'full_name', the character length must be smaller than or equal to 256.";
         }
 
         if (!is_null($this->container['full_name']) && (mb_strlen($this->container['full_name']) < 1)) {
@@ -220,12 +220,12 @@ class PaymentResponseCustomer implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'ip', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 13)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 13.";
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 12)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 12.";
         }
 
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 10)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 10.";
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 11)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 11.";
         }
 
         return $invalidProperties;
@@ -256,7 +256,7 @@ class PaymentResponseCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets email
      *
-     * @param string $email Email address of the customer (mandatory by default for 'Asia’, 'Latin America’, 'NETELLER', 'DIRECTBANKINGNGA', 'AQRCODE', 'AIRTEL', 'MPESA', 'MTN', 'UGANDAMOBILE', 'VODAFONE', 'TIGO' payment methods only)). Can be defined as optional by CardPay manager.
+     * @param string $email Email address of the customer (mandatory by default for 'Latin America', 'NETELLER', 'DIRECTBANKINGNGA', 'AQRCODE', 'AIRTEL', 'MPESA', 'MTN', 'UGANDAMOBILE', 'VODAFONE', 'TIGO' payment methods only)). Can be defined as optional by CardPay manager.
      *
      * @return $this
      */
@@ -287,14 +287,14 @@ class PaymentResponseCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets full_name
      *
-     * @param string $full_name Customer's full name (mandatory for 'Asia’ payment method only)
+     * @param string $full_name Customer's full name
      *
      * @return $this
      */
     public function setFullName($full_name)
     {
-        if (!is_null($full_name) && (mb_strlen($full_name) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $full_name when calling PaymentResponseCustomer., must be smaller than or equal to 255.');
+        if (!is_null($full_name) && (mb_strlen($full_name) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $full_name when calling PaymentResponseCustomer., must be smaller than or equal to 256.');
         }
         if (!is_null($full_name) && (mb_strlen($full_name) < 1)) {
             throw new \InvalidArgumentException('invalid length for $full_name when calling PaymentResponseCustomer., must be bigger than or equal to 1.');
@@ -349,7 +349,7 @@ class PaymentResponseCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets ip
      *
-     * @param string $ip IP address of customer, present if wallet (terminal) settings has this option enabled. By default the option is not enabled
+     * @param string $ip IP address of Customer
      *
      * @return $this
      */
@@ -404,17 +404,17 @@ class PaymentResponseCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets phone
      *
-     * @param string $phone Customer's phone number. Mandatory for 'Asia’ and DIRECTBANKINGNGA payment methods. For other payment methods: optional by default, can be defined as mandatory by CardPay manager.
+     * @param string $phone Customer's phone number. Mandatory for DIRECTBANKINGNGA payment method. For other payment methods: optional by default, can be defined as mandatory by CardPay manager.
      *
      * @return $this
      */
     public function setPhone($phone)
     {
-        if (!is_null($phone) && (mb_strlen($phone) > 13)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling PaymentResponseCustomer., must be smaller than or equal to 13.');
+        if (!is_null($phone) && (mb_strlen($phone) > 12)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling PaymentResponseCustomer., must be smaller than or equal to 12.');
         }
-        if (!is_null($phone) && (mb_strlen($phone) < 10)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling PaymentResponseCustomer., must be bigger than or equal to 10.');
+        if (!is_null($phone) && (mb_strlen($phone) < 11)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling PaymentResponseCustomer., must be bigger than or equal to 11.');
         }
 
         $this->container['phone'] = $phone;

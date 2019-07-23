@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutPaymentData implements ModelInterface, ArrayAccess
+class RecurringResponseMerchantOrder implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutPaymentData';
+    protected static $swaggerModelName = 'RecurringResponseMerchantOrder';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,6 +26,7 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'description' => 'string',
         'id' => 'string'
     ];
 
@@ -35,6 +36,7 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'description' => null,
         'id' => null
     ];
 
@@ -65,6 +67,7 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'description' => 'description',
         'id' => 'id'
     ];
 
@@ -74,6 +77,7 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'description' => 'setDescription',
         'id' => 'setId'
     ];
 
@@ -83,6 +87,7 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'description' => 'getDescription',
         'id' => 'getId'
     ];
 
@@ -146,6 +151,7 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
 
@@ -158,9 +164,28 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['description'] === null) {
+            $invalidProperties[] = "'description' can't be null";
+        }
+        if ((mb_strlen($this->container['description']) > 200)) {
+            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 200.";
+        }
+
+        if ((mb_strlen($this->container['description']) < 1)) {
+            $invalidProperties[] = "invalid value for 'description', the character length must be bigger than or equal to 1.";
+        }
+
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
+        if ((mb_strlen($this->container['id']) > 50)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 50.";
+        }
+
+        if ((mb_strlen($this->container['id']) < 1)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -177,6 +202,37 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
 
 
     /**
+     * Gets description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->container['description'];
+    }
+
+    /**
+     * Sets description
+     *
+     * @param string $description The description of product / service, provided to Customer
+     *
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        if ((mb_strlen($description) > 200)) {
+            throw new \InvalidArgumentException('invalid length for $description when calling RecurringResponseMerchantOrder., must be smaller than or equal to 200.');
+        }
+        if ((mb_strlen($description) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $description when calling RecurringResponseMerchantOrder., must be bigger than or equal to 1.');
+        }
+
+        $this->container['description'] = $description;
+
+        return $this;
+    }
+
+    /**
      * Gets id
      *
      * @return string
@@ -189,12 +245,19 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id CardPay's initial payment id (or recurring id), that can be used for payout creating instead of 'card_account’
+     * @param string $id Merchant's ID of the order
      *
      * @return $this
      */
     public function setId($id)
     {
+        if ((mb_strlen($id) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling RecurringResponseMerchantOrder., must be smaller than or equal to 50.');
+        }
+        if ((mb_strlen($id) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling RecurringResponseMerchantOrder., must be bigger than or equal to 1.');
+        }
+
         $this->container['id'] = $id;
 
         return $this;

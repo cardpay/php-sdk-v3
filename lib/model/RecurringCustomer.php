@@ -28,6 +28,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'email' => 'string',
         'id' => 'string',
+        'ip' => 'string',
         'locale' => 'string',
         'phone' => 'string'
     ];
@@ -40,6 +41,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'email' => null,
         'id' => null,
+        'ip' => null,
         'locale' => null,
         'phone' => null
     ];
@@ -73,6 +75,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'email' => 'email',
         'id' => 'id',
+        'ip' => 'ip',
         'locale' => 'locale',
         'phone' => 'phone'
     ];
@@ -85,6 +88,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
     protected static $setters = [
         'email' => 'setEmail',
         'id' => 'setId',
+        'ip' => 'setIp',
         'locale' => 'setLocale',
         'phone' => 'setPhone'
     ];
@@ -97,6 +101,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
     protected static $getters = [
         'email' => 'getEmail',
         'id' => 'getId',
+        'ip' => 'getIp',
         'locale' => 'getLocale',
         'phone' => 'getPhone'
     ];
@@ -182,6 +187,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
     {
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
         $this->container['locale'] = isset($data['locale']) ? $data['locale'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
     }
@@ -215,6 +221,14 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
 
         if ((mb_strlen($this->container['id']) < 0)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['ip']) && (mb_strlen($this->container['ip']) > 15)) {
+            $invalidProperties[] = "invalid value for 'ip', the character length must be smaller than or equal to 15.";
+        }
+
+        if (!is_null($this->container['ip']) && (mb_strlen($this->container['ip']) < 1)) {
+            $invalidProperties[] = "invalid value for 'ip', the character length must be bigger than or equal to 1.";
         }
 
         $allowedValues = $this->getLocaleAllowableValues();
@@ -298,6 +312,37 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         }
 
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets ip
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->container['ip'];
+    }
+
+    /**
+     * Sets ip
+     *
+     * @param string $ip Customer IPv4
+     *
+     * @return $this
+     */
+    public function setIp($ip)
+    {
+        if (!is_null($ip) && (mb_strlen($ip) > 15)) {
+            throw new \InvalidArgumentException('invalid length for $ip when calling RecurringCustomer., must be smaller than or equal to 15.');
+        }
+        if (!is_null($ip) && (mb_strlen($ip) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $ip when calling RecurringCustomer., must be bigger than or equal to 1.');
+        }
+
+        $this->container['ip'] = $ip;
 
         return $this;
     }

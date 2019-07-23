@@ -402,7 +402,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     /**
      * Sets preauth
      *
-     * @param bool $preauth If set to `true`, the amount will not be captured but only blocked *(for BANKCARD payment method only)*.
+     * @param bool $preauth If set to `true`, the amount will not be captured but only blocked. Payments with 'preauth' attribute will be captured automatically in 7 days from the time of creating the preauth transaction. *(for BANKCARD payment method only)*.
      *
      * @return $this
      */
