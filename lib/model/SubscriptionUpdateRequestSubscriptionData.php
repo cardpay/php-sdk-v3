@@ -139,6 +139,7 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
     const STATUS_TO_PENDING = 'PENDING';
     const STATUS_TO_COMPLETED = 'COMPLETED';
     const STATUS_TO_CARD_EXPIRED = 'CARD_EXPIRED';
+    const STATUS_TO_ACTIVATION_FAILED = 'ACTIVATION_FAILED';
     
 
     
@@ -157,6 +158,7 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
             self::STATUS_TO_PENDING,
             self::STATUS_TO_COMPLETED,
             self::STATUS_TO_CARD_EXPIRED,
+            self::STATUS_TO_ACTIVATION_FAILED,
         ];
     }
     

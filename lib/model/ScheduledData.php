@@ -28,6 +28,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'dynamic_descriptor' => 'string',
         'generate_token' => 'bool',
+        'initial_amount' => 'float',
         'initiator' => 'string',
         'note' => 'string',
         'plan' => '\Cardpay\model\Plan',
@@ -42,6 +43,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'dynamic_descriptor' => null,
         'generate_token' => null,
+        'initial_amount' => null,
         'initiator' => null,
         'note' => null,
         'plan' => null,
@@ -77,6 +79,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'dynamic_descriptor' => 'dynamic_descriptor',
         'generate_token' => 'generate_token',
+        'initial_amount' => 'initial_amount',
         'initiator' => 'initiator',
         'note' => 'note',
         'plan' => 'plan',
@@ -91,6 +94,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
     protected static $setters = [
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'generate_token' => 'setGenerateToken',
+        'initial_amount' => 'setInitialAmount',
         'initiator' => 'setInitiator',
         'note' => 'setNote',
         'plan' => 'setPlan',
@@ -105,6 +109,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
     protected static $getters = [
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'generate_token' => 'getGenerateToken',
+        'initial_amount' => 'getInitialAmount',
         'initiator' => 'getInitiator',
         'note' => 'getNote',
         'plan' => 'getPlan',
@@ -173,6 +178,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
     {
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
+        $this->container['initial_amount'] = isset($data['initial_amount']) ? $data['initial_amount'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
@@ -277,6 +283,30 @@ class ScheduledData implements ModelInterface, ArrayAccess
     public function setGenerateToken($generate_token)
     {
         $this->container['generate_token'] = $generate_token;
+
+        return $this;
+    }
+
+    /**
+     * Gets initial_amount
+     *
+     * @return float
+     */
+    public function getInitialAmount()
+    {
+        return $this->container['initial_amount'];
+    }
+
+    /**
+     * Sets initial_amount
+     *
+     * @param float $initial_amount The amount of subscription initiated transaction in selected currency with dot as a decimal separator, must be less than 100 millions
+     *
+     * @return $this
+     */
+    public function setInitialAmount($initial_amount)
+    {
+        $this->container['initial_amount'] = $initial_amount;
 
         return $this;
     }

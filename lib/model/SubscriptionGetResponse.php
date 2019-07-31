@@ -219,6 +219,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     const STATUS_PENDING = 'PENDING';
     const STATUS_COMPLETED = 'COMPLETED';
     const STATUS_CARD_EXPIRED = 'CARD_EXPIRED';
+    const STATUS_ACTIVATION_FAILED = 'ACTIVATION_FAILED';
     const TYPE_ONECLICK = 'ONECLICK';
     const TYPE_SCHEDULED = 'SCHEDULED';
     const TYPE_INSTALLMENT = 'INSTALLMENT';
@@ -256,6 +257,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
             self::STATUS_PENDING,
             self::STATUS_COMPLETED,
             self::STATUS_CARD_EXPIRED,
+            self::STATUS_ACTIVATION_FAILED,
         ];
     }
     
