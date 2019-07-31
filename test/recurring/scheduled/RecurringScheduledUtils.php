@@ -85,12 +85,13 @@ class RecurringScheduledUtils
      * @param string $orderId
      * @param string $planId
      * @param string $subscriptionStart
+     * @param float $initialAmount
      * @return string|null
      * @throws ApiException
      */
-    public function createScheduledSubscriptionInPaymentPageMode($orderId, $planId = null, $subscriptionStart = null)
+    public function createScheduledSubscriptionInPaymentPageMode($orderId, $planId = null, $subscriptionStart = null, $initialAmount = 0.0)
     {
-        $redirectUrl = $this->createScheduledSubscription($orderId, $planId, $subscriptionStart);
+        $redirectUrl = $this->createScheduledSubscription($orderId, $planId, $subscriptionStart, $initialAmount);
 
         return $redirectUrl;
     }
@@ -99,13 +100,14 @@ class RecurringScheduledUtils
      * @param string $orderId
      * @param string $planId
      * @param string $subscriptionStart
+     * @param float $initialAmount
      * @return RecurringResponse|null
      * @throws ApiException
      */
-    public function createScheduledSubscriptionInGatewayMode($orderId, $planId = null, $subscriptionStart = null)
+    public function createScheduledSubscriptionInGatewayMode($orderId, $planId = null, $subscriptionStart = null, $initialAmount = 0.0)
     {
         /** @var RecurringResponse $recurringResponse */
-        $recurringResponse = $this->createScheduledSubscription($orderId, $planId, $subscriptionStart);
+        $recurringResponse = $this->createScheduledSubscription($orderId, $planId, $subscriptionStart, $initialAmount);
 
         return $recurringResponse;
     }
@@ -114,10 +116,11 @@ class RecurringScheduledUtils
      * @param string $orderId
      * @param string $planId
      * @param string $subscriptionStart
+     * @param float $initialAmount
      * @return RecurringResponse|string|null
      * @throws ApiException
      */
-    private function createScheduledSubscription($orderId, $planId, $subscriptionStart)
+    private function createScheduledSubscription($orderId, $planId, $subscriptionStart, $initialAmount)
     {
         $orderDescription = 'Order description (scheduled subscription)';
         $customerId = time();
@@ -145,6 +148,9 @@ class RecurringScheduledUtils
         ]);
         if (!empty($subscriptionStart)) {
             $recurringData['subscription_start'] = $subscriptionStart;
+        }
+        if ($initialAmount > 0) {
+            $recurringData['initial_amount'] = $initialAmount;
         }
 
         $recurringCustomer = new RecurringCustomer([
@@ -181,7 +187,7 @@ class RecurringScheduledUtils
         $redirectURL = $recurringCreationResponse->getRedirectUrl();
         // header("Location: {$redirectUrl}");
 
-        if ($isGatewayMode) {
+        if ($isGatewayMode && empty($subscriptionStart)) {
             try {
                 $this->client->request('GET', $redirectURL);
             } catch (GuzzleException $e) {
@@ -189,8 +195,7 @@ class RecurringScheduledUtils
             }
 
             // get recurring response
-            $recurringsList = $this->recurringsApi
-                ->getRecurrings(microtime(true), null, null, null, $orderId);
+            $recurringsList = $this->recurringsApi->getRecurrings(microtime(true), null, null, null, $orderId);
 
             $data = $recurringsList->getData();
             if (false === isset($data[0])) {

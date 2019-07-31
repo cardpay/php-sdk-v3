@@ -24,8 +24,7 @@ class RecurringCreateScheduledSubscriptionGatewayTest extends RecurringScheduled
         self::assertNotEmpty($planId);
 
         // create scheduled subscription
-        $recurringResponse = $this->recurringScheduledUtils
-            ->createScheduledSubscriptionInGatewayMode(time(), $planId);
+        $recurringResponse = $this->recurringScheduledUtils->createScheduledSubscriptionInGatewayMode(time(), $planId);
 
         $this->subscriptionId = $recurringResponse->getRecurringData()->getSubscription()->getId();
 
