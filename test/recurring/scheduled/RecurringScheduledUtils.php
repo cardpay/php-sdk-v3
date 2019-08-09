@@ -248,10 +248,90 @@ class RecurringScheduledUtils
     }
 
     /**
+     * @param RecurringsApi $recurringsApi
+     */
+    public function setRecurringsApi($recurringsApi)
+    {
+        $this->recurringsApi = $recurringsApi;
+    }
+
+    /**
+     * @return Configuration
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param Configuration $config
+     */
+    public function setConfig($config)
+    {
+        $this->config = $config;
+    }
+
+    /**
      * @return Client
      */
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * @param Client $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * @return HeaderSelector
+     */
+    public function getHeaderSelector()
+    {
+        return $this->headerSelector;
+    }
+
+    /**
+     * @param HeaderSelector $headerSelector
+     */
+    public function setHeaderSelector($headerSelector)
+    {
+        $this->headerSelector = $headerSelector;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTerminalCode()
+    {
+        return $this->terminalCode;
+    }
+
+    /**
+     * @param string $terminalCode
+     */
+    public function setTerminalCode($terminalCode)
+    {
+        $this->terminalCode = $terminalCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 }

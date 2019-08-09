@@ -122,7 +122,7 @@ class PaymentsApi
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
             } else {
-                $content = $responseBody->getContents();
+                $content = (string) $responseBody;
                 if ($returnType !== 'string') {
                     $content = json_decode($content);
                 }
@@ -224,7 +224,7 @@ class PaymentsApi
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
-                        $content = $responseBody->getContents();
+                        $content = (string) $responseBody;
                         if ($returnType !== 'string') {
                             $content = json_decode($content);
                         }
@@ -416,7 +416,7 @@ class PaymentsApi
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
             } else {
-                $content = $responseBody->getContents();
+                $content = (string) $responseBody;
                 if ($returnType !== 'string') {
                     $content = json_decode($content);
                 }
@@ -518,7 +518,7 @@ class PaymentsApi
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
-                        $content = $responseBody->getContents();
+                        $content = (string) $responseBody;
                         if ($returnType !== 'string') {
                             $content = json_decode($content);
                         }
@@ -729,7 +729,7 @@ class PaymentsApi
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
             } else {
-                $content = $responseBody->getContents();
+                $content = (string) $responseBody;
                 if ($returnType !== 'string') {
                     $content = json_decode($content);
                 }
@@ -845,7 +845,7 @@ class PaymentsApi
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
-                        $content = $responseBody->getContents();
+                        $content = (string) $responseBody;
                         if ($returnType !== 'string') {
                             $content = json_decode($content);
                         }
@@ -1104,7 +1104,7 @@ class PaymentsApi
             if ($returnType === '\SplFileObject') {
                 $content = $responseBody; //stream goes to serializer
             } else {
-                $content = $responseBody->getContents();
+                $content = (string) $responseBody;
                 if ($returnType !== 'string') {
                     $content = json_decode($content);
                 }
@@ -1216,7 +1216,7 @@ class PaymentsApi
                     if ($returnType === '\SplFileObject') {
                         $content = $responseBody; //stream goes to serializer
                     } else {
-                        $content = $responseBody->getContents();
+                        $content = (string) $responseBody;
                         if ($returnType !== 'string') {
                             $content = json_decode($content);
                         }

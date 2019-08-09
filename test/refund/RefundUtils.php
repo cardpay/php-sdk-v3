@@ -67,4 +67,12 @@ class RefundUtils
     {
         return $this->refundsApi;
     }
+
+    /**
+     * @param RefundsApi $refundsApi
+     */
+    public function setRefundsApi($refundsApi)
+    {
+        $this->refundsApi = $refundsApi;
+    }
 }
