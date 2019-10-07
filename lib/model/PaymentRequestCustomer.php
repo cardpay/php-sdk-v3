@@ -29,9 +29,12 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'birth_date' => 'string',
         'email' => 'string',
         'full_name' => 'string',
+        'home_phone' => 'string',
         'id' => 'string',
+        'living_address' => '\Cardpay\model\PaymentRequestLivingAddress',
         'locale' => 'string',
-        'phone' => 'string'
+        'phone' => 'string',
+        'work_phone' => 'string'
     ];
 
     /**
@@ -43,9 +46,12 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'birth_date' => null,
         'email' => null,
         'full_name' => null,
+        'home_phone' => null,
         'id' => null,
+        'living_address' => null,
         'locale' => null,
-        'phone' => null
+        'phone' => null,
+        'work_phone' => null
     ];
 
     /**
@@ -78,9 +84,12 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'birth_date' => 'birth_date',
         'email' => 'email',
         'full_name' => 'full_name',
+        'home_phone' => 'home_phone',
         'id' => 'id',
+        'living_address' => 'living_address',
         'locale' => 'locale',
-        'phone' => 'phone'
+        'phone' => 'phone',
+        'work_phone' => 'work_phone'
     ];
 
     /**
@@ -92,9 +101,12 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'birth_date' => 'setBirthDate',
         'email' => 'setEmail',
         'full_name' => 'setFullName',
+        'home_phone' => 'setHomePhone',
         'id' => 'setId',
+        'living_address' => 'setLivingAddress',
         'locale' => 'setLocale',
-        'phone' => 'setPhone'
+        'phone' => 'setPhone',
+        'work_phone' => 'setWorkPhone'
     ];
 
     /**
@@ -106,9 +118,12 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'birth_date' => 'getBirthDate',
         'email' => 'getEmail',
         'full_name' => 'getFullName',
+        'home_phone' => 'getHomePhone',
         'id' => 'getId',
+        'living_address' => 'getLivingAddress',
         'locale' => 'getLocale',
-        'phone' => 'getPhone'
+        'phone' => 'getPhone',
+        'work_phone' => 'getWorkPhone'
     ];
 
     /**
@@ -174,9 +189,12 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         $this->container['birth_date'] = isset($data['birth_date']) ? $data['birth_date'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
         $this->container['full_name'] = isset($data['full_name']) ? $data['full_name'] : null;
+        $this->container['home_phone'] = isset($data['home_phone']) ? $data['home_phone'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['living_address'] = isset($data['living_address']) ? $data['living_address'] : null;
         $this->container['locale'] = isset($data['locale']) ? $data['locale'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
+        $this->container['work_phone'] = isset($data['work_phone']) ? $data['work_phone'] : null;
     }
 
     /**
@@ -204,6 +222,14 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'full_name', the character length must be bigger than or equal to 1.";
         }
 
+        if (!is_null($this->container['home_phone']) && (mb_strlen($this->container['home_phone']) > 18)) {
+            $invalidProperties[] = "invalid value for 'home_phone', the character length must be smaller than or equal to 18.";
+        }
+
+        if (!is_null($this->container['home_phone']) && (mb_strlen($this->container['home_phone']) < 8)) {
+            $invalidProperties[] = "invalid value for 'home_phone', the character length must be bigger than or equal to 8.";
+        }
+
         if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 256)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 256.";
         }
@@ -212,12 +238,20 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 12)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 12.";
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 18)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 18.";
         }
 
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 11)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 11.";
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 8)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 8.";
+        }
+
+        if (!is_null($this->container['work_phone']) && (mb_strlen($this->container['work_phone']) > 18)) {
+            $invalidProperties[] = "invalid value for 'work_phone', the character length must be smaller than or equal to 18.";
+        }
+
+        if (!is_null($this->container['work_phone']) && (mb_strlen($this->container['work_phone']) < 8)) {
+            $invalidProperties[] = "invalid value for 'work_phone', the character length must be bigger than or equal to 8.";
         }
 
         return $invalidProperties;
@@ -322,6 +356,37 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets home_phone
+     *
+     * @return string
+     */
+    public function getHomePhone()
+    {
+        return $this->container['home_phone'];
+    }
+
+    /**
+     * Sets home_phone
+     *
+     * @param string $home_phone The work phone number provided by the Cardholder. Required (if available), unless market or regional mandate restricts sending this information. Characters Format: string (10-18 symbols) country code + Subscriber number. Refer to ITU-E.164 for additional information on format and length.
+     *
+     * @return $this
+     */
+    public function setHomePhone($home_phone)
+    {
+        if (!is_null($home_phone) && (mb_strlen($home_phone) > 18)) {
+            throw new \InvalidArgumentException('invalid length for $home_phone when calling PaymentRequestCustomer., must be smaller than or equal to 18.');
+        }
+        if (!is_null($home_phone) && (mb_strlen($home_phone) < 8)) {
+            throw new \InvalidArgumentException('invalid length for $home_phone when calling PaymentRequestCustomer., must be bigger than or equal to 8.');
+        }
+
+        $this->container['home_phone'] = $home_phone;
+
+        return $this;
+    }
+
+    /**
      * Gets id
      *
      * @return string
@@ -348,6 +413,30 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         }
 
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets living_address
+     *
+     * @return \Cardpay\model\PaymentRequestLivingAddress
+     */
+    public function getLivingAddress()
+    {
+        return $this->container['living_address'];
+    }
+
+    /**
+     * Sets living_address
+     *
+     * @param \Cardpay\model\PaymentRequestLivingAddress $living_address Customer address *(mandatory for 'Latin America' methods only)* For 'Latin America' is required for methods where country = CO
+     *
+     * @return $this
+     */
+    public function setLivingAddress($living_address)
+    {
+        $this->container['living_address'] = $living_address;
 
         return $this;
     }
@@ -395,14 +484,45 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function setPhone($phone)
     {
-        if (!is_null($phone) && (mb_strlen($phone) > 12)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling PaymentRequestCustomer., must be smaller than or equal to 12.');
+        if (!is_null($phone) && (mb_strlen($phone) > 18)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling PaymentRequestCustomer., must be smaller than or equal to 18.');
         }
-        if (!is_null($phone) && (mb_strlen($phone) < 11)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling PaymentRequestCustomer., must be bigger than or equal to 11.');
+        if (!is_null($phone) && (mb_strlen($phone) < 8)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling PaymentRequestCustomer., must be bigger than or equal to 8.');
         }
 
         $this->container['phone'] = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Gets work_phone
+     *
+     * @return string
+     */
+    public function getWorkPhone()
+    {
+        return $this->container['work_phone'];
+    }
+
+    /**
+     * Sets work_phone
+     *
+     * @param string $work_phone The home phone number provided by the Cardholder. Required (if available) unless market or regional mandate restricts sending this information. Characters Format: string (10-18 symbols) country code + Subscriber number. Refer to ITU-E.164 for additional information on format and length.
+     *
+     * @return $this
+     */
+    public function setWorkPhone($work_phone)
+    {
+        if (!is_null($work_phone) && (mb_strlen($work_phone) > 18)) {
+            throw new \InvalidArgumentException('invalid length for $work_phone when calling PaymentRequestCustomer., must be smaller than or equal to 18.');
+        }
+        if (!is_null($work_phone) && (mb_strlen($work_phone) < 8)) {
+            throw new \InvalidArgumentException('invalid length for $work_phone when calling PaymentRequestCustomer., must be bigger than or equal to 8.');
+        }
+
+        $this->container['work_phone'] = $work_phone;
 
         return $this;
     }

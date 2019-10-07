@@ -32,7 +32,8 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'initiator' => 'string',
         'note' => 'string',
         'plan' => '\Cardpay\model\Plan',
-        'subscription_start' => '\DateTime'
+        'subscription_start' => '\DateTime',
+        'trans_type' => 'string'
     ];
 
     /**
@@ -47,7 +48,8 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'initiator' => null,
         'note' => null,
         'plan' => null,
-        'subscription_start' => 'date-time'
+        'subscription_start' => 'date-time',
+        'trans_type' => null
     ];
 
     /**
@@ -83,7 +85,8 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'initiator' => 'initiator',
         'note' => 'note',
         'plan' => 'plan',
-        'subscription_start' => 'subscription_start'
+        'subscription_start' => 'subscription_start',
+        'trans_type' => 'trans_type'
     ];
 
     /**
@@ -98,7 +101,8 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'initiator' => 'setInitiator',
         'note' => 'setNote',
         'plan' => 'setPlan',
-        'subscription_start' => 'setSubscriptionStart'
+        'subscription_start' => 'setSubscriptionStart',
+        'trans_type' => 'setTransType'
     ];
 
     /**
@@ -113,7 +117,8 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'initiator' => 'getInitiator',
         'note' => 'getNote',
         'plan' => 'getPlan',
-        'subscription_start' => 'getSubscriptionStart'
+        'subscription_start' => 'getSubscriptionStart',
+        'trans_type' => 'getTransType'
     ];
 
     /**
@@ -157,8 +162,29 @@ class ScheduledData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const TRANS_TYPE__01 = '01';
+    const TRANS_TYPE__03 = '03';
+    const TRANS_TYPE__10 = '10';
+    const TRANS_TYPE__11 = '11';
+    const TRANS_TYPE__28 = '28';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getTransTypeAllowableValues()
+    {
+        return [
+            self::TRANS_TYPE__01,
+            self::TRANS_TYPE__03,
+            self::TRANS_TYPE__10,
+            self::TRANS_TYPE__11,
+            self::TRANS_TYPE__28,
+        ];
+    }
     
 
     /**
@@ -183,6 +209,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
         $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
+        $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
     /**
@@ -215,6 +242,14 @@ class ScheduledData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
+        }
+
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($this->container['trans_type']) && !in_array($this->container['trans_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'trans_type', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
         }
 
         return $invalidProperties;
@@ -415,6 +450,39 @@ class ScheduledData implements ModelInterface, ArrayAccess
     public function setSubscriptionStart($subscription_start)
     {
         $this->container['subscription_start'] = $subscription_start;
+
+        return $this;
+    }
+
+    /**
+     * Gets trans_type
+     *
+     * @return string
+     */
+    public function getTransType()
+    {
+        return $this->container['trans_type'];
+    }
+
+    /**
+     * Sets trans_type
+     *
+     * @param string $trans_type trans_type
+     *
+     * @return $this
+     */
+    public function setTransType($trans_type)
+    {
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($trans_type) && !in_array($trans_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'trans_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['trans_type'] = $trans_type;
 
         return $this;
     }

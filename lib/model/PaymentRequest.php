@@ -34,6 +34,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         'merchant_order' => '\Cardpay\model\PaymentRequestMerchantOrder',
         'payment_data' => '\Cardpay\model\PaymentRequestPaymentData',
         'payment_method' => 'string',
+        'payment_methods' => 'string[]',
         'return_urls' => '\Cardpay\model\ReturnUrls'
     ];
 
@@ -51,6 +52,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         'merchant_order' => null,
         'payment_data' => null,
         'payment_method' => null,
+        'payment_methods' => null,
         'return_urls' => null
     ];
 
@@ -89,6 +91,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         'merchant_order' => 'merchant_order',
         'payment_data' => 'payment_data',
         'payment_method' => 'payment_method',
+        'payment_methods' => 'payment_methods',
         'return_urls' => 'return_urls'
     ];
 
@@ -106,6 +109,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         'merchant_order' => 'setMerchantOrder',
         'payment_data' => 'setPaymentData',
         'payment_method' => 'setPaymentMethod',
+        'payment_methods' => 'setPaymentMethods',
         'return_urls' => 'setReturnUrls'
     ];
 
@@ -123,6 +127,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         'merchant_order' => 'getMerchantOrder',
         'payment_data' => 'getPaymentData',
         'payment_method' => 'getPaymentMethod',
+        'payment_methods' => 'getPaymentMethods',
         'return_urls' => 'getReturnUrls'
     ];
 
@@ -194,6 +199,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
         $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
         $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
+        $this->container['payment_methods'] = isset($data['payment_methods']) ? $data['payment_methods'] : null;
         $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
     }
 
@@ -345,7 +351,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
     /**
      * Sets ewallet_account
      *
-     * @param \Cardpay\model\PaymentRequestEWalletAccount $ewallet_account eWallet account data
+     * @param \Cardpay\model\PaymentRequestEWalletAccount $ewallet_account eWallet account data *(for all payment method, excluding BANKCARD, BITCOIN, DIRECTBANKINGEU)
      *
      * @return $this
      */
@@ -424,6 +430,30 @@ class PaymentRequest implements ModelInterface, ArrayAccess
     public function setPaymentMethod($payment_method)
     {
         $this->container['payment_method'] = $payment_method;
+
+        return $this;
+    }
+
+    /**
+     * Gets payment_methods
+     *
+     * @return string[]
+     */
+    public function getPaymentMethods()
+    {
+        return $this->container['payment_methods'];
+    }
+
+    /**
+     * Sets payment_methods
+     *
+     * @param string[] $payment_methods Array of payment methods to display on Checkout Page. If it is not set then all available methods will be displayed
+     *
+     * @return $this
+     */
+    public function setPaymentMethods($payment_methods)
+    {
+        $this->container['payment_methods'] = $payment_methods;
 
         return $this;
     }

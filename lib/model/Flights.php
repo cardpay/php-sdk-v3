@@ -34,6 +34,7 @@ class Flights implements ModelInterface, ArrayAccess
         'origination_code' => 'string',
         'passenger_name' => 'string',
         'ticket_change_indicator' => 'string',
+        'ticket_number' => 'string',
         'travel_agency_code' => 'string',
         'travel_agency_name' => 'string'
     ];
@@ -52,6 +53,7 @@ class Flights implements ModelInterface, ArrayAccess
         'origination_code' => null,
         'passenger_name' => null,
         'ticket_change_indicator' => null,
+        'ticket_number' => null,
         'travel_agency_code' => null,
         'travel_agency_name' => null
     ];
@@ -91,6 +93,7 @@ class Flights implements ModelInterface, ArrayAccess
         'origination_code' => 'origination_code',
         'passenger_name' => 'passenger_name',
         'ticket_change_indicator' => 'ticket_change_indicator',
+        'ticket_number' => 'ticket_number',
         'travel_agency_code' => 'travel_agency_code',
         'travel_agency_name' => 'travel_agency_name'
     ];
@@ -109,6 +112,7 @@ class Flights implements ModelInterface, ArrayAccess
         'origination_code' => 'setOriginationCode',
         'passenger_name' => 'setPassengerName',
         'ticket_change_indicator' => 'setTicketChangeIndicator',
+        'ticket_number' => 'setTicketNumber',
         'travel_agency_code' => 'setTravelAgencyCode',
         'travel_agency_name' => 'setTravelAgencyName'
     ];
@@ -127,6 +131,7 @@ class Flights implements ModelInterface, ArrayAccess
         'origination_code' => 'getOriginationCode',
         'passenger_name' => 'getPassengerName',
         'ticket_change_indicator' => 'getTicketChangeIndicator',
+        'ticket_number' => 'getTicketNumber',
         'travel_agency_code' => 'getTravelAgencyCode',
         'travel_agency_name' => 'getTravelAgencyName'
     ];
@@ -199,6 +204,7 @@ class Flights implements ModelInterface, ArrayAccess
         $this->container['origination_code'] = isset($data['origination_code']) ? $data['origination_code'] : null;
         $this->container['passenger_name'] = isset($data['passenger_name']) ? $data['passenger_name'] : null;
         $this->container['ticket_change_indicator'] = isset($data['ticket_change_indicator']) ? $data['ticket_change_indicator'] : null;
+        $this->container['ticket_number'] = isset($data['ticket_number']) ? $data['ticket_number'] : null;
         $this->container['travel_agency_code'] = isset($data['travel_agency_code']) ? $data['travel_agency_code'] : null;
         $this->container['travel_agency_name'] = isset($data['travel_agency_name']) ? $data['travel_agency_name'] : null;
     }
@@ -250,6 +256,14 @@ class Flights implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['ticket_change_indicator']) && (mb_strlen($this->container['ticket_change_indicator']) < 1)) {
             $invalidProperties[] = "invalid value for 'ticket_change_indicator', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['ticket_number']) && (mb_strlen($this->container['ticket_number']) > 15)) {
+            $invalidProperties[] = "invalid value for 'ticket_number', the character length must be smaller than or equal to 15.";
+        }
+
+        if (!is_null($this->container['ticket_number']) && (mb_strlen($this->container['ticket_number']) < 0)) {
+            $invalidProperties[] = "invalid value for 'ticket_number', the character length must be bigger than or equal to 0.";
         }
 
         if (!is_null($this->container['travel_agency_code']) && (mb_strlen($this->container['travel_agency_code']) > 8)) {
@@ -506,6 +520,37 @@ class Flights implements ModelInterface, ArrayAccess
         }
 
         $this->container['ticket_change_indicator'] = $ticket_change_indicator;
+
+        return $this;
+    }
+
+    /**
+     * Gets ticket_number
+     *
+     * @return string
+     */
+    public function getTicketNumber()
+    {
+        return $this->container['ticket_number'];
+    }
+
+    /**
+     * Sets ticket_number
+     *
+     * @param string $ticket_number Ticket number
+     *
+     * @return $this
+     */
+    public function setTicketNumber($ticket_number)
+    {
+        if (!is_null($ticket_number) && (mb_strlen($ticket_number) > 15)) {
+            throw new \InvalidArgumentException('invalid length for $ticket_number when calling Flights., must be smaller than or equal to 15.');
+        }
+        if (!is_null($ticket_number) && (mb_strlen($ticket_number) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $ticket_number when calling Flights., must be bigger than or equal to 0.');
+        }
+
+        $this->container['ticket_number'] = $ticket_number;
 
         return $this;
     }

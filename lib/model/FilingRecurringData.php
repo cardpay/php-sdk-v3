@@ -30,7 +30,8 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'string',
         'generate_token' => 'bool',
         'initiator' => 'string',
-        'note' => 'string'
+        'note' => 'string',
+        'trans_type' => 'string'
     ];
 
     /**
@@ -43,7 +44,8 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => null,
         'generate_token' => null,
         'initiator' => null,
-        'note' => null
+        'note' => null,
+        'trans_type' => null
     ];
 
     /**
@@ -77,7 +79,8 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'dynamic_descriptor',
         'generate_token' => 'generate_token',
         'initiator' => 'initiator',
-        'note' => 'note'
+        'note' => 'note',
+        'trans_type' => 'trans_type'
     ];
 
     /**
@@ -90,7 +93,8 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'generate_token' => 'setGenerateToken',
         'initiator' => 'setInitiator',
-        'note' => 'setNote'
+        'note' => 'setNote',
+        'trans_type' => 'setTransType'
     ];
 
     /**
@@ -103,7 +107,8 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'generate_token' => 'getGenerateToken',
         'initiator' => 'getInitiator',
-        'note' => 'getNote'
+        'note' => 'getNote',
+        'trans_type' => 'getTransType'
     ];
 
     /**
@@ -147,8 +152,29 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const TRANS_TYPE__01 = '01';
+    const TRANS_TYPE__03 = '03';
+    const TRANS_TYPE__10 = '10';
+    const TRANS_TYPE__11 = '11';
+    const TRANS_TYPE__28 = '28';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getTransTypeAllowableValues()
+    {
+        return [
+            self::TRANS_TYPE__01,
+            self::TRANS_TYPE__03,
+            self::TRANS_TYPE__10,
+            self::TRANS_TYPE__11,
+            self::TRANS_TYPE__28,
+        ];
+    }
     
 
     /**
@@ -171,6 +197,7 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
+        $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
     /**
@@ -200,6 +227,14 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
+        }
+
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($this->container['trans_type']) && !in_array($this->container['trans_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'trans_type', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
         }
 
         return $invalidProperties;
@@ -352,6 +387,39 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
         }
 
         $this->container['note'] = $note;
+
+        return $this;
+    }
+
+    /**
+     * Gets trans_type
+     *
+     * @return string
+     */
+    public function getTransType()
+    {
+        return $this->container['trans_type'];
+    }
+
+    /**
+     * Sets trans_type
+     *
+     * @param string $trans_type trans_type
+     *
+     * @return $this
+     */
+    public function setTransType($trans_type)
+    {
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($trans_type) && !in_array($trans_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'trans_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['trans_type'] = $trans_type;
 
         return $this;
     }

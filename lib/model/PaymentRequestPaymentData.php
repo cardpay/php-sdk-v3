@@ -30,9 +30,11 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'authentication_request' => 'bool',
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
+        'encrypted_data' => 'string',
         'generate_token' => 'bool',
         'note' => 'string',
-        'preauth' => 'bool'
+        'preauth' => 'bool',
+        'trans_type' => 'string'
     ];
 
     /**
@@ -45,9 +47,11 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'authentication_request' => null,
         'currency' => null,
         'dynamic_descriptor' => null,
+        'encrypted_data' => null,
         'generate_token' => null,
         'note' => null,
-        'preauth' => null
+        'preauth' => null,
+        'trans_type' => null
     ];
 
     /**
@@ -81,9 +85,11 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'authentication_request' => 'authentication_request',
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
+        'encrypted_data' => 'encrypted_data',
         'generate_token' => 'generate_token',
         'note' => 'note',
-        'preauth' => 'preauth'
+        'preauth' => 'preauth',
+        'trans_type' => 'trans_type'
     ];
 
     /**
@@ -96,9 +102,11 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'authentication_request' => 'setAuthenticationRequest',
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
+        'encrypted_data' => 'setEncryptedData',
         'generate_token' => 'setGenerateToken',
         'note' => 'setNote',
-        'preauth' => 'setPreauth'
+        'preauth' => 'setPreauth',
+        'trans_type' => 'setTransType'
     ];
 
     /**
@@ -111,9 +119,11 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'authentication_request' => 'getAuthenticationRequest',
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
+        'encrypted_data' => 'getEncryptedData',
         'generate_token' => 'getGenerateToken',
         'note' => 'getNote',
-        'preauth' => 'getPreauth'
+        'preauth' => 'getPreauth',
+        'trans_type' => 'getTransType'
     ];
 
     /**
@@ -157,8 +167,29 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const TRANS_TYPE__01 = '01';
+    const TRANS_TYPE__03 = '03';
+    const TRANS_TYPE__10 = '10';
+    const TRANS_TYPE__11 = '11';
+    const TRANS_TYPE__28 = '28';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getTransTypeAllowableValues()
+    {
+        return [
+            self::TRANS_TYPE__01,
+            self::TRANS_TYPE__03,
+            self::TRANS_TYPE__10,
+            self::TRANS_TYPE__11,
+            self::TRANS_TYPE__28,
+        ];
+    }
     
 
     /**
@@ -180,9 +211,11 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         $this->container['authentication_request'] = isset($data['authentication_request']) ? $data['authentication_request'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
+        $this->container['encrypted_data'] = isset($data['encrypted_data']) ? $data['encrypted_data'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
+        $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
     /**
@@ -208,12 +241,28 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be bigger than or equal to 0.";
         }
 
+        if (!is_null($this->container['encrypted_data']) && (mb_strlen($this->container['encrypted_data']) > 10000)) {
+            $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be smaller than or equal to 10000.";
+        }
+
+        if (!is_null($this->container['encrypted_data']) && (mb_strlen($this->container['encrypted_data']) < 0)) {
+            $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be bigger than or equal to 0.";
+        }
+
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) > 100)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be smaller than or equal to 100.";
         }
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
+        }
+
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($this->container['trans_type']) && !in_array($this->container['trans_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'trans_type', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
         }
 
         return $invalidProperties;
@@ -335,6 +384,37 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets encrypted_data
+     *
+     * @return string
+     */
+    public function getEncryptedData()
+    {
+        return $this->container['encrypted_data'];
+    }
+
+    /**
+     * Sets encrypted_data
+     *
+     * @param string $encrypted_data The encrypted payment credentials encoded in base64. *(for APPLEPAY payment method only)*
+     *
+     * @return $this
+     */
+    public function setEncryptedData($encrypted_data)
+    {
+        if (!is_null($encrypted_data) && (mb_strlen($encrypted_data) > 10000)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_data when calling PaymentRequestPaymentData., must be smaller than or equal to 10000.');
+        }
+        if (!is_null($encrypted_data) && (mb_strlen($encrypted_data) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_data when calling PaymentRequestPaymentData., must be bigger than or equal to 0.');
+        }
+
+        $this->container['encrypted_data'] = $encrypted_data;
+
+        return $this;
+    }
+
+    /**
      * Gets generate_token
      *
      * @return bool
@@ -409,6 +489,39 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     public function setPreauth($preauth)
     {
         $this->container['preauth'] = $preauth;
+
+        return $this;
+    }
+
+    /**
+     * Gets trans_type
+     *
+     * @return string
+     */
+    public function getTransType()
+    {
+        return $this->container['trans_type'];
+    }
+
+    /**
+     * Sets trans_type
+     *
+     * @param string $trans_type trans_type
+     *
+     * @return $this
+     */
+    public function setTransType($trans_type)
+    {
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($trans_type) && !in_array($trans_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'trans_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['trans_type'] = $trans_type;
 
         return $this;
     }

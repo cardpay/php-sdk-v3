@@ -26,6 +26,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'acct_type' => 'string',
         'expiration' => 'string',
         'holder' => 'string',
         'issuing_country_code' => 'string',
@@ -39,6 +40,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'acct_type' => null,
         'expiration' => null,
         'holder' => null,
         'issuing_country_code' => null,
@@ -73,6 +75,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'acct_type' => 'acct_type',
         'expiration' => 'expiration',
         'holder' => 'holder',
         'issuing_country_code' => 'issuing_country_code',
@@ -86,6 +89,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'acct_type' => 'setAcctType',
         'expiration' => 'setExpiration',
         'holder' => 'setHolder',
         'issuing_country_code' => 'setIssuingCountryCode',
@@ -99,6 +103,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'acct_type' => 'getAcctType',
         'expiration' => 'getExpiration',
         'holder' => 'getHolder',
         'issuing_country_code' => 'getIssuingCountryCode',
@@ -147,8 +152,25 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const ACCT_TYPE__01 = '01';
+    const ACCT_TYPE__02 = '02';
+    const ACCT_TYPE__03 = '03';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getAcctTypeAllowableValues()
+    {
+        return [
+            self::ACCT_TYPE__01,
+            self::ACCT_TYPE__02,
+            self::ACCT_TYPE__03,
+        ];
+    }
     
 
     /**
@@ -166,6 +188,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['acct_type'] = isset($data['acct_type']) ? $data['acct_type'] : null;
         $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
         $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
         $this->container['issuing_country_code'] = isset($data['issuing_country_code']) ? $data['issuing_country_code'] : null;
@@ -182,6 +205,14 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        $allowedValues = $this->getAcctTypeAllowableValues();
+        if (!is_null($this->container['acct_type']) && !in_array($this->container['acct_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'acct_type', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
+        }
+
         return $invalidProperties;
     }
 
@@ -196,6 +227,39 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets acct_type
+     *
+     * @return string
+     */
+    public function getAcctType()
+    {
+        return $this->container['acct_type'];
+    }
+
+    /**
+     * Sets acct_type
+     *
+     * @param string $acct_type acct_type
+     *
+     * @return $this
+     */
+    public function setAcctType($acct_type)
+    {
+        $allowedValues = $this->getAcctTypeAllowableValues();
+        if (!is_null($acct_type) && !in_array($acct_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'acct_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['acct_type'] = $acct_type;
+
+        return $this;
+    }
 
     /**
      * Gets expiration

@@ -26,8 +26,6 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'address' => 'string',
-        'city' => 'string',
         'document_number' => 'string',
         'document_type' => 'string',
         'email' => 'string',
@@ -35,8 +33,8 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         'full_name' => 'string',
         'id' => 'string',
         'last_name' => 'string',
-        'phone' => 'string',
-        'province' => 'string'
+        'living_address' => '\Cardpay\model\PayoutRequestLivingAddress',
+        'phone' => 'string'
     ];
 
     /**
@@ -45,8 +43,6 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'address' => null,
-        'city' => null,
         'document_number' => null,
         'document_type' => null,
         'email' => null,
@@ -54,8 +50,8 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         'full_name' => null,
         'id' => null,
         'last_name' => null,
-        'phone' => null,
-        'province' => null
+        'living_address' => null,
+        'phone' => null
     ];
 
     /**
@@ -85,8 +81,6 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'address' => 'address',
-        'city' => 'city',
         'document_number' => 'document_number',
         'document_type' => 'document_type',
         'email' => 'email',
@@ -94,8 +88,8 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         'full_name' => 'full_name',
         'id' => 'id',
         'last_name' => 'last_name',
-        'phone' => 'phone',
-        'province' => 'province'
+        'living_address' => 'living_address',
+        'phone' => 'phone'
     ];
 
     /**
@@ -104,8 +98,6 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'address' => 'setAddress',
-        'city' => 'setCity',
         'document_number' => 'setDocumentNumber',
         'document_type' => 'setDocumentType',
         'email' => 'setEmail',
@@ -113,8 +105,8 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         'full_name' => 'setFullName',
         'id' => 'setId',
         'last_name' => 'setLastName',
-        'phone' => 'setPhone',
-        'province' => 'setProvince'
+        'living_address' => 'setLivingAddress',
+        'phone' => 'setPhone'
     ];
 
     /**
@@ -123,8 +115,6 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'address' => 'getAddress',
-        'city' => 'getCity',
         'document_number' => 'getDocumentNumber',
         'document_type' => 'getDocumentType',
         'email' => 'getEmail',
@@ -132,8 +122,8 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         'full_name' => 'getFullName',
         'id' => 'getId',
         'last_name' => 'getLastName',
-        'phone' => 'getPhone',
-        'province' => 'getProvince'
+        'living_address' => 'getLivingAddress',
+        'phone' => 'getPhone'
     ];
 
     /**
@@ -196,8 +186,6 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['address'] = isset($data['address']) ? $data['address'] : null;
-        $this->container['city'] = isset($data['city']) ? $data['city'] : null;
         $this->container['document_number'] = isset($data['document_number']) ? $data['document_number'] : null;
         $this->container['document_type'] = isset($data['document_type']) ? $data['document_type'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
@@ -205,8 +193,8 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         $this->container['full_name'] = isset($data['full_name']) ? $data['full_name'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['last_name'] = isset($data['last_name']) ? $data['last_name'] : null;
+        $this->container['living_address'] = isset($data['living_address']) ? $data['living_address'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
-        $this->container['province'] = isset($data['province']) ? $data['province'] : null;
     }
 
     /**
@@ -240,54 +228,6 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
-
-    /**
-     * Gets address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->container['address'];
-    }
-
-    /**
-     * Sets address
-     *
-     * @param string $address Customer address *(mandatory for 'Latin America' methods only)* For 'Latin America' is required for methods where country = CO
-     *
-     * @return $this
-     */
-    public function setAddress($address)
-    {
-        $this->container['address'] = $address;
-
-        return $this;
-    }
-
-    /**
-     * Gets city
-     *
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->container['city'];
-    }
-
-    /**
-     * Sets city
-     *
-     * @param string $city Customer city.
-     *
-     * @return $this
-     */
-    public function setCity($city)
-    {
-        $this->container['city'] = $city;
-
-        return $this;
-    }
 
     /**
      * Gets document_number
@@ -465,6 +405,30 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets living_address
+     *
+     * @return \Cardpay\model\PayoutRequestLivingAddress
+     */
+    public function getLivingAddress()
+    {
+        return $this->container['living_address'];
+    }
+
+    /**
+     * Sets living_address
+     *
+     * @param \Cardpay\model\PayoutRequestLivingAddress $living_address Customer address *(mandatory for 'Latin America' methods only)* For 'Latin America' is required for methods where country = CO
+     *
+     * @return $this
+     */
+    public function setLivingAddress($living_address)
+    {
+        $this->container['living_address'] = $living_address;
+
+        return $this;
+    }
+
+    /**
      * Gets phone
      *
      * @return string
@@ -484,30 +448,6 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
     public function setPhone($phone)
     {
         $this->container['phone'] = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Gets province
-     *
-     * @return string
-     */
-    public function getProvince()
-    {
-        return $this->container['province'];
-    }
-
-    /**
-     * Sets province
-     *
-     * @param string $province Customer province.
-     *
-     * @return $this
-     */
-    public function setProvince($province)
-    {
-        $this->container['province'] = $province;
 
         return $this;
     }

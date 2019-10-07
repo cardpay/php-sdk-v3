@@ -36,7 +36,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'is_3d' => 'bool',
         'note' => 'string',
         'rrn' => 'string',
-        'status' => 'string'
+        'status' => 'string',
+        'trans_type' => 'string'
     ];
 
     /**
@@ -55,7 +56,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'is_3d' => null,
         'note' => null,
         'rrn' => null,
-        'status' => null
+        'status' => null,
+        'trans_type' => null
     ];
 
     /**
@@ -95,7 +97,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'is_3d' => 'is_3d',
         'note' => 'note',
         'rrn' => 'rrn',
-        'status' => 'status'
+        'status' => 'status',
+        'trans_type' => 'trans_type'
     ];
 
     /**
@@ -114,7 +117,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'is_3d' => 'setIs3d',
         'note' => 'setNote',
         'rrn' => 'setRrn',
-        'status' => 'setStatus'
+        'status' => 'setStatus',
+        'trans_type' => 'setTransType'
     ];
 
     /**
@@ -133,7 +137,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'is_3d' => 'getIs3d',
         'note' => 'getNote',
         'rrn' => 'getRrn',
-        'status' => 'getStatus'
+        'status' => 'getStatus',
+        'trans_type' => 'getTransType'
     ];
 
     /**
@@ -188,6 +193,11 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
     const STATUS_VOIDED = 'VOIDED';
     const STATUS_CHARGED_BACK = 'CHARGED_BACK';
     const STATUS_CHARGEBACK_RESOLVED = 'CHARGEBACK_RESOLVED';
+    const TRANS_TYPE__01 = '01';
+    const TRANS_TYPE__03 = '03';
+    const TRANS_TYPE__10 = '10';
+    const TRANS_TYPE__11 = '11';
+    const TRANS_TYPE__28 = '28';
     
 
     
@@ -210,6 +220,22 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
             self::STATUS_VOIDED,
             self::STATUS_CHARGED_BACK,
             self::STATUS_CHARGEBACK_RESOLVED,
+        ];
+    }
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getTransTypeAllowableValues()
+    {
+        return [
+            self::TRANS_TYPE__01,
+            self::TRANS_TYPE__03,
+            self::TRANS_TYPE__10,
+            self::TRANS_TYPE__11,
+            self::TRANS_TYPE__28,
         ];
     }
     
@@ -240,6 +266,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['rrn'] = isset($data['rrn']) ? $data['rrn'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
+        $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
     /**
@@ -263,13 +290,18 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
-        }
         $allowedValues = $this->getStatusAllowableValues();
         if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
                 "invalid value for 'status', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
+        }
+
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($this->container['trans_type']) && !in_array($this->container['trans_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'trans_type', must be one of '%s'",
                 implode("', '", $allowedValues)
             );
         }
@@ -542,14 +574,14 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
     /**
      * Sets status
      *
-     * @param string $status Current payment status
+     * @param string $status Current payment status, *(mandatory for WEBMONEY and BITCOIN payment method only)*
      *
      * @return $this
      */
     public function setStatus($status)
     {
         $allowedValues = $this->getStatusAllowableValues();
-        if (!in_array($status, $allowedValues, true)) {
+        if (!is_null($status) && !in_array($status, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'status', must be one of '%s'",
@@ -558,6 +590,39 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
             );
         }
         $this->container['status'] = $status;
+
+        return $this;
+    }
+
+    /**
+     * Gets trans_type
+     *
+     * @return string
+     */
+    public function getTransType()
+    {
+        return $this->container['trans_type'];
+    }
+
+    /**
+     * Sets trans_type
+     *
+     * @param string $trans_type trans_type
+     *
+     * @return $this
+     */
+    public function setTransType($trans_type)
+    {
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($trans_type) && !in_array($trans_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'trans_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['trans_type'] = $trans_type;
 
         return $this;
     }

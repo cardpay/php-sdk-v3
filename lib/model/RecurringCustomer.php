@@ -27,10 +27,12 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'email' => 'string',
+        'home_phone' => 'string',
         'id' => 'string',
         'ip' => 'string',
         'locale' => 'string',
-        'phone' => 'string'
+        'phone' => 'string',
+        'work_phone' => 'string'
     ];
 
     /**
@@ -40,10 +42,12 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'email' => null,
+        'home_phone' => null,
         'id' => null,
         'ip' => null,
         'locale' => null,
-        'phone' => null
+        'phone' => null,
+        'work_phone' => null
     ];
 
     /**
@@ -74,10 +78,12 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'email' => 'email',
+        'home_phone' => 'home_phone',
         'id' => 'id',
         'ip' => 'ip',
         'locale' => 'locale',
-        'phone' => 'phone'
+        'phone' => 'phone',
+        'work_phone' => 'work_phone'
     ];
 
     /**
@@ -87,10 +93,12 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'email' => 'setEmail',
+        'home_phone' => 'setHomePhone',
         'id' => 'setId',
         'ip' => 'setIp',
         'locale' => 'setLocale',
-        'phone' => 'setPhone'
+        'phone' => 'setPhone',
+        'work_phone' => 'setWorkPhone'
     ];
 
     /**
@@ -100,10 +108,12 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'email' => 'getEmail',
+        'home_phone' => 'getHomePhone',
         'id' => 'getId',
         'ip' => 'getIp',
         'locale' => 'getLocale',
-        'phone' => 'getPhone'
+        'phone' => 'getPhone',
+        'work_phone' => 'getWorkPhone'
     ];
 
     /**
@@ -186,10 +196,12 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
+        $this->container['home_phone'] = isset($data['home_phone']) ? $data['home_phone'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
         $this->container['locale'] = isset($data['locale']) ? $data['locale'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
+        $this->container['work_phone'] = isset($data['work_phone']) ? $data['work_phone'] : null;
     }
 
     /**
@@ -210,6 +222,14 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
 
         if ((mb_strlen($this->container['email']) < 1)) {
             $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['home_phone']) && (mb_strlen($this->container['home_phone']) > 18)) {
+            $invalidProperties[] = "invalid value for 'home_phone', the character length must be smaller than or equal to 18.";
+        }
+
+        if (!is_null($this->container['home_phone']) && (mb_strlen($this->container['home_phone']) < 8)) {
+            $invalidProperties[] = "invalid value for 'home_phone', the character length must be bigger than or equal to 8.";
         }
 
         if ($this->container['id'] === null) {
@@ -237,6 +257,22 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
                 "invalid value for 'locale', must be one of '%s'",
                 implode("', '", $allowedValues)
             );
+        }
+
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 18)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 18.";
+        }
+
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 8)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 8.";
+        }
+
+        if (!is_null($this->container['work_phone']) && (mb_strlen($this->container['work_phone']) > 18)) {
+            $invalidProperties[] = "invalid value for 'work_phone', the character length must be smaller than or equal to 18.";
+        }
+
+        if (!is_null($this->container['work_phone']) && (mb_strlen($this->container['work_phone']) < 8)) {
+            $invalidProperties[] = "invalid value for 'work_phone', the character length must be bigger than or equal to 8.";
         }
 
         return $invalidProperties;
@@ -281,6 +317,37 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         }
 
         $this->container['email'] = $email;
+
+        return $this;
+    }
+
+    /**
+     * Gets home_phone
+     *
+     * @return string
+     */
+    public function getHomePhone()
+    {
+        return $this->container['home_phone'];
+    }
+
+    /**
+     * Sets home_phone
+     *
+     * @param string $home_phone The work phone number provided by the Cardholder. Required (if available), unless market or regional mandate restricts sending this information. Characters Format: string (10-18 symbols) country code + Subscriber number. Refer to ITU-E.164 for additional information on format and length.
+     *
+     * @return $this
+     */
+    public function setHomePhone($home_phone)
+    {
+        if (!is_null($home_phone) && (mb_strlen($home_phone) > 18)) {
+            throw new \InvalidArgumentException('invalid length for $home_phone when calling RecurringCustomer., must be smaller than or equal to 18.');
+        }
+        if (!is_null($home_phone) && (mb_strlen($home_phone) < 8)) {
+            throw new \InvalidArgumentException('invalid length for $home_phone when calling RecurringCustomer., must be bigger than or equal to 8.');
+        }
+
+        $this->container['home_phone'] = $home_phone;
 
         return $this;
     }
@@ -399,7 +466,45 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      */
     public function setPhone($phone)
     {
+        if (!is_null($phone) && (mb_strlen($phone) > 18)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling RecurringCustomer., must be smaller than or equal to 18.');
+        }
+        if (!is_null($phone) && (mb_strlen($phone) < 8)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling RecurringCustomer., must be bigger than or equal to 8.');
+        }
+
         $this->container['phone'] = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Gets work_phone
+     *
+     * @return string
+     */
+    public function getWorkPhone()
+    {
+        return $this->container['work_phone'];
+    }
+
+    /**
+     * Sets work_phone
+     *
+     * @param string $work_phone The home phone number provided by the Cardholder. Required (if available) unless market or regional mandate restricts sending this information. Characters Format: string (10-18 symbols) country code + Subscriber number. Refer to ITU-E.164 for additional information on format and length.
+     *
+     * @return $this
+     */
+    public function setWorkPhone($work_phone)
+    {
+        if (!is_null($work_phone) && (mb_strlen($work_phone) > 18)) {
+            throw new \InvalidArgumentException('invalid length for $work_phone when calling RecurringCustomer., must be smaller than or equal to 18.');
+        }
+        if (!is_null($work_phone) && (mb_strlen($work_phone) < 8)) {
+            throw new \InvalidArgumentException('invalid length for $work_phone when calling RecurringCustomer., must be bigger than or equal to 8.');
+        }
+
+        $this->container['work_phone'] = $work_phone;
 
         return $this;
     }

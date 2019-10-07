@@ -26,11 +26,12 @@ class BillingAddress implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'addr_line_1' => 'string',
+        'addr_line_2' => 'string',
         'city' => 'string',
         'country' => 'string',
         'phone' => 'string',
         'state' => 'string',
-        'street' => 'string',
         'zip' => 'string'
     ];
 
@@ -40,11 +41,12 @@ class BillingAddress implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'addr_line_1' => null,
+        'addr_line_2' => null,
         'city' => null,
         'country' => null,
         'phone' => null,
         'state' => null,
-        'street' => null,
         'zip' => null
     ];
 
@@ -75,11 +77,12 @@ class BillingAddress implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'addr_line_1' => 'addr_line_1',
+        'addr_line_2' => 'addr_line_2',
         'city' => 'city',
         'country' => 'country',
         'phone' => 'phone',
         'state' => 'state',
-        'street' => 'street',
         'zip' => 'zip'
     ];
 
@@ -89,11 +92,12 @@ class BillingAddress implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'addr_line_1' => 'setAddrLine1',
+        'addr_line_2' => 'setAddrLine2',
         'city' => 'setCity',
         'country' => 'setCountry',
         'phone' => 'setPhone',
         'state' => 'setState',
-        'street' => 'setStreet',
         'zip' => 'setZip'
     ];
 
@@ -103,11 +107,12 @@ class BillingAddress implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'addr_line_1' => 'getAddrLine1',
+        'addr_line_2' => 'getAddrLine2',
         'city' => 'getCity',
         'country' => 'getCountry',
         'phone' => 'getPhone',
         'state' => 'getState',
-        'street' => 'getStreet',
         'zip' => 'getZip'
     ];
 
@@ -171,11 +176,12 @@ class BillingAddress implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['addr_line_1'] = isset($data['addr_line_1']) ? $data['addr_line_1'] : null;
+        $this->container['addr_line_2'] = isset($data['addr_line_2']) ? $data['addr_line_2'] : null;
         $this->container['city'] = isset($data['city']) ? $data['city'] : null;
         $this->container['country'] = isset($data['country']) ? $data['country'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
         $this->container['state'] = isset($data['state']) ? $data['state'] : null;
-        $this->container['street'] = isset($data['street']) ? $data['street'] : null;
         $this->container['zip'] = isset($data['zip']) ? $data['zip'] : null;
     }
 
@@ -225,22 +231,11 @@ class BillingAddress implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'state', the character length must be bigger than or equal to 0.";
         }
 
-        if ($this->container['street'] === null) {
-            $invalidProperties[] = "'street' can't be null";
-        }
-        if ((mb_strlen($this->container['street']) > 100)) {
-            $invalidProperties[] = "invalid value for 'street', the character length must be smaller than or equal to 100.";
-        }
-
-        if ((mb_strlen($this->container['street']) < 2)) {
-            $invalidProperties[] = "invalid value for 'street', the character length must be bigger than or equal to 2.";
-        }
-
         if ($this->container['zip'] === null) {
             $invalidProperties[] = "'zip' can't be null";
         }
-        if ((mb_strlen($this->container['zip']) > 12)) {
-            $invalidProperties[] = "invalid value for 'zip', the character length must be smaller than or equal to 12.";
+        if ((mb_strlen($this->container['zip']) > 17)) {
+            $invalidProperties[] = "invalid value for 'zip', the character length must be smaller than or equal to 17.";
         }
 
         if ((mb_strlen($this->container['zip']) < 0)) {
@@ -261,6 +256,54 @@ class BillingAddress implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets addr_line_1
+     *
+     * @return string
+     */
+    public function getAddrLine1()
+    {
+        return $this->container['addr_line_1'];
+    }
+
+    /**
+     * Sets addr_line_1
+     *
+     * @param string $addr_line_1 First line of the street address or equivalent local portion of the Cardholder billing address associated with the card used for this purchase.
+     *
+     * @return $this
+     */
+    public function setAddrLine1($addr_line_1)
+    {
+        $this->container['addr_line_1'] = $addr_line_1;
+
+        return $this;
+    }
+
+    /**
+     * Gets addr_line_2
+     *
+     * @return string
+     */
+    public function getAddrLine2()
+    {
+        return $this->container['addr_line_2'];
+    }
+
+    /**
+     * Sets addr_line_2
+     *
+     * @param string $addr_line_2 Second line of the street address or equivalent local portion of the Cardholder billing address associated with the card used for this purchase.
+     *
+     * @return $this
+     */
+    public function setAddrLine2($addr_line_2)
+    {
+        $this->container['addr_line_2'] = $addr_line_2;
+
+        return $this;
+    }
 
     /**
      * Gets city
@@ -383,37 +426,6 @@ class BillingAddress implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets street
-     *
-     * @return string
-     */
-    public function getStreet()
-    {
-        return $this->container['street'];
-    }
-
-    /**
-     * Sets street
-     *
-     * @param string $street Billing street address. May include whitespaces, hyphens, apostrophes, commas, quotes, dots, slashes and semicolons
-     *
-     * @return $this
-     */
-    public function setStreet($street)
-    {
-        if ((mb_strlen($street) > 100)) {
-            throw new \InvalidArgumentException('invalid length for $street when calling BillingAddress., must be smaller than or equal to 100.');
-        }
-        if ((mb_strlen($street) < 2)) {
-            throw new \InvalidArgumentException('invalid length for $street when calling BillingAddress., must be bigger than or equal to 2.');
-        }
-
-        $this->container['street'] = $street;
-
-        return $this;
-    }
-
-    /**
      * Gets zip
      *
      * @return string
@@ -432,8 +444,8 @@ class BillingAddress implements ModelInterface, ArrayAccess
      */
     public function setZip($zip)
     {
-        if ((mb_strlen($zip) > 12)) {
-            throw new \InvalidArgumentException('invalid length for $zip when calling BillingAddress., must be smaller than or equal to 12.');
+        if ((mb_strlen($zip) > 17)) {
+            throw new \InvalidArgumentException('invalid length for $zip when calling BillingAddress., must be smaller than or equal to 17.');
         }
         if ((mb_strlen($zip) < 0)) {
             throw new \InvalidArgumentException('invalid length for $zip when calling BillingAddress., must be bigger than or equal to 0.');

@@ -30,9 +30,7 @@ class PaymentResponse implements ModelInterface, ArrayAccess
         'payment_method' => 'string',
         'merchant_order' => '\Cardpay\model\TransactionResponseMerchantOrder',
         'payment_data' => '\Cardpay\model\PaymentResponsePaymentData',
-        'card_account' => '\Cardpay\model\PaymentResponseCardAccount',
-        'cryptocurrency_account' => '\Cardpay\model\PaymentResponseCryptocurrencyAccount',
-        'ewallet_account' => '\Cardpay\model\TransactionResponseEWalletAccount'
+        'card_account' => '\Cardpay\model\PaymentResponseCardAccount'
     ];
 
     /**
@@ -45,9 +43,7 @@ class PaymentResponse implements ModelInterface, ArrayAccess
         'payment_method' => null,
         'merchant_order' => null,
         'payment_data' => null,
-        'card_account' => null,
-        'cryptocurrency_account' => null,
-        'ewallet_account' => null
+        'card_account' => null
     ];
 
     /**
@@ -81,9 +77,7 @@ class PaymentResponse implements ModelInterface, ArrayAccess
         'payment_method' => 'payment_method',
         'merchant_order' => 'merchant_order',
         'payment_data' => 'payment_data',
-        'card_account' => 'card_account',
-        'cryptocurrency_account' => 'cryptocurrency_account',
-        'ewallet_account' => 'ewallet_account'
+        'card_account' => 'card_account'
     ];
 
     /**
@@ -96,9 +90,7 @@ class PaymentResponse implements ModelInterface, ArrayAccess
         'payment_method' => 'setPaymentMethod',
         'merchant_order' => 'setMerchantOrder',
         'payment_data' => 'setPaymentData',
-        'card_account' => 'setCardAccount',
-        'cryptocurrency_account' => 'setCryptocurrencyAccount',
-        'ewallet_account' => 'setEwalletAccount'
+        'card_account' => 'setCardAccount'
     ];
 
     /**
@@ -111,9 +103,7 @@ class PaymentResponse implements ModelInterface, ArrayAccess
         'payment_method' => 'getPaymentMethod',
         'merchant_order' => 'getMerchantOrder',
         'payment_data' => 'getPaymentData',
-        'card_account' => 'getCardAccount',
-        'cryptocurrency_account' => 'getCryptocurrencyAccount',
-        'ewallet_account' => 'getEwalletAccount'
+        'card_account' => 'getCardAccount'
     ];
 
     /**
@@ -181,8 +171,6 @@ class PaymentResponse implements ModelInterface, ArrayAccess
         $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
         $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
         $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
-        $this->container['cryptocurrency_account'] = isset($data['cryptocurrency_account']) ? $data['cryptocurrency_account'] : null;
-        $this->container['ewallet_account'] = isset($data['ewallet_account']) ? $data['ewallet_account'] : null;
     }
 
     /**
@@ -325,54 +313,6 @@ class PaymentResponse implements ModelInterface, ArrayAccess
     public function setCardAccount($card_account)
     {
         $this->container['card_account'] = $card_account;
-
-        return $this;
-    }
-
-    /**
-     * Gets cryptocurrency_account
-     *
-     * @return \Cardpay\model\PaymentResponseCryptocurrencyAccount
-     */
-    public function getCryptocurrencyAccount()
-    {
-        return $this->container['cryptocurrency_account'];
-    }
-
-    /**
-     * Sets cryptocurrency_account
-     *
-     * @param \Cardpay\model\PaymentResponseCryptocurrencyAccount $cryptocurrency_account Cryptocurrency account data *(for BITCOIN payment method only)*
-     *
-     * @return $this
-     */
-    public function setCryptocurrencyAccount($cryptocurrency_account)
-    {
-        $this->container['cryptocurrency_account'] = $cryptocurrency_account;
-
-        return $this;
-    }
-
-    /**
-     * Gets ewallet_account
-     *
-     * @return \Cardpay\model\TransactionResponseEWalletAccount
-     */
-    public function getEwalletAccount()
-    {
-        return $this->container['ewallet_account'];
-    }
-
-    /**
-     * Sets ewallet_account
-     *
-     * @param \Cardpay\model\TransactionResponseEWalletAccount $ewallet_account eWallet account data *(for ALIPAY, QIWI, WEBMONEY, NETELLER, YANDEXMONEY, DIRECTBANKINGNGA, AQRCODE, AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO and 'Latin America' payment methods only)*
-     *
-     * @return $this
-     */
-    public function setEwalletAccount($ewallet_account)
-    {
-        $this->container['ewallet_account'] = $ewallet_account;
 
         return $this;
     }

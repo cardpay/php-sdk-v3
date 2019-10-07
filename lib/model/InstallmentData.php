@@ -36,7 +36,8 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'payments' => 'int',
         'period' => 'string',
         'retries' => 'int',
-        'subscription_start' => '\DateTime'
+        'subscription_start' => '\DateTime',
+        'trans_type' => 'string'
     ];
 
     /**
@@ -55,7 +56,8 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'payments' => 'int32',
         'period' => null,
         'retries' => 'int32',
-        'subscription_start' => 'date-time'
+        'subscription_start' => 'date-time',
+        'trans_type' => null
     ];
 
     /**
@@ -95,7 +97,8 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'payments' => 'payments',
         'period' => 'period',
         'retries' => 'retries',
-        'subscription_start' => 'subscription_start'
+        'subscription_start' => 'subscription_start',
+        'trans_type' => 'trans_type'
     ];
 
     /**
@@ -114,7 +117,8 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'payments' => 'setPayments',
         'period' => 'setPeriod',
         'retries' => 'setRetries',
-        'subscription_start' => 'setSubscriptionStart'
+        'subscription_start' => 'setSubscriptionStart',
+        'trans_type' => 'setTransType'
     ];
 
     /**
@@ -133,7 +137,8 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'payments' => 'getPayments',
         'period' => 'getPeriod',
         'retries' => 'getRetries',
-        'subscription_start' => 'getSubscriptionStart'
+        'subscription_start' => 'getSubscriptionStart',
+        'trans_type' => 'getTransType'
     ];
 
     /**
@@ -182,6 +187,11 @@ class InstallmentData implements ModelInterface, ArrayAccess
     const PERIOD_WEEK = 'week';
     const PERIOD_MONTH = 'month';
     const PERIOD_YEAR = 'year';
+    const TRANS_TYPE__01 = '01';
+    const TRANS_TYPE__03 = '03';
+    const TRANS_TYPE__10 = '10';
+    const TRANS_TYPE__11 = '11';
+    const TRANS_TYPE__28 = '28';
     
 
     
@@ -198,6 +208,22 @@ class InstallmentData implements ModelInterface, ArrayAccess
             self::PERIOD_WEEK,
             self::PERIOD_MONTH,
             self::PERIOD_YEAR,
+        ];
+    }
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getTransTypeAllowableValues()
+    {
+        return [
+            self::TRANS_TYPE__01,
+            self::TRANS_TYPE__03,
+            self::TRANS_TYPE__10,
+            self::TRANS_TYPE__11,
+            self::TRANS_TYPE__28,
         ];
     }
     
@@ -228,6 +254,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         $this->container['period'] = isset($data['period']) ? $data['period'] : null;
         $this->container['retries'] = isset($data['retries']) ? $data['retries'] : null;
         $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
+        $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
     /**
@@ -291,6 +318,14 @@ class InstallmentData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['retries']) && ($this->container['retries'] < 1)) {
             $invalidProperties[] = "invalid value for 'retries', must be bigger than or equal to 1.";
+        }
+
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($this->container['trans_type']) && !in_array($this->container['trans_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'trans_type', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
         }
 
         return $invalidProperties;
@@ -617,6 +652,39 @@ class InstallmentData implements ModelInterface, ArrayAccess
     public function setSubscriptionStart($subscription_start)
     {
         $this->container['subscription_start'] = $subscription_start;
+
+        return $this;
+    }
+
+    /**
+     * Gets trans_type
+     *
+     * @return string
+     */
+    public function getTransType()
+    {
+        return $this->container['trans_type'];
+    }
+
+    /**
+     * Sets trans_type
+     *
+     * @param string $trans_type trans_type
+     *
+     * @return $this
+     */
+    public function setTransType($trans_type)
+    {
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($trans_type) && !in_array($trans_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'trans_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['trans_type'] = $trans_type;
 
         return $this;
     }

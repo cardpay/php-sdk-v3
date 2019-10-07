@@ -33,7 +33,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         'generate_token' => 'bool',
         'initiator' => 'string',
         'note' => 'string',
-        'preauth' => 'bool'
+        'preauth' => 'bool',
+        'trans_type' => 'string'
     ];
 
     /**
@@ -49,7 +50,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         'generate_token' => null,
         'initiator' => null,
         'note' => null,
-        'preauth' => null
+        'preauth' => null,
+        'trans_type' => null
     ];
 
     /**
@@ -86,7 +88,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         'generate_token' => 'generate_token',
         'initiator' => 'initiator',
         'note' => 'note',
-        'preauth' => 'preauth'
+        'preauth' => 'preauth',
+        'trans_type' => 'trans_type'
     ];
 
     /**
@@ -102,7 +105,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         'generate_token' => 'setGenerateToken',
         'initiator' => 'setInitiator',
         'note' => 'setNote',
-        'preauth' => 'setPreauth'
+        'preauth' => 'setPreauth',
+        'trans_type' => 'setTransType'
     ];
 
     /**
@@ -118,7 +122,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         'generate_token' => 'getGenerateToken',
         'initiator' => 'getInitiator',
         'note' => 'getNote',
-        'preauth' => 'getPreauth'
+        'preauth' => 'getPreauth',
+        'trans_type' => 'getTransType'
     ];
 
     /**
@@ -162,8 +167,29 @@ class OneclickData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const TRANS_TYPE__01 = '01';
+    const TRANS_TYPE__03 = '03';
+    const TRANS_TYPE__10 = '10';
+    const TRANS_TYPE__11 = '11';
+    const TRANS_TYPE__28 = '28';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getTransTypeAllowableValues()
+    {
+        return [
+            self::TRANS_TYPE__01,
+            self::TRANS_TYPE__03,
+            self::TRANS_TYPE__10,
+            self::TRANS_TYPE__11,
+            self::TRANS_TYPE__28,
+        ];
+    }
     
 
     /**
@@ -189,6 +215,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
+        $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
     /**
@@ -224,6 +251,14 @@ class OneclickData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
+        }
+
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($this->container['trans_type']) && !in_array($this->container['trans_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'trans_type', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
         }
 
         return $invalidProperties;
@@ -448,6 +483,39 @@ class OneclickData implements ModelInterface, ArrayAccess
     public function setPreauth($preauth)
     {
         $this->container['preauth'] = $preauth;
+
+        return $this;
+    }
+
+    /**
+     * Gets trans_type
+     *
+     * @return string
+     */
+    public function getTransType()
+    {
+        return $this->container['trans_type'];
+    }
+
+    /**
+     * Sets trans_type
+     *
+     * @param string $trans_type trans_type
+     *
+     * @return $this
+     */
+    public function setTransType($trans_type)
+    {
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($trans_type) && !in_array($trans_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'trans_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['trans_type'] = $trans_type;
 
         return $this;
     }

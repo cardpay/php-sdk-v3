@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class ShippingAddress implements ModelInterface, ArrayAccess
+class PaymentRequestLivingAddress implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class ShippingAddress implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'ShippingAddress';
+    protected static $swaggerModelName = 'PaymentRequestLivingAddress';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,11 +26,9 @@ class ShippingAddress implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'addr_line_1' => 'string',
-        'addr_line_2' => 'string',
+        'address' => 'string',
         'city' => 'string',
         'country' => 'string',
-        'phone' => 'string',
         'state' => 'string',
         'zip' => 'string'
     ];
@@ -41,11 +39,9 @@ class ShippingAddress implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'addr_line_1' => null,
-        'addr_line_2' => null,
+        'address' => null,
         'city' => null,
         'country' => null,
-        'phone' => null,
         'state' => null,
         'zip' => null
     ];
@@ -77,11 +73,9 @@ class ShippingAddress implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'addr_line_1' => 'addr_line_1',
-        'addr_line_2' => 'addr_line_2',
+        'address' => 'address',
         'city' => 'city',
         'country' => 'country',
-        'phone' => 'phone',
         'state' => 'state',
         'zip' => 'zip'
     ];
@@ -92,11 +86,9 @@ class ShippingAddress implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'addr_line_1' => 'setAddrLine1',
-        'addr_line_2' => 'setAddrLine2',
+        'address' => 'setAddress',
         'city' => 'setCity',
         'country' => 'setCountry',
-        'phone' => 'setPhone',
         'state' => 'setState',
         'zip' => 'setZip'
     ];
@@ -107,11 +99,9 @@ class ShippingAddress implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'addr_line_1' => 'getAddrLine1',
-        'addr_line_2' => 'getAddrLine2',
+        'address' => 'getAddress',
         'city' => 'getCity',
         'country' => 'getCountry',
-        'phone' => 'getPhone',
         'state' => 'getState',
         'zip' => 'getZip'
     ];
@@ -176,11 +166,9 @@ class ShippingAddress implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['addr_line_1'] = isset($data['addr_line_1']) ? $data['addr_line_1'] : null;
-        $this->container['addr_line_2'] = isset($data['addr_line_2']) ? $data['addr_line_2'] : null;
+        $this->container['address'] = isset($data['address']) ? $data['address'] : null;
         $this->container['city'] = isset($data['city']) ? $data['city'] : null;
         $this->container['country'] = isset($data['country']) ? $data['country'] : null;
-        $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
         $this->container['state'] = isset($data['state']) ? $data['state'] : null;
         $this->container['zip'] = isset($data['zip']) ? $data['zip'] : null;
     }
@@ -194,6 +182,14 @@ class ShippingAddress implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['address']) && (mb_strlen($this->container['address']) > 100)) {
+            $invalidProperties[] = "invalid value for 'address', the character length must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['address']) && (mb_strlen($this->container['address']) < 0)) {
+            $invalidProperties[] = "invalid value for 'address', the character length must be bigger than or equal to 0.";
+        }
+
         if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 20)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 20.";
         }
@@ -202,16 +198,12 @@ class ShippingAddress implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'city', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 20)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 20.";
+        if (!is_null($this->container['country']) && (mb_strlen($this->container['country']) > 3)) {
+            $invalidProperties[] = "invalid value for 'country', the character length must be smaller than or equal to 3.";
         }
 
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 5)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 5.";
-        }
-
-        if (!is_null($this->container['phone']) && !preg_match("/[0-9|+|\\-|w|p|(|)|\\s]+/", $this->container['phone'])) {
-            $invalidProperties[] = "invalid value for 'phone', must be conform to the pattern /[0-9|+|\\-|w|p|(|)|\\s]+/.";
+        if (!is_null($this->container['country']) && (mb_strlen($this->container['country']) < 2)) {
+            $invalidProperties[] = "invalid value for 'country', the character length must be bigger than or equal to 2.";
         }
 
         if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 20)) {
@@ -246,49 +238,32 @@ class ShippingAddress implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets addr_line_1
+     * Gets address
      *
      * @return string
      */
-    public function getAddrLine1()
+    public function getAddress()
     {
-        return $this->container['addr_line_1'];
+        return $this->container['address'];
     }
 
     /**
-     * Sets addr_line_1
+     * Sets address
      *
-     * @param string $addr_line_1 Street address. May include whitespaces, hyphens, apostrophes, commas, quotes, dots, slashes and semicolons
+     * @param string $address Customer home address
      *
      * @return $this
      */
-    public function setAddrLine1($addr_line_1)
+    public function setAddress($address)
     {
-        $this->container['addr_line_1'] = $addr_line_1;
+        if (!is_null($address) && (mb_strlen($address) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $address when calling PaymentRequestLivingAddress., must be smaller than or equal to 100.');
+        }
+        if (!is_null($address) && (mb_strlen($address) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $address when calling PaymentRequestLivingAddress., must be bigger than or equal to 0.');
+        }
 
-        return $this;
-    }
-
-    /**
-     * Gets addr_line_2
-     *
-     * @return string
-     */
-    public function getAddrLine2()
-    {
-        return $this->container['addr_line_2'];
-    }
-
-    /**
-     * Sets addr_line_2
-     *
-     * @param string $addr_line_2 Second line of the street address or equivalent local portion of the Cardholder billing address associated with the card used for this purchase.
-     *
-     * @return $this
-     */
-    public function setAddrLine2($addr_line_2)
-    {
-        $this->container['addr_line_2'] = $addr_line_2;
+        $this->container['address'] = $address;
 
         return $this;
     }
@@ -306,17 +281,17 @@ class ShippingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets city
      *
-     * @param string $city Delivery city. May include whitespaces, hyphens, apostrophes, commas and dots
+     * @param string $city Customer city.
      *
      * @return $this
      */
     public function setCity($city)
     {
         if (!is_null($city) && (mb_strlen($city) > 20)) {
-            throw new \InvalidArgumentException('invalid length for $city when calling ShippingAddress., must be smaller than or equal to 20.');
+            throw new \InvalidArgumentException('invalid length for $city when calling PaymentRequestLivingAddress., must be smaller than or equal to 20.');
         }
         if (!is_null($city) && (mb_strlen($city) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $city when calling ShippingAddress., must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid length for $city when calling PaymentRequestLivingAddress., must be bigger than or equal to 0.');
         }
 
         $this->container['city'] = $city;
@@ -337,47 +312,20 @@ class ShippingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets country
      *
-     * @param string $country [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code of country: 2 or 3 latin letters or numeric code. Mandatory if 'shipping_address' is presented.
+     * @param string $country ISO 3166-1 code of country: 2 or 3 latin letters or numeric code.
      *
      * @return $this
      */
     public function setCountry($country)
     {
+        if (!is_null($country) && (mb_strlen($country) > 3)) {
+            throw new \InvalidArgumentException('invalid length for $country when calling PaymentRequestLivingAddress., must be smaller than or equal to 3.');
+        }
+        if (!is_null($country) && (mb_strlen($country) < 2)) {
+            throw new \InvalidArgumentException('invalid length for $country when calling PaymentRequestLivingAddress., must be bigger than or equal to 2.');
+        }
+
         $this->container['country'] = $country;
-
-        return $this;
-    }
-
-    /**
-     * Gets phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->container['phone'];
-    }
-
-    /**
-     * Sets phone
-     *
-     * @param string $phone Valid customer phone number
-     *
-     * @return $this
-     */
-    public function setPhone($phone)
-    {
-        if (!is_null($phone) && (mb_strlen($phone) > 20)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling ShippingAddress., must be smaller than or equal to 20.');
-        }
-        if (!is_null($phone) && (mb_strlen($phone) < 5)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling ShippingAddress., must be bigger than or equal to 5.');
-        }
-        if (!is_null($phone) && (!preg_match("/[0-9|+|\\-|w|p|(|)|\\s]+/", $phone))) {
-            throw new \InvalidArgumentException("invalid value for $phone when calling ShippingAddress., must conform to the pattern /[0-9|+|\\-|w|p|(|)|\\s]+/.");
-        }
-
-        $this->container['phone'] = $phone;
 
         return $this;
     }
@@ -395,17 +343,17 @@ class ShippingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets state
      *
-     * @param string $state Delivery state or province. May include whitespaces, hyphens, apostrophes, commas and dots
+     * @param string $state Living state or province.
      *
      * @return $this
      */
     public function setState($state)
     {
         if (!is_null($state) && (mb_strlen($state) > 20)) {
-            throw new \InvalidArgumentException('invalid length for $state when calling ShippingAddress., must be smaller than or equal to 20.');
+            throw new \InvalidArgumentException('invalid length for $state when calling PaymentRequestLivingAddress., must be smaller than or equal to 20.');
         }
         if (!is_null($state) && (mb_strlen($state) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $state when calling ShippingAddress., must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid length for $state when calling PaymentRequestLivingAddress., must be bigger than or equal to 0.');
         }
 
         $this->container['state'] = $state;
@@ -426,17 +374,17 @@ class ShippingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets zip
      *
-     * @param string $zip Delivery postal code
+     * @param string $zip Customer postal code
      *
      * @return $this
      */
     public function setZip($zip)
     {
         if (!is_null($zip) && (mb_strlen($zip) > 17)) {
-            throw new \InvalidArgumentException('invalid length for $zip when calling ShippingAddress., must be smaller than or equal to 17.');
+            throw new \InvalidArgumentException('invalid length for $zip when calling PaymentRequestLivingAddress., must be smaller than or equal to 17.');
         }
         if (!is_null($zip) && (mb_strlen($zip) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $zip when calling ShippingAddress., must be bigger than or equal to 0.');
+            throw new \InvalidArgumentException('invalid length for $zip when calling PaymentRequestLivingAddress., must be bigger than or equal to 0.');
         }
 
         $this->container['zip'] = $zip;

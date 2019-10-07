@@ -158,12 +158,12 @@ class PaymentRequestCryptocurrencyAccount implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['rollback_address']) && (mb_strlen($this->container['rollback_address']) > 35)) {
-            $invalidProperties[] = "invalid value for 'rollback_address', the character length must be smaller than or equal to 35.";
+        if (!is_null($this->container['rollback_address']) && (mb_strlen($this->container['rollback_address']) > 100)) {
+            $invalidProperties[] = "invalid value for 'rollback_address', the character length must be smaller than or equal to 100.";
         }
 
-        if (!is_null($this->container['rollback_address']) && (mb_strlen($this->container['rollback_address']) < 0)) {
-            $invalidProperties[] = "invalid value for 'rollback_address', the character length must be bigger than or equal to 0.";
+        if (!is_null($this->container['rollback_address']) && (mb_strlen($this->container['rollback_address']) < 26)) {
+            $invalidProperties[] = "invalid value for 'rollback_address', the character length must be bigger than or equal to 26.";
         }
 
         return $invalidProperties;
@@ -200,11 +200,11 @@ class PaymentRequestCryptocurrencyAccount implements ModelInterface, ArrayAccess
      */
     public function setRollbackAddress($rollback_address)
     {
-        if (!is_null($rollback_address) && (mb_strlen($rollback_address) > 35)) {
-            throw new \InvalidArgumentException('invalid length for $rollback_address when calling PaymentRequestCryptocurrencyAccount., must be smaller than or equal to 35.');
+        if (!is_null($rollback_address) && (mb_strlen($rollback_address) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $rollback_address when calling PaymentRequestCryptocurrencyAccount., must be smaller than or equal to 100.');
         }
-        if (!is_null($rollback_address) && (mb_strlen($rollback_address) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $rollback_address when calling PaymentRequestCryptocurrencyAccount., must be bigger than or equal to 0.');
+        if (!is_null($rollback_address) && (mb_strlen($rollback_address) < 26)) {
+            throw new \InvalidArgumentException('invalid length for $rollback_address when calling PaymentRequestCryptocurrencyAccount., must be bigger than or equal to 26.');
         }
 
         $this->container['rollback_address'] = $rollback_address;
