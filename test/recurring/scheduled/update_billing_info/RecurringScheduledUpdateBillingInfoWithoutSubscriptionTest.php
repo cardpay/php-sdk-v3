@@ -3,6 +3,7 @@
 namespace Cardpay\test\recurring\scheduled\update_billing_info;
 
 use Cardpay\ApiException;
+use Cardpay\model\BillingAddress;
 use Cardpay\model\FilingRecurringData;
 use Cardpay\model\FilingRequest;
 use Cardpay\model\FilingRequestMerchantOrder;
@@ -46,23 +47,39 @@ class RecurringScheduledUpdateBillingInfoWithoutSubscriptionTest extends Recurri
 
         $recurringData = new FilingRecurringData([
             'initiator' => Constants::INITIATOR_CIT,
-            'currency' => Config::$terminalCurrency
+            'currency' => Config::$terminalCurrency,
+            'trans_type' => Constants::TRANS_TYPE_GOODS_SERVICE_PURCHASE
         ]);
 
         $card = new PaymentRequestCard([
             'pan' => Constants::TEST_CARD_PAN,
             'holder' => Constants::TEST_CARD_HOLDER,
             'security_code' => Constants::TEST_CARD_SECURITY_CODE,
-            'expiration' => '12/' . date('Y', strtotime('+1 year'))
+            'expiration' => '12/' . date('Y', strtotime('+1 year')),
+            'acct_type' => Constants::ACCT_TYPE_DEBIT
+        ]);
+
+        $billingAddress = new BillingAddress([
+            'country' => Constants::ADDRESS_COUNTRY,
+            'state' => Constants::ADDRESS_STATE,
+            'zip' => Constants::ADDRESS_ZIP,
+            'city' => Constants::ADDRESS_CITY,
+            'phone' => Constants::ADDRESS_PHONE,
+            'addr_line_1' => Constants::ADDRESS_ADDR_LINE_1,
+            'addr_line_2' => Constants::ADDRESS_ADDR_LINE_2
         ]);
 
         $cardAccount = new PaymentRequestCardAccount([
-            'card' => $card
+            'card' => $card,
+            'billing_address' => $billingAddress
         ]);
 
-        $customer = new RecurringCustomer([
+        $recurringCustomer = new RecurringCustomer([
+            'id' => $customerId,
             'email' => $customerEmail,
-            'id' => $customerId
+            'phone' => Constants::CUSTOMER_PHONE,
+            'work_phone' => Constants::CUSTOMER_WORK_PHONE,
+            'home_phone' => Constants::CUSTOMER_HOME_PHONE
         ]);
 
         $filingRequest = new FilingRequest([
@@ -71,7 +88,7 @@ class RecurringScheduledUpdateBillingInfoWithoutSubscriptionTest extends Recurri
             'payment_method' => Constants::PAYMENT_METHOD,
             'recurring_data' => $recurringData,
             'card_account' => $cardAccount,
-            'customer' => $customer
+            'customer' => $recurringCustomer
         ]);
 
         /** @var PaymentCreationResponse $paymentCreationResponse */

@@ -3,6 +3,7 @@
 namespace Cardpay\test\recurring\scheduled\update_billing_info;
 
 use Cardpay\ApiException;
+use Cardpay\model\BillingAddress;
 use Cardpay\model\FilingRecurringData;
 use Cardpay\model\FilingRequest;
 use Cardpay\model\FilingRequestMerchantOrder;
@@ -10,6 +11,7 @@ use Cardpay\model\FilingRequestSubscriptionData;
 use Cardpay\model\PaymentCreationResponse;
 use Cardpay\model\PaymentRequestCard;
 use Cardpay\model\PaymentRequestCardAccount;
+use Cardpay\model\RecurringCustomer;
 use Cardpay\model\Request;
 use Cardpay\test\Config;
 use Cardpay\test\Constants;
@@ -34,6 +36,8 @@ class RecurringScheduledUpdateBillingInfoTest extends RecurringScheduledTestCase
         // create new plan
         $recurringPlanResponse = $this->recurringPlanUtils->createPlan($this->terminalCode, $this->password);
         $planId = $recurringPlanResponse->getPlanData()->getId();
+        $customerId = time();
+        $customerEmail = substr(sha1(rand()), 0, 20) . '@' . Config::$emailsDomain;
 
         self::assertNotEmpty($planId);
 
@@ -59,7 +63,8 @@ class RecurringScheduledUpdateBillingInfoTest extends RecurringScheduledTestCase
         ]);
 
         $recurringData = new FilingRecurringData([
-            'initiator' => Constants::INITIATOR_CIT
+            'initiator' => Constants::INITIATOR_CIT,
+            'trans_type' => Constants::TRANS_TYPE_GOODS_SERVICE_PURCHASE
         ]);
 
         $subscriptionData = new FilingRequestSubscriptionData([
@@ -70,11 +75,31 @@ class RecurringScheduledUpdateBillingInfoTest extends RecurringScheduledTestCase
             'pan' => Constants::TEST_CARD_PAN,
             'holder' => Constants::TEST_CARD_HOLDER,
             'security_code' => Constants::TEST_CARD_SECURITY_CODE,
-            'expiration' => '12/' . date('Y', strtotime('+1 year'))
+            'expiration' => '12/' . date('Y', strtotime('+1 year')),
+            'acct_type' => Constants::ACCT_TYPE_DEBIT
+        ]);
+
+        $billingAddress = new BillingAddress([
+            'country' => Constants::ADDRESS_COUNTRY,
+            'state' => Constants::ADDRESS_STATE,
+            'zip' => Constants::ADDRESS_ZIP,
+            'city' => Constants::ADDRESS_CITY,
+            'phone' => Constants::ADDRESS_PHONE,
+            'addr_line_1' => Constants::ADDRESS_ADDR_LINE_1,
+            'addr_line_2' => Constants::ADDRESS_ADDR_LINE_2
         ]);
 
         $cardAccount = new PaymentRequestCardAccount([
-            'card' => $card
+            'card' => $card,
+            'billing_address' => $billingAddress
+        ]);
+
+        $recurringCustomer = new RecurringCustomer([
+            'id' => $customerId,
+            'email' => $customerEmail,
+            'phone' => Constants::CUSTOMER_PHONE,
+            'work_phone' => Constants::CUSTOMER_WORK_PHONE,
+            'home_phone' => Constants::CUSTOMER_HOME_PHONE
         ]);
 
         $filingRequest = new FilingRequest([
@@ -83,7 +108,8 @@ class RecurringScheduledUpdateBillingInfoTest extends RecurringScheduledTestCase
             'payment_method' => Constants::PAYMENT_METHOD,
             'recurring_data' => $recurringData,
             'subscription_data' => $subscriptionData,
-            'card_account' => $cardAccount
+            'card_account' => $cardAccount,
+            'customer' => $recurringCustomer
         ]);
 
         /** @var PaymentCreationResponse $paymentCreationResponse */

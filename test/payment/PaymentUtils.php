@@ -6,6 +6,7 @@ use Cardpay\api\PaymentsApi;
 use Cardpay\ApiException;
 use Cardpay\Configuration;
 use Cardpay\HeaderSelector;
+use Cardpay\model\BillingAddress;
 use Cardpay\model\PaymentRequest;
 use Cardpay\model\PaymentRequestCard;
 use Cardpay\model\PaymentRequestCardAccount;
@@ -115,14 +116,18 @@ class PaymentUtils
 
         $paymentData = new PaymentRequestPaymentData([
             'amount' => $orderAmount,
-            'currency' => $orderCurrency
+            'currency' => $orderCurrency,
+            'trans_type' => Constants::TRANS_TYPE_GOODS_SERVICE_PURCHASE
         ]);
         if (true === $preAuth) {
             $paymentData['preauth'] = true;
         }
 
         $customer = new PaymentRequestCustomer([
-            'email' => $customerEmail
+            'email' => $customerEmail,
+            'phone' => Constants::CUSTOMER_PHONE,
+            'work_phone' => Constants::CUSTOMER_WORK_PHONE,
+            'home_phone' => Constants::CUSTOMER_HOME_PHONE
         ]);
 
         $paymentRequestData = [
@@ -138,11 +143,23 @@ class PaymentUtils
                 'pan' => Constants::TEST_CARD_PAN,
                 'holder' => Constants::TEST_CARD_HOLDER,
                 'security_code' => Constants::TEST_CARD_SECURITY_CODE,
-                'expiration' => '12/' . date('Y', strtotime('+1 year'))
+                'expiration' => '12/' . date('Y', strtotime('+1 year')),
+                'acct_type' => Constants::ACCT_TYPE_DEBIT
+            ]);
+
+            $billingAddress = new BillingAddress([
+                'country' => Constants::ADDRESS_COUNTRY,
+                'state' => Constants::ADDRESS_STATE,
+                'zip' => Constants::ADDRESS_ZIP,
+                'city' => Constants::ADDRESS_CITY,
+                'phone' => Constants::ADDRESS_PHONE,
+                'addr_line_1' => Constants::ADDRESS_ADDR_LINE_1,
+                'addr_line_2' => Constants::ADDRESS_ADDR_LINE_2
             ]);
 
             $cardAccount = new PaymentRequestCardAccount([
-                'card' => $card
+                'card' => $card,
+                'billing_address' => $billingAddress
             ]);
 
             $paymentRequestData['card_account'] = $cardAccount;
