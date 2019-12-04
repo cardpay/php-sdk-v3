@@ -56,8 +56,8 @@ Please follow the [installation procedure](#installation--usage) and then run th
 use Cardpay\api\AuthApiClient;
 use Cardpay\api\FileTokensStorageApi;
 
-$fileTokensStorageApi = new FileTokensStorageApi($terminalCode);
-$authApiClient = new AuthApiClient($terminalCode, $password, $fileTokensStorageApi);
+$fileTokensStorageApi = new FileTokensStorageApi($host, $terminalCode);
+$authApiClient = new AuthApiClient($host, $terminalCode, $password, $fileTokensStorageApi);
 
 /** @var ApiTokens $apiTokens */
 $apiTokens = $authApiClient->obtainApiTokens();

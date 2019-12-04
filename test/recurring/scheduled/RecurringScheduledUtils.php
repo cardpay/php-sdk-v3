@@ -78,7 +78,7 @@ class RecurringScheduledUtils
         }
 
         if (null == $this->recurringsApi) {
-            $this->recurringsApi = new RecurringsApi($this->client, $this->config, $this->headerSelector);
+            $this->recurringsApi = new RecurringsApi(Config::$cardpayApiUrl, $this->client, $this->config, $this->headerSelector);
         }
     }
 

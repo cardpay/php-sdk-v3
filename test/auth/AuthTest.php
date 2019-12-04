@@ -15,8 +15,8 @@ class AuthTest extends BaseTestCase
      */
     public function testAuthTokens()
     {
-        $fileTokensStorageApi = new FileTokensStorageApi(Config::$paymentpageTerminalCode);
-        $authApiClient = new AuthApiClient(Config::$paymentpageTerminalCode, Config::$paymentpagePassword, $fileTokensStorageApi);
+        $fileTokensStorageApi = new FileTokensStorageApi(Config::$cardpayApiUrl, Config::$paymentpageTerminalCode);
+        $authApiClient = new AuthApiClient(Config::$cardpayApiUrl, Config::$paymentpageTerminalCode, Config::$paymentpagePassword, $fileTokensStorageApi);
         $apiTokens = $authApiClient->obtainApiTokens();
 
         $accessToken = $apiTokens->getAccessToken();

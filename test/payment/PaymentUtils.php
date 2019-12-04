@@ -166,7 +166,7 @@ class PaymentUtils
         }
 
         if (null == $this->paymentsApi) {
-            $this->paymentsApi = new PaymentsApi($this->client, $this->config, $this->headerSelector);
+            $this->paymentsApi = new PaymentsApi(Config::$cardpayApiUrl, $this->client, $this->config, $this->headerSelector);
         }
 
         $paymentRequest = new PaymentRequest($paymentRequestData);

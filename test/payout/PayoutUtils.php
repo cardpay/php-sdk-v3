@@ -93,7 +93,7 @@ class PayoutUtils
             $this->headerSelector = new HeaderSelector();
         }
 
-        $this->payoutsApi = new PayoutsApi($this->client, $this->config, $this->headerSelector);
+        $this->payoutsApi = new PayoutsApi(Config::$cardpayApiUrl, $this->client, $this->config, $this->headerSelector);
         $payoutResponse = $this->payoutsApi->createPayout($payoutRequest);
 
         return $payoutResponse;

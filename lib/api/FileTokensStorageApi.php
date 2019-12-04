@@ -18,16 +18,17 @@ class FileTokensStorageApi implements TokensStorageApi
 
     /**
      * FileTokensStorageApi constructor
+     * @param $host
      * @param $terminalCode
      * @throws ApiException
      */
-    public function __construct($terminalCode)
+    public function __construct($host, $terminalCode)
     {
         $this->validateInputParams($terminalCode);
 
         $this->terminalCode = $terminalCode;
 
-        $configuration = new Configuration();
+        $configuration = new Configuration($host);
         $tempFolderPath = $configuration->getTempFolderPath();
 
         $this->apiTokensTempFilepath = $tempFolderPath . DIRECTORY_SEPARATOR . self::API_TOKENS_TMP_FILENAME_PREFIX . $terminalCode;

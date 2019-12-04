@@ -9,6 +9,7 @@ use Cardpay\model\RefundRequestPaymentData;
 use Cardpay\model\RefundRequestRefundData;
 use Cardpay\model\RefundResponse;
 use Cardpay\model\Request;
+use Cardpay\test\Config;
 use Cardpay\test\payment\PaymentUtils;
 use DateTime;
 
@@ -54,7 +55,7 @@ class RefundUtils
 
         $refundRequest = new RefundRequest($refundRequestData);
 
-        $this->refundsApi = new RefundsApi($paymentUtils->getClient(), $paymentUtils->getConfig(), $paymentUtils->getHeaderSelector());
+        $this->refundsApi = new RefundsApi(Config::$cardpayApiUrl, $paymentUtils->getClient(), $paymentUtils->getConfig(), $paymentUtils->getHeaderSelector());
         $refundResponse = $this->refundsApi->createRefund($refundRequest);
 
         return $refundResponse;

@@ -33,7 +33,7 @@ class TestSuiteListener extends PHPUnit_Framework_BaseTestListener
 
         if ($isDirectoryName || $isSuiteName) {
             foreach ($this->terminalCodes as $terminalCode) {
-                $fileTokensStorageApi = new FileTokensStorageApi($terminalCode);
+                $fileTokensStorageApi = new FileTokensStorageApi(Config::$cardpayApiUrl, $terminalCode);
                 $fileTokensStorageApi->deleteApiTokens($terminalCode);
             }
         }

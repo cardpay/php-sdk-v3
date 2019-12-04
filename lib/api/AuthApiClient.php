@@ -14,6 +14,8 @@ class AuthApiClient
     const API_TOKEN_MIN_VALIDITY = 10000;
     const MILLISECONDS_IN_ONE_SECOND = 1000;
 
+    private $host;
+
     private $terminalCode;
     private $password;
 
@@ -22,15 +24,17 @@ class AuthApiClient
 
     /**
      * AuthApiClient constructor.
+     * @param $host
      * @param $terminalCode
      * @param $password
      * @param $tokensStorageApi
      * @throws ApiException
      */
-    public function __construct($terminalCode, $password, $tokensStorageApi)
+    public function __construct($host, $terminalCode, $password, $tokensStorageApi)
     {
         $this->validateInputParams($terminalCode, $password, $tokensStorageApi);
 
+        $this->host = $host;
         $this->terminalCode = $terminalCode;
         $this->password = $password;
         $this->tokensStorageApi = $tokensStorageApi;
@@ -88,7 +92,7 @@ class AuthApiClient
      */
     public function obtainTokensByPassword()
     {
-        $authApi = new AuthApi();
+        $authApi = new AuthApi($this->host);
 
         /** @var ApiTokens $apiTokens */
         $apiTokens = $authApi->obtainTokens('password', $this->password, null, $this->terminalCode);
@@ -104,7 +108,7 @@ class AuthApiClient
      */
     public function obtainTokensByRefreshToken($refreshToken)
     {
-        $authApi = new AuthApi();
+        $authApi = new AuthApi($this->host);
 
         /** @var ApiTokens $apiTokens */
         $apiTokens = $authApi->obtainTokens('refresh_token', null, $refreshToken, null);

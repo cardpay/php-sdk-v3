@@ -8,6 +8,8 @@ namespace Cardpay;
 
 class Configuration
 {
+    const DEFAULT_HOST = 'https://sandbox.cardpay.com';
+
     private static $defaultConfiguration;
 
     /**
@@ -83,15 +85,10 @@ class Configuration
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($host)
     {
         $this->tempFolderPath = sys_get_temp_dir();
-
-        if (isset($_ENV['CARDPAY_API_URL'])) {
-            $this->host = $_ENV['CARDPAY_API_URL'];
-        } else {
-            $this->host = 'https://sandbox.cardpay.com';
-        }
+        $this->host = $host;
     }
 
     /**
@@ -338,12 +335,14 @@ class Configuration
     /**
      * Gets the default configuration instance
      *
+     * @param string host
+     *
      * @return Configuration
      */
-    public static function getDefaultConfiguration()
+    public static function getDefaultConfiguration($host = self::DEFAULT_HOST)
     {
         if (self::$defaultConfiguration === null) {
-            self::$defaultConfiguration = new Configuration();
+            self::$defaultConfiguration = new Configuration($host);
         }
 
         return self::$defaultConfiguration;

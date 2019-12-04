@@ -35,17 +35,19 @@ class AuthApi
     protected $headerSelector;
 
     /**
+     * @param string          $host
      * @param ClientInterface $client
      * @param Configuration   $config
      * @param HeaderSelector  $selector
      */
     public function __construct(
+        $host,
         ClientInterface $client = null,
         Configuration $config = null,
         HeaderSelector $selector = null
     ) {
         $this->client = $client ?: new Client();
-        $this->config = $config ?: new Configuration();
+        $this->config = $config ?: new Configuration($host);
         $this->headerSelector = $selector ?: new HeaderSelector();
     }
 

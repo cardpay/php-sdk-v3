@@ -21,8 +21,8 @@ class Config
 
     public static function init()
     {
-        // production API URL: https://cardpay.com/api
-        self::$cardpayApiUrl = self::getEnvVariable('CARDPAY_API_URL', 'https://sandbox.cardpay.com/api');
+        // production API URL: https://cardpay.com
+        self::$cardpayApiUrl = self::getEnvVariable('CARDPAY_API_URL', 'https://sandbox.cardpay.com');
 
         self::$paymentpageTerminalCode = self::getEnvVariable('PAYMENTPAGE_TERMINAL_CODE', '18397');
         self::$paymentpagePassword = self::getEnvVariable('PAYMENTPAGE_PASSWORD', 'FpK2cy143POj');
