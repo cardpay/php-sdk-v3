@@ -219,7 +219,7 @@ class PayoutUpdateRequest implements ModelInterface, ArrayAccess
     /**
      * Sets payout_data
      *
-     * @param \Cardpay\model\RequestUpdatedTransactionData $payout_data Payout data
+     * @param \Cardpay\model\RequestUpdatedTransactionData $payout_data Transaction data
      *
      * @return $this
      */

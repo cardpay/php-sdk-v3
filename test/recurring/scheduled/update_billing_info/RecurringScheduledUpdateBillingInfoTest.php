@@ -72,7 +72,7 @@ class RecurringScheduledUpdateBillingInfoTest extends RecurringScheduledTestCase
         ]);
 
         $card = new PaymentRequestCard([
-            'pan' => Constants::TEST_CARD_PAN,
+            'pan' => Config::$cardNon3dsConfirmed,
             'holder' => Constants::TEST_CARD_HOLDER,
             'security_code' => Constants::TEST_CARD_SECURITY_CODE,
             'expiration' => '12/' . date('Y', strtotime('+1 year')),

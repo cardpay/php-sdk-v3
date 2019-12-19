@@ -26,7 +26,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'birth_date' => 'string',
+        'birth_date' => '\DateTime',
         'email' => 'string',
         'full_name' => 'string',
         'home_phone' => 'string',
@@ -43,7 +43,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'birth_date' => null,
+        'birth_date' => 'date-time',
         'email' => null,
         'full_name' => null,
         'home_phone' => null,
@@ -272,7 +272,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     /**
      * Gets birth_date
      *
-     * @return string
+     * @return \DateTime
      */
     public function getBirthDate()
     {
@@ -282,7 +282,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     /**
      * Sets birth_date
      *
-     * @param string $birth_date Customer birth date in format `YYYY-MM-DD`. For Zenith bank in DIRECTBANKINGNGA: Customer password in format date of birth. *(mandatory for DIRECTBANKINGNGA payment method only)*
+     * @param \DateTime $birth_date Customer birth date in format `YYYY-MM-DD`. For Zenith bank in DIRECTBANKINGNGA: Customer password in format date of birth. *(mandatory for DIRECTBANKINGNGA payment method only)*
      *
      * @return $this
      */

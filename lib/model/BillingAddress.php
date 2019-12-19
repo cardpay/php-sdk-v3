@@ -194,33 +194,24 @@ class BillingAddress implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['city'] === null) {
-            $invalidProperties[] = "'city' can't be null";
-        }
-        if ((mb_strlen($this->container['city']) > 20)) {
+        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 20)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 20.";
         }
 
-        if ((mb_strlen($this->container['city']) < 0)) {
+        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) < 0)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be bigger than or equal to 0.";
         }
 
-        if ($this->container['country'] === null) {
-            $invalidProperties[] = "'country' can't be null";
-        }
-        if ($this->container['phone'] === null) {
-            $invalidProperties[] = "'phone' can't be null";
-        }
-        if ((mb_strlen($this->container['phone']) > 20)) {
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 20)) {
             $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 20.";
         }
 
-        if ((mb_strlen($this->container['phone']) < 5)) {
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 5)) {
             $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 5.";
         }
 
-        if (!preg_match("/[0-9|+|\\-|w|p|(|)|\\s]+/", $this->container['phone'])) {
-            $invalidProperties[] = "invalid value for 'phone', must be conform to the pattern /[0-9|+|\\-|w|p|(|)|\\s]+/.";
+        if (!is_null($this->container['phone']) && !preg_match("/[-+\\d()wp\\s]+/", $this->container['phone'])) {
+            $invalidProperties[] = "invalid value for 'phone', must be conform to the pattern /[-+\\d()wp\\s]+/.";
         }
 
         if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 20)) {
@@ -231,14 +222,11 @@ class BillingAddress implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'state', the character length must be bigger than or equal to 0.";
         }
 
-        if ($this->container['zip'] === null) {
-            $invalidProperties[] = "'zip' can't be null";
-        }
-        if ((mb_strlen($this->container['zip']) > 17)) {
-            $invalidProperties[] = "invalid value for 'zip', the character length must be smaller than or equal to 17.";
+        if (!is_null($this->container['zip']) && (mb_strlen($this->container['zip']) > 12)) {
+            $invalidProperties[] = "invalid value for 'zip', the character length must be smaller than or equal to 12.";
         }
 
-        if ((mb_strlen($this->container['zip']) < 0)) {
+        if (!is_null($this->container['zip']) && (mb_strlen($this->container['zip']) < 0)) {
             $invalidProperties[] = "invalid value for 'zip', the character length must be bigger than or equal to 0.";
         }
 
@@ -270,7 +258,7 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets addr_line_1
      *
-     * @param string $addr_line_1 First line of the street address or equivalent local portion of the Cardholder billing address associated with the card used for this purchase.
+     * @param string $addr_line_1 Street address. May include whitespaces, hyphens, apostrophes, commas, quotes, dots, slashes and semicolons
      *
      * @return $this
      */
@@ -318,16 +306,16 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets city
      *
-     * @param string $city Billing city. May include whitespaces, hyphens, apostrophes, commas and dots
+     * @param string $city Delivery city. May include whitespaces, hyphens, apostrophes, commas and dots
      *
      * @return $this
      */
     public function setCity($city)
     {
-        if ((mb_strlen($city) > 20)) {
+        if (!is_null($city) && (mb_strlen($city) > 20)) {
             throw new \InvalidArgumentException('invalid length for $city when calling BillingAddress., must be smaller than or equal to 20.');
         }
-        if ((mb_strlen($city) < 0)) {
+        if (!is_null($city) && (mb_strlen($city) < 0)) {
             throw new \InvalidArgumentException('invalid length for $city when calling BillingAddress., must be bigger than or equal to 0.');
         }
 
@@ -349,7 +337,7 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets country
      *
-     * @param string $country [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code of billing country: 2 or 3 latin letters or numeric code
+     * @param string $country [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code of country: 2 or 3 latin letters or numeric code. Mandatory if 'shipping_address' is presented.
      *
      * @return $this
      */
@@ -373,20 +361,20 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets phone
      *
-     * @param string $phone Valid Customer phone number
+     * @param string $phone Valid customer phone number
      *
      * @return $this
      */
     public function setPhone($phone)
     {
-        if ((mb_strlen($phone) > 20)) {
+        if (!is_null($phone) && (mb_strlen($phone) > 20)) {
             throw new \InvalidArgumentException('invalid length for $phone when calling BillingAddress., must be smaller than or equal to 20.');
         }
-        if ((mb_strlen($phone) < 5)) {
+        if (!is_null($phone) && (mb_strlen($phone) < 5)) {
             throw new \InvalidArgumentException('invalid length for $phone when calling BillingAddress., must be bigger than or equal to 5.');
         }
-        if ((!preg_match("/[0-9|+|\\-|w|p|(|)|\\s]+/", $phone))) {
-            throw new \InvalidArgumentException("invalid value for $phone when calling BillingAddress., must conform to the pattern /[0-9|+|\\-|w|p|(|)|\\s]+/.");
+        if (!is_null($phone) && (!preg_match("/[-+\\d()wp\\s]+/", $phone))) {
+            throw new \InvalidArgumentException("invalid value for $phone when calling BillingAddress., must conform to the pattern /[-+\\d()wp\\s]+/.");
         }
 
         $this->container['phone'] = $phone;
@@ -407,7 +395,7 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets state
      *
-     * @param string $state Billing state or province. May include whitespaces, hyphens, apostrophes, commas and dots
+     * @param string $state Delivery state or province. May include whitespaces, hyphens, apostrophes, commas and dots
      *
      * @return $this
      */
@@ -438,16 +426,16 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets zip
      *
-     * @param string $zip Billing postal code
+     * @param string $zip Delivery postal code
      *
      * @return $this
      */
     public function setZip($zip)
     {
-        if ((mb_strlen($zip) > 17)) {
-            throw new \InvalidArgumentException('invalid length for $zip when calling BillingAddress., must be smaller than or equal to 17.');
+        if (!is_null($zip) && (mb_strlen($zip) > 12)) {
+            throw new \InvalidArgumentException('invalid length for $zip when calling BillingAddress., must be smaller than or equal to 12.');
         }
-        if ((mb_strlen($zip) < 0)) {
+        if (!is_null($zip) && (mb_strlen($zip) < 0)) {
             throw new \InvalidArgumentException('invalid length for $zip when calling BillingAddress., must be bigger than or equal to 0.');
         }
 

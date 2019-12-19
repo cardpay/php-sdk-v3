@@ -70,7 +70,7 @@ class PayoutUtils
         ]);
 
         $card = new PayoutRequestCard([
-            'pan' => Constants::TEST_CARD_PAN
+            'pan' => Config::$cardNon3dsConfirmed
         ]);
 
         $cardAccount = new PayoutRequestCardAccount([

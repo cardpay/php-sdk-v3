@@ -210,8 +210,8 @@ class ShippingAddress implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 5.";
         }
 
-        if (!is_null($this->container['phone']) && !preg_match("/[0-9|+|\\-|w|p|(|)|\\s]+/", $this->container['phone'])) {
-            $invalidProperties[] = "invalid value for 'phone', must be conform to the pattern /[0-9|+|\\-|w|p|(|)|\\s]+/.";
+        if (!is_null($this->container['phone']) && !preg_match("/[-+\\d()wp\\s]+/", $this->container['phone'])) {
+            $invalidProperties[] = "invalid value for 'phone', must be conform to the pattern /[-+\\d()wp\\s]+/.";
         }
 
         if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 20)) {
@@ -373,8 +373,8 @@ class ShippingAddress implements ModelInterface, ArrayAccess
         if (!is_null($phone) && (mb_strlen($phone) < 5)) {
             throw new \InvalidArgumentException('invalid length for $phone when calling ShippingAddress., must be bigger than or equal to 5.');
         }
-        if (!is_null($phone) && (!preg_match("/[0-9|+|\\-|w|p|(|)|\\s]+/", $phone))) {
-            throw new \InvalidArgumentException("invalid value for $phone when calling ShippingAddress., must conform to the pattern /[0-9|+|\\-|w|p|(|)|\\s]+/.");
+        if (!is_null($phone) && (!preg_match("/[-+\\d()wp\\s]+/", $phone))) {
+            throw new \InvalidArgumentException("invalid value for $phone when calling ShippingAddress., must conform to the pattern /[-+\\d()wp\\s]+/.");
         }
 
         $this->container['phone'] = $phone;

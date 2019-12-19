@@ -19,6 +19,9 @@ class Config
 
     public static $emailsDomain;
 
+    public static $card3dsConfirmed;
+    public static $cardNon3dsConfirmed;
+
     public static function init()
     {
         // production API URL: https://cardpay.com
@@ -38,6 +41,10 @@ class Config
         self::$terminalCurrency = self::getEnvVariable('TERMINAL_CURRENCY', 'USD');
 
         self::$emailsDomain = self::getEnvVariable('EMAILS_DOMAIN', 'mailinator.com');
+
+        // testing cards
+        self::$card3dsConfirmed = self::getEnvVariable('CARD_3DS_CONFIRMED', '4000000000000002');
+        self::$cardNon3dsConfirmed = self::getEnvVariable('CARD_NON3DS_CONFIRMED', '4000000000000077');
     }
 
     /**

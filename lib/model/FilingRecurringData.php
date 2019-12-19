@@ -28,7 +28,6 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
-        'generate_token' => 'bool',
         'initiator' => 'string',
         'note' => 'string',
         'trans_type' => 'string'
@@ -42,7 +41,6 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'currency' => null,
         'dynamic_descriptor' => null,
-        'generate_token' => null,
         'initiator' => null,
         'note' => null,
         'trans_type' => null
@@ -77,7 +75,6 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
-        'generate_token' => 'generate_token',
         'initiator' => 'initiator',
         'note' => 'note',
         'trans_type' => 'trans_type'
@@ -91,7 +88,6 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
     protected static $setters = [
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
-        'generate_token' => 'setGenerateToken',
         'initiator' => 'setInitiator',
         'note' => 'setNote',
         'trans_type' => 'setTransType'
@@ -105,7 +101,6 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
     protected static $getters = [
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
-        'generate_token' => 'getGenerateToken',
         'initiator' => 'getInitiator',
         'note' => 'getNote',
         'trans_type' => 'getTransType'
@@ -194,7 +189,6 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
     {
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
-        $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
@@ -303,30 +297,6 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
         }
 
         $this->container['dynamic_descriptor'] = $dynamic_descriptor;
-
-        return $this;
-    }
-
-    /**
-     * Gets generate_token
-     *
-     * @return bool
-     */
-    public function getGenerateToken()
-    {
-        return $this->container['generate_token'];
-    }
-
-    /**
-     * Sets generate_token
-     *
-     * @param bool $generate_token This attribute can be received only in first recurring request. If set to 'true', Card token will be generated and returned in GET response for all successful transactions (can't be generated for declined transactions).
-     *
-     * @return $this
-     */
-    public function setGenerateToken($generate_token)
-    {
-        $this->container['generate_token'] = $generate_token;
 
         return $this;
     }

@@ -284,7 +284,7 @@ class PaymentUpdateRequest implements ModelInterface, ArrayAccess
     /**
      * Sets payment_data
      *
-     * @param \Cardpay\model\PaymentUpdateTransactionData $payment_data Payment data
+     * @param \Cardpay\model\PaymentUpdateTransactionData $payment_data Transaction data
      *
      * @return $this
      */

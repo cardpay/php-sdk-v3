@@ -284,7 +284,7 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     /**
      * Sets recurring_data
      *
-     * @param \Cardpay\model\PaymentUpdateTransactionData $recurring_data Recurring data
+     * @param \Cardpay\model\PaymentUpdateTransactionData $recurring_data Transaction data
      *
      * @return $this
      */

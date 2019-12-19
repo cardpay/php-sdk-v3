@@ -219,7 +219,7 @@ class RefundUpdateRequest implements ModelInterface, ArrayAccess
     /**
      * Sets refund_data
      *
-     * @param \Cardpay\model\RequestUpdatedTransactionData $refund_data Refund data
+     * @param \Cardpay\model\RequestUpdatedTransactionData $refund_data Transaction data
      *
      * @return $this
      */

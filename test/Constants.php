@@ -9,7 +9,6 @@ class Constants
     const INITIATOR_CIT = 'cit';
     const INITIATOR_MIT = 'mit';
 
-    const TEST_CARD_PAN = '4000000000000077';
     const TEST_CARD_HOLDER = 'John Smith';
     const TEST_CARD_SECURITY_CODE = '123';
 

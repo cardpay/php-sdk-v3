@@ -27,7 +27,8 @@ class PaymentRequestEWalletAccount implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'bank_code' => 'string',
-        'expiration' => 'string',
+        'creation_date' => 'string',
+        'expiration_date' => 'string',
         'id' => 'string',
         'verification_code' => 'string'
     ];
@@ -39,7 +40,8 @@ class PaymentRequestEWalletAccount implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'bank_code' => null,
-        'expiration' => null,
+        'creation_date' => null,
+        'expiration_date' => null,
         'id' => null,
         'verification_code' => null
     ];
@@ -72,7 +74,8 @@ class PaymentRequestEWalletAccount implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'bank_code' => 'bank_code',
-        'expiration' => 'expiration',
+        'creation_date' => 'creation_date',
+        'expiration_date' => 'expiration_date',
         'id' => 'id',
         'verification_code' => 'verification_code'
     ];
@@ -84,7 +87,8 @@ class PaymentRequestEWalletAccount implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'bank_code' => 'setBankCode',
-        'expiration' => 'setExpiration',
+        'creation_date' => 'setCreationDate',
+        'expiration_date' => 'setExpirationDate',
         'id' => 'setId',
         'verification_code' => 'setVerificationCode'
     ];
@@ -96,7 +100,8 @@ class PaymentRequestEWalletAccount implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'bank_code' => 'getBankCode',
-        'expiration' => 'getExpiration',
+        'creation_date' => 'getCreationDate',
+        'expiration_date' => 'getExpirationDate',
         'id' => 'getId',
         'verification_code' => 'getVerificationCode'
     ];
@@ -162,7 +167,8 @@ class PaymentRequestEWalletAccount implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['bank_code'] = isset($data['bank_code']) ? $data['bank_code'] : null;
-        $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
+        $this->container['creation_date'] = isset($data['creation_date']) ? $data['creation_date'] : null;
+        $this->container['expiration_date'] = isset($data['expiration_date']) ? $data['expiration_date'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['verification_code'] = isset($data['verification_code']) ? $data['verification_code'] : null;
     }
@@ -176,8 +182,12 @@ class PaymentRequestEWalletAccount implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['expiration']) && !preg_match("/^\\d{1,2}\/\\d{4}/", $this->container['expiration'])) {
-            $invalidProperties[] = "invalid value for 'expiration', must be conform to the pattern /^\\d{1,2}\/\\d{4}/.";
+        if (!is_null($this->container['creation_date']) && !preg_match("/^[\\d{2,4}|\/?|\\.?]{2,10}$/", $this->container['creation_date'])) {
+            $invalidProperties[] = "invalid value for 'creation_date', must be conform to the pattern /^[\\d{2,4}|\/?|\\.?]{2,10}$/.";
+        }
+
+        if (!is_null($this->container['expiration_date']) && !preg_match("/^[\\d{2,4}|\/?|\\.?]{2,10}$/", $this->container['expiration_date'])) {
+            $invalidProperties[] = "invalid value for 'expiration_date', must be conform to the pattern /^[\\d{2,4}|\/?|\\.?]{2,10}$/.";
         }
 
         return $invalidProperties;
@@ -220,30 +230,59 @@ class PaymentRequestEWalletAccount implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets expiration
+     * Gets creation_date
      *
      * @return string
      */
-    public function getExpiration()
+    public function getCreationDate()
     {
-        return $this->container['expiration'];
+        return $this->container['creation_date'];
     }
 
     /**
-     * Sets expiration
+     * Sets creation_date
      *
-     * @param string $expiration Card expiration date
+     * @param string $creation_date Card creation date
      *
      * @return $this
      */
-    public function setExpiration($expiration)
+    public function setCreationDate($creation_date)
     {
 
-        if (!is_null($expiration) && (!preg_match("/^\\d{1,2}\/\\d{4}/", $expiration))) {
-            throw new \InvalidArgumentException("invalid value for $expiration when calling PaymentRequestEWalletAccount., must conform to the pattern /^\\d{1,2}\/\\d{4}/.");
+        if (!is_null($creation_date) && (!preg_match("/^[\\d{2,4}|\/?|\\.?]{2,10}$/", $creation_date))) {
+            throw new \InvalidArgumentException("invalid value for $creation_date when calling PaymentRequestEWalletAccount., must conform to the pattern /^[\\d{2,4}|\/?|\\.?]{2,10}$/.");
         }
 
-        $this->container['expiration'] = $expiration;
+        $this->container['creation_date'] = $creation_date;
+
+        return $this;
+    }
+
+    /**
+     * Gets expiration_date
+     *
+     * @return string
+     */
+    public function getExpirationDate()
+    {
+        return $this->container['expiration_date'];
+    }
+
+    /**
+     * Sets expiration_date
+     *
+     * @param string $expiration_date Account expiration date
+     *
+     * @return $this
+     */
+    public function setExpirationDate($expiration_date)
+    {
+
+        if (!is_null($expiration_date) && (!preg_match("/^[\\d{2,4}|\/?|\\.?]{2,10}$/", $expiration_date))) {
+            throw new \InvalidArgumentException("invalid value for $expiration_date when calling PaymentRequestEWalletAccount., must conform to the pattern /^[\\d{2,4}|\/?|\\.?]{2,10}$/.");
+        }
+
+        $this->container['expiration_date'] = $expiration_date;
 
         return $this;
     }

@@ -1,6 +1,6 @@
 {
     "name": "cardpay/php-sdk-v3",
-    "version": "1.7.2.6",
+    "version": "1.9.2.2",
     "description": "PHP SDK for Cardpay API v3",
     "keywords": [
         "cardpay",
