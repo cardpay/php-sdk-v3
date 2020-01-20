@@ -2787,6 +2787,7 @@ class RecurringsApi
      * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
      * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
+     * @param  string[] $recurring_types recurring_types (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
      * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
      * @param  string $type Filter recurring payments by certain type (applicable to /api/recurrings endpoint only): &#x60;SCHEDULED&#x60; for scheduled recurring payments &#x60;ONECLICK&#x60; for one-click payments &#x60;INSTALLMENT&#x60; for installment payments (optional)
@@ -2795,9 +2796,9 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\RecurringsList
      */
-    public function getRecurrings($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null, $type = null)
+    public function getRecurrings($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $recurring_types = null, $sort_order = null, $start_time = null, $type = null)
     {
-        list($response) = $this->getRecurringsWithHttpInfo($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time, $type);
+        list($response) = $this->getRecurringsWithHttpInfo($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $recurring_types, $sort_order, $start_time, $type);
         return $response;
     }
 
@@ -2812,6 +2813,7 @@ class RecurringsApi
      * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
      * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
+     * @param  string[] $recurring_types (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
      * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
      * @param  string $type Filter recurring payments by certain type (applicable to /api/recurrings endpoint only): &#x60;SCHEDULED&#x60; for scheduled recurring payments &#x60;ONECLICK&#x60; for one-click payments &#x60;INSTALLMENT&#x60; for installment payments (optional)
@@ -2820,10 +2822,10 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\RecurringsList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getRecurringsWithHttpInfo($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null, $type = null)
+    public function getRecurringsWithHttpInfo($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $recurring_types = null, $sort_order = null, $start_time = null, $type = null)
     {
         $returnType = '\Cardpay\model\RecurringsList';
-        $request = $this->getRecurringsRequest($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time, $type);
+        $request = $this->getRecurringsRequest($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $recurring_types, $sort_order, $start_time, $type);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2927,6 +2929,7 @@ class RecurringsApi
      * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
      * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
+     * @param  string[] $recurring_types (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
      * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
      * @param  string $type Filter recurring payments by certain type (applicable to /api/recurrings endpoint only): &#x60;SCHEDULED&#x60; for scheduled recurring payments &#x60;ONECLICK&#x60; for one-click payments &#x60;INSTALLMENT&#x60; for installment payments (optional)
@@ -2934,9 +2937,9 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getRecurringsAsync($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null, $type = null)
+    public function getRecurringsAsync($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $recurring_types = null, $sort_order = null, $start_time = null, $type = null)
     {
-        return $this->getRecurringsAsyncWithHttpInfo($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time, $type)
+        return $this->getRecurringsAsyncWithHttpInfo($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $recurring_types, $sort_order, $start_time, $type)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2955,6 +2958,7 @@ class RecurringsApi
      * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
      * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
+     * @param  string[] $recurring_types (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
      * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
      * @param  string $type Filter recurring payments by certain type (applicable to /api/recurrings endpoint only): &#x60;SCHEDULED&#x60; for scheduled recurring payments &#x60;ONECLICK&#x60; for one-click payments &#x60;INSTALLMENT&#x60; for installment payments (optional)
@@ -2962,10 +2966,10 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getRecurringsAsyncWithHttpInfo($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null, $type = null)
+    public function getRecurringsAsyncWithHttpInfo($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $recurring_types = null, $sort_order = null, $start_time = null, $type = null)
     {
         $returnType = '\Cardpay\model\RecurringsList';
-        $request = $this->getRecurringsRequest($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $sort_order, $start_time, $type);
+        $request = $this->getRecurringsRequest($request_id, $currency, $end_time, $max_count, $merchant_order_id, $payment_method, $recurring_types, $sort_order, $start_time, $type);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -3013,6 +3017,7 @@ class RecurringsApi
      * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
      * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
+     * @param  string[] $recurring_types (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
      * @param  \DateTime $start_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive), UTC time, default is 24 hours before &#39;end_time&#39; (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
      * @param  string $type Filter recurring payments by certain type (applicable to /api/recurrings endpoint only): &#x60;SCHEDULED&#x60; for scheduled recurring payments &#x60;ONECLICK&#x60; for one-click payments &#x60;INSTALLMENT&#x60; for installment payments (optional)
@@ -3020,7 +3025,7 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getRecurringsRequest($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $sort_order = null, $start_time = null, $type = null)
+    protected function getRecurringsRequest($request_id, $currency = null, $end_time = null, $max_count = null, $merchant_order_id = null, $payment_method = null, $recurring_types = null, $sort_order = null, $start_time = null, $type = null)
     {
         // verify the required parameter 'request_id' is set
         if ($request_id === null || (is_array($request_id) && count($request_id) === 0)) {
@@ -3084,6 +3089,13 @@ class RecurringsApi
         // query params
         if ($payment_method !== null) {
             $queryParams['payment_method'] = ObjectSerializer::toQueryValue($payment_method);
+        }
+        // query params
+        if (is_array($recurring_types)) {
+            $recurring_types = ObjectSerializer::serializeCollection($recurring_types, 'multi', true);
+        }
+        if ($recurring_types !== null) {
+            $queryParams['recurring_types'] = ObjectSerializer::toQueryValue($recurring_types);
         }
         // query params
         if ($request_id !== null) {

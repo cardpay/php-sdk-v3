@@ -26,6 +26,7 @@ class TransactionResponseEWalletAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'holder' => 'string',
         'id' => 'string'
     ];
 
@@ -35,6 +36,7 @@ class TransactionResponseEWalletAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'holder' => null,
         'id' => null
     ];
 
@@ -65,6 +67,7 @@ class TransactionResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'holder' => 'holder',
         'id' => 'id'
     ];
 
@@ -74,6 +77,7 @@ class TransactionResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'holder' => 'setHolder',
         'id' => 'setId'
     ];
 
@@ -83,6 +87,7 @@ class TransactionResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'holder' => 'getHolder',
         'id' => 'getId'
     ];
 
@@ -146,6 +151,7 @@ class TransactionResponseEWalletAccount implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
 
@@ -174,6 +180,30 @@ class TransactionResponseEWalletAccount implements ModelInterface, ArrayAccess
 
 
     /**
+     * Gets holder
+     *
+     * @return string
+     */
+    public function getHolder()
+    {
+        return $this->container['holder'];
+    }
+
+    /**
+     * Sets holder
+     *
+     * @param string $holder Ewallet account holder name For DIRECTBANKINGEU - Account holder name (optional)
+     *
+     * @return $this
+     */
+    public function setHolder($holder)
+    {
+        $this->container['holder'] = $holder;
+
+        return $this;
+    }
+
+    /**
      * Gets id
      *
      * @return string
@@ -186,7 +216,7 @@ class TransactionResponseEWalletAccount implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id For ALIPAY - 16 digits number For QIWI - Customer phone number (from 1 to 15 digits) For WEBMONEY - Customer account number For NETELLER - Email address of the customer For YANDEXMONEY - Customer wallet number, 11 to 16 digits, begins with 410 For DIRECTBANKINGNGA - Bank account number For AQRCODE - Customer account number For AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO - Customer account number For 'Latin America' - Customer’s personal identification number
+     * @param string $id For ALIPAY - 16 digits number For QIWI - Customer phone number (from 1 to 15 digits) For WEBMONEY - Customer account number For NETELLER - Email address of the customer For YANDEXMONEY - Customer wallet number, 11 to 16 digits, begins with 410 For DIRECTBANKINGNGA - Bank account number For AQRCODE - Customer account number For AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO - Customer account number For 'Latin America' - Customer’s personal identification number For DIRECTBANKINGEU - Sender IBAN (optional)
      *
      * @return $this
      */
