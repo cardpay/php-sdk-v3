@@ -29,7 +29,7 @@ class RecurringCallbackTest extends BaseTestCase
             $status = $callbackJSON['recurring_data']['status'];
 
             // change order status accordingly
-            // see 'TransactionStatus' definition, in API v3 documentation: https://integration.cardpay.com/v3/#definitions
+            // see 'TransactionStatus' definition, in API v3 documentation: https://integration.cardpay.com/#TransactionStatus
             switch ($status) {
                 case RecurringResponseRecurringData::STATUS_COMPLETED:
                     // ...

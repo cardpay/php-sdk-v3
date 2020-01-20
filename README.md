@@ -4,7 +4,7 @@ The Cardpay API uses HTTP verbs and a RESTful endpoint structure. Request and re
 - API version: 3.0
 - PHP SDK version: 1.9.4.1
 
-For more information, please visit [https://integration.cardpay.com/v3/](https://integration.cardpay.com/v3/)
+For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
 ## Requirements
 

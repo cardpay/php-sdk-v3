@@ -8,7 +8,7 @@
         "php",
         "sdk"
     ],
-    "homepage": "https://integration.cardpay.com/v3/",
+    "homepage": "https://integration.cardpay.com",
     "license": "MIT",
     "require": {
         "php": ">=5.6",
