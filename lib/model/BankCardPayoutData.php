@@ -27,6 +27,7 @@ class BankCardPayoutData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
+        'arn' => 'string',
         'created' => 'string',
         'currency' => 'string',
         'decline_code' => 'string',
@@ -44,6 +45,7 @@ class BankCardPayoutData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'amount' => null,
+        'arn' => null,
         'created' => null,
         'currency' => null,
         'decline_code' => null,
@@ -82,6 +84,7 @@ class BankCardPayoutData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'amount' => 'amount',
+        'arn' => 'arn',
         'created' => 'created',
         'currency' => 'currency',
         'decline_code' => 'decline_code',
@@ -99,6 +102,7 @@ class BankCardPayoutData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'amount' => 'setAmount',
+        'arn' => 'setArn',
         'created' => 'setCreated',
         'currency' => 'setCurrency',
         'decline_code' => 'setDeclineCode',
@@ -116,6 +120,7 @@ class BankCardPayoutData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'amount' => 'getAmount',
+        'arn' => 'getArn',
         'created' => 'getCreated',
         'currency' => 'getCurrency',
         'decline_code' => 'getDeclineCode',
@@ -220,6 +225,7 @@ class BankCardPayoutData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['arn'] = isset($data['arn']) ? $data['arn'] : null;
         $this->container['created'] = isset($data['created']) ? $data['created'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['decline_code'] = isset($data['decline_code']) ? $data['decline_code'] : null;
@@ -313,6 +319,30 @@ class BankCardPayoutData implements ModelInterface, ArrayAccess
     public function setAmount($amount)
     {
         $this->container['amount'] = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets arn
+     *
+     * @return string
+     */
+    public function getArn()
+    {
+        return $this->container['arn'];
+    }
+
+    /**
+     * Sets arn
+     *
+     * @param string $arn ARN (Acquirer Reference Number), supplied by the acquiring financial institution, return only after receiving ARN from bank acquirer *(for BANKCARD payment method only)*
+     *
+     * @return $this
+     */
+    public function setArn($arn)
+    {
+        $this->container['arn'] = $arn;
 
         return $this;
     }

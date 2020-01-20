@@ -2,7 +2,7 @@
 The Cardpay API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 1.9.2.2
+- PHP SDK version: 1.9.4.1
 
 For more information, please visit [https://integration.cardpay.com/v3/](https://integration.cardpay.com/v3/)
 
@@ -171,6 +171,8 @@ composer install
  - [RedirectUrlResponse](lib/model/RedirectUrlResponse.php)
  - [RefundCallback](lib/model/RefundCallback.php)
  - [RefundRequest](lib/model/RefundRequest.php)
+ - [RefundRequestCustomer](lib/model/RefundRequestCustomer.php)
+ - [RefundRequestEWalletAccount](lib/model/RefundRequestEWalletAccount.php)
  - [RefundRequestMerchantOrder](lib/model/RefundRequestMerchantOrder.php)
  - [RefundRequestPaymentData](lib/model/RefundRequestPaymentData.php)
  - [RefundRequestRefundData](lib/model/RefundRequestRefundData.php)

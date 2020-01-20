@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class RefundRequest implements ModelInterface, ArrayAccess
+class RefundRequestCustomer implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class RefundRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'RefundRequest';
+    protected static $swaggerModelName = 'RefundRequestCustomer';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,12 +26,9 @@ class RefundRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'request' => '\Cardpay\model\Request',
-        'customer' => '\Cardpay\model\RefundRequestCustomer',
-        'ewallet_account' => '\Cardpay\model\RefundRequestEWalletAccount',
-        'merchant_order' => '\Cardpay\model\RefundRequestMerchantOrder',
-        'payment_data' => '\Cardpay\model\RefundRequestPaymentData',
-        'refund_data' => '\Cardpay\model\RefundRequestRefundData'
+        'email' => 'string',
+        'full_name' => 'string',
+        'identity' => 'string'
     ];
 
     /**
@@ -40,12 +37,9 @@ class RefundRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'request' => null,
-        'customer' => null,
-        'ewallet_account' => null,
-        'merchant_order' => null,
-        'payment_data' => null,
-        'refund_data' => null
+        'email' => null,
+        'full_name' => null,
+        'identity' => null
     ];
 
     /**
@@ -75,12 +69,9 @@ class RefundRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'request' => 'request',
-        'customer' => 'customer',
-        'ewallet_account' => 'ewallet_account',
-        'merchant_order' => 'merchant_order',
-        'payment_data' => 'payment_data',
-        'refund_data' => 'refund_data'
+        'email' => 'email',
+        'full_name' => 'full_name',
+        'identity' => 'identity'
     ];
 
     /**
@@ -89,12 +80,9 @@ class RefundRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'request' => 'setRequest',
-        'customer' => 'setCustomer',
-        'ewallet_account' => 'setEwalletAccount',
-        'merchant_order' => 'setMerchantOrder',
-        'payment_data' => 'setPaymentData',
-        'refund_data' => 'setRefundData'
+        'email' => 'setEmail',
+        'full_name' => 'setFullName',
+        'identity' => 'setIdentity'
     ];
 
     /**
@@ -103,12 +91,9 @@ class RefundRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'request' => 'getRequest',
-        'customer' => 'getCustomer',
-        'ewallet_account' => 'getEwalletAccount',
-        'merchant_order' => 'getMerchantOrder',
-        'payment_data' => 'getPaymentData',
-        'refund_data' => 'getRefundData'
+        'email' => 'getEmail',
+        'full_name' => 'getFullName',
+        'identity' => 'getIdentity'
     ];
 
     /**
@@ -171,12 +156,9 @@ class RefundRequest implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
-        $this->container['ewallet_account'] = isset($data['ewallet_account']) ? $data['ewallet_account'] : null;
-        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
-        $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
-        $this->container['refund_data'] = isset($data['refund_data']) ? $data['refund_data'] : null;
+        $this->container['email'] = isset($data['email']) ? $data['email'] : null;
+        $this->container['full_name'] = isset($data['full_name']) ? $data['full_name'] : null;
+        $this->container['identity'] = isset($data['identity']) ? $data['identity'] : null;
     }
 
     /**
@@ -188,12 +170,30 @@ class RefundRequest implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['request'] === null) {
-            $invalidProperties[] = "'request' can't be null";
+        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 256)) {
+            $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 256.";
         }
-        if ($this->container['payment_data'] === null) {
-            $invalidProperties[] = "'payment_data' can't be null";
+
+        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 1)) {
+            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 1.";
         }
+
+        if (!is_null($this->container['full_name']) && (mb_strlen($this->container['full_name']) > 256)) {
+            $invalidProperties[] = "invalid value for 'full_name', the character length must be smaller than or equal to 256.";
+        }
+
+        if (!is_null($this->container['full_name']) && (mb_strlen($this->container['full_name']) < 1)) {
+            $invalidProperties[] = "invalid value for 'full_name', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['identity']) && (mb_strlen($this->container['identity']) > 256)) {
+            $invalidProperties[] = "invalid value for 'identity', the character length must be smaller than or equal to 256.";
+        }
+
+        if (!is_null($this->container['identity']) && (mb_strlen($this->container['identity']) < 0)) {
+            $invalidProperties[] = "invalid value for 'identity', the character length must be bigger than or equal to 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -210,145 +210,94 @@ class RefundRequest implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets request
+     * Gets email
      *
-     * @return \Cardpay\model\Request
+     * @return string
      */
-    public function getRequest()
+    public function getEmail()
     {
-        return $this->container['request'];
+        return $this->container['email'];
     }
 
     /**
-     * Sets request
+     * Sets email
      *
-     * @param \Cardpay\model\Request $request Request
+     * @param string $email Customer email address. Mandatory for BOLETO, LOTERICA, DEPOSITEXPRESSBRL.
      *
      * @return $this
      */
-    public function setRequest($request)
+    public function setEmail($email)
     {
-        $this->container['request'] = $request;
+        if (!is_null($email) && (mb_strlen($email) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $email when calling RefundRequestCustomer., must be smaller than or equal to 256.');
+        }
+        if (!is_null($email) && (mb_strlen($email) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $email when calling RefundRequestCustomer., must be bigger than or equal to 1.');
+        }
+
+        $this->container['email'] = $email;
 
         return $this;
     }
 
     /**
-     * Gets customer
+     * Gets full_name
      *
-     * @return \Cardpay\model\RefundRequestCustomer
+     * @return string
      */
-    public function getCustomer()
+    public function getFullName()
     {
-        return $this->container['customer'];
+        return $this->container['full_name'];
     }
 
     /**
-     * Sets customer
+     * Sets full_name
      *
-     * @param \Cardpay\model\RefundRequestCustomer $customer Customer
+     * @param string $full_name Customer full name. Mandatory for BOLETO, LOTERICA, DEPOSITEXPRESSBRL.
      *
      * @return $this
      */
-    public function setCustomer($customer)
+    public function setFullName($full_name)
     {
-        $this->container['customer'] = $customer;
+        if (!is_null($full_name) && (mb_strlen($full_name) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $full_name when calling RefundRequestCustomer., must be smaller than or equal to 256.');
+        }
+        if (!is_null($full_name) && (mb_strlen($full_name) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $full_name when calling RefundRequestCustomer., must be bigger than or equal to 1.');
+        }
+
+        $this->container['full_name'] = $full_name;
 
         return $this;
     }
 
     /**
-     * Gets ewallet_account
+     * Gets identity
      *
-     * @return \Cardpay\model\RefundRequestEWalletAccount
+     * @return string
      */
-    public function getEwalletAccount()
+    public function getIdentity()
     {
-        return $this->container['ewallet_account'];
+        return $this->container['identity'];
     }
 
     /**
-     * Sets ewallet_account
+     * Sets identity
      *
-     * @param \Cardpay\model\RefundRequestEWalletAccount $ewallet_account EWallet
+     * @param string $identity Customer identity for Latin America - Customer’s personal identification number: 'CPF' or 'CNPJ' for Brazil. Mandatory for BOLETO, LOTERICA, DEPOSITEXPRESSBRL.
      *
      * @return $this
      */
-    public function setEwalletAccount($ewallet_account)
+    public function setIdentity($identity)
     {
-        $this->container['ewallet_account'] = $ewallet_account;
+        if (!is_null($identity) && (mb_strlen($identity) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $identity when calling RefundRequestCustomer., must be smaller than or equal to 256.');
+        }
+        if (!is_null($identity) && (mb_strlen($identity) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $identity when calling RefundRequestCustomer., must be bigger than or equal to 0.');
+        }
 
-        return $this;
-    }
-
-    /**
-     * Gets merchant_order
-     *
-     * @return \Cardpay\model\RefundRequestMerchantOrder
-     */
-    public function getMerchantOrder()
-    {
-        return $this->container['merchant_order'];
-    }
-
-    /**
-     * Sets merchant_order
-     *
-     * @param \Cardpay\model\RefundRequestMerchantOrder $merchant_order Merchant order data
-     *
-     * @return $this
-     */
-    public function setMerchantOrder($merchant_order)
-    {
-        $this->container['merchant_order'] = $merchant_order;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_data
-     *
-     * @return \Cardpay\model\RefundRequestPaymentData
-     */
-    public function getPaymentData()
-    {
-        return $this->container['payment_data'];
-    }
-
-    /**
-     * Sets payment_data
-     *
-     * @param \Cardpay\model\RefundRequestPaymentData $payment_data Payment data
-     *
-     * @return $this
-     */
-    public function setPaymentData($payment_data)
-    {
-        $this->container['payment_data'] = $payment_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets refund_data
-     *
-     * @return \Cardpay\model\RefundRequestRefundData
-     */
-    public function getRefundData()
-    {
-        return $this->container['refund_data'];
-    }
-
-    /**
-     * Sets refund_data
-     *
-     * @param \Cardpay\model\RefundRequestRefundData $refund_data Refund data
-     *
-     * @return $this
-     */
-    public function setRefundData($refund_data)
-    {
-        $this->container['refund_data'] = $refund_data;
+        $this->container['identity'] = $identity;
 
         return $this;
     }

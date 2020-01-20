@@ -27,6 +27,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
+        'arn' => 'string',
         'auth_code' => 'string',
         'created' => 'string',
         'currency' => 'string',
@@ -47,6 +48,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'amount' => null,
+        'arn' => null,
         'auth_code' => null,
         'created' => null,
         'currency' => null,
@@ -88,6 +90,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'amount' => 'amount',
+        'arn' => 'arn',
         'auth_code' => 'auth_code',
         'created' => 'created',
         'currency' => 'currency',
@@ -108,6 +111,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'amount' => 'setAmount',
+        'arn' => 'setArn',
         'auth_code' => 'setAuthCode',
         'created' => 'setCreated',
         'currency' => 'setCurrency',
@@ -128,6 +132,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'amount' => 'getAmount',
+        'arn' => 'getArn',
         'auth_code' => 'getAuthCode',
         'created' => 'getCreated',
         'currency' => 'getCurrency',
@@ -256,6 +261,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['arn'] = isset($data['arn']) ? $data['arn'] : null;
         $this->container['auth_code'] = isset($data['auth_code']) ? $data['auth_code'] : null;
         $this->container['created'] = isset($data['created']) ? $data['created'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
@@ -341,6 +347,30 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
     public function setAmount($amount)
     {
         $this->container['amount'] = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets arn
+     *
+     * @return string
+     */
+    public function getArn()
+    {
+        return $this->container['arn'];
+    }
+
+    /**
+     * Sets arn
+     *
+     * @param string $arn ARN (Acquirer Reference Number), supplied by the acquiring financial institution, return only after receiving ARN from bank acquirer *(for BANKCARD payment method only)*
+     *
+     * @return $this
+     */
+    public function setArn($arn)
+    {
+        $this->container['arn'] = $arn;
 
         return $this;
     }
