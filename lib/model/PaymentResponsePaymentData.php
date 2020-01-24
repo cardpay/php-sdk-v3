@@ -34,6 +34,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'string',
         'decline_reason' => 'string',
         'id' => 'string',
+        'invalid_data' => 'string[]',
         'is_3d' => 'bool',
         'note' => 'string',
         'rrn' => 'string',
@@ -55,6 +56,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => null,
         'decline_reason' => null,
         'id' => null,
+        'invalid_data' => null,
         'is_3d' => null,
         'note' => null,
         'rrn' => null,
@@ -97,6 +99,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'decline_code',
         'decline_reason' => 'decline_reason',
         'id' => 'id',
+        'invalid_data' => 'invalid_data',
         'is_3d' => 'is_3d',
         'note' => 'note',
         'rrn' => 'rrn',
@@ -118,6 +121,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'setDeclineCode',
         'decline_reason' => 'setDeclineReason',
         'id' => 'setId',
+        'invalid_data' => 'setInvalidData',
         'is_3d' => 'setIs3d',
         'note' => 'setNote',
         'rrn' => 'setRrn',
@@ -139,6 +143,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'getDeclineCode',
         'decline_reason' => 'getDeclineReason',
         'id' => 'getId',
+        'invalid_data' => 'getInvalidData',
         'is_3d' => 'getIs3d',
         'note' => 'getNote',
         'rrn' => 'getRrn',
@@ -268,6 +273,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         $this->container['decline_code'] = isset($data['decline_code']) ? $data['decline_code'] : null;
         $this->container['decline_reason'] = isset($data['decline_reason']) ? $data['decline_reason'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['invalid_data'] = isset($data['invalid_data']) ? $data['invalid_data'] : null;
         $this->container['is_3d'] = isset($data['is_3d']) ? $data['is_3d'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['rrn'] = isset($data['rrn']) ? $data['rrn'] : null;
@@ -515,6 +521,30 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
     public function setId($id)
     {
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets invalid_data
+     *
+     * @return string[]
+     */
+    public function getInvalidData()
+    {
+        return $this->container['invalid_data'];
+    }
+
+    /**
+     * Sets invalid_data
+     *
+     * @param string[] $invalid_data Invalid card or billing data
+     *
+     * @return $this
+     */
+    public function setInvalidData($invalid_data)
+    {
+        $this->container['invalid_data'] = $invalid_data;
 
         return $this;
     }
