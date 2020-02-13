@@ -15,6 +15,9 @@ class Config
     public static $gatewayPostponedTerminalCode;
     public static $gatewayPostponedPassword;
 
+    public static $avsPaymentpageTerminalCode;
+    public static $avsPaymentpagePassword;
+
     public static $terminalCurrency;
 
     public static $emailsDomain;
@@ -37,6 +40,10 @@ class Config
         // postponed refunds and payouts
         self::$gatewayPostponedTerminalCode = self::getEnvVariable('GATEWAY_POSTPONED_TERMINAL_CODE', '18399');
         self::$gatewayPostponedPassword = self::getEnvVariable('GATEWAY_POSTPONED_PASSWORD', 'jehE149L7bHU');
+
+        // AVS tests
+        self::$avsPaymentpageTerminalCode = self::getEnvVariable('AVS_PAYMENTPAGE_TERMINAL_CODE', '23029');
+        self::$avsPaymentpagePassword = self::getEnvVariable('AVS_PAYMENTPAGE_PASSWORD', '0UT41J9avFch');
 
         self::$terminalCurrency = self::getEnvVariable('TERMINAL_CURRENCY', 'USD');
 

@@ -55,6 +55,7 @@ class PaymentUtils
      */
     public function createPaymentInPaymentPageMode($orderId, $terminalCode, $password, $preAuth = false)
     {
+        /** @var string $redirectUrl */
         $redirectUrl = $this->createPayment($orderId, $terminalCode, $password, $preAuth);
         return $redirectUrl;
     }
@@ -72,6 +73,20 @@ class PaymentUtils
         /** @var PaymentResponse $paymentResponse */
         $paymentResponse = $this->createPayment($orderId, $terminalCode, $password, $preAuth);
         return $paymentResponse;
+    }
+
+    /**
+     * @param string $orderId
+     * @param string $terminalCode
+     * @param string $password
+     * @return string|null
+     * @throws ApiException
+     */
+    public function createAvsRequest($orderId, $terminalCode, $password)
+    {
+        /** @var string $redirectUrl */
+        $redirectUrl = $this->createPayment($orderId, $terminalCode, $password, false);
+        return $redirectUrl;
     }
 
     /**
@@ -114,11 +129,19 @@ class PaymentUtils
             'description' => $orderDescription
         ]);
 
-        $paymentData = new PaymentRequestPaymentData([
-            'amount' => $orderAmount,
-            'currency' => $orderCurrency,
-            'trans_type' => Constants::TRANS_TYPE_GOODS_SERVICE_PURCHASE
-        ]);
+        if ($terminalCode == Config::$avsPaymentpageTerminalCode) {        // AVS request
+            $paymentData = new PaymentRequestPaymentData([
+                'authentication_request' => true
+            ]);
+        } else {                                                           // payment request
+            $paymentData = new PaymentRequestPaymentData([
+                'amount' => $orderAmount
+            ]);
+        }
+
+        $paymentData['currency'] = $orderCurrency;
+        $paymentData['trans_type'] = Constants::TRANS_TYPE_GOODS_SERVICE_PURCHASE;
+
         if (true === $preAuth) {
             $paymentData['preauth'] = true;
         }
