@@ -30,6 +30,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
         'generate_token' => 'bool',
+        'hold_rest_amount' => 'bool',
         'initiator' => 'string',
         'interval' => 'int',
         'note' => 'string',
@@ -50,6 +51,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'currency' => null,
         'dynamic_descriptor' => null,
         'generate_token' => null,
+        'hold_rest_amount' => null,
         'initiator' => null,
         'interval' => 'int32',
         'note' => null,
@@ -91,6 +93,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
         'generate_token' => 'generate_token',
+        'hold_rest_amount' => 'hold_rest_amount',
         'initiator' => 'initiator',
         'interval' => 'interval',
         'note' => 'note',
@@ -111,6 +114,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'generate_token' => 'setGenerateToken',
+        'hold_rest_amount' => 'setHoldRestAmount',
         'initiator' => 'setInitiator',
         'interval' => 'setInterval',
         'note' => 'setNote',
@@ -131,6 +135,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'generate_token' => 'getGenerateToken',
+        'hold_rest_amount' => 'getHoldRestAmount',
         'initiator' => 'getInitiator',
         'interval' => 'getInterval',
         'note' => 'getNote',
@@ -247,6 +252,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
+        $this->container['hold_rest_amount'] = isset($data['hold_rest_amount']) ? $data['hold_rest_amount'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['interval'] = isset($data['interval']) ? $data['interval'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
@@ -294,14 +300,6 @@ class InstallmentData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
-        }
-
-        if (!is_null($this->container['payments']) && ($this->container['payments'] > 200)) {
-            $invalidProperties[] = "invalid value for 'payments', must be smaller than or equal to 200.";
-        }
-
-        if (!is_null($this->container['payments']) && ($this->container['payments'] < 2)) {
-            $invalidProperties[] = "invalid value for 'payments', must be bigger than or equal to 2.";
         }
 
         $allowedValues = $this->getPeriodAllowableValues();
@@ -447,6 +445,30 @@ class InstallmentData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets hold_rest_amount
+     *
+     * @return bool
+     */
+    public function getHoldRestAmount()
+    {
+        return $this->container['hold_rest_amount'];
+    }
+
+    /**
+     * Sets hold_rest_amount
+     *
+     * @param bool $hold_rest_amount For SplitPay subscription - \"true\"
+     *
+     * @return $this
+     */
+    public function setHoldRestAmount($hold_rest_amount)
+    {
+        $this->container['hold_rest_amount'] = $hold_rest_amount;
+
+        return $this;
+    }
+
+    /**
      * Gets initiator
      *
      * @return string
@@ -554,14 +576,6 @@ class InstallmentData implements ModelInterface, ArrayAccess
      */
     public function setPayments($payments)
     {
-
-        if (!is_null($payments) && ($payments > 200)) {
-            throw new \InvalidArgumentException('invalid value for $payments when calling InstallmentData., must be smaller than or equal to 200.');
-        }
-        if (!is_null($payments) && ($payments < 2)) {
-            throw new \InvalidArgumentException('invalid value for $payments when calling InstallmentData., must be bigger than or equal to 2.');
-        }
-
         $this->container['payments'] = $payments;
 
         return $this;
