@@ -12,13 +12,13 @@ class AvsCallbackTest extends BaseTestCase
         // AVS callback structure example, JSON body
         $avsCallback = '{"callback_time":"2019-07-01T09:30:06.828Z","payment_method":"BANKCARD","merchant_order":{"id":"67897"},"payment_data":{"status":"COMPLETED","currency":"USD","created":"2019-07-01T09:29:57.409901Z"},"card_account":{"masked_pan":"412345...1234","issuing_country_code":"US","holder":"John Smith"},"customer":{"email":"customer@gmail.com","locale":"en"}}';
 
-        $secretKey = '0UT41J9avFch';
+        $callbackSecret = '0UT41J9avFch';
 
         // 'Signature' header example
         $signature = 'e6888f42c4f6fbc1051ff4b9dbbfbb8760589bba0ca188effbf94ba17f2c6ed84cc2f809932291dd3c04ba3c256fa03d737b9510199b8efa8f794891355bb9e3';
 
         // validate callback
-        $calculatedSignature = hash('sha512', $avsCallback . $secretKey);
+        $calculatedSignature = hash('sha512', $avsCallback . $callbackSecret);
 
         if ($signature !== $calculatedSignature) {
             // header("HTTP/1.1 400 Bad Request");
