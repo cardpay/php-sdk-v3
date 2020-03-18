@@ -222,14 +222,6 @@ class ShippingAddress implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'state', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['zip']) && (mb_strlen($this->container['zip']) > 17)) {
-            $invalidProperties[] = "invalid value for 'zip', the character length must be smaller than or equal to 17.";
-        }
-
-        if (!is_null($this->container['zip']) && (mb_strlen($this->container['zip']) < 0)) {
-            $invalidProperties[] = "invalid value for 'zip', the character length must be bigger than or equal to 0.";
-        }
-
         return $invalidProperties;
     }
 
@@ -432,13 +424,6 @@ class ShippingAddress implements ModelInterface, ArrayAccess
      */
     public function setZip($zip)
     {
-        if (!is_null($zip) && (mb_strlen($zip) > 17)) {
-            throw new \InvalidArgumentException('invalid length for $zip when calling ShippingAddress., must be smaller than or equal to 17.');
-        }
-        if (!is_null($zip) && (mb_strlen($zip) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $zip when calling ShippingAddress., must be bigger than or equal to 0.');
-        }
-
         $this->container['zip'] = $zip;
 
         return $this;
