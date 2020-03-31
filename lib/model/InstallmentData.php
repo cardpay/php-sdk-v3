@@ -310,14 +310,6 @@ class InstallmentData implements ModelInterface, ArrayAccess
             );
         }
 
-        if (!is_null($this->container['retries']) && ($this->container['retries'] > 15)) {
-            $invalidProperties[] = "invalid value for 'retries', must be smaller than or equal to 15.";
-        }
-
-        if (!is_null($this->container['retries']) && ($this->container['retries'] < 1)) {
-            $invalidProperties[] = "invalid value for 'retries', must be bigger than or equal to 1.";
-        }
-
         $allowedValues = $this->getTransTypeAllowableValues();
         if (!is_null($this->container['trans_type']) && !in_array($this->container['trans_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -633,14 +625,6 @@ class InstallmentData implements ModelInterface, ArrayAccess
      */
     public function setRetries($retries)
     {
-
-        if (!is_null($retries) && ($retries > 15)) {
-            throw new \InvalidArgumentException('invalid value for $retries when calling InstallmentData., must be smaller than or equal to 15.');
-        }
-        if (!is_null($retries) && ($retries < 1)) {
-            throw new \InvalidArgumentException('invalid value for $retries when calling InstallmentData., must be bigger than or equal to 1.');
-        }
-
         $this->container['retries'] = $retries;
 
         return $this;
