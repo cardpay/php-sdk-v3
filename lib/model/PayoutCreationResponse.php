@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
+class PayoutCreationResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponseCardAccount';
+    protected static $swaggerModelName = 'PayoutCreationResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,7 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'card' => '\Cardpay\model\PayoutResponseCard',
-        'token' => 'string'
+        
     ];
 
     /**
@@ -36,8 +35,7 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'card' => null,
-        'token' => null
+        
     ];
 
     /**
@@ -67,8 +65,7 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'card' => 'card',
-        'token' => 'token'
+        
     ];
 
     /**
@@ -77,8 +74,7 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'card' => 'setCard',
-        'token' => 'setToken'
+        
     ];
 
     /**
@@ -87,8 +83,7 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'card' => 'getCard',
-        'token' => 'getToken'
+        
     ];
 
     /**
@@ -151,8 +146,6 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['card'] = isset($data['card']) ? $data['card'] : null;
-        $this->container['token'] = isset($data['token']) ? $data['token'] : null;
     }
 
     /**
@@ -178,54 +171,6 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
-
-    /**
-     * Gets card
-     *
-     * @return \Cardpay\model\PayoutResponseCard
-     */
-    public function getCard()
-    {
-        return $this->container['card'];
-    }
-
-    /**
-     * Sets card
-     *
-     * @param \Cardpay\model\PayoutResponseCard $card Bank card data
-     *
-     * @return $this
-     */
-    public function setCard($card)
-    {
-        $this->container['card'] = $card;
-
-        return $this;
-    }
-
-    /**
-     * Gets token
-     *
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->container['token'];
-    }
-
-    /**
-     * Sets token
-     *
-     * @param string $token Generated card token value. Token can be returned only for successful transactions (not for declined transactions).
-     *
-     * @return $this
-     */
-    public function setToken($token)
-    {
-        $this->container['token'] = $token;
-
-        return $this;
-    }
     /**
      * Returns true if offset exists. False otherwise.
      *

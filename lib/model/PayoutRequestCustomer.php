@@ -26,12 +26,12 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'document_number' => 'string',
         'document_type' => 'string',
         'email' => 'string',
         'first_name' => 'string',
         'full_name' => 'string',
         'id' => 'string',
+        'identity' => 'string',
         'last_name' => 'string',
         'living_address' => '\Cardpay\model\PayoutRequestLivingAddress',
         'phone' => 'string'
@@ -43,12 +43,12 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'document_number' => null,
         'document_type' => null,
         'email' => null,
         'first_name' => null,
         'full_name' => null,
         'id' => null,
+        'identity' => null,
         'last_name' => null,
         'living_address' => null,
         'phone' => null
@@ -81,12 +81,12 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'document_number' => 'document_number',
         'document_type' => 'document_type',
         'email' => 'email',
         'first_name' => 'first_name',
         'full_name' => 'full_name',
         'id' => 'id',
+        'identity' => 'identity',
         'last_name' => 'last_name',
         'living_address' => 'living_address',
         'phone' => 'phone'
@@ -98,12 +98,12 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'document_number' => 'setDocumentNumber',
         'document_type' => 'setDocumentType',
         'email' => 'setEmail',
         'first_name' => 'setFirstName',
         'full_name' => 'setFullName',
         'id' => 'setId',
+        'identity' => 'setIdentity',
         'last_name' => 'setLastName',
         'living_address' => 'setLivingAddress',
         'phone' => 'setPhone'
@@ -115,12 +115,12 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'document_number' => 'getDocumentNumber',
         'document_type' => 'getDocumentType',
         'email' => 'getEmail',
         'first_name' => 'getFirstName',
         'full_name' => 'getFullName',
         'id' => 'getId',
+        'identity' => 'getIdentity',
         'last_name' => 'getLastName',
         'living_address' => 'getLivingAddress',
         'phone' => 'getPhone'
@@ -186,12 +186,12 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['document_number'] = isset($data['document_number']) ? $data['document_number'] : null;
         $this->container['document_type'] = isset($data['document_type']) ? $data['document_type'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
         $this->container['first_name'] = isset($data['first_name']) ? $data['first_name'] : null;
         $this->container['full_name'] = isset($data['full_name']) ? $data['full_name'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['identity'] = isset($data['identity']) ? $data['identity'] : null;
         $this->container['last_name'] = isset($data['last_name']) ? $data['last_name'] : null;
         $this->container['living_address'] = isset($data['living_address']) ? $data['living_address'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
@@ -228,30 +228,6 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
-
-    /**
-     * Gets document_number
-     *
-     * @return string
-     */
-    public function getDocumentNumber()
-    {
-        return $this->container['document_number'];
-    }
-
-    /**
-     * Sets document_number
-     *
-     * @param string $document_number Customer document number *(mandatory for 'Latin America' methods only)* For 'Latin America' is required for methods where country = AR, BR, CL, CO, PE, UY
-     *
-     * @return $this
-     */
-    public function setDocumentNumber($document_number)
-    {
-        $this->container['document_number'] = $document_number;
-
-        return $this;
-    }
 
     /**
      * Gets document_type
@@ -376,6 +352,30 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         }
 
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets identity
+     *
+     * @return string
+     */
+    public function getIdentity()
+    {
+        return $this->container['identity'];
+    }
+
+    /**
+     * Sets identity
+     *
+     * @param string $identity Customer identity  - Customer’s personal identification number: 'CPF' or 'CNPJ' for Brazil, 'DNI' for Argentina and ID for other countries.  For SPEI - Customer CPF or CURP
+     *
+     * @return $this
+     */
+    public function setIdentity($identity)
+    {
+        $this->container['identity'] = $identity;
 
         return $this;
     }

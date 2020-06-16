@@ -30,7 +30,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
         'amount_total' => 'float',
         'created' => '\DateTime',
         'currency' => 'string',
-        'customer' => '\Cardpay\model\PayoutResponseCustomer',
+        'customer' => '\Cardpay\model\RecurringResponseCustomer',
         'description' => 'string',
         'id' => 'string',
         'interval' => 'int',
@@ -457,7 +457,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Gets customer
      *
-     * @return \Cardpay\model\PayoutResponseCustomer
+     * @return \Cardpay\model\RecurringResponseCustomer
      */
     public function getCustomer()
     {
@@ -467,7 +467,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets customer
      *
-     * @param \Cardpay\model\PayoutResponseCustomer $customer Customer data
+     * @param \Cardpay\model\RecurringResponseCustomer $customer Customer data
      *
      * @return $this
      */

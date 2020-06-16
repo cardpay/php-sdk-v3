@@ -29,6 +29,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         'amount' => 'float',
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
+        'generate_token' => 'bool',
         'note' => 'string'
     ];
 
@@ -41,6 +42,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         'amount' => null,
         'currency' => null,
         'dynamic_descriptor' => null,
+        'generate_token' => null,
         'note' => null
     ];
 
@@ -74,6 +76,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         'amount' => 'amount',
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
+        'generate_token' => 'generate_token',
         'note' => 'note'
     ];
 
@@ -86,6 +89,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         'amount' => 'setAmount',
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
+        'generate_token' => 'setGenerateToken',
         'note' => 'setNote'
     ];
 
@@ -98,6 +102,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         'amount' => 'getAmount',
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
+        'generate_token' => 'getGenerateToken',
         'note' => 'getNote'
     ];
 
@@ -164,6 +169,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
+        $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
     }
 
@@ -288,6 +294,30 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         }
 
         $this->container['dynamic_descriptor'] = $dynamic_descriptor;
+
+        return $this;
+    }
+
+    /**
+     * Gets generate_token
+     *
+     * @return bool
+     */
+    public function getGenerateToken()
+    {
+        return $this->container['generate_token'];
+    }
+
+    /**
+     * Sets generate_token
+     *
+     * @param bool $generate_token If set to `true`, token will be generated and returned in the response (callback). Token can be generated only for successful transactions (not for declined transactions) *(for BANKCARD payment method only)*
+     *
+     * @return $this
+     */
+    public function setGenerateToken($generate_token)
+    {
+        $this->container['generate_token'] = $generate_token;
 
         return $this;
     }

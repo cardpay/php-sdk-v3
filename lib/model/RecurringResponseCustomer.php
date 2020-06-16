@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponseCard implements ModelInterface, ArrayAccess
+class RecurringResponseCustomer implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponseCard';
+    protected static $swaggerModelName = 'RecurringResponseCustomer';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,11 +26,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'acct_type' => 'string',
-        'expiration' => 'string',
-        'holder' => 'string',
-        'issuing_country_code' => 'string',
-        'masked_pan' => 'string'
+        'email' => 'string',
+        'id' => 'string'
     ];
 
     /**
@@ -39,11 +36,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'acct_type' => null,
-        'expiration' => null,
-        'holder' => null,
-        'issuing_country_code' => null,
-        'masked_pan' => null
+        'email' => null,
+        'id' => null
     ];
 
     /**
@@ -73,11 +67,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'acct_type' => 'acct_type',
-        'expiration' => 'expiration',
-        'holder' => 'holder',
-        'issuing_country_code' => 'issuing_country_code',
-        'masked_pan' => 'masked_pan'
+        'email' => 'email',
+        'id' => 'id'
     ];
 
     /**
@@ -86,11 +77,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'acct_type' => 'setAcctType',
-        'expiration' => 'setExpiration',
-        'holder' => 'setHolder',
-        'issuing_country_code' => 'setIssuingCountryCode',
-        'masked_pan' => 'setMaskedPan'
+        'email' => 'setEmail',
+        'id' => 'setId'
     ];
 
     /**
@@ -99,11 +87,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'acct_type' => 'getAcctType',
-        'expiration' => 'getExpiration',
-        'holder' => 'getHolder',
-        'issuing_country_code' => 'getIssuingCountryCode',
-        'masked_pan' => 'getMaskedPan'
+        'email' => 'getEmail',
+        'id' => 'getId'
     ];
 
     /**
@@ -147,25 +132,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const ACCT_TYPE__01 = '01';
-    const ACCT_TYPE__02 = '02';
-    const ACCT_TYPE__03 = '03';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getAcctTypeAllowableValues()
-    {
-        return [
-            self::ACCT_TYPE__01,
-            self::ACCT_TYPE__02,
-            self::ACCT_TYPE__03,
-        ];
-    }
     
 
     /**
@@ -183,11 +151,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['acct_type'] = isset($data['acct_type']) ? $data['acct_type'] : null;
-        $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
-        $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
-        $this->container['issuing_country_code'] = isset($data['issuing_country_code']) ? $data['issuing_country_code'] : null;
-        $this->container['masked_pan'] = isset($data['masked_pan']) ? $data['masked_pan'] : null;
+        $this->container['email'] = isset($data['email']) ? $data['email'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
 
     /**
@@ -199,12 +164,20 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        $allowedValues = $this->getAcctTypeAllowableValues();
-        if (!is_null($this->container['acct_type']) && !in_array($this->container['acct_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'acct_type', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
+        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 256)) {
+            $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 256.";
+        }
+
+        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 1)) {
+            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 256)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 256.";
+        }
+
+        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) < 0)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -223,130 +196,63 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets acct_type
+     * Gets email
      *
      * @return string
      */
-    public function getAcctType()
+    public function getEmail()
     {
-        return $this->container['acct_type'];
+        return $this->container['email'];
     }
 
     /**
-     * Sets acct_type
+     * Sets email
      *
-     * @param string $acct_type acct_type
+     * @param string $email Customer's email address
      *
      * @return $this
      */
-    public function setAcctType($acct_type)
+    public function setEmail($email)
     {
-        $allowedValues = $this->getAcctTypeAllowableValues();
-        if (!is_null($acct_type) && !in_array($acct_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'acct_type', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!is_null($email) && (mb_strlen($email) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $email when calling RecurringResponseCustomer., must be smaller than or equal to 256.');
         }
-        $this->container['acct_type'] = $acct_type;
+        if (!is_null($email) && (mb_strlen($email) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $email when calling RecurringResponseCustomer., must be bigger than or equal to 1.');
+        }
+
+        $this->container['email'] = $email;
 
         return $this;
     }
 
     /**
-     * Gets expiration
+     * Gets id
      *
      * @return string
      */
-    public function getExpiration()
+    public function getId()
     {
-        return $this->container['expiration'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets expiration
+     * Sets id
      *
-     * @param string $expiration Customer’s card expiration date. Format: `mm/yyyy`
+     * @param string $id Customer's ID in the merchant's system
      *
      * @return $this
      */
-    public function setExpiration($expiration)
+    public function setId($id)
     {
-        $this->container['expiration'] = $expiration;
+        if (!is_null($id) && (mb_strlen($id) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling RecurringResponseCustomer., must be smaller than or equal to 256.');
+        }
+        if (!is_null($id) && (mb_strlen($id) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling RecurringResponseCustomer., must be bigger than or equal to 0.');
+        }
 
-        return $this;
-    }
-
-    /**
-     * Gets holder
-     *
-     * @return string
-     */
-    public function getHolder()
-    {
-        return $this->container['holder'];
-    }
-
-    /**
-     * Sets holder
-     *
-     * @param string $holder Customer's cardholder name. Any valid cardholder name. Not present by default, ask CardPay manager to enable it if needed.
-     *
-     * @return $this
-     */
-    public function setHolder($holder)
-    {
-        $this->container['holder'] = $holder;
-
-        return $this;
-    }
-
-    /**
-     * Gets issuing_country_code
-     *
-     * @return string
-     */
-    public function getIssuingCountryCode()
-    {
-        return $this->container['issuing_country_code'];
-    }
-
-    /**
-     * Sets issuing_country_code
-     *
-     * @param string $issuing_country_code Country code of issuing card country
-     *
-     * @return $this
-     */
-    public function setIssuingCountryCode($issuing_country_code)
-    {
-        $this->container['issuing_country_code'] = $issuing_country_code;
-
-        return $this;
-    }
-
-    /**
-     * Gets masked_pan
-     *
-     * @return string
-     */
-    public function getMaskedPan()
-    {
-        return $this->container['masked_pan'];
-    }
-
-    /**
-     * Sets masked_pan
-     *
-     * @param string $masked_pan Masked PAN (shows first 6 digits and 4 last digits of the PAN)
-     *
-     * @return $this
-     */
-    public function setMaskedPan($masked_pan)
-    {
-        $this->container['masked_pan'] = $masked_pan;
+        $this->container['id'] = $id;
 
         return $this;
     }

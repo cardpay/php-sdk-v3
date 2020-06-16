@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
+class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutRequestCardAccount';
+    protected static $swaggerModelName = 'RecurringRequestMerchantOrder';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,11 +26,11 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'billing_address' => '\Cardpay\model\BillingAddress',
-        'card' => '\Cardpay\model\PayoutRequestCard',
-        'empty' => 'bool',
-        'recipient_info' => 'string',
-        'token' => 'string'
+        'cryptocurrency_indicator' => 'bool',
+        'description' => 'string',
+        'id' => 'string',
+        'items' => '\Cardpay\model\Item[]',
+        'shipping_address' => '\Cardpay\model\ShippingAddress'
     ];
 
     /**
@@ -39,11 +39,11 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'billing_address' => null,
-        'card' => null,
-        'empty' => null,
-        'recipient_info' => null,
-        'token' => null
+        'cryptocurrency_indicator' => null,
+        'description' => null,
+        'id' => null,
+        'items' => null,
+        'shipping_address' => null
     ];
 
     /**
@@ -73,11 +73,11 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'billing_address' => 'billing_address',
-        'card' => 'card',
-        'empty' => 'empty',
-        'recipient_info' => 'recipient_info',
-        'token' => 'token'
+        'cryptocurrency_indicator' => 'cryptocurrency_indicator',
+        'description' => 'description',
+        'id' => 'id',
+        'items' => 'items',
+        'shipping_address' => 'shipping_address'
     ];
 
     /**
@@ -86,11 +86,11 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'billing_address' => 'setBillingAddress',
-        'card' => 'setCard',
-        'empty' => 'setEmpty',
-        'recipient_info' => 'setRecipientInfo',
-        'token' => 'setToken'
+        'cryptocurrency_indicator' => 'setCryptocurrencyIndicator',
+        'description' => 'setDescription',
+        'id' => 'setId',
+        'items' => 'setItems',
+        'shipping_address' => 'setShippingAddress'
     ];
 
     /**
@@ -99,11 +99,11 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'billing_address' => 'getBillingAddress',
-        'card' => 'getCard',
-        'empty' => 'getEmpty',
-        'recipient_info' => 'getRecipientInfo',
-        'token' => 'getToken'
+        'cryptocurrency_indicator' => 'getCryptocurrencyIndicator',
+        'description' => 'getDescription',
+        'id' => 'getId',
+        'items' => 'getItems',
+        'shipping_address' => 'getShippingAddress'
     ];
 
     /**
@@ -166,11 +166,11 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['billing_address'] = isset($data['billing_address']) ? $data['billing_address'] : null;
-        $this->container['card'] = isset($data['card']) ? $data['card'] : null;
-        $this->container['empty'] = isset($data['empty']) ? $data['empty'] : null;
-        $this->container['recipient_info'] = isset($data['recipient_info']) ? $data['recipient_info'] : null;
-        $this->container['token'] = isset($data['token']) ? $data['token'] : null;
+        $this->container['cryptocurrency_indicator'] = isset($data['cryptocurrency_indicator']) ? $data['cryptocurrency_indicator'] : null;
+        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['items'] = isset($data['items']) ? $data['items'] : null;
+        $this->container['shipping_address'] = isset($data['shipping_address']) ? $data['shipping_address'] : null;
     }
 
     /**
@@ -182,26 +182,26 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['card'] === null) {
-            $invalidProperties[] = "'card' can't be null";
+        if ($this->container['description'] === null) {
+            $invalidProperties[] = "'description' can't be null";
         }
-        if ($this->container['recipient_info'] === null) {
-            $invalidProperties[] = "'recipient_info' can't be null";
-        }
-        if ((mb_strlen($this->container['recipient_info']) > 500)) {
-            $invalidProperties[] = "invalid value for 'recipient_info', the character length must be smaller than or equal to 500.";
+        if ((mb_strlen($this->container['description']) > 200)) {
+            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 200.";
         }
 
-        if ((mb_strlen($this->container['recipient_info']) < 0)) {
-            $invalidProperties[] = "invalid value for 'recipient_info', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['description']) < 1)) {
+            $invalidProperties[] = "invalid value for 'description', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['token']) && (mb_strlen($this->container['token']) > 36)) {
-            $invalidProperties[] = "invalid value for 'token', the character length must be smaller than or equal to 36.";
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ((mb_strlen($this->container['id']) > 50)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 50.";
         }
 
-        if (!is_null($this->container['token']) && (mb_strlen($this->container['token']) < 0)) {
-            $invalidProperties[] = "invalid value for 'token', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['id']) < 1)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -220,135 +220,135 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets billing_address
-     *
-     * @return \Cardpay\model\BillingAddress
-     */
-    public function getBillingAddress()
-    {
-        return $this->container['billing_address'];
-    }
-
-    /**
-     * Sets billing_address
-     *
-     * @param \Cardpay\model\BillingAddress $billing_address Address for billing
-     *
-     * @return $this
-     */
-    public function setBillingAddress($billing_address)
-    {
-        $this->container['billing_address'] = $billing_address;
-
-        return $this;
-    }
-
-    /**
-     * Gets card
-     *
-     * @return \Cardpay\model\PayoutRequestCard
-     */
-    public function getCard()
-    {
-        return $this->container['card'];
-    }
-
-    /**
-     * Sets card
-     *
-     * @param \Cardpay\model\PayoutRequestCard $card Represents a payout card data. Card section shouldn't be present if element `token` was presented.
-     *
-     * @return $this
-     */
-    public function setCard($card)
-    {
-        $this->container['card'] = $card;
-
-        return $this;
-    }
-
-    /**
-     * Gets empty
+     * Gets cryptocurrency_indicator
      *
      * @return bool
      */
-    public function getEmpty()
+    public function getCryptocurrencyIndicator()
     {
-        return $this->container['empty'];
+        return $this->container['cryptocurrency_indicator'];
     }
 
     /**
-     * Sets empty
+     * Sets cryptocurrency_indicator
      *
-     * @param bool $empty empty
+     * @param bool $cryptocurrency_indicator Indicator should be added if there will be cryptocurrency purchase in transaction
      *
      * @return $this
      */
-    public function setEmpty($empty)
+    public function setCryptocurrencyIndicator($cryptocurrency_indicator)
     {
-        $this->container['empty'] = $empty;
+        $this->container['cryptocurrency_indicator'] = $cryptocurrency_indicator;
 
         return $this;
     }
 
     /**
-     * Gets recipient_info
+     * Gets description
      *
      * @return string
      */
-    public function getRecipientInfo()
+    public function getDescription()
     {
-        return $this->container['recipient_info'];
+        return $this->container['description'];
     }
 
     /**
-     * Sets recipient_info
+     * Sets description
      *
-     * @param string $recipient_info Property `recipient_info` may be required by Bank. In most cases it's Cardholder's name, contact CardPay manager for requirements. It must be omitted when property `token` is presented
+     * @param string $description Description of product/service being sold
      *
      * @return $this
      */
-    public function setRecipientInfo($recipient_info)
+    public function setDescription($description)
     {
-        if ((mb_strlen($recipient_info) > 500)) {
-            throw new \InvalidArgumentException('invalid length for $recipient_info when calling PayoutRequestCardAccount., must be smaller than or equal to 500.');
+        if ((mb_strlen($description) > 200)) {
+            throw new \InvalidArgumentException('invalid length for $description when calling RecurringRequestMerchantOrder., must be smaller than or equal to 200.');
         }
-        if ((mb_strlen($recipient_info) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $recipient_info when calling PayoutRequestCardAccount., must be bigger than or equal to 0.');
+        if ((mb_strlen($description) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $description when calling RecurringRequestMerchantOrder., must be bigger than or equal to 1.');
         }
 
-        $this->container['recipient_info'] = $recipient_info;
+        $this->container['description'] = $description;
 
         return $this;
     }
 
     /**
-     * Gets token
+     * Gets id
      *
      * @return string
      */
-    public function getToken()
+    public function getId()
     {
-        return $this->container['token'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets token
+     * Sets id
      *
-     * @param string $token Card token value, used instead of a card data
+     * @param string $id Order ID used by Merchant's shopping cart
      *
      * @return $this
      */
-    public function setToken($token)
+    public function setId($id)
     {
-        if (!is_null($token) && (mb_strlen($token) > 36)) {
-            throw new \InvalidArgumentException('invalid length for $token when calling PayoutRequestCardAccount., must be smaller than or equal to 36.');
+        if ((mb_strlen($id) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling RecurringRequestMerchantOrder., must be smaller than or equal to 50.');
         }
-        if (!is_null($token) && (mb_strlen($token) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $token when calling PayoutRequestCardAccount., must be bigger than or equal to 0.');
+        if ((mb_strlen($id) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling RecurringRequestMerchantOrder., must be bigger than or equal to 1.');
         }
 
-        $this->container['token'] = $token;
+        $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets items
+     *
+     * @return \Cardpay\model\Item[]
+     */
+    public function getItems()
+    {
+        return $this->container['items'];
+    }
+
+    /**
+     * Sets items
+     *
+     * @param \Cardpay\model\Item[] $items Array of items (in the shopping cart)
+     *
+     * @return $this
+     */
+    public function setItems($items)
+    {
+        $this->container['items'] = $items;
+
+        return $this;
+    }
+
+    /**
+     * Gets shipping_address
+     *
+     * @return \Cardpay\model\ShippingAddress
+     */
+    public function getShippingAddress()
+    {
+        return $this->container['shipping_address'];
+    }
+
+    /**
+     * Sets shipping_address
+     *
+     * @param \Cardpay\model\ShippingAddress $shipping_address Shipping Address
+     *
+     * @return $this
+     */
+    public function setShippingAddress($shipping_address)
+    {
+        $this->container['shipping_address'] = $shipping_address;
 
         return $this;
     }
