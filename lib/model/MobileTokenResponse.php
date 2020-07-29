@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponseCard implements ModelInterface, ArrayAccess
+class MobileTokenResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponseCard';
+    protected static $swaggerModelName = 'MobileTokenResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,10 +26,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'expiration' => 'string',
-        'holder' => 'string',
-        'issuing_country_code' => 'string',
-        'masked_pan' => 'string'
+        'expires' => 'string',
+        'mobile_token' => 'string'
     ];
 
     /**
@@ -38,10 +36,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'expiration' => null,
-        'holder' => null,
-        'issuing_country_code' => null,
-        'masked_pan' => null
+        'expires' => null,
+        'mobile_token' => null
     ];
 
     /**
@@ -71,10 +67,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'expiration' => 'expiration',
-        'holder' => 'holder',
-        'issuing_country_code' => 'issuing_country_code',
-        'masked_pan' => 'masked_pan'
+        'expires' => 'expires',
+        'mobile_token' => 'mobile_token'
     ];
 
     /**
@@ -83,10 +77,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'expiration' => 'setExpiration',
-        'holder' => 'setHolder',
-        'issuing_country_code' => 'setIssuingCountryCode',
-        'masked_pan' => 'setMaskedPan'
+        'expires' => 'setExpires',
+        'mobile_token' => 'setMobileToken'
     ];
 
     /**
@@ -95,10 +87,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'expiration' => 'getExpiration',
-        'holder' => 'getHolder',
-        'issuing_country_code' => 'getIssuingCountryCode',
-        'masked_pan' => 'getMaskedPan'
+        'expires' => 'getExpires',
+        'mobile_token' => 'getMobileToken'
     ];
 
     /**
@@ -161,10 +151,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
-        $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
-        $this->container['issuing_country_code'] = isset($data['issuing_country_code']) ? $data['issuing_country_code'] : null;
-        $this->container['masked_pan'] = isset($data['masked_pan']) ? $data['masked_pan'] : null;
+        $this->container['expires'] = isset($data['expires']) ? $data['expires'] : null;
+        $this->container['mobile_token'] = isset($data['mobile_token']) ? $data['mobile_token'] : null;
     }
 
     /**
@@ -192,97 +180,49 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets expiration
+     * Gets expires
      *
      * @return string
      */
-    public function getExpiration()
+    public function getExpires()
     {
-        return $this->container['expiration'];
+        return $this->container['expires'];
     }
 
     /**
-     * Sets expiration
+     * Sets expires
      *
-     * @param string $expiration Customer’s card expiration date. Format: `mm/yyyy`
+     * @param string $expires Date and time of mobile token expiration in ISO 8601 format, example of format - yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
      *
      * @return $this
      */
-    public function setExpiration($expiration)
+    public function setExpires($expires)
     {
-        $this->container['expiration'] = $expiration;
+        $this->container['expires'] = $expires;
 
         return $this;
     }
 
     /**
-     * Gets holder
+     * Gets mobile_token
      *
      * @return string
      */
-    public function getHolder()
+    public function getMobileToken()
     {
-        return $this->container['holder'];
+        return $this->container['mobile_token'];
     }
 
     /**
-     * Sets holder
+     * Sets mobile_token
      *
-     * @param string $holder Customer's cardholder name. Any valid cardholder name. Not present by default, ask CardPay manager to enable it if needed.
+     * @param string $mobile_token Unique identifier, max 128 symbols
      *
      * @return $this
      */
-    public function setHolder($holder)
+    public function setMobileToken($mobile_token)
     {
-        $this->container['holder'] = $holder;
-
-        return $this;
-    }
-
-    /**
-     * Gets issuing_country_code
-     *
-     * @return string
-     */
-    public function getIssuingCountryCode()
-    {
-        return $this->container['issuing_country_code'];
-    }
-
-    /**
-     * Sets issuing_country_code
-     *
-     * @param string $issuing_country_code Country code of issuing card country
-     *
-     * @return $this
-     */
-    public function setIssuingCountryCode($issuing_country_code)
-    {
-        $this->container['issuing_country_code'] = $issuing_country_code;
-
-        return $this;
-    }
-
-    /**
-     * Gets masked_pan
-     *
-     * @return string
-     */
-    public function getMaskedPan()
-    {
-        return $this->container['masked_pan'];
-    }
-
-    /**
-     * Sets masked_pan
-     *
-     * @param string $masked_pan Masked PAN (shows first 6 digits and 4 last digits of the PAN)
-     *
-     * @return $this
-     */
-    public function setMaskedPan($masked_pan)
-    {
-        $this->container['masked_pan'] = $masked_pan;
+        $this->container['mobile_token'] = $mobile_token;
 
         return $this;
     }

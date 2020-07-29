@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponseCard implements ModelInterface, ArrayAccess
+class CardBindingResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponseCard';
+    protected static $swaggerModelName = 'CardBindingResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,10 +26,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'expiration' => 'string',
-        'holder' => 'string',
-        'issuing_country_code' => 'string',
-        'masked_pan' => 'string'
+        'recurring_data' => '\Cardpay\model\CardBindingRecurringDataResponse',
+        'redirect_url' => 'string'
     ];
 
     /**
@@ -38,10 +36,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'expiration' => null,
-        'holder' => null,
-        'issuing_country_code' => null,
-        'masked_pan' => null
+        'recurring_data' => null,
+        'redirect_url' => null
     ];
 
     /**
@@ -71,10 +67,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'expiration' => 'expiration',
-        'holder' => 'holder',
-        'issuing_country_code' => 'issuing_country_code',
-        'masked_pan' => 'masked_pan'
+        'recurring_data' => 'recurring_data',
+        'redirect_url' => 'redirect_url'
     ];
 
     /**
@@ -83,10 +77,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'expiration' => 'setExpiration',
-        'holder' => 'setHolder',
-        'issuing_country_code' => 'setIssuingCountryCode',
-        'masked_pan' => 'setMaskedPan'
+        'recurring_data' => 'setRecurringData',
+        'redirect_url' => 'setRedirectUrl'
     ];
 
     /**
@@ -95,10 +87,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'expiration' => 'getExpiration',
-        'holder' => 'getHolder',
-        'issuing_country_code' => 'getIssuingCountryCode',
-        'masked_pan' => 'getMaskedPan'
+        'recurring_data' => 'getRecurringData',
+        'redirect_url' => 'getRedirectUrl'
     ];
 
     /**
@@ -161,10 +151,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
-        $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
-        $this->container['issuing_country_code'] = isset($data['issuing_country_code']) ? $data['issuing_country_code'] : null;
-        $this->container['masked_pan'] = isset($data['masked_pan']) ? $data['masked_pan'] : null;
+        $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
+        $this->container['redirect_url'] = isset($data['redirect_url']) ? $data['redirect_url'] : null;
     }
 
     /**
@@ -192,97 +180,49 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets expiration
+     * Gets recurring_data
      *
-     * @return string
+     * @return \Cardpay\model\CardBindingRecurringDataResponse
      */
-    public function getExpiration()
+    public function getRecurringData()
     {
-        return $this->container['expiration'];
+        return $this->container['recurring_data'];
     }
 
     /**
-     * Sets expiration
+     * Sets recurring_data
      *
-     * @param string $expiration Customer’s card expiration date. Format: `mm/yyyy`
+     * @param \Cardpay\model\CardBindingRecurringDataResponse $recurring_data Recurring data
      *
      * @return $this
      */
-    public function setExpiration($expiration)
+    public function setRecurringData($recurring_data)
     {
-        $this->container['expiration'] = $expiration;
+        $this->container['recurring_data'] = $recurring_data;
 
         return $this;
     }
 
     /**
-     * Gets holder
+     * Gets redirect_url
      *
      * @return string
      */
-    public function getHolder()
+    public function getRedirectUrl()
     {
-        return $this->container['holder'];
+        return $this->container['redirect_url'];
     }
 
     /**
-     * Sets holder
+     * Sets redirect_url
      *
-     * @param string $holder Customer's cardholder name. Any valid cardholder name. Not present by default, ask CardPay manager to enable it if needed.
+     * @param string $redirect_url URL Customer should be redirected to
      *
      * @return $this
      */
-    public function setHolder($holder)
+    public function setRedirectUrl($redirect_url)
     {
-        $this->container['holder'] = $holder;
-
-        return $this;
-    }
-
-    /**
-     * Gets issuing_country_code
-     *
-     * @return string
-     */
-    public function getIssuingCountryCode()
-    {
-        return $this->container['issuing_country_code'];
-    }
-
-    /**
-     * Sets issuing_country_code
-     *
-     * @param string $issuing_country_code Country code of issuing card country
-     *
-     * @return $this
-     */
-    public function setIssuingCountryCode($issuing_country_code)
-    {
-        $this->container['issuing_country_code'] = $issuing_country_code;
-
-        return $this;
-    }
-
-    /**
-     * Gets masked_pan
-     *
-     * @return string
-     */
-    public function getMaskedPan()
-    {
-        return $this->container['masked_pan'];
-    }
-
-    /**
-     * Sets masked_pan
-     *
-     * @param string $masked_pan Masked PAN (shows first 6 digits and 4 last digits of the PAN)
-     *
-     * @return $this
-     */
-    public function setMaskedPan($masked_pan)
-    {
-        $this->container['masked_pan'] = $masked_pan;
+        $this->container['redirect_url'] = $redirect_url;
 
         return $this;
     }

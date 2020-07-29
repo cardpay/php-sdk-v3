@@ -243,14 +243,6 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['ip']) && (mb_strlen($this->container['ip']) > 15)) {
-            $invalidProperties[] = "invalid value for 'ip', the character length must be smaller than or equal to 15.";
-        }
-
-        if (!is_null($this->container['ip']) && (mb_strlen($this->container['ip']) < 1)) {
-            $invalidProperties[] = "invalid value for 'ip', the character length must be bigger than or equal to 1.";
-        }
-
         $allowedValues = $this->getLocaleAllowableValues();
         if (!is_null($this->container['locale']) && !in_array($this->container['locale'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -402,13 +394,6 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      */
     public function setIp($ip)
     {
-        if (!is_null($ip) && (mb_strlen($ip) > 15)) {
-            throw new \InvalidArgumentException('invalid length for $ip when calling RecurringCustomer., must be smaller than or equal to 15.');
-        }
-        if (!is_null($ip) && (mb_strlen($ip) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $ip when calling RecurringCustomer., must be bigger than or equal to 1.');
-        }
-
         $this->container['ip'] = $ip;
 
         return $this;

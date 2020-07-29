@@ -2,7 +2,7 @@
 The Cardpay API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 2.4.5
+- PHP SDK version: 2.8.2
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
@@ -88,6 +88,13 @@ composer install
  - [BadRequestError](lib/model/BadRequestError.php)
  - [BankCardPayoutData](lib/model/BankCardPayoutData.php)
  - [BillingAddress](lib/model/BillingAddress.php)
+ - [CardBindingCard](lib/model/CardBindingCard.php)
+ - [CardBindingCardAccount](lib/model/CardBindingCardAccount.php)
+ - [CardBindingData](lib/model/CardBindingData.php)
+ - [CardBindingMerchantOrder](lib/model/CardBindingMerchantOrder.php)
+ - [CardBindingRecurringDataResponse](lib/model/CardBindingRecurringDataResponse.php)
+ - [CardBindingRequest](lib/model/CardBindingRequest.php)
+ - [CardBindingResponse](lib/model/CardBindingResponse.php)
  - [ChangeSubscriptionStatusClaimResponse](lib/model/ChangeSubscriptionStatusClaimResponse.php)
  - [ChangedPlanData](lib/model/ChangedPlanData.php)
  - [ClaimResponseSubscriptionData](lib/model/ClaimResponseSubscriptionData.php)
@@ -103,6 +110,8 @@ composer install
  - [InstallmentSubscriptionRequest](lib/model/InstallmentSubscriptionRequest.php)
  - [Item](lib/model/Item.php)
  - [LimitInfoResponse](lib/model/LimitInfoResponse.php)
+ - [MobileTokenRequest](lib/model/MobileTokenRequest.php)
+ - [MobileTokenResponse](lib/model/MobileTokenResponse.php)
  - [NextSubscriptionPayment](lib/model/NextSubscriptionPayment.php)
  - [NotFoundError](lib/model/NotFoundError.php)
  - [OAuthError](lib/model/OAuthError.php)
@@ -197,6 +206,8 @@ composer install
  - [ResponsePlanData](lib/model/ResponsePlanData.php)
  - [ResponseUpdatedTransactionData](lib/model/ResponseUpdatedTransactionData.php)
  - [ReturnUrls](lib/model/ReturnUrls.php)
+ - [ScheduleOption](lib/model/ScheduleOption.php)
+ - [ScheduleOptionsResponse](lib/model/ScheduleOptionsResponse.php)
  - [ScheduledData](lib/model/ScheduledData.php)
  - [ShippingAddress](lib/model/ShippingAddress.php)
  - [Subscription](lib/model/Subscription.php)
@@ -206,6 +217,7 @@ composer install
  - [SubscriptionUpdateRequest](lib/model/SubscriptionUpdateRequest.php)
  - [SubscriptionUpdateRequestSubscriptionData](lib/model/SubscriptionUpdateRequestSubscriptionData.php)
  - [SubscriptionUpdateResponse](lib/model/SubscriptionUpdateResponse.php)
+ - [ThreeDSecureData](lib/model/ThreeDSecureData.php)
  - [TransactionRequest](lib/model/TransactionRequest.php)
  - [TransactionResponseEWalletAccount](lib/model/TransactionResponseEWalletAccount.php)
  - [TransactionResponseMerchantOrder](lib/model/TransactionResponseMerchantOrder.php)

@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
+class CardBindingRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'InstallmentSubscriptionRequest';
+    protected static $swaggerModelName = 'CardBindingRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -27,13 +27,12 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
-        'card_account' => '\Cardpay\model\PaymentRequestCardAccount',
+        'card_account' => '\Cardpay\model\CardBindingCardAccount',
         'customer' => '\Cardpay\model\RecurringCustomer',
-        'merchant_order' => '\Cardpay\model\RecurringRequestMerchantOrder',
-        'payment_method' => 'string',
-        'recurring_data' => '\Cardpay\model\InstallmentData',
-        'return_urls' => '\Cardpay\model\ReturnUrls',
-        'three_d_secure' => '\Cardpay\model\ThreeDSecureData'
+        'merchant_order' => '\Cardpay\model\CardBindingMerchantOrder',
+        'mobile_token' => 'string',
+        'recurring_data' => '\Cardpay\model\CardBindingData',
+        'return_urls' => '\Cardpay\model\ReturnUrls'
     ];
 
     /**
@@ -46,10 +45,9 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
         'card_account' => null,
         'customer' => null,
         'merchant_order' => null,
-        'payment_method' => null,
+        'mobile_token' => null,
         'recurring_data' => null,
-        'return_urls' => null,
-        'three_d_secure' => null
+        'return_urls' => null
     ];
 
     /**
@@ -83,10 +81,9 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
         'card_account' => 'card_account',
         'customer' => 'customer',
         'merchant_order' => 'merchant_order',
-        'payment_method' => 'payment_method',
+        'mobile_token' => 'mobile_token',
         'recurring_data' => 'recurring_data',
-        'return_urls' => 'return_urls',
-        'three_d_secure' => 'three_d_secure'
+        'return_urls' => 'return_urls'
     ];
 
     /**
@@ -99,10 +96,9 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
         'card_account' => 'setCardAccount',
         'customer' => 'setCustomer',
         'merchant_order' => 'setMerchantOrder',
-        'payment_method' => 'setPaymentMethod',
+        'mobile_token' => 'setMobileToken',
         'recurring_data' => 'setRecurringData',
-        'return_urls' => 'setReturnUrls',
-        'three_d_secure' => 'setThreeDSecure'
+        'return_urls' => 'setReturnUrls'
     ];
 
     /**
@@ -115,10 +111,9 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
         'card_account' => 'getCardAccount',
         'customer' => 'getCustomer',
         'merchant_order' => 'getMerchantOrder',
-        'payment_method' => 'getPaymentMethod',
+        'mobile_token' => 'getMobileToken',
         'recurring_data' => 'getRecurringData',
-        'return_urls' => 'getReturnUrls',
-        'three_d_secure' => 'getThreeDSecure'
+        'return_urls' => 'getReturnUrls'
     ];
 
     /**
@@ -185,10 +180,9 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
         $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
         $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
         $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
-        $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
+        $this->container['mobile_token'] = isset($data['mobile_token']) ? $data['mobile_token'] : null;
         $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
         $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
-        $this->container['three_d_secure'] = isset($data['three_d_secure']) ? $data['three_d_secure'] : null;
     }
 
     /**
@@ -203,8 +197,8 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
         if ($this->container['request'] === null) {
             $invalidProperties[] = "'request' can't be null";
         }
-        if ($this->container['payment_method'] === null) {
-            $invalidProperties[] = "'payment_method' can't be null";
+        if ($this->container['card_account'] === null) {
+            $invalidProperties[] = "'card_account' can't be null";
         }
         return $invalidProperties;
     }
@@ -248,7 +242,7 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
     /**
      * Gets card_account
      *
-     * @return \Cardpay\model\PaymentRequestCardAccount
+     * @return \Cardpay\model\CardBindingCardAccount
      */
     public function getCardAccount()
     {
@@ -258,7 +252,7 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
     /**
      * Sets card_account
      *
-     * @param \Cardpay\model\PaymentRequestCardAccount $card_account card_account
+     * @param \Cardpay\model\CardBindingCardAccount $card_account Information about card
      *
      * @return $this
      */
@@ -282,7 +276,7 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
     /**
      * Sets customer
      *
-     * @param \Cardpay\model\RecurringCustomer $customer customer
+     * @param \Cardpay\model\RecurringCustomer $customer Customer data
      *
      * @return $this
      */
@@ -296,7 +290,7 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
     /**
      * Gets merchant_order
      *
-     * @return \Cardpay\model\RecurringRequestMerchantOrder
+     * @return \Cardpay\model\CardBindingMerchantOrder
      */
     public function getMerchantOrder()
     {
@@ -306,7 +300,7 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
     /**
      * Sets merchant_order
      *
-     * @param \Cardpay\model\RecurringRequestMerchantOrder $merchant_order merchant_order
+     * @param \Cardpay\model\CardBindingMerchantOrder $merchant_order Merchant order data
      *
      * @return $this
      */
@@ -318,25 +312,25 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets payment_method
+     * Gets mobile_token
      *
      * @return string
      */
-    public function getPaymentMethod()
+    public function getMobileToken()
     {
-        return $this->container['payment_method'];
+        return $this->container['mobile_token'];
     }
 
     /**
-     * Sets payment_method
+     * Sets mobile_token
      *
-     * @param string $payment_method payment_method
+     * @param string $mobile_token Mobile token
      *
      * @return $this
      */
-    public function setPaymentMethod($payment_method)
+    public function setMobileToken($mobile_token)
     {
-        $this->container['payment_method'] = $payment_method;
+        $this->container['mobile_token'] = $mobile_token;
 
         return $this;
     }
@@ -344,7 +338,7 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
     /**
      * Gets recurring_data
      *
-     * @return \Cardpay\model\InstallmentData
+     * @return \Cardpay\model\CardBindingData
      */
     public function getRecurringData()
     {
@@ -354,7 +348,7 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
     /**
      * Sets recurring_data
      *
-     * @param \Cardpay\model\InstallmentData $recurring_data recurring_data
+     * @param \Cardpay\model\CardBindingData $recurring_data Data of recurring payment
      *
      * @return $this
      */
@@ -378,37 +372,13 @@ class InstallmentSubscriptionRequest implements ModelInterface, ArrayAccess
     /**
      * Sets return_urls
      *
-     * @param \Cardpay\model\ReturnUrls $return_urls return_urls
+     * @param \Cardpay\model\ReturnUrls $return_urls Merchant Return URLs
      *
      * @return $this
      */
     public function setReturnUrls($return_urls)
     {
         $this->container['return_urls'] = $return_urls;
-
-        return $this;
-    }
-
-    /**
-     * Gets three_d_secure
-     *
-     * @return \Cardpay\model\ThreeDSecureData
-     */
-    public function getThreeDSecure()
-    {
-        return $this->container['three_d_secure'];
-    }
-
-    /**
-     * Sets three_d_secure
-     *
-     * @param \Cardpay\model\ThreeDSecureData $three_d_secure three_d_secure
-     *
-     * @return $this
-     */
-    public function setThreeDSecure($three_d_secure)
-    {
-        $this->container['three_d_secure'] = $three_d_secure;
 
         return $this;
     }

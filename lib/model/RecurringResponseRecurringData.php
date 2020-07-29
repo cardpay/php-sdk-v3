@@ -41,8 +41,8 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'rrn' => 'string',
         'status' => 'string',
         'subscription' => '\Cardpay\model\Subscription',
-        'trans_type' => 'string',
-        'type' => 'string'
+        'type' => 'string',
+        'trans_type' => 'string'
     ];
 
     /**
@@ -66,8 +66,8 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'rrn' => null,
         'status' => null,
         'subscription' => null,
-        'trans_type' => null,
-        'type' => null
+        'type' => null,
+        'trans_type' => null
     ];
 
     /**
@@ -112,8 +112,8 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'rrn' => 'rrn',
         'status' => 'status',
         'subscription' => 'subscription',
-        'trans_type' => 'trans_type',
-        'type' => 'type'
+        'type' => 'type',
+        'trans_type' => 'trans_type'
     ];
 
     /**
@@ -137,8 +137,8 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'rrn' => 'setRrn',
         'status' => 'setStatus',
         'subscription' => 'setSubscription',
-        'trans_type' => 'setTransType',
-        'type' => 'setType'
+        'type' => 'setType',
+        'trans_type' => 'setTransType'
     ];
 
     /**
@@ -162,8 +162,8 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'rrn' => 'getRrn',
         'status' => 'getStatus',
         'subscription' => 'getSubscription',
-        'trans_type' => 'getTransType',
-        'type' => 'getType'
+        'type' => 'getType',
+        'trans_type' => 'getTransType'
     ];
 
     /**
@@ -218,14 +218,14 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     const STATUS_VOIDED = 'VOIDED';
     const STATUS_CHARGED_BACK = 'CHARGED_BACK';
     const STATUS_CHARGEBACK_RESOLVED = 'CHARGEBACK_RESOLVED';
+    const TYPE_ONECLICK = 'ONECLICK';
+    const TYPE_SCHEDULED = 'SCHEDULED';
+    const TYPE_INSTALLMENT = 'INSTALLMENT';
     const TRANS_TYPE__01 = '01';
     const TRANS_TYPE__03 = '03';
     const TRANS_TYPE__10 = '10';
     const TRANS_TYPE__11 = '11';
     const TRANS_TYPE__28 = '28';
-    const TYPE_ONECLICK = 'ONECLICK';
-    const TYPE_SCHEDULED = 'SCHEDULED';
-    const TYPE_INSTALLMENT = 'INSTALLMENT';
     
 
     
@@ -256,14 +256,12 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
      *
      * @return string[]
      */
-    public function getTransTypeAllowableValues()
+    public function getTypeAllowableValues()
     {
         return [
-            self::TRANS_TYPE__01,
-            self::TRANS_TYPE__03,
-            self::TRANS_TYPE__10,
-            self::TRANS_TYPE__11,
-            self::TRANS_TYPE__28,
+            self::TYPE_ONECLICK,
+            self::TYPE_SCHEDULED,
+            self::TYPE_INSTALLMENT,
         ];
     }
     
@@ -272,12 +270,14 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
      *
      * @return string[]
      */
-    public function getTypeAllowableValues()
+    public function getTransTypeAllowableValues()
     {
         return [
-            self::TYPE_ONECLICK,
-            self::TYPE_SCHEDULED,
-            self::TYPE_INSTALLMENT,
+            self::TRANS_TYPE__01,
+            self::TRANS_TYPE__03,
+            self::TRANS_TYPE__10,
+            self::TRANS_TYPE__11,
+            self::TRANS_TYPE__28,
         ];
     }
     
@@ -312,8 +312,8 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         $this->container['rrn'] = isset($data['rrn']) ? $data['rrn'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['subscription'] = isset($data['subscription']) ? $data['subscription'] : null;
-        $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
         $this->container['type'] = isset($data['type']) ? $data['type'] : null;
+        $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
     /**
@@ -333,18 +333,18 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
             );
         }
 
-        $allowedValues = $this->getTransTypeAllowableValues();
-        if (!is_null($this->container['trans_type']) && !in_array($this->container['trans_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'trans_type', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
-
         $allowedValues = $this->getTypeAllowableValues();
         if (!is_null($this->container['type']) && !in_array($this->container['type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
                 "invalid value for 'type', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
+        }
+
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($this->container['trans_type']) && !in_array($this->container['trans_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'trans_type', must be one of '%s'",
                 implode("', '", $allowedValues)
             );
         }
@@ -734,39 +734,6 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets trans_type
-     *
-     * @return string
-     */
-    public function getTransType()
-    {
-        return $this->container['trans_type'];
-    }
-
-    /**
-     * Sets trans_type
-     *
-     * @param string $trans_type trans_type
-     *
-     * @return $this
-     */
-    public function setTransType($trans_type)
-    {
-        $allowedValues = $this->getTransTypeAllowableValues();
-        if (!is_null($trans_type) && !in_array($trans_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'trans_type', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['trans_type'] = $trans_type;
-
-        return $this;
-    }
-
-    /**
      * Gets type
      *
      * @return string
@@ -795,6 +762,39 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
             );
         }
         $this->container['type'] = $type;
+
+        return $this;
+    }
+
+    /**
+     * Gets trans_type
+     *
+     * @return string
+     */
+    public function getTransType()
+    {
+        return $this->container['trans_type'];
+    }
+
+    /**
+     * Sets trans_type
+     *
+     * @param string $trans_type trans_type
+     *
+     * @return $this
+     */
+    public function setTransType($trans_type)
+    {
+        $allowedValues = $this->getTransTypeAllowableValues();
+        if (!is_null($trans_type) && !in_array($trans_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'trans_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['trans_type'] = $trans_type;
 
         return $this;
     }

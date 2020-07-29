@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponseCard implements ModelInterface, ArrayAccess
+class ScheduleOption implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponseCard';
+    protected static $swaggerModelName = 'ScheduleOption';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,10 +26,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'expiration' => 'string',
-        'holder' => 'string',
-        'issuing_country_code' => 'string',
-        'masked_pan' => 'string'
+        'amount' => 'float',
+        'installments' => 'int'
     ];
 
     /**
@@ -38,10 +36,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'expiration' => null,
-        'holder' => null,
-        'issuing_country_code' => null,
-        'masked_pan' => null
+        'amount' => null,
+        'installments' => 'int32'
     ];
 
     /**
@@ -71,10 +67,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'expiration' => 'expiration',
-        'holder' => 'holder',
-        'issuing_country_code' => 'issuing_country_code',
-        'masked_pan' => 'masked_pan'
+        'amount' => 'amount',
+        'installments' => 'installments'
     ];
 
     /**
@@ -83,10 +77,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'expiration' => 'setExpiration',
-        'holder' => 'setHolder',
-        'issuing_country_code' => 'setIssuingCountryCode',
-        'masked_pan' => 'setMaskedPan'
+        'amount' => 'setAmount',
+        'installments' => 'setInstallments'
     ];
 
     /**
@@ -95,10 +87,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'expiration' => 'getExpiration',
-        'holder' => 'getHolder',
-        'issuing_country_code' => 'getIssuingCountryCode',
-        'masked_pan' => 'getMaskedPan'
+        'amount' => 'getAmount',
+        'installments' => 'getInstallments'
     ];
 
     /**
@@ -161,10 +151,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
-        $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
-        $this->container['issuing_country_code'] = isset($data['issuing_country_code']) ? $data['issuing_country_code'] : null;
-        $this->container['masked_pan'] = isset($data['masked_pan']) ? $data['masked_pan'] : null;
+        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
     }
 
     /**
@@ -192,97 +180,49 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets expiration
+     * Gets amount
      *
-     * @return string
+     * @return float
      */
-    public function getExpiration()
+    public function getAmount()
     {
-        return $this->container['expiration'];
+        return $this->container['amount'];
     }
 
     /**
-     * Sets expiration
+     * Sets amount
      *
-     * @param string $expiration Customer’s card expiration date. Format: `mm/yyyy`
+     * @param float $amount Amount per one payment.
      *
      * @return $this
      */
-    public function setExpiration($expiration)
+    public function setAmount($amount)
     {
-        $this->container['expiration'] = $expiration;
+        $this->container['amount'] = $amount;
 
         return $this;
     }
 
     /**
-     * Gets holder
+     * Gets installments
      *
-     * @return string
+     * @return int
      */
-    public function getHolder()
+    public function getInstallments()
     {
-        return $this->container['holder'];
+        return $this->container['installments'];
     }
 
     /**
-     * Sets holder
+     * Sets installments
      *
-     * @param string $holder Customer's cardholder name. Any valid cardholder name. Not present by default, ask CardPay manager to enable it if needed.
+     * @param int $installments Number of payments, can be 3-12.
      *
      * @return $this
      */
-    public function setHolder($holder)
+    public function setInstallments($installments)
     {
-        $this->container['holder'] = $holder;
-
-        return $this;
-    }
-
-    /**
-     * Gets issuing_country_code
-     *
-     * @return string
-     */
-    public function getIssuingCountryCode()
-    {
-        return $this->container['issuing_country_code'];
-    }
-
-    /**
-     * Sets issuing_country_code
-     *
-     * @param string $issuing_country_code Country code of issuing card country
-     *
-     * @return $this
-     */
-    public function setIssuingCountryCode($issuing_country_code)
-    {
-        $this->container['issuing_country_code'] = $issuing_country_code;
-
-        return $this;
-    }
-
-    /**
-     * Gets masked_pan
-     *
-     * @return string
-     */
-    public function getMaskedPan()
-    {
-        return $this->container['masked_pan'];
-    }
-
-    /**
-     * Sets masked_pan
-     *
-     * @param string $masked_pan Masked PAN (shows first 6 digits and 4 last digits of the PAN)
-     *
-     * @return $this
-     */
-    public function setMaskedPan($masked_pan)
-    {
-        $this->container['masked_pan'] = $masked_pan;
+        $this->container['installments'] = $installments;
 
         return $this;
     }

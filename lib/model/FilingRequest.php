@@ -33,7 +33,8 @@ class FilingRequest implements ModelInterface, ArrayAccess
         'payment_method' => 'string',
         'recurring_data' => '\Cardpay\model\FilingRecurringData',
         'return_urls' => '\Cardpay\model\ReturnUrls',
-        'subscription_data' => '\Cardpay\model\FilingRequestSubscriptionData'
+        'subscription_data' => '\Cardpay\model\FilingRequestSubscriptionData',
+        'three_d_secure' => '\Cardpay\model\ThreeDSecureData'
     ];
 
     /**
@@ -49,7 +50,8 @@ class FilingRequest implements ModelInterface, ArrayAccess
         'payment_method' => null,
         'recurring_data' => null,
         'return_urls' => null,
-        'subscription_data' => null
+        'subscription_data' => null,
+        'three_d_secure' => null
     ];
 
     /**
@@ -86,7 +88,8 @@ class FilingRequest implements ModelInterface, ArrayAccess
         'payment_method' => 'payment_method',
         'recurring_data' => 'recurring_data',
         'return_urls' => 'return_urls',
-        'subscription_data' => 'subscription_data'
+        'subscription_data' => 'subscription_data',
+        'three_d_secure' => 'three_d_secure'
     ];
 
     /**
@@ -102,7 +105,8 @@ class FilingRequest implements ModelInterface, ArrayAccess
         'payment_method' => 'setPaymentMethod',
         'recurring_data' => 'setRecurringData',
         'return_urls' => 'setReturnUrls',
-        'subscription_data' => 'setSubscriptionData'
+        'subscription_data' => 'setSubscriptionData',
+        'three_d_secure' => 'setThreeDSecure'
     ];
 
     /**
@@ -118,7 +122,8 @@ class FilingRequest implements ModelInterface, ArrayAccess
         'payment_method' => 'getPaymentMethod',
         'recurring_data' => 'getRecurringData',
         'return_urls' => 'getReturnUrls',
-        'subscription_data' => 'getSubscriptionData'
+        'subscription_data' => 'getSubscriptionData',
+        'three_d_secure' => 'getThreeDSecure'
     ];
 
     /**
@@ -189,6 +194,7 @@ class FilingRequest implements ModelInterface, ArrayAccess
         $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
         $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
         $this->container['subscription_data'] = isset($data['subscription_data']) ? $data['subscription_data'] : null;
+        $this->container['three_d_secure'] = isset($data['three_d_secure']) ? $data['three_d_secure'] : null;
     }
 
     /**
@@ -424,6 +430,30 @@ class FilingRequest implements ModelInterface, ArrayAccess
     public function setSubscriptionData($subscription_data)
     {
         $this->container['subscription_data'] = $subscription_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets three_d_secure
+     *
+     * @return \Cardpay\model\ThreeDSecureData
+     */
+    public function getThreeDSecure()
+    {
+        return $this->container['three_d_secure'];
+    }
+
+    /**
+     * Sets three_d_secure
+     *
+     * @param \Cardpay\model\ThreeDSecureData $three_d_secure three_d_secure
+     *
+     * @return $this
+     */
+    public function setThreeDSecure($three_d_secure)
+    {
+        $this->container['three_d_secure'] = $three_d_secure;
 
         return $this;
     }

@@ -194,8 +194,8 @@ class ShippingAddress implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 20)) {
-            $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 20.";
+        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 50)) {
+            $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 50.";
         }
 
         if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) < 0)) {
@@ -214,8 +214,8 @@ class ShippingAddress implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'phone', must be conform to the pattern /[-+\\d()wp\\s]+/.";
         }
 
-        if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 20)) {
-            $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 20.";
+        if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 40)) {
+            $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 40.";
         }
 
         if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) < 0)) {
@@ -304,8 +304,8 @@ class ShippingAddress implements ModelInterface, ArrayAccess
      */
     public function setCity($city)
     {
-        if (!is_null($city) && (mb_strlen($city) > 20)) {
-            throw new \InvalidArgumentException('invalid length for $city when calling ShippingAddress., must be smaller than or equal to 20.');
+        if (!is_null($city) && (mb_strlen($city) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $city when calling ShippingAddress., must be smaller than or equal to 50.');
         }
         if (!is_null($city) && (mb_strlen($city) < 0)) {
             throw new \InvalidArgumentException('invalid length for $city when calling ShippingAddress., must be bigger than or equal to 0.');
@@ -393,8 +393,8 @@ class ShippingAddress implements ModelInterface, ArrayAccess
      */
     public function setState($state)
     {
-        if (!is_null($state) && (mb_strlen($state) > 20)) {
-            throw new \InvalidArgumentException('invalid length for $state when calling ShippingAddress., must be smaller than or equal to 20.');
+        if (!is_null($state) && (mb_strlen($state) > 40)) {
+            throw new \InvalidArgumentException('invalid length for $state when calling ShippingAddress., must be smaller than or equal to 40.');
         }
         if (!is_null($state) && (mb_strlen($state) < 0)) {
             throw new \InvalidArgumentException('invalid length for $state when calling ShippingAddress., must be bigger than or equal to 0.');

@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponseCard implements ModelInterface, ArrayAccess
+class CardBindingCardAccount implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponseCard';
+    protected static $swaggerModelName = 'CardBindingCardAccount';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,10 +26,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'expiration' => 'string',
-        'holder' => 'string',
-        'issuing_country_code' => 'string',
-        'masked_pan' => 'string'
+        'billing_address' => '\Cardpay\model\BillingAddress',
+        'card' => '\Cardpay\model\CardBindingCard'
     ];
 
     /**
@@ -38,10 +36,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'expiration' => null,
-        'holder' => null,
-        'issuing_country_code' => null,
-        'masked_pan' => null
+        'billing_address' => null,
+        'card' => null
     ];
 
     /**
@@ -71,10 +67,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'expiration' => 'expiration',
-        'holder' => 'holder',
-        'issuing_country_code' => 'issuing_country_code',
-        'masked_pan' => 'masked_pan'
+        'billing_address' => 'billing_address',
+        'card' => 'card'
     ];
 
     /**
@@ -83,10 +77,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'expiration' => 'setExpiration',
-        'holder' => 'setHolder',
-        'issuing_country_code' => 'setIssuingCountryCode',
-        'masked_pan' => 'setMaskedPan'
+        'billing_address' => 'setBillingAddress',
+        'card' => 'setCard'
     ];
 
     /**
@@ -95,10 +87,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'expiration' => 'getExpiration',
-        'holder' => 'getHolder',
-        'issuing_country_code' => 'getIssuingCountryCode',
-        'masked_pan' => 'getMaskedPan'
+        'billing_address' => 'getBillingAddress',
+        'card' => 'getCard'
     ];
 
     /**
@@ -161,10 +151,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
-        $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
-        $this->container['issuing_country_code'] = isset($data['issuing_country_code']) ? $data['issuing_country_code'] : null;
-        $this->container['masked_pan'] = isset($data['masked_pan']) ? $data['masked_pan'] : null;
+        $this->container['billing_address'] = isset($data['billing_address']) ? $data['billing_address'] : null;
+        $this->container['card'] = isset($data['card']) ? $data['card'] : null;
     }
 
     /**
@@ -192,97 +180,49 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets expiration
+     * Gets billing_address
      *
-     * @return string
+     * @return \Cardpay\model\BillingAddress
      */
-    public function getExpiration()
+    public function getBillingAddress()
     {
-        return $this->container['expiration'];
+        return $this->container['billing_address'];
     }
 
     /**
-     * Sets expiration
+     * Sets billing_address
      *
-     * @param string $expiration Customer’s card expiration date. Format: `mm/yyyy`
+     * @param \Cardpay\model\BillingAddress $billing_address Billing Address
      *
      * @return $this
      */
-    public function setExpiration($expiration)
+    public function setBillingAddress($billing_address)
     {
-        $this->container['expiration'] = $expiration;
+        $this->container['billing_address'] = $billing_address;
 
         return $this;
     }
 
     /**
-     * Gets holder
+     * Gets card
      *
-     * @return string
+     * @return \Cardpay\model\CardBindingCard
      */
-    public function getHolder()
+    public function getCard()
     {
-        return $this->container['holder'];
+        return $this->container['card'];
     }
 
     /**
-     * Sets holder
+     * Sets card
      *
-     * @param string $holder Customer's cardholder name. Any valid cardholder name. Not present by default, ask CardPay manager to enable it if needed.
+     * @param \Cardpay\model\CardBindingCard $card Represents a payment card data.
      *
      * @return $this
      */
-    public function setHolder($holder)
+    public function setCard($card)
     {
-        $this->container['holder'] = $holder;
-
-        return $this;
-    }
-
-    /**
-     * Gets issuing_country_code
-     *
-     * @return string
-     */
-    public function getIssuingCountryCode()
-    {
-        return $this->container['issuing_country_code'];
-    }
-
-    /**
-     * Sets issuing_country_code
-     *
-     * @param string $issuing_country_code Country code of issuing card country
-     *
-     * @return $this
-     */
-    public function setIssuingCountryCode($issuing_country_code)
-    {
-        $this->container['issuing_country_code'] = $issuing_country_code;
-
-        return $this;
-    }
-
-    /**
-     * Gets masked_pan
-     *
-     * @return string
-     */
-    public function getMaskedPan()
-    {
-        return $this->container['masked_pan'];
-    }
-
-    /**
-     * Sets masked_pan
-     *
-     * @param string $masked_pan Masked PAN (shows first 6 digits and 4 last digits of the PAN)
-     *
-     * @return $this
-     */
-    public function setMaskedPan($masked_pan)
-    {
-        $this->container['masked_pan'] = $masked_pan;
+        $this->container['card'] = $card;
 
         return $this;
     }

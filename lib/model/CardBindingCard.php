@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponseCard implements ModelInterface, ArrayAccess
+class CardBindingCard implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponseCard';
+    protected static $swaggerModelName = 'CardBindingCard';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -28,8 +28,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'expiration' => 'string',
         'holder' => 'string',
-        'issuing_country_code' => 'string',
-        'masked_pan' => 'string'
+        'pan' => 'string',
+        'security_code' => 'string'
     ];
 
     /**
@@ -40,8 +40,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'expiration' => null,
         'holder' => null,
-        'issuing_country_code' => null,
-        'masked_pan' => null
+        'pan' => null,
+        'security_code' => null
     ];
 
     /**
@@ -73,8 +73,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'expiration' => 'expiration',
         'holder' => 'holder',
-        'issuing_country_code' => 'issuing_country_code',
-        'masked_pan' => 'masked_pan'
+        'pan' => 'pan',
+        'security_code' => 'security_code'
     ];
 
     /**
@@ -85,8 +85,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
     protected static $setters = [
         'expiration' => 'setExpiration',
         'holder' => 'setHolder',
-        'issuing_country_code' => 'setIssuingCountryCode',
-        'masked_pan' => 'setMaskedPan'
+        'pan' => 'setPan',
+        'security_code' => 'setSecurityCode'
     ];
 
     /**
@@ -97,8 +97,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
     protected static $getters = [
         'expiration' => 'getExpiration',
         'holder' => 'getHolder',
-        'issuing_country_code' => 'getIssuingCountryCode',
-        'masked_pan' => 'getMaskedPan'
+        'pan' => 'getPan',
+        'security_code' => 'getSecurityCode'
     ];
 
     /**
@@ -163,8 +163,8 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
     {
         $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
         $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
-        $this->container['issuing_country_code'] = isset($data['issuing_country_code']) ? $data['issuing_country_code'] : null;
-        $this->container['masked_pan'] = isset($data['masked_pan']) ? $data['masked_pan'] : null;
+        $this->container['pan'] = isset($data['pan']) ? $data['pan'] : null;
+        $this->container['security_code'] = isset($data['security_code']) ? $data['security_code'] : null;
     }
 
     /**
@@ -175,6 +175,42 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['expiration'] === null) {
+            $invalidProperties[] = "'expiration' can't be null";
+        }
+        if (!preg_match("/([0-9]{2}\/[0-9]{4})/", $this->container['expiration'])) {
+            $invalidProperties[] = "invalid value for 'expiration', must be conform to the pattern /([0-9]{2}\/[0-9]{4})/.";
+        }
+
+        if ($this->container['holder'] === null) {
+            $invalidProperties[] = "'holder' can't be null";
+        }
+        if ((mb_strlen($this->container['holder']) > 50)) {
+            $invalidProperties[] = "invalid value for 'holder', the character length must be smaller than or equal to 50.";
+        }
+
+        if ((mb_strlen($this->container['holder']) < 1)) {
+            $invalidProperties[] = "invalid value for 'holder', the character length must be bigger than or equal to 1.";
+        }
+
+        if ($this->container['pan'] === null) {
+            $invalidProperties[] = "'pan' can't be null";
+        }
+        if ((mb_strlen($this->container['pan']) > 19)) {
+            $invalidProperties[] = "invalid value for 'pan', the character length must be smaller than or equal to 19.";
+        }
+
+        if ((mb_strlen($this->container['pan']) < 13)) {
+            $invalidProperties[] = "invalid value for 'pan', the character length must be bigger than or equal to 13.";
+        }
+
+        if ($this->container['security_code'] === null) {
+            $invalidProperties[] = "'security_code' can't be null";
+        }
+        if (!preg_match("/[0-9]{3,4}/", $this->container['security_code'])) {
+            $invalidProperties[] = "invalid value for 'security_code', must be conform to the pattern /[0-9]{3,4}/.";
+        }
 
         return $invalidProperties;
     }
@@ -204,12 +240,17 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
     /**
      * Sets expiration
      *
-     * @param string $expiration Customer’s card expiration date. Format: `mm/yyyy`
+     * @param string $expiration Customer's card expiration date. Format: `mm/yyyy`
      *
      * @return $this
      */
     public function setExpiration($expiration)
     {
+
+        if ((!preg_match("/([0-9]{2}\/[0-9]{4})/", $expiration))) {
+            throw new \InvalidArgumentException("invalid value for $expiration when calling CardBindingCard., must conform to the pattern /([0-9]{2}\/[0-9]{4})/.");
+        }
+
         $this->container['expiration'] = $expiration;
 
         return $this;
@@ -228,61 +269,80 @@ class PayoutResponseCard implements ModelInterface, ArrayAccess
     /**
      * Sets holder
      *
-     * @param string $holder Customer's cardholder name. Any valid cardholder name. Not present by default, ask CardPay manager to enable it if needed.
+     * @param string $holder Customer's cardholder name. Any valid cardholder name
      *
      * @return $this
      */
     public function setHolder($holder)
     {
+        if ((mb_strlen($holder) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $holder when calling CardBindingCard., must be smaller than or equal to 50.');
+        }
+        if ((mb_strlen($holder) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $holder when calling CardBindingCard., must be bigger than or equal to 1.');
+        }
+
         $this->container['holder'] = $holder;
 
         return $this;
     }
 
     /**
-     * Gets issuing_country_code
+     * Gets pan
      *
      * @return string
      */
-    public function getIssuingCountryCode()
+    public function getPan()
     {
-        return $this->container['issuing_country_code'];
+        return $this->container['pan'];
     }
 
     /**
-     * Sets issuing_country_code
+     * Sets pan
      *
-     * @param string $issuing_country_code Country code of issuing card country
+     * @param string $pan Customer's card number (PAN). Any valid card number, may contain spaces
      *
      * @return $this
      */
-    public function setIssuingCountryCode($issuing_country_code)
+    public function setPan($pan)
     {
-        $this->container['issuing_country_code'] = $issuing_country_code;
+        if ((mb_strlen($pan) > 19)) {
+            throw new \InvalidArgumentException('invalid length for $pan when calling CardBindingCard., must be smaller than or equal to 19.');
+        }
+        if ((mb_strlen($pan) < 13)) {
+            throw new \InvalidArgumentException('invalid length for $pan when calling CardBindingCard., must be bigger than or equal to 13.');
+        }
+
+        $this->container['pan'] = $pan;
 
         return $this;
     }
 
     /**
-     * Gets masked_pan
+     * Gets security_code
      *
      * @return string
      */
-    public function getMaskedPan()
+    public function getSecurityCode()
     {
-        return $this->container['masked_pan'];
+        return $this->container['security_code'];
     }
 
     /**
-     * Sets masked_pan
+     * Sets security_code
      *
-     * @param string $masked_pan Masked PAN (shows first 6 digits and 4 last digits of the PAN)
+     * @param string $security_code Customer's CVV2 / CVC2 / CAV2
      *
      * @return $this
      */
-    public function setMaskedPan($masked_pan)
+    public function setSecurityCode($security_code)
     {
-        $this->container['masked_pan'] = $masked_pan;
+
+        if ((!preg_match("/[0-9]{3,4}/", $security_code))) {
+            throw new \InvalidArgumentException("invalid value for $security_code when calling CardBindingCard., must conform to the pattern /[0-9]{3,4}/.");
+        }
+
+        $this->container['security_code'] = $security_code;
 
         return $this;
     }
