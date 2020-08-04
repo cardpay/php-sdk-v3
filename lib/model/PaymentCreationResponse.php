@@ -26,7 +26,8 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'redirect_url' => 'string'
+        'redirect_url' => 'string',
+        'payment_data' => 'object',
     ];
 
     /**
@@ -65,7 +66,8 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'redirect_url' => 'redirect_url'
+        'redirect_url' => 'redirect_url',
+        'payment_data' => 'payment_data',
     ];
 
     /**
@@ -74,7 +76,8 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'redirect_url' => 'setRedirectUrl'
+        'redirect_url' => 'setRedirectUrl',
+        'payment_data' => 'setPaymentData',
     ];
 
     /**
@@ -196,6 +199,21 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
+    /**
+     * Sets payment_data
+     *
+     * @param object $data
+     *
+     * @return $this
+     */
+    public function setPaymentData($data)
+    {
+        $this->container['payment_data'] = $data;
+
+        return $this;
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
