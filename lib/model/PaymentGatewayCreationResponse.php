@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class RecurringCreationResponse implements ModelInterface, ArrayAccess
+class PaymentGatewayCreationResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'RecurringCreationResponse';
+    protected static $swaggerModelName = 'PaymentGatewayCreationResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,12 +26,8 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'redirect_url' => 'string',
-        'payment_method' => 'string',
-        'merchant_order' => '\Cardpay\model\TransactionResponseMerchantOrder',
-        'recurring_data' => '\Cardpay\model\RecurringResponseRecurringData',
-        'customer' => '\Cardpay\model\PaymentRequestCustomer',
-        'card_account' => '\Cardpay\model\PaymentResponseCardAccount'
+        'payment_data' => '\Cardpay\model\PaymentGatewayResponsePaymentData',
+        'redirect_url' => 'string'
     ];
 
     /**
@@ -40,12 +36,8 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'redirect_url' => null,
-        'payment_method' => null,
-        'merchant_order' => null,
-        'recurring_data' => null,
-        'customer' => null,
-        'card_account' => null
+        'payment_data' => null,
+        'redirect_url' => null
     ];
 
     /**
@@ -75,12 +67,8 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'redirect_url' => 'redirect_url',
-        'payment_method' => 'payment_method',
-        'merchant_order' => 'merchant_order',
-        'recurring_data' => 'recurring_data',
-        'customer' => 'customer',
-        'card_account' => 'card_account'
+        'payment_data' => 'payment_data',
+        'redirect_url' => 'redirect_url'
     ];
 
     /**
@@ -89,12 +77,8 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'redirect_url' => 'setRedirectUrl',
-        'payment_method' => 'setPaymentMethod',
-        'merchant_order' => 'setMerchantOrder',
-        'recurring_data' => 'setRecurringData',
-        'customer' => 'setCustomer',
-        'card_account' => 'setCardAccount'
+        'payment_data' => 'setPaymentData',
+        'redirect_url' => 'setRedirectUrl'
     ];
 
     /**
@@ -103,12 +87,8 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'redirect_url' => 'getRedirectUrl',
-        'payment_method' => 'getPaymentMethod',
-        'merchant_order' => 'getMerchantOrder',
-        'recurring_data' => 'getRecurringData',
-        'customer' => 'getCustomer',
-        'card_account' => 'getCardAccount'
+        'payment_data' => 'getPaymentData',
+        'redirect_url' => 'getRedirectUrl'
     ];
 
     /**
@@ -171,12 +151,8 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
         $this->container['redirect_url'] = isset($data['redirect_url']) ? $data['redirect_url'] : null;
-        $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
-        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
-        $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
-        $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
     }
 
     /**
@@ -204,6 +180,30 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
 
 
     /**
+     * Gets payment_data
+     *
+     * @return \Cardpay\model\PaymentGatewayResponsePaymentData
+     */
+    public function getPaymentData()
+    {
+        return $this->container['payment_data'];
+    }
+
+    /**
+     * Sets payment_data
+     *
+     * @param \Cardpay\model\PaymentGatewayResponsePaymentData $payment_data Payment data
+     *
+     * @return $this
+     */
+    public function setPaymentData($payment_data)
+    {
+        $this->container['payment_data'] = $payment_data;
+
+        return $this;
+    }
+
+    /**
      * Gets redirect_url
      *
      * @return string
@@ -223,126 +223,6 @@ class RecurringCreationResponse implements ModelInterface, ArrayAccess
     public function setRedirectUrl($redirect_url)
     {
         $this->container['redirect_url'] = $redirect_url;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_method
-     *
-     * @return string
-     */
-    public function getPaymentMethod()
-    {
-        return $this->container['payment_method'];
-    }
-
-    /**
-     * Sets payment_method
-     *
-     * @param string $payment_method Payment method
-     *
-     * @return $this
-     */
-    public function setPaymentMethod($payment_method)
-    {
-        $this->container['payment_method'] = $payment_method;
-
-        return $this;
-    }
-
-    /**
-     * Gets merchant_order
-     *
-     * @return \Cardpay\model\TransactionResponseMerchantOrder
-     */
-    public function getMerchantOrder()
-    {
-        return $this->container['merchant_order'];
-    }
-
-    /**
-     * Sets merchant_order
-     *
-     * @param \Cardpay\model\TransactionResponseMerchantOrder $merchant_order Merchant order data
-     *
-     * @return $this
-     */
-    public function setMerchantOrder($merchant_order)
-    {
-        $this->container['merchant_order'] = $merchant_order;
-
-        return $this;
-    }
-
-    /**
-     * Gets recurring_data
-     *
-     * @return \Cardpay\model\RecurringResponseRecurringData
-     */
-    public function getRecurringData()
-    {
-        return $this->container['recurring_data'];
-    }
-
-    /**
-     * Sets recurring_data
-     *
-     * @param \Cardpay\model\RecurringResponseRecurringData $recurring_data Recurring data
-     *
-     * @return $this
-     */
-    public function setRecurringData($recurring_data)
-    {
-        $this->container['recurring_data'] = $recurring_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets customer
-     *
-     * @return \Cardpay\model\PaymentRequestCustomer
-     */
-    public function getCustomer()
-    {
-        return $this->container['customer'];
-    }
-
-    /**
-     * Sets customer
-     *
-     * @param \Cardpay\model\PaymentRequestCustomer $customer Customer data
-     *
-     * @return $this
-     */
-    public function setCustomer($customer)
-    {
-        $this->container['customer'] = $customer;
-
-        return $this;
-    }
-
-    /**
-     * Gets card_account
-     *
-     * @return \Cardpay\model\PaymentResponseCardAccount
-     */
-    public function getCardAccount()
-    {
-        return $this->container['card_account'];
-    }
-
-    /**
-     * Sets card_account
-     *
-     * @param \Cardpay\model\PaymentResponseCardAccount $card_account Card account data *(for BANKCARD payment method only)*
-     *
-     * @return $this
-     */
-    public function setCardAccount($card_account)
-    {
-        $this->container['card_account'] = $card_account;
 
         return $this;
     }

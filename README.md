@@ -2,7 +2,7 @@
 The Cardpay API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 2.9.6
+- PHP SDK version: 2.10.4
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
@@ -120,7 +120,8 @@ composer install
  - [OAuthError](lib/model/OAuthError.php)
  - [OneclickData](lib/model/OneclickData.php)
  - [PaymentCallback](lib/model/PaymentCallback.php)
- - [PaymentCreationResponse](lib/model/PaymentCreationResponse.php)
+ - [PaymentGatewayCreationResponse](lib/model/PaymentGatewayCreationResponse.php)
+ - [PaymentGatewayResponsePaymentData](lib/model/PaymentGatewayResponsePaymentData.php)
  - [PaymentPatchRequest](lib/model/PaymentPatchRequest.php)
  - [PaymentRequest](lib/model/PaymentRequest.php)
  - [PaymentRequestCard](lib/model/PaymentRequestCard.php)
@@ -168,9 +169,10 @@ composer install
  - [PlanUpdateResponse](lib/model/PlanUpdateResponse.php)
  - [RecurringCallback](lib/model/RecurringCallback.php)
  - [RecurringCreationRequest](lib/model/RecurringCreationRequest.php)
- - [RecurringCreationResponse](lib/model/RecurringCreationResponse.php)
  - [RecurringCustomer](lib/model/RecurringCustomer.php)
  - [RecurringFilterParameters](lib/model/RecurringFilterParameters.php)
+ - [RecurringGatewayCreationResponse](lib/model/RecurringGatewayCreationResponse.php)
+ - [RecurringGatewayResponseRecurringData](lib/model/RecurringGatewayResponseRecurringData.php)
  - [RecurringPatchRequest](lib/model/RecurringPatchRequest.php)
  - [RecurringPlanRequest](lib/model/RecurringPlanRequest.php)
  - [RecurringPlanRequestPlanData](lib/model/RecurringPlanRequestPlanData.php)

@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PaymentCreationResponse implements ModelInterface, ArrayAccess
+class RecurringGatewayResponseRecurringData implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PaymentCreationResponse';
+    protected static $swaggerModelName = 'RecurringGatewayResponseRecurringData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,7 +26,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'redirect_url' => 'string'
+        'id' => 'string'
     ];
 
     /**
@@ -35,7 +35,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'redirect_url' => null
+        'id' => null
     ];
 
     /**
@@ -65,7 +65,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'redirect_url' => 'redirect_url'
+        'id' => 'id'
     ];
 
     /**
@@ -74,7 +74,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'redirect_url' => 'setRedirectUrl'
+        'id' => 'setId'
     ];
 
     /**
@@ -83,7 +83,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'redirect_url' => 'getRedirectUrl'
+        'id' => 'getId'
     ];
 
     /**
@@ -146,7 +146,7 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['redirect_url'] = isset($data['redirect_url']) ? $data['redirect_url'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
 
     /**
@@ -174,25 +174,25 @@ class PaymentCreationResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets redirect_url
+     * Gets id
      *
      * @return string
      */
-    public function getRedirectUrl()
+    public function getId()
     {
-        return $this->container['redirect_url'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets redirect_url
+     * Sets id
      *
-     * @param string $redirect_url URL Customer should be redirected to
+     * @param string $id Recurring id
      *
      * @return $this
      */
-    public function setRedirectUrl($redirect_url)
+    public function setId($id)
     {
-        $this->container['redirect_url'] = $redirect_url;
+        $this->container['id'] = $id;
 
         return $this;
     }

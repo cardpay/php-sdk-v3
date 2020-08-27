@@ -68,7 +68,7 @@ class RecurringsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Cardpay\model\PaymentCreationResponse
+     * @return \Cardpay\model\RecurringGatewayCreationResponse
      */
     public function createFiling($filing_request = null)
     {
@@ -85,11 +85,11 @@ class RecurringsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Cardpay\model\PaymentCreationResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Cardpay\model\RecurringGatewayCreationResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function createFilingWithHttpInfo($filing_request = null)
     {
-        $returnType = '\Cardpay\model\PaymentCreationResponse';
+        $returnType = '\Cardpay\model\RecurringGatewayCreationResponse';
         $request = $this->createFilingRequest($filing_request);
 
         try {
@@ -141,7 +141,7 @@ class RecurringsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\PaymentCreationResponse',
+                        '\Cardpay\model\RecurringGatewayCreationResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -223,7 +223,7 @@ class RecurringsApi
      */
     public function createFilingAsyncWithHttpInfo($filing_request = null)
     {
-        $returnType = '\Cardpay\model\PaymentCreationResponse';
+        $returnType = '\Cardpay\model\RecurringGatewayCreationResponse';
         $request = $this->createFilingRequest($filing_request);
 
         return $this->client
@@ -658,7 +658,7 @@ class RecurringsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Cardpay\model\RecurringCreationResponse
+     * @return \Cardpay\model\RecurringGatewayCreationResponse
      */
     public function createRecurring($recurring_request)
     {
@@ -675,11 +675,11 @@ class RecurringsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Cardpay\model\RecurringCreationResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Cardpay\model\RecurringGatewayCreationResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function createRecurringWithHttpInfo($recurring_request)
     {
-        $returnType = '\Cardpay\model\RecurringCreationResponse';
+        $returnType = '\Cardpay\model\RecurringGatewayCreationResponse';
         $request = $this->createRecurringRequest($recurring_request);
 
         try {
@@ -731,7 +731,7 @@ class RecurringsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\RecurringCreationResponse',
+                        '\Cardpay\model\RecurringGatewayCreationResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -813,7 +813,7 @@ class RecurringsApi
      */
     public function createRecurringAsyncWithHttpInfo($recurring_request)
     {
-        $returnType = '\Cardpay\model\RecurringCreationResponse';
+        $returnType = '\Cardpay\model\RecurringGatewayCreationResponse';
         $request = $this->createRecurringRequest($recurring_request);
 
         return $this->client

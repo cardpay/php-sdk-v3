@@ -68,7 +68,7 @@ class PaymentsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Cardpay\model\PaymentCreationResponse
+     * @return \Cardpay\model\PaymentGatewayCreationResponse
      */
     public function createPayment($payment_request)
     {
@@ -85,11 +85,11 @@ class PaymentsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Cardpay\model\PaymentCreationResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Cardpay\model\PaymentGatewayCreationResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function createPaymentWithHttpInfo($payment_request)
     {
-        $returnType = '\Cardpay\model\PaymentCreationResponse';
+        $returnType = '\Cardpay\model\PaymentGatewayCreationResponse';
         $request = $this->createPaymentRequest($payment_request);
 
         try {
@@ -141,7 +141,7 @@ class PaymentsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\PaymentCreationResponse',
+                        '\Cardpay\model\PaymentGatewayCreationResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -215,7 +215,7 @@ class PaymentsApi
      */
     public function createPaymentAsyncWithHttpInfo($payment_request)
     {
-        $returnType = '\Cardpay\model\PaymentCreationResponse';
+        $returnType = '\Cardpay\model\PaymentGatewayCreationResponse';
         $request = $this->createPaymentRequest($payment_request);
 
         return $this->client

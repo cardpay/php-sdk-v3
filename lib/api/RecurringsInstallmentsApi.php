@@ -394,7 +394,7 @@ class RecurringsInstallmentsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Cardpay\model\PaymentCreationResponse
+     * @return \Cardpay\model\RecurringGatewayCreationResponse
      */
     public function createInstallment($subscription_request)
     {
@@ -411,11 +411,11 @@ class RecurringsInstallmentsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Cardpay\model\PaymentCreationResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Cardpay\model\RecurringGatewayCreationResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function createInstallmentWithHttpInfo($subscription_request)
     {
-        $returnType = '\Cardpay\model\PaymentCreationResponse';
+        $returnType = '\Cardpay\model\RecurringGatewayCreationResponse';
         $request = $this->createInstallmentRequest($subscription_request);
 
         try {
@@ -467,7 +467,7 @@ class RecurringsInstallmentsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\PaymentCreationResponse',
+                        '\Cardpay\model\RecurringGatewayCreationResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -541,7 +541,7 @@ class RecurringsInstallmentsApi
      */
     public function createInstallmentAsyncWithHttpInfo($subscription_request)
     {
-        $returnType = '\Cardpay\model\PaymentCreationResponse';
+        $returnType = '\Cardpay\model\RecurringGatewayCreationResponse';
         $request = $this->createInstallmentRequest($subscription_request);
 
         return $this->client
