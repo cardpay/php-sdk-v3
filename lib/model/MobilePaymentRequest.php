@@ -33,7 +33,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         'mobile_token' => 'string',
         'payment_data' => '\Cardpay\model\PaymentRequestPaymentData',
         'payment_method' => 'string',
-        'payment_methods' => 'string[]',
         'return_urls' => '\Cardpay\model\ReturnUrls'
     ];
 
@@ -50,7 +49,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         'mobile_token' => null,
         'payment_data' => null,
         'payment_method' => null,
-        'payment_methods' => null,
         'return_urls' => null
     ];
 
@@ -88,7 +86,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         'mobile_token' => 'mobile_token',
         'payment_data' => 'payment_data',
         'payment_method' => 'payment_method',
-        'payment_methods' => 'payment_methods',
         'return_urls' => 'return_urls'
     ];
 
@@ -105,7 +102,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         'mobile_token' => 'setMobileToken',
         'payment_data' => 'setPaymentData',
         'payment_method' => 'setPaymentMethod',
-        'payment_methods' => 'setPaymentMethods',
         'return_urls' => 'setReturnUrls'
     ];
 
@@ -122,7 +118,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         'mobile_token' => 'getMobileToken',
         'payment_data' => 'getPaymentData',
         'payment_method' => 'getPaymentMethod',
-        'payment_methods' => 'getPaymentMethods',
         'return_urls' => 'getReturnUrls'
     ];
 
@@ -193,7 +188,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         $this->container['mobile_token'] = isset($data['mobile_token']) ? $data['mobile_token'] : null;
         $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
         $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
-        $this->container['payment_methods'] = isset($data['payment_methods']) ? $data['payment_methods'] : null;
         $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
     }
 
@@ -400,30 +394,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
     public function setPaymentMethod($payment_method)
     {
         $this->container['payment_method'] = $payment_method;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_methods
-     *
-     * @return string[]
-     */
-    public function getPaymentMethods()
-    {
-        return $this->container['payment_methods'];
-    }
-
-    /**
-     * Sets payment_methods
-     *
-     * @param string[] $payment_methods Array of payment methods to display on Checkout Page. If it is not set then all available methods will be displayed
-     *
-     * @return $this
-     */
-    public function setPaymentMethods($payment_methods)
-    {
-        $this->container['payment_methods'] = $payment_methods;
 
         return $this;
     }

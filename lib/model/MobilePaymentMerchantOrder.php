@@ -27,7 +27,9 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'description' => 'string',
-        'id' => 'string'
+        'id' => 'string',
+        'items' => '\Cardpay\model\Item[]',
+        'shipping_address' => '\Cardpay\model\ShippingAddress'
     ];
 
     /**
@@ -37,7 +39,9 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'description' => null,
-        'id' => null
+        'id' => null,
+        'items' => null,
+        'shipping_address' => null
     ];
 
     /**
@@ -68,7 +72,9 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'description' => 'description',
-        'id' => 'id'
+        'id' => 'id',
+        'items' => 'items',
+        'shipping_address' => 'shipping_address'
     ];
 
     /**
@@ -78,7 +84,9 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'description' => 'setDescription',
-        'id' => 'setId'
+        'id' => 'setId',
+        'items' => 'setItems',
+        'shipping_address' => 'setShippingAddress'
     ];
 
     /**
@@ -88,7 +96,9 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'description' => 'getDescription',
-        'id' => 'getId'
+        'id' => 'getId',
+        'items' => 'getItems',
+        'shipping_address' => 'getShippingAddress'
     ];
 
     /**
@@ -153,6 +163,8 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
     {
         $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['items'] = isset($data['items']) ? $data['items'] : null;
+        $this->container['shipping_address'] = isset($data['shipping_address']) ? $data['shipping_address'] : null;
     }
 
     /**
@@ -259,6 +271,54 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
         }
 
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets items
+     *
+     * @return \Cardpay\model\Item[]
+     */
+    public function getItems()
+    {
+        return $this->container['items'];
+    }
+
+    /**
+     * Sets items
+     *
+     * @param \Cardpay\model\Item[] $items Array of items (in the shopping cart)
+     *
+     * @return $this
+     */
+    public function setItems($items)
+    {
+        $this->container['items'] = $items;
+
+        return $this;
+    }
+
+    /**
+     * Gets shipping_address
+     *
+     * @return \Cardpay\model\ShippingAddress
+     */
+    public function getShippingAddress()
+    {
+        return $this->container['shipping_address'];
+    }
+
+    /**
+     * Sets shipping_address
+     *
+     * @param \Cardpay\model\ShippingAddress $shipping_address Shipping Address
+     *
+     * @return $this
+     */
+    public function setShippingAddress($shipping_address)
+    {
+        $this->container['shipping_address'] = $shipping_address;
 
         return $this;
     }

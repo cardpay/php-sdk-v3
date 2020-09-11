@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class ApiError implements ModelInterface, ArrayAccess
+class SubscriptionGetResponsePlan implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class ApiError implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'ApiError';
+    protected static $swaggerModelName = 'SubscriptionGetResponsePlan';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,9 +26,7 @@ class ApiError implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'message' => 'string',
-        'name' => 'string',
-        'request_id' => 'string'
+        'id' => 'string'
     ];
 
     /**
@@ -37,9 +35,7 @@ class ApiError implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'message' => null,
-        'name' => null,
-        'request_id' => null
+        'id' => null
     ];
 
     /**
@@ -69,9 +65,7 @@ class ApiError implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'message' => 'message',
-        'name' => 'name',
-        'request_id' => 'request_id'
+        'id' => 'id'
     ];
 
     /**
@@ -80,9 +74,7 @@ class ApiError implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'message' => 'setMessage',
-        'name' => 'setName',
-        'request_id' => 'setRequestId'
+        'id' => 'setId'
     ];
 
     /**
@@ -91,9 +83,7 @@ class ApiError implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'message' => 'getMessage',
-        'name' => 'getName',
-        'request_id' => 'getRequestId'
+        'id' => 'getId'
     ];
 
     /**
@@ -156,9 +146,7 @@ class ApiError implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['message'] = isset($data['message']) ? $data['message'] : null;
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
 
     /**
@@ -186,73 +174,25 @@ class ApiError implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets message
+     * Gets id
      *
      * @return string
      */
-    public function getMessage()
+    public function getId()
     {
-        return $this->container['message'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets message
+     * Sets id
      *
-     * @param string $message A human-readable explanation specific to this occurrence of the problem.
+     * @param string $id Plan ID
      *
      * @return $this
      */
-    public function setMessage($message)
+    public function setId($id)
     {
-        $this->container['message'] = $message;
-
-        return $this;
-    }
-
-    /**
-     * Gets name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->container['name'];
-    }
-
-    /**
-     * Sets name
-     *
-     * @param string $name A short, human-readable summary of the problem that *should not* change from occurrence to occurrence of the problem, except for purposes of localization.
-     *
-     * @return $this
-     */
-    public function setName($name)
-    {
-        $this->container['name'] = $name;
-
-        return $this;
-    }
-
-    /**
-     * Gets request_id
-     *
-     * @return string
-     */
-    public function getRequestId()
-    {
-        return $this->container['request_id'];
-    }
-
-    /**
-     * Sets request_id
-     *
-     * @param string $request_id Request ID
-     *
-     * @return $this
-     */
-    public function setRequestId($request_id)
-    {
-        $this->container['request_id'] = $request_id;
+        $this->container['id'] = $id;
 
         return $this;
     }

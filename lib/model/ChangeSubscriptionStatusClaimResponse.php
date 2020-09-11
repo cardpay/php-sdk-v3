@@ -205,18 +205,6 @@ class ChangeSubscriptionStatusClaimResponse implements ModelInterface, ArrayAcce
     {
         $invalidProperties = [];
 
-        if ($this->container['created'] === null) {
-            $invalidProperties[] = "'created' can't be null";
-        }
-        if ($this->container['details'] === null) {
-            $invalidProperties[] = "'details' can't be null";
-        }
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
-        }
         $allowedValues = $this->getStatusAllowableValues();
         if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -225,9 +213,6 @@ class ChangeSubscriptionStatusClaimResponse implements ModelInterface, ArrayAcce
             );
         }
 
-        if ($this->container['updated'] === null) {
-            $invalidProperties[] = "'updated' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -335,7 +320,7 @@ class ChangeSubscriptionStatusClaimResponse implements ModelInterface, ArrayAcce
     public function setStatus($status)
     {
         $allowedValues = $this->getStatusAllowableValues();
-        if (!in_array($status, $allowedValues, true)) {
+        if (!is_null($status) && !in_array($status, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'status', must be one of '%s'",

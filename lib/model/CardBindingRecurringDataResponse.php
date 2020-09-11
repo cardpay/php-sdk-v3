@@ -164,12 +164,6 @@ class CardBindingRecurringDataResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['filing'] === null) {
-            $invalidProperties[] = "'filing' can't be null";
-        }
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
         return $invalidProperties;
     }
 

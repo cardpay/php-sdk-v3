@@ -30,14 +30,14 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
         'amount_total' => 'float',
         'created' => '\DateTime',
         'currency' => 'string',
-        'customer' => '\Cardpay\model\RecurringResponseCustomer',
+        'customer' => '\Cardpay\model\SubscriptionCustomer',
         'description' => 'string',
         'id' => 'string',
         'interval' => 'int',
         'next_payment' => '\Cardpay\model\NextSubscriptionPayment',
         'payments_due' => 'int',
         'period' => 'string',
-        'plan' => '\Cardpay\model\Plan',
+        'plan' => '\Cardpay\model\SubscriptionGetResponsePlan',
         'retries' => 'int',
         'status' => 'string',
         'status_reason' => 'string',
@@ -457,7 +457,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Gets customer
      *
-     * @return \Cardpay\model\RecurringResponseCustomer
+     * @return \Cardpay\model\SubscriptionCustomer
      */
     public function getCustomer()
     {
@@ -467,7 +467,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets customer
      *
-     * @param \Cardpay\model\RecurringResponseCustomer $customer Customer data
+     * @param \Cardpay\model\SubscriptionCustomer $customer Customer data
      *
      * @return $this
      */
@@ -634,7 +634,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Gets plan
      *
-     * @return \Cardpay\model\Plan
+     * @return \Cardpay\model\SubscriptionGetResponsePlan
      */
     public function getPlan()
     {
@@ -644,7 +644,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets plan
      *
-     * @param \Cardpay\model\Plan $plan Plan data
+     * @param \Cardpay\model\SubscriptionGetResponsePlan $plan Plan data
      *
      * @return $this
      */

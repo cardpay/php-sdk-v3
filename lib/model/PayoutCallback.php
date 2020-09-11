@@ -206,15 +206,6 @@ class PayoutCallback implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['merchant_order'] === null) {
-            $invalidProperties[] = "'merchant_order' can't be null";
-        }
-        if ($this->container['payment_method'] === null) {
-            $invalidProperties[] = "'payment_method' can't be null";
-        }
-        if ($this->container['payout_data'] === null) {
-            $invalidProperties[] = "'payout_data' can't be null";
-        }
         return $invalidProperties;
     }
 

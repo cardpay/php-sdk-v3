@@ -251,29 +251,6 @@ class RefundResponseRefundData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['amount'] === null) {
-            $invalidProperties[] = "'amount' can't be null";
-        }
-        if ($this->container['created'] === null) {
-            $invalidProperties[] = "'created' can't be null";
-        }
-        if ($this->container['currency'] === null) {
-            $invalidProperties[] = "'currency' can't be null";
-        }
-        if ((mb_strlen($this->container['currency']) > 3)) {
-            $invalidProperties[] = "invalid value for 'currency', the character length must be smaller than or equal to 3.";
-        }
-
-        if ((mb_strlen($this->container['currency']) < 3)) {
-            $invalidProperties[] = "invalid value for 'currency', the character length must be bigger than or equal to 3.";
-        }
-
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
-        }
         $allowedValues = $this->getStatusAllowableValues();
         if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -412,13 +389,6 @@ class RefundResponseRefundData implements ModelInterface, ArrayAccess
      */
     public function setCurrency($currency)
     {
-        if ((mb_strlen($currency) > 3)) {
-            throw new \InvalidArgumentException('invalid length for $currency when calling RefundResponseRefundData., must be smaller than or equal to 3.');
-        }
-        if ((mb_strlen($currency) < 3)) {
-            throw new \InvalidArgumentException('invalid length for $currency when calling RefundResponseRefundData., must be bigger than or equal to 3.');
-        }
-
         $this->container['currency'] = $currency;
 
         return $this;
@@ -564,7 +534,7 @@ class RefundResponseRefundData implements ModelInterface, ArrayAccess
     public function setStatus($status)
     {
         $allowedValues = $this->getStatusAllowableValues();
-        if (!in_array($status, $allowedValues, true)) {
+        if (!is_null($status) && !in_array($status, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'status', must be one of '%s'",

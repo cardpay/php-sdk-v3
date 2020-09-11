@@ -191,12 +191,6 @@ class ClaimResponseSubscriptionData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ($this->container['status_to'] === null) {
-            $invalidProperties[] = "'status_to' can't be null";
-        }
         $allowedValues = $this->getStatusToAllowableValues();
         if (!is_null($this->container['status_to']) && !in_array($this->container['status_to'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -264,7 +258,7 @@ class ClaimResponseSubscriptionData implements ModelInterface, ArrayAccess
     public function setStatusTo($status_to)
     {
         $allowedValues = $this->getStatusToAllowableValues();
-        if (!in_array($status_to, $allowedValues, true)) {
+        if (!is_null($status_to) && !in_array($status_to, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'status_to', must be one of '%s'",

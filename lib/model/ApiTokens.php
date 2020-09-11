@@ -182,21 +182,6 @@ class ApiTokens implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['access_token'] === null) {
-            $invalidProperties[] = "'access_token' can't be null";
-        }
-        if ($this->container['expires_in'] === null) {
-            $invalidProperties[] = "'expires_in' can't be null";
-        }
-        if ($this->container['refresh_expires_in'] === null) {
-            $invalidProperties[] = "'refresh_expires_in' can't be null";
-        }
-        if ($this->container['refresh_token'] === null) {
-            $invalidProperties[] = "'refresh_token' can't be null";
-        }
-        if ($this->container['token_type'] === null) {
-            $invalidProperties[] = "'token_type' can't be null";
-        }
         return $invalidProperties;
     }
 

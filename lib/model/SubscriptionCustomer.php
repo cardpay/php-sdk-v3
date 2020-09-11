@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class RecurringResponseCustomer implements ModelInterface, ArrayAccess
+class SubscriptionCustomer implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class RecurringResponseCustomer implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'RecurringResponseCustomer';
+    protected static $swaggerModelName = 'SubscriptionCustomer';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -164,22 +164,6 @@ class RecurringResponseCustomer implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 256)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 256.";
-        }
-
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 1)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 1.";
-        }
-
-        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 256)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 256.";
-        }
-
-        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) < 0)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
-        }
-
         return $invalidProperties;
     }
 
@@ -214,13 +198,6 @@ class RecurringResponseCustomer implements ModelInterface, ArrayAccess
      */
     public function setEmail($email)
     {
-        if (!is_null($email) && (mb_strlen($email) > 256)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling RecurringResponseCustomer., must be smaller than or equal to 256.');
-        }
-        if (!is_null($email) && (mb_strlen($email) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling RecurringResponseCustomer., must be bigger than or equal to 1.');
-        }
-
         $this->container['email'] = $email;
 
         return $this;
@@ -245,13 +222,6 @@ class RecurringResponseCustomer implements ModelInterface, ArrayAccess
      */
     public function setId($id)
     {
-        if (!is_null($id) && (mb_strlen($id) > 256)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling RecurringResponseCustomer., must be smaller than or equal to 256.');
-        }
-        if (!is_null($id) && (mb_strlen($id) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling RecurringResponseCustomer., must be bigger than or equal to 0.');
-        }
-
         $this->container['id'] = $id;
 
         return $this;

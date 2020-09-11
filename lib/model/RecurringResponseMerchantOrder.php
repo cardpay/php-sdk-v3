@@ -164,17 +164,6 @@ class RecurringResponseMerchantOrder implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['description'] === null) {
-            $invalidProperties[] = "'description' can't be null";
-        }
-        if ((mb_strlen($this->container['description']) > 200)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 200.";
-        }
-
-        if ((mb_strlen($this->container['description']) < 1)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be bigger than or equal to 1.";
-        }
-
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
@@ -220,13 +209,6 @@ class RecurringResponseMerchantOrder implements ModelInterface, ArrayAccess
      */
     public function setDescription($description)
     {
-        if ((mb_strlen($description) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling RecurringResponseMerchantOrder., must be smaller than or equal to 200.');
-        }
-        if ((mb_strlen($description) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling RecurringResponseMerchantOrder., must be bigger than or equal to 1.');
-        }
-
         $this->container['description'] = $description;
 
         return $this;

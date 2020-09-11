@@ -181,9 +181,6 @@ class OAuthError implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['name'] === null) {
-            $invalidProperties[] = "'name' can't be null";
-        }
         $allowedValues = $this->getNameAllowableValues();
         if (!is_null($this->container['name']) && !in_array($this->container['name'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -192,9 +189,6 @@ class OAuthError implements ModelInterface, ArrayAccess
             );
         }
 
-        if ($this->container['message'] === null) {
-            $invalidProperties[] = "'message' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -230,7 +224,7 @@ class OAuthError implements ModelInterface, ArrayAccess
     public function setName($name)
     {
         $allowedValues = $this->getNameAllowableValues();
-        if (!in_array($name, $allowedValues, true)) {
+        if (!is_null($name) && !in_array($name, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'name', must be one of '%s'",

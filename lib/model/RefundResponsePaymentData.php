@@ -164,12 +164,6 @@ class RefundResponsePaymentData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ($this->container['remaining_amount'] === null) {
-            $invalidProperties[] = "'remaining_amount' can't be null";
-        }
         return $invalidProperties;
     }
 

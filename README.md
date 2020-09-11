@@ -2,7 +2,7 @@
 The Cardpay API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 2.12.1
+- PHP SDK version: 2.13.9
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
@@ -184,7 +184,6 @@ composer install
  - [RecurringRequestMerchantOrder](lib/model/RecurringRequestMerchantOrder.php)
  - [RecurringRequestRecurringData](lib/model/RecurringRequestRecurringData.php)
  - [RecurringResponse](lib/model/RecurringResponse.php)
- - [RecurringResponseCustomer](lib/model/RecurringResponseCustomer.php)
  - [RecurringResponseFiling](lib/model/RecurringResponseFiling.php)
  - [RecurringResponseMerchantOrder](lib/model/RecurringResponseMerchantOrder.php)
  - [RecurringResponseRecurringData](lib/model/RecurringResponseRecurringData.php)
@@ -219,8 +218,10 @@ composer install
  - [ScheduledData](lib/model/ScheduledData.php)
  - [ShippingAddress](lib/model/ShippingAddress.php)
  - [Subscription](lib/model/Subscription.php)
+ - [SubscriptionCustomer](lib/model/SubscriptionCustomer.php)
  - [SubscriptionFilterParameters](lib/model/SubscriptionFilterParameters.php)
  - [SubscriptionGetResponse](lib/model/SubscriptionGetResponse.php)
+ - [SubscriptionGetResponsePlan](lib/model/SubscriptionGetResponsePlan.php)
  - [SubscriptionList](lib/model/SubscriptionList.php)
  - [SubscriptionUpdateRequest](lib/model/SubscriptionUpdateRequest.php)
  - [SubscriptionUpdateRequestSubscriptionData](lib/model/SubscriptionUpdateRequestSubscriptionData.php)

@@ -242,18 +242,6 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ($this->container['name'] === null) {
-            $invalidProperties[] = "'name' can't be null";
-        }
-        if ($this->container['created'] === null) {
-            $invalidProperties[] = "'created' can't be null";
-        }
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
-        }
         $allowedValues = $this->getStatusAllowableValues();
         if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -262,9 +250,6 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
             );
         }
 
-        if ($this->container['period'] === null) {
-            $invalidProperties[] = "'period' can't be null";
-        }
         $allowedValues = $this->getPeriodAllowableValues();
         if (!is_null($this->container['period']) && !in_array($this->container['period'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -273,15 +258,6 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
             );
         }
 
-        if ($this->container['interval'] === null) {
-            $invalidProperties[] = "'interval' can't be null";
-        }
-        if ($this->container['currency'] === null) {
-            $invalidProperties[] = "'currency' can't be null";
-        }
-        if ($this->container['amount'] === null) {
-            $invalidProperties[] = "'amount' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -389,7 +365,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
     public function setStatus($status)
     {
         $allowedValues = $this->getStatusAllowableValues();
-        if (!in_array($status, $allowedValues, true)) {
+        if (!is_null($status) && !in_array($status, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'status', must be one of '%s'",
@@ -422,7 +398,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
     public function setPeriod($period)
     {
         $allowedValues = $this->getPeriodAllowableValues();
-        if (!in_array($period, $allowedValues, true)) {
+        if (!is_null($period) && !in_array($period, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid value for 'period', must be one of '%s'",
