@@ -182,6 +182,46 @@ class ReturnUrls implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['cancel_url']) && (mb_strlen($this->container['cancel_url']) > 512)) {
+            $invalidProperties[] = "invalid value for 'cancel_url', the character length must be smaller than or equal to 512.";
+        }
+
+        if (!is_null($this->container['cancel_url']) && (mb_strlen($this->container['cancel_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'cancel_url', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['decline_url']) && (mb_strlen($this->container['decline_url']) > 512)) {
+            $invalidProperties[] = "invalid value for 'decline_url', the character length must be smaller than or equal to 512.";
+        }
+
+        if (!is_null($this->container['decline_url']) && (mb_strlen($this->container['decline_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'decline_url', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['inprocess_url']) && (mb_strlen($this->container['inprocess_url']) > 512)) {
+            $invalidProperties[] = "invalid value for 'inprocess_url', the character length must be smaller than or equal to 512.";
+        }
+
+        if (!is_null($this->container['inprocess_url']) && (mb_strlen($this->container['inprocess_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'inprocess_url', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['return_url']) && (mb_strlen($this->container['return_url']) > 512)) {
+            $invalidProperties[] = "invalid value for 'return_url', the character length must be smaller than or equal to 512.";
+        }
+
+        if (!is_null($this->container['return_url']) && (mb_strlen($this->container['return_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'return_url', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['success_url']) && (mb_strlen($this->container['success_url']) > 512)) {
+            $invalidProperties[] = "invalid value for 'success_url', the character length must be smaller than or equal to 512.";
+        }
+
+        if (!is_null($this->container['success_url']) && (mb_strlen($this->container['success_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'success_url', the character length must be bigger than or equal to 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -216,6 +256,13 @@ class ReturnUrls implements ModelInterface, ArrayAccess
      */
     public function setCancelUrl($cancel_url)
     {
+        if (!is_null($cancel_url) && (mb_strlen($cancel_url) > 512)) {
+            throw new \InvalidArgumentException('invalid length for $cancel_url when calling ReturnUrls., must be smaller than or equal to 512.');
+        }
+        if (!is_null($cancel_url) && (mb_strlen($cancel_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $cancel_url when calling ReturnUrls., must be bigger than or equal to 0.');
+        }
+
         $this->container['cancel_url'] = $cancel_url;
 
         return $this;
@@ -240,6 +287,13 @@ class ReturnUrls implements ModelInterface, ArrayAccess
      */
     public function setDeclineUrl($decline_url)
     {
+        if (!is_null($decline_url) && (mb_strlen($decline_url) > 512)) {
+            throw new \InvalidArgumentException('invalid length for $decline_url when calling ReturnUrls., must be smaller than or equal to 512.');
+        }
+        if (!is_null($decline_url) && (mb_strlen($decline_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $decline_url when calling ReturnUrls., must be bigger than or equal to 0.');
+        }
+
         $this->container['decline_url'] = $decline_url;
 
         return $this;
@@ -264,6 +318,13 @@ class ReturnUrls implements ModelInterface, ArrayAccess
      */
     public function setInprocessUrl($inprocess_url)
     {
+        if (!is_null($inprocess_url) && (mb_strlen($inprocess_url) > 512)) {
+            throw new \InvalidArgumentException('invalid length for $inprocess_url when calling ReturnUrls., must be smaller than or equal to 512.');
+        }
+        if (!is_null($inprocess_url) && (mb_strlen($inprocess_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $inprocess_url when calling ReturnUrls., must be bigger than or equal to 0.');
+        }
+
         $this->container['inprocess_url'] = $inprocess_url;
 
         return $this;
@@ -282,12 +343,19 @@ class ReturnUrls implements ModelInterface, ArrayAccess
     /**
      * Sets return_url
      *
-     * @param string $return_url Overrides default success URL and cancel URL. return_url can be used separately or together with other URL parameters
+     * @param string $return_url Overrides default success URL, decline URL, cancel URL (only in Payment page mode), in process URL. return_url can be used separately or together with other URL parameters.
      *
      * @return $this
      */
     public function setReturnUrl($return_url)
     {
+        if (!is_null($return_url) && (mb_strlen($return_url) > 512)) {
+            throw new \InvalidArgumentException('invalid length for $return_url when calling ReturnUrls., must be smaller than or equal to 512.');
+        }
+        if (!is_null($return_url) && (mb_strlen($return_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $return_url when calling ReturnUrls., must be bigger than or equal to 0.');
+        }
+
         $this->container['return_url'] = $return_url;
 
         return $this;
@@ -312,6 +380,13 @@ class ReturnUrls implements ModelInterface, ArrayAccess
      */
     public function setSuccessUrl($success_url)
     {
+        if (!is_null($success_url) && (mb_strlen($success_url) > 512)) {
+            throw new \InvalidArgumentException('invalid length for $success_url when calling ReturnUrls., must be smaller than or equal to 512.');
+        }
+        if (!is_null($success_url) && (mb_strlen($success_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $success_url when calling ReturnUrls., must be bigger than or equal to 0.');
+        }
+
         $this->container['success_url'] = $success_url;
 
         return $this;

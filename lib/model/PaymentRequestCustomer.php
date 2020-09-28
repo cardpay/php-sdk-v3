@@ -27,10 +27,13 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'birth_date' => '\DateTime',
+        'document_type' => 'string',
         'email' => 'string',
+        'first_name' => 'string',
         'full_name' => 'string',
         'home_phone' => 'string',
         'id' => 'string',
+        'last_name' => 'string',
         'living_address' => '\Cardpay\model\PaymentRequestLivingAddress',
         'locale' => 'string',
         'phone' => 'string',
@@ -44,10 +47,13 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'birth_date' => 'date-time',
+        'document_type' => null,
         'email' => null,
+        'first_name' => null,
         'full_name' => null,
         'home_phone' => null,
         'id' => null,
+        'last_name' => null,
         'living_address' => null,
         'locale' => null,
         'phone' => null,
@@ -82,10 +88,13 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'birth_date' => 'birth_date',
+        'document_type' => 'document_type',
         'email' => 'email',
+        'first_name' => 'first_name',
         'full_name' => 'full_name',
         'home_phone' => 'home_phone',
         'id' => 'id',
+        'last_name' => 'last_name',
         'living_address' => 'living_address',
         'locale' => 'locale',
         'phone' => 'phone',
@@ -99,10 +108,13 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'birth_date' => 'setBirthDate',
+        'document_type' => 'setDocumentType',
         'email' => 'setEmail',
+        'first_name' => 'setFirstName',
         'full_name' => 'setFullName',
         'home_phone' => 'setHomePhone',
         'id' => 'setId',
+        'last_name' => 'setLastName',
         'living_address' => 'setLivingAddress',
         'locale' => 'setLocale',
         'phone' => 'setPhone',
@@ -116,10 +128,13 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'birth_date' => 'getBirthDate',
+        'document_type' => 'getDocumentType',
         'email' => 'getEmail',
+        'first_name' => 'getFirstName',
         'full_name' => 'getFullName',
         'home_phone' => 'getHomePhone',
         'id' => 'getId',
+        'last_name' => 'getLastName',
         'living_address' => 'getLivingAddress',
         'locale' => 'getLocale',
         'phone' => 'getPhone',
@@ -187,10 +202,13 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['birth_date'] = isset($data['birth_date']) ? $data['birth_date'] : null;
+        $this->container['document_type'] = isset($data['document_type']) ? $data['document_type'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
+        $this->container['first_name'] = isset($data['first_name']) ? $data['first_name'] : null;
         $this->container['full_name'] = isset($data['full_name']) ? $data['full_name'] : null;
         $this->container['home_phone'] = isset($data['home_phone']) ? $data['home_phone'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['last_name'] = isset($data['last_name']) ? $data['last_name'] : null;
         $this->container['living_address'] = isset($data['living_address']) ? $data['living_address'] : null;
         $this->container['locale'] = isset($data['locale']) ? $data['locale'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
@@ -212,6 +230,14 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 1)) {
             $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['first_name']) && (mb_strlen($this->container['first_name']) > 256)) {
+            $invalidProperties[] = "invalid value for 'first_name', the character length must be smaller than or equal to 256.";
+        }
+
+        if (!is_null($this->container['first_name']) && (mb_strlen($this->container['first_name']) < 1)) {
+            $invalidProperties[] = "invalid value for 'first_name', the character length must be bigger than or equal to 1.";
         }
 
         if (!is_null($this->container['full_name']) && (mb_strlen($this->container['full_name']) > 256)) {
@@ -236,6 +262,14 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) < 0)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['last_name']) && (mb_strlen($this->container['last_name']) > 256)) {
+            $invalidProperties[] = "invalid value for 'last_name', the character length must be smaller than or equal to 256.";
+        }
+
+        if (!is_null($this->container['last_name']) && (mb_strlen($this->container['last_name']) < 1)) {
+            $invalidProperties[] = "invalid value for 'last_name', the character length must be bigger than or equal to 1.";
         }
 
         if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 18)) {
@@ -294,6 +328,30 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets document_type
+     *
+     * @return string
+     */
+    public function getDocumentType()
+    {
+        return $this->container['document_type'];
+    }
+
+    /**
+     * Sets document_type
+     *
+     * @param string $document_type Customer document type *(mandatory for 'PAGOEFECTIVO' methods only)*
+     *
+     * @return $this
+     */
+    public function setDocumentType($document_type)
+    {
+        $this->container['document_type'] = $document_type;
+
+        return $this;
+    }
+
+    /**
      * Gets email
      *
      * @return string
@@ -320,6 +378,37 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         }
 
         $this->container['email'] = $email;
+
+        return $this;
+    }
+
+    /**
+     * Gets first_name
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->container['first_name'];
+    }
+
+    /**
+     * Sets first_name
+     *
+     * @param string $first_name Customer first name *(mandatory for 'PAGOEFECTIVO' payment methods only)*
+     *
+     * @return $this
+     */
+    public function setFirstName($first_name)
+    {
+        if (!is_null($first_name) && (mb_strlen($first_name) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $first_name when calling PaymentRequestCustomer., must be smaller than or equal to 256.');
+        }
+        if (!is_null($first_name) && (mb_strlen($first_name) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $first_name when calling PaymentRequestCustomer., must be bigger than or equal to 1.');
+        }
+
+        $this->container['first_name'] = $first_name;
 
         return $this;
     }
@@ -413,6 +502,37 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         }
 
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets last_name
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->container['last_name'];
+    }
+
+    /**
+     * Sets last_name
+     *
+     * @param string $last_name Customer last name *(mandatory for 'PAGOEFECTIVO' payment methods only)*
+     *
+     * @return $this
+     */
+    public function setLastName($last_name)
+    {
+        if (!is_null($last_name) && (mb_strlen($last_name) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $last_name when calling PaymentRequestCustomer., must be smaller than or equal to 256.');
+        }
+        if (!is_null($last_name) && (mb_strlen($last_name) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $last_name when calling PaymentRequestCustomer., must be bigger than or equal to 1.');
+        }
+
+        $this->container['last_name'] = $last_name;
 
         return $this;
     }
