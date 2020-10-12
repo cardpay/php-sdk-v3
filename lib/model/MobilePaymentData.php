@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MobilePaymentResponse implements ModelInterface, ArrayAccess
+class MobilePaymentData implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MobilePaymentResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MobilePaymentResponse';
+    protected static $swaggerModelName = 'MobilePaymentData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,8 @@ class MobilePaymentResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'payment_data' => '\Cardpay\model\MobilePaymentData',
-        'redirect_url' => 'string'
+        'id' => 'string',
+        'status' => 'string'
     ];
 
     /**
@@ -36,8 +36,8 @@ class MobilePaymentResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'payment_data' => null,
-        'redirect_url' => null
+        'id' => null,
+        'status' => null
     ];
 
     /**
@@ -67,8 +67,8 @@ class MobilePaymentResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'payment_data' => 'payment_data',
-        'redirect_url' => 'redirect_url'
+        'id' => 'id',
+        'status' => 'status'
     ];
 
     /**
@@ -77,8 +77,8 @@ class MobilePaymentResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'payment_data' => 'setPaymentData',
-        'redirect_url' => 'setRedirectUrl'
+        'id' => 'setId',
+        'status' => 'setStatus'
     ];
 
     /**
@@ -87,8 +87,8 @@ class MobilePaymentResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'payment_data' => 'getPaymentData',
-        'redirect_url' => 'getRedirectUrl'
+        'id' => 'getId',
+        'status' => 'getStatus'
     ];
 
     /**
@@ -151,8 +151,8 @@ class MobilePaymentResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
-        $this->container['redirect_url'] = isset($data['redirect_url']) ? $data['redirect_url'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
     }
 
     /**
@@ -180,49 +180,49 @@ class MobilePaymentResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets payment_data
+     * Gets id
      *
-     * @return \Cardpay\model\MobilePaymentData
+     * @return string
      */
-    public function getPaymentData()
+    public function getId()
     {
-        return $this->container['payment_data'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets payment_data
+     * Sets id
      *
-     * @param \Cardpay\model\MobilePaymentData $payment_data Mobile payment data
+     * @param string $id Cardpay's payment id
      *
      * @return $this
      */
-    public function setPaymentData($payment_data)
+    public function setId($id)
     {
-        $this->container['payment_data'] = $payment_data;
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets redirect_url
+     * Gets status
      *
      * @return string
      */
-    public function getRedirectUrl()
+    public function getStatus()
     {
-        return $this->container['redirect_url'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets redirect_url
+     * Sets status
      *
-     * @param string $redirect_url URL Customer should be redirected to
+     * @param string $status Current payment status
      *
      * @return $this
      */
-    public function setRedirectUrl($redirect_url)
+    public function setStatus($status)
     {
-        $this->container['redirect_url'] = $redirect_url;
+        $this->container['status'] = $status;
 
         return $this;
     }
