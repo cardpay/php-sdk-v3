@@ -30,7 +30,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         'card_account' => '\Cardpay\model\PaymentRequestCardAccount',
         'customer' => '\Cardpay\model\PaymentRequestCustomer',
         'merchant_order' => '\Cardpay\model\MobilePaymentMerchantOrder',
-        'mobile_token' => 'string',
         'payment_data' => '\Cardpay\model\PaymentRequestPaymentData',
         'payment_method' => 'string',
         'return_urls' => '\Cardpay\model\ReturnUrls'
@@ -46,7 +45,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         'card_account' => null,
         'customer' => null,
         'merchant_order' => null,
-        'mobile_token' => null,
         'payment_data' => null,
         'payment_method' => null,
         'return_urls' => null
@@ -83,7 +81,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         'card_account' => 'card_account',
         'customer' => 'customer',
         'merchant_order' => 'merchant_order',
-        'mobile_token' => 'mobile_token',
         'payment_data' => 'payment_data',
         'payment_method' => 'payment_method',
         'return_urls' => 'return_urls'
@@ -99,7 +96,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         'card_account' => 'setCardAccount',
         'customer' => 'setCustomer',
         'merchant_order' => 'setMerchantOrder',
-        'mobile_token' => 'setMobileToken',
         'payment_data' => 'setPaymentData',
         'payment_method' => 'setPaymentMethod',
         'return_urls' => 'setReturnUrls'
@@ -115,7 +111,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         'card_account' => 'getCardAccount',
         'customer' => 'getCustomer',
         'merchant_order' => 'getMerchantOrder',
-        'mobile_token' => 'getMobileToken',
         'payment_data' => 'getPaymentData',
         'payment_method' => 'getPaymentMethod',
         'return_urls' => 'getReturnUrls'
@@ -185,7 +180,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
         $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
         $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
-        $this->container['mobile_token'] = isset($data['mobile_token']) ? $data['mobile_token'] : null;
         $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
         $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
         $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
@@ -322,30 +316,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
     public function setMerchantOrder($merchant_order)
     {
         $this->container['merchant_order'] = $merchant_order;
-
-        return $this;
-    }
-
-    /**
-     * Gets mobile_token
-     *
-     * @return string
-     */
-    public function getMobileToken()
-    {
-        return $this->container['mobile_token'];
-    }
-
-    /**
-     * Sets mobile_token
-     *
-     * @param string $mobile_token Unique identifier, max 128 symbols
-     *
-     * @return $this
-     */
-    public function setMobileToken($mobile_token)
-    {
-        $this->container['mobile_token'] = $mobile_token;
 
         return $this;
     }

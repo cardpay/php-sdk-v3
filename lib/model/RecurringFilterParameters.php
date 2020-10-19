@@ -245,8 +245,8 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'request_id', the character length must be smaller than or equal to 50.";
         }
 
-        if ((mb_strlen($this->container['request_id']) < 0)) {
-            $invalidProperties[] = "invalid value for 'request_id', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['request_id']) < 1)) {
+            $invalidProperties[] = "invalid value for 'request_id', the character length must be bigger than or equal to 1.";
         }
 
         if (!is_null($this->container['merchant_order_id']) && (mb_strlen($this->container['merchant_order_id']) > 50)) {
@@ -326,8 +326,8 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
         if ((mb_strlen($request_id) > 50)) {
             throw new \InvalidArgumentException('invalid length for $request_id when calling RecurringFilterParameters., must be smaller than or equal to 50.');
         }
-        if ((mb_strlen($request_id) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $request_id when calling RecurringFilterParameters., must be bigger than or equal to 0.');
+        if ((mb_strlen($request_id) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $request_id when calling RecurringFilterParameters., must be bigger than or equal to 1.');
         }
 
         $this->container['request_id'] = $request_id;

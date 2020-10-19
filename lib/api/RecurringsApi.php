@@ -2364,6 +2364,13 @@ class RecurringsApi
                 'Missing the required parameter $request_id when calling getPlans'
             );
         }
+        if (strlen($request_id) > 50) {
+            throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsApi.getPlans, must be smaller than or equal to 50.');
+        }
+        if (strlen($request_id) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsApi.getPlans, must be bigger than or equal to 1.');
+        }
+
         if ($max_count !== null && $max_count > 10000) {
             throw new \InvalidArgumentException('invalid value for "$max_count" when calling RecurringsApi.getPlans, must be smaller than or equal to 10000.');
         }
@@ -3036,8 +3043,8 @@ class RecurringsApi
         if (strlen($request_id) > 50) {
             throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsApi.getRecurrings, must be smaller than or equal to 50.');
         }
-        if (strlen($request_id) < 0) {
-            throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsApi.getRecurrings, must be bigger than or equal to 0.');
+        if (strlen($request_id) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsApi.getRecurrings, must be bigger than or equal to 1.');
         }
 
         if ($max_count !== null && $max_count > 10000) {

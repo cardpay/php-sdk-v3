@@ -33,6 +33,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'full_name' => 'string',
         'home_phone' => 'string',
         'id' => 'string',
+        'identity' => 'string',
         'last_name' => 'string',
         'living_address' => '\Cardpay\model\PaymentRequestLivingAddress',
         'locale' => 'string',
@@ -53,6 +54,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'full_name' => null,
         'home_phone' => null,
         'id' => null,
+        'identity' => null,
         'last_name' => null,
         'living_address' => null,
         'locale' => null,
@@ -94,6 +96,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'full_name' => 'full_name',
         'home_phone' => 'home_phone',
         'id' => 'id',
+        'identity' => 'identity',
         'last_name' => 'last_name',
         'living_address' => 'living_address',
         'locale' => 'locale',
@@ -114,6 +117,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'full_name' => 'setFullName',
         'home_phone' => 'setHomePhone',
         'id' => 'setId',
+        'identity' => 'setIdentity',
         'last_name' => 'setLastName',
         'living_address' => 'setLivingAddress',
         'locale' => 'setLocale',
@@ -134,6 +138,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'full_name' => 'getFullName',
         'home_phone' => 'getHomePhone',
         'id' => 'getId',
+        'identity' => 'getIdentity',
         'last_name' => 'getLastName',
         'living_address' => 'getLivingAddress',
         'locale' => 'getLocale',
@@ -208,6 +213,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         $this->container['full_name'] = isset($data['full_name']) ? $data['full_name'] : null;
         $this->container['home_phone'] = isset($data['home_phone']) ? $data['home_phone'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['identity'] = isset($data['identity']) ? $data['identity'] : null;
         $this->container['last_name'] = isset($data['last_name']) ? $data['last_name'] : null;
         $this->container['living_address'] = isset($data['living_address']) ? $data['living_address'] : null;
         $this->container['locale'] = isset($data['locale']) ? $data['locale'] : null;
@@ -262,6 +268,14 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) < 0)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['identity']) && (mb_strlen($this->container['identity']) > 256)) {
+            $invalidProperties[] = "invalid value for 'identity', the character length must be smaller than or equal to 256.";
+        }
+
+        if (!is_null($this->container['identity']) && (mb_strlen($this->container['identity']) < 0)) {
+            $invalidProperties[] = "invalid value for 'identity', the character length must be bigger than or equal to 0.";
         }
 
         if (!is_null($this->container['last_name']) && (mb_strlen($this->container['last_name']) > 256)) {
@@ -502,6 +516,37 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         }
 
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets identity
+     *
+     * @return string
+     */
+    public function getIdentity()
+    {
+        return $this->container['identity'];
+    }
+
+    /**
+     * Sets identity
+     *
+     * @param string $identity Customer identity string value
+     *
+     * @return $this
+     */
+    public function setIdentity($identity)
+    {
+        if (!is_null($identity) && (mb_strlen($identity) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $identity when calling PaymentRequestCustomer., must be smaller than or equal to 256.');
+        }
+        if (!is_null($identity) && (mb_strlen($identity) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $identity when calling PaymentRequestCustomer., must be bigger than or equal to 0.');
+        }
+
+        $this->container['identity'] = $identity;
 
         return $this;
     }

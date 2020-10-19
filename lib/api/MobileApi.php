@@ -64,15 +64,16 @@ class MobileApi
      *
      * Create mobile payment
      *
+     * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\MobilePaymentRequest $request request (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\MobilePaymentResponse
      */
-    public function createMobilePayment($request)
+    public function createMobilePayment($authorization, $request)
     {
-        list($response) = $this->createMobilePaymentWithHttpInfo($request);
+        list($response) = $this->createMobilePaymentWithHttpInfo($authorization, $request);
         return $response;
     }
 
@@ -81,16 +82,17 @@ class MobileApi
      *
      * Create mobile payment
      *
+     * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\MobilePaymentRequest $request request (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\MobilePaymentResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createMobilePaymentWithHttpInfo($request)
+    public function createMobilePaymentWithHttpInfo($authorization, $request)
     {
         $returnType = '\Cardpay\model\MobilePaymentResponse';
-        $request = $this->createMobilePaymentRequest($request);
+        $request = $this->createMobilePaymentRequest($authorization, $request);
 
         try {
             $options = $this->createHttpClientOption();
@@ -188,14 +190,15 @@ class MobileApi
      *
      * Create mobile payment
      *
+     * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\MobilePaymentRequest $request request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createMobilePaymentAsync($request)
+    public function createMobilePaymentAsync($authorization, $request)
     {
-        return $this->createMobilePaymentAsyncWithHttpInfo($request)
+        return $this->createMobilePaymentAsyncWithHttpInfo($authorization, $request)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -208,15 +211,16 @@ class MobileApi
      *
      * Create mobile payment
      *
+     * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\MobilePaymentRequest $request request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createMobilePaymentAsyncWithHttpInfo($request)
+    public function createMobilePaymentAsyncWithHttpInfo($authorization, $request)
     {
         $returnType = '\Cardpay\model\MobilePaymentResponse';
-        $request = $this->createMobilePaymentRequest($request);
+        $request = $this->createMobilePaymentRequest($authorization, $request);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -258,13 +262,20 @@ class MobileApi
     /**
      * Create request for operation 'createMobilePayment'
      *
+     * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\MobilePaymentRequest $request request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function createMobilePaymentRequest($request)
+    protected function createMobilePaymentRequest($authorization, $request)
     {
+        // verify the required parameter 'authorization' is set
+        if ($authorization === null || (is_array($authorization) && count($authorization) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $authorization when calling createMobilePayment'
+            );
+        }
         // verify the required parameter 'request' is set
         if ($request === null || (is_array($request) && count($request) === 0)) {
             throw new \InvalidArgumentException(
@@ -279,6 +290,10 @@ class MobileApi
         $httpBody = '';
         $multipart = false;
 
+        // header params
+        if ($authorization !== null) {
+            $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
+        }
 
 
         // body params
@@ -358,15 +373,16 @@ class MobileApi
      *
      * Execute card binding process
      *
+     * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\CardBindingRequest $request request (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\CardBindingResponse
      */
-    public function executeCardBinding($request)
+    public function executeCardBinding($authorization, $request)
     {
-        list($response) = $this->executeCardBindingWithHttpInfo($request);
+        list($response) = $this->executeCardBindingWithHttpInfo($authorization, $request);
         return $response;
     }
 
@@ -375,16 +391,17 @@ class MobileApi
      *
      * Execute card binding process
      *
+     * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\CardBindingRequest $request request (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\CardBindingResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function executeCardBindingWithHttpInfo($request)
+    public function executeCardBindingWithHttpInfo($authorization, $request)
     {
         $returnType = '\Cardpay\model\CardBindingResponse';
-        $request = $this->executeCardBindingRequest($request);
+        $request = $this->executeCardBindingRequest($authorization, $request);
 
         try {
             $options = $this->createHttpClientOption();
@@ -482,14 +499,15 @@ class MobileApi
      *
      * Execute card binding process
      *
+     * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\CardBindingRequest $request request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function executeCardBindingAsync($request)
+    public function executeCardBindingAsync($authorization, $request)
     {
-        return $this->executeCardBindingAsyncWithHttpInfo($request)
+        return $this->executeCardBindingAsyncWithHttpInfo($authorization, $request)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -502,15 +520,16 @@ class MobileApi
      *
      * Execute card binding process
      *
+     * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\CardBindingRequest $request request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function executeCardBindingAsyncWithHttpInfo($request)
+    public function executeCardBindingAsyncWithHttpInfo($authorization, $request)
     {
         $returnType = '\Cardpay\model\CardBindingResponse';
-        $request = $this->executeCardBindingRequest($request);
+        $request = $this->executeCardBindingRequest($authorization, $request);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -552,13 +571,20 @@ class MobileApi
     /**
      * Create request for operation 'executeCardBinding'
      *
+     * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\CardBindingRequest $request request (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function executeCardBindingRequest($request)
+    protected function executeCardBindingRequest($authorization, $request)
     {
+        // verify the required parameter 'authorization' is set
+        if ($authorization === null || (is_array($authorization) && count($authorization) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $authorization when calling executeCardBinding'
+            );
+        }
         // verify the required parameter 'request' is set
         if ($request === null || (is_array($request) && count($request) === 0)) {
             throw new \InvalidArgumentException(
@@ -573,6 +599,10 @@ class MobileApi
         $httpBody = '';
         $multipart = false;
 
+        // header params
+        if ($authorization !== null) {
+            $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
+        }
 
 
         // body params
@@ -935,6 +965,301 @@ class MobileApi
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
         return new Request(
             'POST',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getMobilePaymentMethods
+     *
+     * get mobile payment methods
+     *
+     * @param  string $authorization Authorization (required)
+     *
+     * @throws \Cardpay\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Cardpay\model\MobilePaymentResponse
+     */
+    public function getMobilePaymentMethods($authorization)
+    {
+        list($response) = $this->getMobilePaymentMethodsWithHttpInfo($authorization);
+        return $response;
+    }
+
+    /**
+     * Operation getMobilePaymentMethodsWithHttpInfo
+     *
+     * get mobile payment methods
+     *
+     * @param  string $authorization Authorization (required)
+     *
+     * @throws \Cardpay\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Cardpay\model\MobilePaymentResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getMobilePaymentMethodsWithHttpInfo($authorization)
+    {
+        $returnType = '\Cardpay\model\MobilePaymentResponse';
+        $request = $this->getMobilePaymentMethodsRequest($authorization);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = (string) $responseBody;
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\MobilePaymentResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\AuthenticationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\OAuthError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getMobilePaymentMethodsAsync
+     *
+     * get mobile payment methods
+     *
+     * @param  string $authorization Authorization (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMobilePaymentMethodsAsync($authorization)
+    {
+        return $this->getMobilePaymentMethodsAsyncWithHttpInfo($authorization)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getMobilePaymentMethodsAsyncWithHttpInfo
+     *
+     * get mobile payment methods
+     *
+     * @param  string $authorization Authorization (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getMobilePaymentMethodsAsyncWithHttpInfo($authorization)
+    {
+        $returnType = '\Cardpay\model\MobilePaymentResponse';
+        $request = $this->getMobilePaymentMethodsRequest($authorization);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = (string) $responseBody;
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getMobilePaymentMethods'
+     *
+     * @param  string $authorization Authorization (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function getMobilePaymentMethodsRequest($authorization)
+    {
+        // verify the required parameter 'authorization' is set
+        if ($authorization === null || (is_array($authorization) && count($authorization) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $authorization when calling getMobilePaymentMethods'
+            );
+        }
+
+        $resourcePath = '/api/mobile/payment_methods';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // header params
+        if ($authorization !== null) {
+            $headerParams['Authorization'] = ObjectSerializer::toHeaderValue($authorization);
+        }
+
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Authorization');
+        if ($apiKey !== null) {
+            $headers['Authorization'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

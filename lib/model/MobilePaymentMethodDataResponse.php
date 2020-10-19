@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class CardBindingRequest implements ModelInterface, ArrayAccess
+class MobilePaymentMethodDataResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'CardBindingRequest';
+    protected static $swaggerModelName = 'MobilePaymentMethodDataResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,12 +26,8 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'request' => '\Cardpay\model\Request',
-        'card_account' => '\Cardpay\model\CardBindingCardAccount',
-        'customer' => '\Cardpay\model\RecurringCustomer',
-        'merchant_order' => '\Cardpay\model\CardBindingMerchantOrder',
-        'recurring_data' => '\Cardpay\model\CardBindingData',
-        'return_urls' => '\Cardpay\model\ReturnUrls'
+        'category' => 'string',
+        'name' => 'string'
     ];
 
     /**
@@ -40,12 +36,8 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'request' => null,
-        'card_account' => null,
-        'customer' => null,
-        'merchant_order' => null,
-        'recurring_data' => null,
-        'return_urls' => null
+        'category' => null,
+        'name' => null
     ];
 
     /**
@@ -75,12 +67,8 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'request' => 'request',
-        'card_account' => 'card_account',
-        'customer' => 'customer',
-        'merchant_order' => 'merchant_order',
-        'recurring_data' => 'recurring_data',
-        'return_urls' => 'return_urls'
+        'category' => 'category',
+        'name' => 'name'
     ];
 
     /**
@@ -89,12 +77,8 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'request' => 'setRequest',
-        'card_account' => 'setCardAccount',
-        'customer' => 'setCustomer',
-        'merchant_order' => 'setMerchantOrder',
-        'recurring_data' => 'setRecurringData',
-        'return_urls' => 'setReturnUrls'
+        'category' => 'setCategory',
+        'name' => 'setName'
     ];
 
     /**
@@ -103,12 +87,8 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'request' => 'getRequest',
-        'card_account' => 'getCardAccount',
-        'customer' => 'getCustomer',
-        'merchant_order' => 'getMerchantOrder',
-        'recurring_data' => 'getRecurringData',
-        'return_urls' => 'getReturnUrls'
+        'category' => 'getCategory',
+        'name' => 'getName'
     ];
 
     /**
@@ -171,12 +151,8 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
-        $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
-        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
-        $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
-        $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
+        $this->container['category'] = isset($data['category']) ? $data['category'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
     }
 
     /**
@@ -188,12 +164,6 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['request'] === null) {
-            $invalidProperties[] = "'request' can't be null";
-        }
-        if ($this->container['card_account'] === null) {
-            $invalidProperties[] = "'card_account' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -210,145 +180,49 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets request
+     * Gets category
      *
-     * @return \Cardpay\model\Request
+     * @return string
      */
-    public function getRequest()
+    public function getCategory()
     {
-        return $this->container['request'];
+        return $this->container['category'];
     }
 
     /**
-     * Sets request
+     * Sets category
      *
-     * @param \Cardpay\model\Request $request Request
+     * @param string $category Mobile payment method category
      *
      * @return $this
      */
-    public function setRequest($request)
+    public function setCategory($category)
     {
-        $this->container['request'] = $request;
+        $this->container['category'] = $category;
 
         return $this;
     }
 
     /**
-     * Gets card_account
+     * Gets name
      *
-     * @return \Cardpay\model\CardBindingCardAccount
+     * @return string
      */
-    public function getCardAccount()
+    public function getName()
     {
-        return $this->container['card_account'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets card_account
+     * Sets name
      *
-     * @param \Cardpay\model\CardBindingCardAccount $card_account Information about card
+     * @param string $name Mobile payment method name
      *
      * @return $this
      */
-    public function setCardAccount($card_account)
+    public function setName($name)
     {
-        $this->container['card_account'] = $card_account;
-
-        return $this;
-    }
-
-    /**
-     * Gets customer
-     *
-     * @return \Cardpay\model\RecurringCustomer
-     */
-    public function getCustomer()
-    {
-        return $this->container['customer'];
-    }
-
-    /**
-     * Sets customer
-     *
-     * @param \Cardpay\model\RecurringCustomer $customer Customer data
-     *
-     * @return $this
-     */
-    public function setCustomer($customer)
-    {
-        $this->container['customer'] = $customer;
-
-        return $this;
-    }
-
-    /**
-     * Gets merchant_order
-     *
-     * @return \Cardpay\model\CardBindingMerchantOrder
-     */
-    public function getMerchantOrder()
-    {
-        return $this->container['merchant_order'];
-    }
-
-    /**
-     * Sets merchant_order
-     *
-     * @param \Cardpay\model\CardBindingMerchantOrder $merchant_order Merchant order data
-     *
-     * @return $this
-     */
-    public function setMerchantOrder($merchant_order)
-    {
-        $this->container['merchant_order'] = $merchant_order;
-
-        return $this;
-    }
-
-    /**
-     * Gets recurring_data
-     *
-     * @return \Cardpay\model\CardBindingData
-     */
-    public function getRecurringData()
-    {
-        return $this->container['recurring_data'];
-    }
-
-    /**
-     * Sets recurring_data
-     *
-     * @param \Cardpay\model\CardBindingData $recurring_data Data of recurring payment
-     *
-     * @return $this
-     */
-    public function setRecurringData($recurring_data)
-    {
-        $this->container['recurring_data'] = $recurring_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets return_urls
-     *
-     * @return \Cardpay\model\ReturnUrls
-     */
-    public function getReturnUrls()
-    {
-        return $this->container['return_urls'];
-    }
-
-    /**
-     * Sets return_urls
-     *
-     * @param \Cardpay\model\ReturnUrls $return_urls Merchant Return URLs
-     *
-     * @return $this
-     */
-    public function setReturnUrls($return_urls)
-    {
-        $this->container['return_urls'] = $return_urls;
+        $this->container['name'] = $name;
 
         return $this;
     }
