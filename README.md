@@ -2,7 +2,7 @@
 The Cardpay API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 2.16.10
+- PHP SDK version: 2.18.5
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
@@ -113,7 +113,12 @@ composer install
  - [InstallmentSubscriptionRequest](lib/model/InstallmentSubscriptionRequest.php)
  - [Item](lib/model/Item.php)
  - [LimitInfoResponse](lib/model/LimitInfoResponse.php)
+ - [MobileCardAccountResponse](lib/model/MobileCardAccountResponse.php)
+ - [MobileCustomerResponse](lib/model/MobileCustomerResponse.php)
+ - [MobileMerchantOrderResponse](lib/model/MobileMerchantOrderResponse.php)
  - [MobilePaymentData](lib/model/MobilePaymentData.php)
+ - [MobilePaymentDataResponse](lib/model/MobilePaymentDataResponse.php)
+ - [MobilePaymentFullResponse](lib/model/MobilePaymentFullResponse.php)
  - [MobilePaymentMerchantOrder](lib/model/MobilePaymentMerchantOrder.php)
  - [MobilePaymentMethodDataResponse](lib/model/MobilePaymentMethodDataResponse.php)
  - [MobilePaymentMethodListResponse](lib/model/MobilePaymentMethodListResponse.php)
