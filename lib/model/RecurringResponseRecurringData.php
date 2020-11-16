@@ -35,9 +35,11 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'string',
         'filing' => '\Cardpay\model\RecurringResponseFiling',
         'id' => 'string',
+        'installment_type' => 'string',
         'invalid_data' => 'string[]',
         'is_3d' => 'bool',
         'note' => 'string',
+        'payments' => 'string',
         'rrn' => 'string',
         'status' => 'string',
         'subscription' => '\Cardpay\model\Subscription',
@@ -60,9 +62,11 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => null,
         'filing' => null,
         'id' => null,
+        'installment_type' => null,
         'invalid_data' => null,
         'is_3d' => null,
         'note' => null,
+        'payments' => null,
         'rrn' => null,
         'status' => null,
         'subscription' => null,
@@ -106,9 +110,11 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'decline_reason',
         'filing' => 'filing',
         'id' => 'id',
+        'installment_type' => 'installment_type',
         'invalid_data' => 'invalid_data',
         'is_3d' => 'is_3d',
         'note' => 'note',
+        'payments' => 'payments',
         'rrn' => 'rrn',
         'status' => 'status',
         'subscription' => 'subscription',
@@ -131,9 +137,11 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'setDeclineReason',
         'filing' => 'setFiling',
         'id' => 'setId',
+        'installment_type' => 'setInstallmentType',
         'invalid_data' => 'setInvalidData',
         'is_3d' => 'setIs3d',
         'note' => 'setNote',
+        'payments' => 'setPayments',
         'rrn' => 'setRrn',
         'status' => 'setStatus',
         'subscription' => 'setSubscription',
@@ -156,9 +164,11 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'getDeclineReason',
         'filing' => 'getFiling',
         'id' => 'getId',
+        'installment_type' => 'getInstallmentType',
         'invalid_data' => 'getInvalidData',
         'is_3d' => 'getIs3d',
         'note' => 'getNote',
+        'payments' => 'getPayments',
         'rrn' => 'getRrn',
         'status' => 'getStatus',
         'subscription' => 'getSubscription',
@@ -306,9 +316,11 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         $this->container['decline_reason'] = isset($data['decline_reason']) ? $data['decline_reason'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
         $this->container['invalid_data'] = isset($data['invalid_data']) ? $data['invalid_data'] : null;
         $this->container['is_3d'] = isset($data['is_3d']) ? $data['is_3d'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
+        $this->container['payments'] = isset($data['payments']) ? $data['payments'] : null;
         $this->container['rrn'] = isset($data['rrn']) ? $data['rrn'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['subscription'] = isset($data['subscription']) ? $data['subscription'] : null;
@@ -581,6 +593,30 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets installment_type
+     *
+     * @return string
+     */
+    public function getInstallmentType()
+    {
+        return $this->container['installment_type'];
+    }
+
+    /**
+     * Sets installment_type
+     *
+     * @param string $installment_type Selected installment type
+     *
+     * @return $this
+     */
+    public function setInstallmentType($installment_type)
+    {
+        $this->container['installment_type'] = $installment_type;
+
+        return $this;
+    }
+
+    /**
      * Gets invalid_data
      *
      * @return string[]
@@ -648,6 +684,30 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     public function setNote($note)
     {
         $this->container['note'] = $note;
+
+        return $this;
+    }
+
+    /**
+     * Gets payments
+     *
+     * @return string
+     */
+    public function getPayments()
+    {
+        return $this->container['payments'];
+    }
+
+    /**
+     * Sets payments
+     *
+     * @param string $payments Number of total payments, to be charged
+     *
+     * @return $this
+     */
+    public function setPayments($payments)
+    {
+        $this->container['payments'] = $payments;
 
         return $this;
     }

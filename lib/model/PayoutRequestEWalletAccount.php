@@ -27,7 +27,9 @@ class PayoutRequestEWalletAccount implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'bank_branch' => 'string',
+        'bank_city' => 'string',
         'bank_code' => 'string',
+        'bank_name' => 'string',
         'id' => 'string',
         'name' => 'string',
         'type' => 'string'
@@ -40,7 +42,9 @@ class PayoutRequestEWalletAccount implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'bank_branch' => null,
+        'bank_city' => null,
         'bank_code' => null,
+        'bank_name' => null,
         'id' => null,
         'name' => null,
         'type' => null
@@ -74,7 +78,9 @@ class PayoutRequestEWalletAccount implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'bank_branch' => 'bank_branch',
+        'bank_city' => 'bank_city',
         'bank_code' => 'bank_code',
+        'bank_name' => 'bank_name',
         'id' => 'id',
         'name' => 'name',
         'type' => 'type'
@@ -87,7 +93,9 @@ class PayoutRequestEWalletAccount implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'bank_branch' => 'setBankBranch',
+        'bank_city' => 'setBankCity',
         'bank_code' => 'setBankCode',
+        'bank_name' => 'setBankName',
         'id' => 'setId',
         'name' => 'setName',
         'type' => 'setType'
@@ -100,7 +108,9 @@ class PayoutRequestEWalletAccount implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'bank_branch' => 'getBankBranch',
+        'bank_city' => 'getBankCity',
         'bank_code' => 'getBankCode',
+        'bank_name' => 'getBankName',
         'id' => 'getId',
         'name' => 'getName',
         'type' => 'getType'
@@ -167,7 +177,9 @@ class PayoutRequestEWalletAccount implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['bank_branch'] = isset($data['bank_branch']) ? $data['bank_branch'] : null;
+        $this->container['bank_city'] = isset($data['bank_city']) ? $data['bank_city'] : null;
         $this->container['bank_code'] = isset($data['bank_code']) ? $data['bank_code'] : null;
+        $this->container['bank_name'] = isset($data['bank_name']) ? $data['bank_name'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['type'] = isset($data['type']) ? $data['type'] : null;
@@ -230,6 +242,30 @@ class PayoutRequestEWalletAccount implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets bank_city
+     *
+     * @return string
+     */
+    public function getBankCity()
+    {
+        return $this->container['bank_city'];
+    }
+
+    /**
+     * Sets bank_city
+     *
+     * @param string $bank_city Customer bank city Customer bank city (string)
+     *
+     * @return $this
+     */
+    public function setBankCity($bank_city)
+    {
+        $this->container['bank_city'] = $bank_city;
+
+        return $this;
+    }
+
+    /**
      * Gets bank_code
      *
      * @return string
@@ -249,6 +285,30 @@ class PayoutRequestEWalletAccount implements ModelInterface, ArrayAccess
     public function setBankCode($bank_code)
     {
         $this->container['bank_code'] = $bank_code;
+
+        return $this;
+    }
+
+    /**
+     * Gets bank_name
+     *
+     * @return string
+     */
+    public function getBankName()
+    {
+        return $this->container['bank_name'];
+    }
+
+    /**
+     * Sets bank_name
+     *
+     * @param string $bank_name Customer bank name Customer bank name (string)
+     *
+     * @return $this
+     */
+    public function setBankName($bank_name)
+    {
+        $this->container['bank_name'] = $bank_name;
 
         return $this;
     }

@@ -32,6 +32,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'generate_token' => 'bool',
         'hold_rest_amount' => 'bool',
         'initiator' => 'string',
+        'installment_type' => 'string',
         'interval' => 'int',
         'note' => 'string',
         'payments' => 'int',
@@ -53,6 +54,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'generate_token' => null,
         'hold_rest_amount' => null,
         'initiator' => null,
+        'installment_type' => null,
         'interval' => 'int32',
         'note' => null,
         'payments' => 'int32',
@@ -95,6 +97,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'generate_token' => 'generate_token',
         'hold_rest_amount' => 'hold_rest_amount',
         'initiator' => 'initiator',
+        'installment_type' => 'installment_type',
         'interval' => 'interval',
         'note' => 'note',
         'payments' => 'payments',
@@ -116,6 +119,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'generate_token' => 'setGenerateToken',
         'hold_rest_amount' => 'setHoldRestAmount',
         'initiator' => 'setInitiator',
+        'installment_type' => 'setInstallmentType',
         'interval' => 'setInterval',
         'note' => 'setNote',
         'payments' => 'setPayments',
@@ -137,6 +141,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'generate_token' => 'getGenerateToken',
         'hold_rest_amount' => 'getHoldRestAmount',
         'initiator' => 'getInitiator',
+        'installment_type' => 'getInstallmentType',
         'interval' => 'getInterval',
         'note' => 'getNote',
         'payments' => 'getPayments',
@@ -254,6 +259,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
         $this->container['hold_rest_amount'] = isset($data['hold_rest_amount']) ? $data['hold_rest_amount'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
+        $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
         $this->container['interval'] = isset($data['interval']) ? $data['interval'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['payments'] = isset($data['payments']) ? $data['payments'] : null;
@@ -288,6 +294,10 @@ class InstallmentData implements ModelInterface, ArrayAccess
         }
         if (!preg_match("/mit|cit/", $this->container['initiator'])) {
             $invalidProperties[] = "invalid value for 'initiator', must be conform to the pattern /mit|cit/.";
+        }
+
+        if (!is_null($this->container['installment_type']) && !preg_match("/IF|MF/", $this->container['installment_type'])) {
+            $invalidProperties[] = "invalid value for 'installment_type', must be conform to the pattern /IF|MF/.";
         }
 
         if (!is_null($this->container['interval']) && ($this->container['interval'] < 1)) {
@@ -490,6 +500,35 @@ class InstallmentData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets installment_type
+     *
+     * @return string
+     */
+    public function getInstallmentType()
+    {
+        return $this->container['installment_type'];
+    }
+
+    /**
+     * Sets installment_type
+     *
+     * @param string $installment_type Installment type, 2 possible values: IF - issuer financed MF - merchant financed For Mexican installments should be only 'IF' installment_type
+     *
+     * @return $this
+     */
+    public function setInstallmentType($installment_type)
+    {
+
+        if (!is_null($installment_type) && (!preg_match("/IF|MF/", $installment_type))) {
+            throw new \InvalidArgumentException("invalid value for $installment_type when calling InstallmentData., must conform to the pattern /IF|MF/.");
+        }
+
+        $this->container['installment_type'] = $installment_type;
+
+        return $this;
+    }
+
+    /**
      * Gets interval
      *
      * @return int
@@ -562,7 +601,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Sets payments
      *
-     * @param int $payments Number of total payments to be charged per defined interval, can be 2-200.
+     * @param int $payments Number of total payments to be charged per defined interval, can be 2-200. For Mexican installment subscription (installment_type = `IF`) should be 1-99.
      *
      * @return $this
      */
