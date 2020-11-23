@@ -214,11 +214,14 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'expiration', must be conform to the pattern /([0-9]{2}\/[0-9]{4})/.";
         }
 
-        if (!is_null($this->container['holder']) && (mb_strlen($this->container['holder']) > 50)) {
+        if ($this->container['holder'] === null) {
+            $invalidProperties[] = "'holder' can't be null";
+        }
+        if ((mb_strlen($this->container['holder']) > 50)) {
             $invalidProperties[] = "invalid value for 'holder', the character length must be smaller than or equal to 50.";
         }
 
-        if (!is_null($this->container['holder']) && (mb_strlen($this->container['holder']) < 1)) {
+        if ((mb_strlen($this->container['holder']) < 1)) {
             $invalidProperties[] = "invalid value for 'holder', the character length must be bigger than or equal to 1.";
         }
 
@@ -336,10 +339,10 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
      */
     public function setHolder($holder)
     {
-        if (!is_null($holder) && (mb_strlen($holder) > 50)) {
+        if ((mb_strlen($holder) > 50)) {
             throw new \InvalidArgumentException('invalid length for $holder when calling PaymentRequestCard., must be smaller than or equal to 50.');
         }
-        if (!is_null($holder) && (mb_strlen($holder) < 1)) {
+        if ((mb_strlen($holder) < 1)) {
             throw new \InvalidArgumentException('invalid length for $holder when calling PaymentRequestCard., must be bigger than or equal to 1.');
         }
 
