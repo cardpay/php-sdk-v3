@@ -512,7 +512,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Sets installment_type
      *
-     * @param string $installment_type Installment type, 2 possible values: IF - issuer financed MF - merchant financed For Mexican installments should be only 'IF' installment_type
+     * @param string $installment_type Installment type, 2 possible values: `IF` - issuer financed `MF` - merchant financed For installments by merchant should be only `MF` installment_type
      *
      * @return $this
      */

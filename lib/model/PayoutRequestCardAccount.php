@@ -28,7 +28,6 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'billing_address' => '\Cardpay\model\BillingAddress',
         'card' => '\Cardpay\model\PayoutRequestCard',
-        'empty' => 'bool',
         'recipient_info' => 'string',
         'token' => 'string'
     ];
@@ -41,7 +40,6 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'billing_address' => null,
         'card' => null,
-        'empty' => null,
         'recipient_info' => null,
         'token' => null
     ];
@@ -75,7 +73,6 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'billing_address' => 'billing_address',
         'card' => 'card',
-        'empty' => 'empty',
         'recipient_info' => 'recipient_info',
         'token' => 'token'
     ];
@@ -88,7 +85,6 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $setters = [
         'billing_address' => 'setBillingAddress',
         'card' => 'setCard',
-        'empty' => 'setEmpty',
         'recipient_info' => 'setRecipientInfo',
         'token' => 'setToken'
     ];
@@ -101,7 +97,6 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $getters = [
         'billing_address' => 'getBillingAddress',
         'card' => 'getCard',
-        'empty' => 'getEmpty',
         'recipient_info' => 'getRecipientInfo',
         'token' => 'getToken'
     ];
@@ -168,7 +163,6 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
     {
         $this->container['billing_address'] = isset($data['billing_address']) ? $data['billing_address'] : null;
         $this->container['card'] = isset($data['card']) ? $data['card'] : null;
-        $this->container['empty'] = isset($data['empty']) ? $data['empty'] : null;
         $this->container['recipient_info'] = isset($data['recipient_info']) ? $data['recipient_info'] : null;
         $this->container['token'] = isset($data['token']) ? $data['token'] : null;
     }
@@ -263,30 +257,6 @@ class PayoutRequestCardAccount implements ModelInterface, ArrayAccess
     public function setCard($card)
     {
         $this->container['card'] = $card;
-
-        return $this;
-    }
-
-    /**
-     * Gets empty
-     *
-     * @return bool
-     */
-    public function getEmpty()
-    {
-        return $this->container['empty'];
-    }
-
-    /**
-     * Sets empty
-     *
-     * @param bool $empty empty
-     *
-     * @return $this
-     */
-    public function setEmpty($empty)
-    {
-        $this->container['empty'] = $empty;
 
         return $this;
     }
