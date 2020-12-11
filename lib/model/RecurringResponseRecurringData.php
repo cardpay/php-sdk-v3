@@ -35,6 +35,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'string',
         'filing' => '\Cardpay\model\RecurringResponseFiling',
         'id' => 'string',
+        'installment_amount' => 'float',
         'installment_type' => 'string',
         'invalid_data' => 'string[]',
         'is_3d' => 'bool',
@@ -62,6 +63,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => null,
         'filing' => null,
         'id' => null,
+        'installment_amount' => null,
         'installment_type' => null,
         'invalid_data' => null,
         'is_3d' => null,
@@ -110,6 +112,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'decline_reason',
         'filing' => 'filing',
         'id' => 'id',
+        'installment_amount' => 'installment_amount',
         'installment_type' => 'installment_type',
         'invalid_data' => 'invalid_data',
         'is_3d' => 'is_3d',
@@ -137,6 +140,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'setDeclineReason',
         'filing' => 'setFiling',
         'id' => 'setId',
+        'installment_amount' => 'setInstallmentAmount',
         'installment_type' => 'setInstallmentType',
         'invalid_data' => 'setInvalidData',
         'is_3d' => 'setIs3d',
@@ -164,6 +168,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'getDeclineReason',
         'filing' => 'getFiling',
         'id' => 'getId',
+        'installment_amount' => 'getInstallmentAmount',
         'installment_type' => 'getInstallmentType',
         'invalid_data' => 'getInvalidData',
         'is_3d' => 'getIs3d',
@@ -226,6 +231,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     const STATUS_REFUNDED = 'REFUNDED';
     const STATUS_PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED';
     const STATUS_VOIDED = 'VOIDED';
+    const STATUS_TERMINATED = 'TERMINATED';
     const STATUS_CHARGED_BACK = 'CHARGED_BACK';
     const STATUS_CHARGEBACK_RESOLVED = 'CHARGEBACK_RESOLVED';
     const TYPE_ONECLICK = 'ONECLICK';
@@ -256,6 +262,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
             self::STATUS_REFUNDED,
             self::STATUS_PARTIALLY_REFUNDED,
             self::STATUS_VOIDED,
+            self::STATUS_TERMINATED,
             self::STATUS_CHARGED_BACK,
             self::STATUS_CHARGEBACK_RESOLVED,
         ];
@@ -316,6 +323,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         $this->container['decline_reason'] = isset($data['decline_reason']) ? $data['decline_reason'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['installment_amount'] = isset($data['installment_amount']) ? $data['installment_amount'] : null;
         $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
         $this->container['invalid_data'] = isset($data['invalid_data']) ? $data['invalid_data'] : null;
         $this->container['is_3d'] = isset($data['is_3d']) ? $data['is_3d'] : null;
@@ -588,6 +596,30 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     public function setId($id)
     {
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets installment_amount
+     *
+     * @return float
+     */
+    public function getInstallmentAmount()
+    {
+        return $this->container['installment_amount'];
+    }
+
+    /**
+     * Sets installment_amount
+     *
+     * @param float $installment_amount Amount of 1 installment payment, will be returned if presented in request (for payment page mode only)
+     *
+     * @return $this
+     */
+    public function setInstallmentAmount($installment_amount)
+    {
+        $this->container['installment_amount'] = $installment_amount;
 
         return $this;
     }

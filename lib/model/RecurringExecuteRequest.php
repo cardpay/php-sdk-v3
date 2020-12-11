@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class UpdatedSubscriptionRecurringData implements ModelInterface, ArrayAccess
+class RecurringExecuteRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class UpdatedSubscriptionRecurringData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'UpdatedSubscriptionRecurringData';
+    protected static $swaggerModelName = 'RecurringExecuteRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,9 @@ class UpdatedSubscriptionRecurringData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'string',
-        'separate_auth' => 'bool'
+        'request' => '\Cardpay\model\Request',
+        'operation' => 'string',
+        'recurring_data' => '\Cardpay\model\PaymentUpdateTransactionData'
     ];
 
     /**
@@ -36,8 +37,9 @@ class UpdatedSubscriptionRecurringData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => null,
-        'separate_auth' => null
+        'request' => null,
+        'operation' => null,
+        'recurring_data' => null
     ];
 
     /**
@@ -67,8 +69,9 @@ class UpdatedSubscriptionRecurringData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'separate_auth' => 'separate_auth'
+        'request' => 'request',
+        'operation' => 'operation',
+        'recurring_data' => 'recurring_data'
     ];
 
     /**
@@ -77,8 +80,9 @@ class UpdatedSubscriptionRecurringData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'separate_auth' => 'setSeparateAuth'
+        'request' => 'setRequest',
+        'operation' => 'setOperation',
+        'recurring_data' => 'setRecurringData'
     ];
 
     /**
@@ -87,8 +91,9 @@ class UpdatedSubscriptionRecurringData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'separate_auth' => 'getSeparateAuth'
+        'request' => 'getRequest',
+        'operation' => 'getOperation',
+        'recurring_data' => 'getRecurringData'
     ];
 
     /**
@@ -132,8 +137,25 @@ class UpdatedSubscriptionRecurringData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
+    const OPERATION_CONFIRM_3_DS = 'CONFIRM_3DS';
+    const OPERATION_EXECUTE = 'EXECUTE';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getOperationAllowableValues()
+    {
+        return [
+            self::OPERATION_CHANGE_STATUS,
+            self::OPERATION_CONFIRM_3_DS,
+            self::OPERATION_EXECUTE,
+        ];
+    }
     
 
     /**
@@ -151,8 +173,9 @@ class UpdatedSubscriptionRecurringData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['separate_auth'] = isset($data['separate_auth']) ? $data['separate_auth'] : null;
+        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
+        $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
+        $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
     }
 
     /**
@@ -163,6 +186,20 @@ class UpdatedSubscriptionRecurringData implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['request'] === null) {
+            $invalidProperties[] = "'request' can't be null";
+        }
+        if ($this->container['operation'] === null) {
+            $invalidProperties[] = "'operation' can't be null";
+        }
+        $allowedValues = $this->getOperationAllowableValues();
+        if (!is_null($this->container['operation']) && !in_array($this->container['operation'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'operation', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
+        }
 
         return $invalidProperties;
     }
@@ -180,49 +217,82 @@ class UpdatedSubscriptionRecurringData implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets id
+     * Gets request
      *
-     * @return string
+     * @return \Cardpay\model\Request
      */
-    public function getId()
+    public function getRequest()
     {
-        return $this->container['id'];
+        return $this->container['request'];
     }
 
     /**
-     * Sets id
+     * Sets request
      *
-     * @param string $id ID of transaction initiated by repayment request.
+     * @param \Cardpay\model\Request $request Request
      *
      * @return $this
      */
-    public function setId($id)
+    public function setRequest($request)
     {
-        $this->container['id'] = $id;
+        $this->container['request'] = $request;
 
         return $this;
     }
 
     /**
-     * Gets separate_auth
+     * Gets operation
      *
-     * @return bool
+     * @return string
      */
-    public function getSeparateAuth()
+    public function getOperation()
     {
-        return $this->container['separate_auth'];
+        return $this->container['operation'];
     }
 
     /**
-     * Sets separate_auth
+     * Sets operation
      *
-     * @param bool $separate_auth Means that authentication can be carried separately from the payment. Possible values: true -  authentication can be carried separately, false -  authentication can not be carried separately
+     * @param string $operation `EXECUTE` value
      *
      * @return $this
      */
-    public function setSeparateAuth($separate_auth)
+    public function setOperation($operation)
     {
-        $this->container['separate_auth'] = $separate_auth;
+        $allowedValues = $this->getOperationAllowableValues();
+        if (!in_array($operation, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'operation', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['operation'] = $operation;
+
+        return $this;
+    }
+
+    /**
+     * Gets recurring_data
+     *
+     * @return \Cardpay\model\PaymentUpdateTransactionData
+     */
+    public function getRecurringData()
+    {
+        return $this->container['recurring_data'];
+    }
+
+    /**
+     * Sets recurring_data
+     *
+     * @param \Cardpay\model\PaymentUpdateTransactionData $recurring_data Recurring data
+     *
+     * @return $this
+     */
+    public function setRecurringData($recurring_data)
+    {
+        $this->container['recurring_data'] = $recurring_data;
 
         return $this;
     }

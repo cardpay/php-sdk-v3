@@ -129,6 +129,7 @@ class RequestUpdatedTransactionData implements ModelInterface, ArrayAccess
 
     const STATUS_TO_REVERSE = 'REVERSE';
     const STATUS_TO_COMPLETE = 'COMPLETE';
+    const STATUS_TO_TERMINATE = 'TERMINATE';
     
 
     
@@ -142,6 +143,7 @@ class RequestUpdatedTransactionData implements ModelInterface, ArrayAccess
         return [
             self::STATUS_TO_REVERSE,
             self::STATUS_TO_COMPLETE,
+            self::STATUS_TO_TERMINATE,
         ];
     }
     

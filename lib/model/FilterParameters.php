@@ -234,8 +234,8 @@ class FilterParameters implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'merchant_order_id', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['payment_method']) && (mb_strlen($this->container['payment_method']) > 100)) {
-            $invalidProperties[] = "invalid value for 'payment_method', the character length must be smaller than or equal to 100.";
+        if (!is_null($this->container['payment_method']) && (mb_strlen($this->container['payment_method']) > 50)) {
+            $invalidProperties[] = "invalid value for 'payment_method', the character length must be smaller than or equal to 50.";
         }
 
         if (!is_null($this->container['payment_method']) && (mb_strlen($this->container['payment_method']) < 0)) {
@@ -354,8 +354,8 @@ class FilterParameters implements ModelInterface, ArrayAccess
      */
     public function setPaymentMethod($payment_method)
     {
-        if (!is_null($payment_method) && (mb_strlen($payment_method) > 100)) {
-            throw new \InvalidArgumentException('invalid length for $payment_method when calling FilterParameters., must be smaller than or equal to 100.');
+        if (!is_null($payment_method) && (mb_strlen($payment_method) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $payment_method when calling FilterParameters., must be smaller than or equal to 50.');
         }
         if (!is_null($payment_method) && (mb_strlen($payment_method) < 0)) {
             throw new \InvalidArgumentException('invalid length for $payment_method when calling FilterParameters., must be bigger than or equal to 0.');

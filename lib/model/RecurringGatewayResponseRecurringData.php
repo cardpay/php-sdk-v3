@@ -26,7 +26,8 @@ class RecurringGatewayResponseRecurringData implements ModelInterface, ArrayAcce
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'string'
+        'id' => 'string',
+        'separate_auth' => 'bool'
     ];
 
     /**
@@ -35,7 +36,8 @@ class RecurringGatewayResponseRecurringData implements ModelInterface, ArrayAcce
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => null
+        'id' => null,
+        'separate_auth' => null
     ];
 
     /**
@@ -65,7 +67,8 @@ class RecurringGatewayResponseRecurringData implements ModelInterface, ArrayAcce
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id'
+        'id' => 'id',
+        'separate_auth' => 'separate_auth'
     ];
 
     /**
@@ -74,7 +77,8 @@ class RecurringGatewayResponseRecurringData implements ModelInterface, ArrayAcce
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId'
+        'id' => 'setId',
+        'separate_auth' => 'setSeparateAuth'
     ];
 
     /**
@@ -83,7 +87,8 @@ class RecurringGatewayResponseRecurringData implements ModelInterface, ArrayAcce
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId'
+        'id' => 'getId',
+        'separate_auth' => 'getSeparateAuth'
     ];
 
     /**
@@ -147,6 +152,7 @@ class RecurringGatewayResponseRecurringData implements ModelInterface, ArrayAcce
     public function __construct(array $data = null)
     {
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['separate_auth'] = isset($data['separate_auth']) ? $data['separate_auth'] : null;
     }
 
     /**
@@ -193,6 +199,30 @@ class RecurringGatewayResponseRecurringData implements ModelInterface, ArrayAcce
     public function setId($id)
     {
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets separate_auth
+     *
+     * @return bool
+     */
+    public function getSeparateAuth()
+    {
+        return $this->container['separate_auth'];
+    }
+
+    /**
+     * Sets separate_auth
+     *
+     * @param bool $separate_auth Means that authentication can be carried separately from the payment. Possible values: true -  authentication can be carried separately, false -  authentication can not be carried separately
+     *
+     * @return $this
+     */
+    public function setSeparateAuth($separate_auth)
+    {
+        $this->container['separate_auth'] = $separate_auth;
 
         return $this;
     }

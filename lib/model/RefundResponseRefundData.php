@@ -186,6 +186,7 @@ class RefundResponseRefundData implements ModelInterface, ArrayAccess
     const STATUS_REFUNDED = 'REFUNDED';
     const STATUS_PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED';
     const STATUS_VOIDED = 'VOIDED';
+    const STATUS_TERMINATED = 'TERMINATED';
     const STATUS_CHARGED_BACK = 'CHARGED_BACK';
     const STATUS_CHARGEBACK_RESOLVED = 'CHARGEBACK_RESOLVED';
     
@@ -208,6 +209,7 @@ class RefundResponseRefundData implements ModelInterface, ArrayAccess
             self::STATUS_REFUNDED,
             self::STATUS_PARTIALLY_REFUNDED,
             self::STATUS_VOIDED,
+            self::STATUS_TERMINATED,
             self::STATUS_CHARGED_BACK,
             self::STATUS_CHARGEBACK_RESOLVED,
         ];

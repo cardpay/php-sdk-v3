@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class AuthenticationRequest implements ModelInterface, ArrayAccess
+class PaymentExecuteRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'AuthenticationRequest';
+    protected static $swaggerModelName = 'PaymentExecuteRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -27,12 +27,8 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
-        'card_account' => '\Cardpay\model\PaymentRequestCardAccount',
-        'customer' => '\Cardpay\model\PaymentRequestCustomer',
-        'merchant_order' => '\Cardpay\model\PaymentRequestMerchantOrder',
-        'payment_data' => '\Cardpay\model\PaymentRequestPaymentData',
-        'payment_method' => 'string',
-        'return_urls' => '\Cardpay\model\ReturnUrls'
+        'operation' => 'string',
+        'payment_data' => '\Cardpay\model\PaymentUpdateTransactionData'
     ];
 
     /**
@@ -42,12 +38,8 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'request' => null,
-        'card_account' => null,
-        'customer' => null,
-        'merchant_order' => null,
-        'payment_data' => null,
-        'payment_method' => null,
-        'return_urls' => null
+        'operation' => null,
+        'payment_data' => null
     ];
 
     /**
@@ -78,12 +70,8 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'request' => 'request',
-        'card_account' => 'card_account',
-        'customer' => 'customer',
-        'merchant_order' => 'merchant_order',
-        'payment_data' => 'payment_data',
-        'payment_method' => 'payment_method',
-        'return_urls' => 'return_urls'
+        'operation' => 'operation',
+        'payment_data' => 'payment_data'
     ];
 
     /**
@@ -93,12 +81,8 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'request' => 'setRequest',
-        'card_account' => 'setCardAccount',
-        'customer' => 'setCustomer',
-        'merchant_order' => 'setMerchantOrder',
-        'payment_data' => 'setPaymentData',
-        'payment_method' => 'setPaymentMethod',
-        'return_urls' => 'setReturnUrls'
+        'operation' => 'setOperation',
+        'payment_data' => 'setPaymentData'
     ];
 
     /**
@@ -108,12 +92,8 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'request' => 'getRequest',
-        'card_account' => 'getCardAccount',
-        'customer' => 'getCustomer',
-        'merchant_order' => 'getMerchantOrder',
-        'payment_data' => 'getPaymentData',
-        'payment_method' => 'getPaymentMethod',
-        'return_urls' => 'getReturnUrls'
+        'operation' => 'getOperation',
+        'payment_data' => 'getPaymentData'
     ];
 
     /**
@@ -157,8 +137,25 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
+    const OPERATION_CONFIRM_3_DS = 'CONFIRM_3DS';
+    const OPERATION_EXECUTE = 'EXECUTE';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getOperationAllowableValues()
+    {
+        return [
+            self::OPERATION_CHANGE_STATUS,
+            self::OPERATION_CONFIRM_3_DS,
+            self::OPERATION_EXECUTE,
+        ];
+    }
     
 
     /**
@@ -177,12 +174,8 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['request'] = isset($data['request']) ? $data['request'] : null;
-        $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
-        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
+        $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
         $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
-        $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
-        $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
     }
 
     /**
@@ -197,18 +190,17 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
         if ($this->container['request'] === null) {
             $invalidProperties[] = "'request' can't be null";
         }
-        if ($this->container['card_account'] === null) {
-            $invalidProperties[] = "'card_account' can't be null";
+        if ($this->container['operation'] === null) {
+            $invalidProperties[] = "'operation' can't be null";
         }
-        if ($this->container['customer'] === null) {
-            $invalidProperties[] = "'customer' can't be null";
+        $allowedValues = $this->getOperationAllowableValues();
+        if (!is_null($this->container['operation']) && !in_array($this->container['operation'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'operation', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
         }
-        if ($this->container['merchant_order'] === null) {
-            $invalidProperties[] = "'merchant_order' can't be null";
-        }
-        if ($this->container['payment_data'] === null) {
-            $invalidProperties[] = "'payment_data' can't be null";
-        }
+
         return $invalidProperties;
     }
 
@@ -249,73 +241,34 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets card_account
+     * Gets operation
      *
-     * @return \Cardpay\model\PaymentRequestCardAccount
+     * @return string
      */
-    public function getCardAccount()
+    public function getOperation()
     {
-        return $this->container['card_account'];
+        return $this->container['operation'];
     }
 
     /**
-     * Sets card_account
+     * Sets operation
      *
-     * @param \Cardpay\model\PaymentRequestCardAccount $card_account Information about card *(for BANKCARD payment method only)*
+     * @param string $operation `EXECUTE` value
      *
      * @return $this
      */
-    public function setCardAccount($card_account)
+    public function setOperation($operation)
     {
-        $this->container['card_account'] = $card_account;
-
-        return $this;
-    }
-
-    /**
-     * Gets customer
-     *
-     * @return \Cardpay\model\PaymentRequestCustomer
-     */
-    public function getCustomer()
-    {
-        return $this->container['customer'];
-    }
-
-    /**
-     * Sets customer
-     *
-     * @param \Cardpay\model\PaymentRequestCustomer $customer Customer data
-     *
-     * @return $this
-     */
-    public function setCustomer($customer)
-    {
-        $this->container['customer'] = $customer;
-
-        return $this;
-    }
-
-    /**
-     * Gets merchant_order
-     *
-     * @return \Cardpay\model\PaymentRequestMerchantOrder
-     */
-    public function getMerchantOrder()
-    {
-        return $this->container['merchant_order'];
-    }
-
-    /**
-     * Sets merchant_order
-     *
-     * @param \Cardpay\model\PaymentRequestMerchantOrder $merchant_order Merchant order data
-     *
-     * @return $this
-     */
-    public function setMerchantOrder($merchant_order)
-    {
-        $this->container['merchant_order'] = $merchant_order;
+        $allowedValues = $this->getOperationAllowableValues();
+        if (!in_array($operation, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'operation', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['operation'] = $operation;
 
         return $this;
     }
@@ -323,7 +276,7 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
     /**
      * Gets payment_data
      *
-     * @return \Cardpay\model\PaymentRequestPaymentData
+     * @return \Cardpay\model\PaymentUpdateTransactionData
      */
     public function getPaymentData()
     {
@@ -333,61 +286,13 @@ class AuthenticationRequest implements ModelInterface, ArrayAccess
     /**
      * Sets payment_data
      *
-     * @param \Cardpay\model\PaymentRequestPaymentData $payment_data Payment data
+     * @param \Cardpay\model\PaymentUpdateTransactionData $payment_data Payment data
      *
      * @return $this
      */
     public function setPaymentData($payment_data)
     {
         $this->container['payment_data'] = $payment_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_method
-     *
-     * @return string
-     */
-    public function getPaymentMethod()
-    {
-        return $this->container['payment_method'];
-    }
-
-    /**
-     * Sets payment_method
-     *
-     * @param string $payment_method Used payment method type name from payment methods list
-     *
-     * @return $this
-     */
-    public function setPaymentMethod($payment_method)
-    {
-        $this->container['payment_method'] = $payment_method;
-
-        return $this;
-    }
-
-    /**
-     * Gets return_urls
-     *
-     * @return \Cardpay\model\ReturnUrls
-     */
-    public function getReturnUrls()
-    {
-        return $this->container['return_urls'];
-    }
-
-    /**
-     * Sets return_urls
-     *
-     * @param \Cardpay\model\ReturnUrls $return_urls Return URLs are the URLs where Customer returns by pressing 'Back to the shop' or 'Cancel' button in Payment page mode and redirected automatically in Gateway mode
-     *
-     * @return $this
-     */
-    public function setReturnUrls($return_urls)
-    {
-        $this->container['return_urls'] = $return_urls;
 
         return $this;
     }

@@ -32,6 +32,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'generate_token' => 'bool',
         'hold_rest_amount' => 'bool',
         'initiator' => 'string',
+        'installment_amount' => 'float',
         'installment_type' => 'string',
         'interval' => 'int',
         'note' => 'string',
@@ -54,6 +55,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'generate_token' => null,
         'hold_rest_amount' => null,
         'initiator' => null,
+        'installment_amount' => null,
         'installment_type' => null,
         'interval' => 'int32',
         'note' => null,
@@ -97,6 +99,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'generate_token' => 'generate_token',
         'hold_rest_amount' => 'hold_rest_amount',
         'initiator' => 'initiator',
+        'installment_amount' => 'installment_amount',
         'installment_type' => 'installment_type',
         'interval' => 'interval',
         'note' => 'note',
@@ -119,6 +122,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'generate_token' => 'setGenerateToken',
         'hold_rest_amount' => 'setHoldRestAmount',
         'initiator' => 'setInitiator',
+        'installment_amount' => 'setInstallmentAmount',
         'installment_type' => 'setInstallmentType',
         'interval' => 'setInterval',
         'note' => 'setNote',
@@ -141,6 +145,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'generate_token' => 'getGenerateToken',
         'hold_rest_amount' => 'getHoldRestAmount',
         'initiator' => 'getInitiator',
+        'installment_amount' => 'getInstallmentAmount',
         'installment_type' => 'getInstallmentType',
         'interval' => 'getInterval',
         'note' => 'getNote',
@@ -259,6 +264,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
         $this->container['hold_rest_amount'] = isset($data['hold_rest_amount']) ? $data['hold_rest_amount'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
+        $this->container['installment_amount'] = isset($data['installment_amount']) ? $data['installment_amount'] : null;
         $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
         $this->container['interval'] = isset($data['interval']) ? $data['interval'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
@@ -495,6 +501,30 @@ class InstallmentData implements ModelInterface, ArrayAccess
         }
 
         $this->container['initiator'] = $initiator;
+
+        return $this;
+    }
+
+    /**
+     * Gets installment_amount
+     *
+     * @return float
+     */
+    public function getInstallmentAmount()
+    {
+        return $this->container['installment_amount'];
+    }
+
+    /**
+     * Sets installment_amount
+     *
+     * @param float $installment_amount Amount of 1 installment payment, should be less or equal to total amount of subscription, can have dot as a decimal separator. Mandatory for Payment Page Mode only.
+     *
+     * @return $this
+     */
+    public function setInstallmentAmount($installment_amount)
+    {
+        $this->container['installment_amount'] = $installment_amount;
 
         return $this;
     }

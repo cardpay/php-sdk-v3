@@ -2,7 +2,7 @@
 The Cardpay API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 2.23.1
+- PHP SDK version: 2.24.7
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
@@ -84,10 +84,10 @@ composer install
 
  - [ApiError](lib/model/ApiError.php)
  - [ApiTokens](lib/model/ApiTokens.php)
+ - [AuthenticationCustomer](lib/model/AuthenticationCustomer.php)
  - [AuthenticationData](lib/model/AuthenticationData.php)
+ - [AuthenticationDataResponse](lib/model/AuthenticationDataResponse.php)
  - [AuthenticationError](lib/model/AuthenticationError.php)
- - [AuthenticationRequest](lib/model/AuthenticationRequest.php)
- - [AuthenticationResponse](lib/model/AuthenticationResponse.php)
  - [BadRequestError](lib/model/BadRequestError.php)
  - [BankCardPayoutData](lib/model/BankCardPayoutData.php)
  - [BillingAddress](lib/model/BillingAddress.php)
@@ -235,6 +235,7 @@ composer install
  - [SubscriptionUpdateRequestSubscriptionData](lib/model/SubscriptionUpdateRequestSubscriptionData.php)
  - [SubscriptionUpdateResponse](lib/model/SubscriptionUpdateResponse.php)
  - [ThreeDSecureData](lib/model/ThreeDSecureData.php)
+ - [ThreeDSecureResponse](lib/model/ThreeDSecureResponse.php)
  - [TransactionRequest](lib/model/TransactionRequest.php)
  - [TransactionResponseEWalletAccount](lib/model/TransactionResponseEWalletAccount.php)
  - [TransactionResponseMerchantOrder](lib/model/TransactionResponseMerchantOrder.php)
@@ -243,8 +244,10 @@ composer install
  - [UpdatedSubscriptionData](lib/model/UpdatedSubscriptionData.php)
  - [UpdatedSubscriptionRecurringData](lib/model/UpdatedSubscriptionRecurringData.php)
  - [PaymentConfirm3dsRequest](lib/model/PaymentConfirm3dsRequest.php)
+ - [PaymentExecuteRequest](lib/model/PaymentExecuteRequest.php)
  - [PaymentUpdateRequest](lib/model/PaymentUpdateRequest.php)
  - [RecurringConfirm3dsRequest](lib/model/RecurringConfirm3dsRequest.php)
+ - [RecurringExecuteRequest](lib/model/RecurringExecuteRequest.php)
  - [RecurringUpdateRequest](lib/model/RecurringUpdateRequest.php)
 
 

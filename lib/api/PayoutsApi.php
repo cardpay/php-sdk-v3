@@ -933,8 +933,8 @@ class PayoutsApi
             throw new \InvalidArgumentException('invalid length for "$merchant_order_id" when calling PayoutsApi.getPayouts, must be bigger than or equal to 0.');
         }
 
-        if ($payment_method !== null && strlen($payment_method) > 100) {
-            throw new \InvalidArgumentException('invalid length for "$payment_method" when calling PayoutsApi.getPayouts, must be smaller than or equal to 100.');
+        if ($payment_method !== null && strlen($payment_method) > 50) {
+            throw new \InvalidArgumentException('invalid length for "$payment_method" when calling PayoutsApi.getPayouts, must be smaller than or equal to 50.');
         }
         if ($payment_method !== null && strlen($payment_method) < 0) {
             throw new \InvalidArgumentException('invalid length for "$payment_method" when calling PayoutsApi.getPayouts, must be bigger than or equal to 0.');

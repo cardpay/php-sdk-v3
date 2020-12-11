@@ -171,8 +171,8 @@ class RefundRequestMerchantOrder implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 200.";
         }
 
-        if ((mb_strlen($this->container['description']) < 0)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be bigger than or equal to 0.";
+        if ((mb_strlen($this->container['description']) < 1)) {
+            $invalidProperties[] = "invalid value for 'description', the character length must be bigger than or equal to 1.";
         }
 
         if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 50)) {
@@ -220,8 +220,8 @@ class RefundRequestMerchantOrder implements ModelInterface, ArrayAccess
         if ((mb_strlen($description) > 200)) {
             throw new \InvalidArgumentException('invalid length for $description when calling RefundRequestMerchantOrder., must be smaller than or equal to 200.');
         }
-        if ((mb_strlen($description) < 0)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling RefundRequestMerchantOrder., must be bigger than or equal to 0.');
+        if ((mb_strlen($description) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $description when calling RefundRequestMerchantOrder., must be bigger than or equal to 1.');
         }
 
         $this->container['description'] = $description;

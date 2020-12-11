@@ -212,8 +212,8 @@ class FilingRequest implements ModelInterface, ArrayAccess
         if ($this->container['payment_method'] === null) {
             $invalidProperties[] = "'payment_method' can't be null";
         }
-        if ((mb_strlen($this->container['payment_method']) > 100)) {
-            $invalidProperties[] = "invalid value for 'payment_method', the character length must be smaller than or equal to 100.";
+        if ((mb_strlen($this->container['payment_method']) > 50)) {
+            $invalidProperties[] = "invalid value for 'payment_method', the character length must be smaller than or equal to 50.";
         }
 
         if ((mb_strlen($this->container['payment_method']) < 1)) {
@@ -350,8 +350,8 @@ class FilingRequest implements ModelInterface, ArrayAccess
      */
     public function setPaymentMethod($payment_method)
     {
-        if ((mb_strlen($payment_method) > 100)) {
-            throw new \InvalidArgumentException('invalid length for $payment_method when calling FilingRequest., must be smaller than or equal to 100.');
+        if ((mb_strlen($payment_method) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $payment_method when calling FilingRequest., must be smaller than or equal to 50.');
         }
         if ((mb_strlen($payment_method) < 1)) {
             throw new \InvalidArgumentException('invalid length for $payment_method when calling FilingRequest., must be bigger than or equal to 1.');

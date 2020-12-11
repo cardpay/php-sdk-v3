@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class AuthenticationResponse implements ModelInterface, ArrayAccess
+class AuthenticationDataResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class AuthenticationResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'AuthenticationResponse';
+    protected static $swaggerModelName = 'AuthenticationDataResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,11 @@ class AuthenticationResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'redirect_url' => 'string',
-        'threedsecure_data' => '\Cardpay\model\ThreeDSecureData'
+        'merchant_order' => '\Cardpay\model\TransactionResponseMerchantOrder',
+        'payment_method' => 'string',
+        'authentication_data' => '\Cardpay\model\AuthenticationData',
+        'card_account' => '\Cardpay\model\PaymentResponseCardAccount',
+        'customer' => '\Cardpay\model\AuthenticationCustomer'
     ];
 
     /**
@@ -36,8 +39,11 @@ class AuthenticationResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'redirect_url' => null,
-        'threedsecure_data' => null
+        'merchant_order' => null,
+        'payment_method' => null,
+        'authentication_data' => null,
+        'card_account' => null,
+        'customer' => null
     ];
 
     /**
@@ -67,8 +73,11 @@ class AuthenticationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'redirect_url' => 'redirect_url',
-        'threedsecure_data' => 'threedsecure_data'
+        'merchant_order' => 'merchant_order',
+        'payment_method' => 'payment_method',
+        'authentication_data' => 'authentication_data',
+        'card_account' => 'card_account',
+        'customer' => 'customer'
     ];
 
     /**
@@ -77,8 +86,11 @@ class AuthenticationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'redirect_url' => 'setRedirectUrl',
-        'threedsecure_data' => 'setThreedsecureData'
+        'merchant_order' => 'setMerchantOrder',
+        'payment_method' => 'setPaymentMethod',
+        'authentication_data' => 'setAuthenticationData',
+        'card_account' => 'setCardAccount',
+        'customer' => 'setCustomer'
     ];
 
     /**
@@ -87,8 +99,11 @@ class AuthenticationResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'redirect_url' => 'getRedirectUrl',
-        'threedsecure_data' => 'getThreedsecureData'
+        'merchant_order' => 'getMerchantOrder',
+        'payment_method' => 'getPaymentMethod',
+        'authentication_data' => 'getAuthenticationData',
+        'card_account' => 'getCardAccount',
+        'customer' => 'getCustomer'
     ];
 
     /**
@@ -151,8 +166,11 @@ class AuthenticationResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['redirect_url'] = isset($data['redirect_url']) ? $data['redirect_url'] : null;
-        $this->container['threedsecure_data'] = isset($data['threedsecure_data']) ? $data['threedsecure_data'] : null;
+        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
+        $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
+        $this->container['authentication_data'] = isset($data['authentication_data']) ? $data['authentication_data'] : null;
+        $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
+        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
     }
 
     /**
@@ -180,49 +198,121 @@ class AuthenticationResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets redirect_url
+     * Gets merchant_order
      *
-     * @return string
+     * @return \Cardpay\model\TransactionResponseMerchantOrder
      */
-    public function getRedirectUrl()
+    public function getMerchantOrder()
     {
-        return $this->container['redirect_url'];
+        return $this->container['merchant_order'];
     }
 
     /**
-     * Sets redirect_url
+     * Sets merchant_order
      *
-     * @param string $redirect_url URL Customer should be redirected to
+     * @param \Cardpay\model\TransactionResponseMerchantOrder $merchant_order Merchant order data
      *
      * @return $this
      */
-    public function setRedirectUrl($redirect_url)
+    public function setMerchantOrder($merchant_order)
     {
-        $this->container['redirect_url'] = $redirect_url;
+        $this->container['merchant_order'] = $merchant_order;
 
         return $this;
     }
 
     /**
-     * Gets threedsecure_data
+     * Gets payment_method
      *
-     * @return \Cardpay\model\ThreeDSecureData
+     * @return string
      */
-    public function getThreedsecureData()
+    public function getPaymentMethod()
     {
-        return $this->container['threedsecure_data'];
+        return $this->container['payment_method'];
     }
 
     /**
-     * Sets threedsecure_data
+     * Sets payment_method
      *
-     * @param \Cardpay\model\ThreeDSecureData $threedsecure_data threedsecure_data
+     * @param string $payment_method Used payment method type name from payment methods list
      *
      * @return $this
      */
-    public function setThreedsecureData($threedsecure_data)
+    public function setPaymentMethod($payment_method)
     {
-        $this->container['threedsecure_data'] = $threedsecure_data;
+        $this->container['payment_method'] = $payment_method;
+
+        return $this;
+    }
+
+    /**
+     * Gets authentication_data
+     *
+     * @return \Cardpay\model\AuthenticationData
+     */
+    public function getAuthenticationData()
+    {
+        return $this->container['authentication_data'];
+    }
+
+    /**
+     * Sets authentication_data
+     *
+     * @param \Cardpay\model\AuthenticationData $authentication_data Payment authentication data
+     *
+     * @return $this
+     */
+    public function setAuthenticationData($authentication_data)
+    {
+        $this->container['authentication_data'] = $authentication_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets card_account
+     *
+     * @return \Cardpay\model\PaymentResponseCardAccount
+     */
+    public function getCardAccount()
+    {
+        return $this->container['card_account'];
+    }
+
+    /**
+     * Sets card_account
+     *
+     * @param \Cardpay\model\PaymentResponseCardAccount $card_account Bank card data *(for BANKCARD payment method only)*
+     *
+     * @return $this
+     */
+    public function setCardAccount($card_account)
+    {
+        $this->container['card_account'] = $card_account;
+
+        return $this;
+    }
+
+    /**
+     * Gets customer
+     *
+     * @return \Cardpay\model\AuthenticationCustomer
+     */
+    public function getCustomer()
+    {
+        return $this->container['customer'];
+    }
+
+    /**
+     * Sets customer
+     *
+     * @param \Cardpay\model\AuthenticationCustomer $customer Customer data
+     *
+     * @return $this
+     */
+    public function setCustomer($customer)
+    {
+        $this->container['customer'] = $customer;
 
         return $this;
     }
