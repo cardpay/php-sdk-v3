@@ -30,7 +30,6 @@ class BillingAddress implements ModelInterface, ArrayAccess
         'addr_line_2' => 'string',
         'city' => 'string',
         'country' => 'string',
-        'phone' => 'string',
         'state' => 'string',
         'zip' => 'string'
     ];
@@ -45,7 +44,6 @@ class BillingAddress implements ModelInterface, ArrayAccess
         'addr_line_2' => null,
         'city' => null,
         'country' => null,
-        'phone' => null,
         'state' => null,
         'zip' => null
     ];
@@ -81,7 +79,6 @@ class BillingAddress implements ModelInterface, ArrayAccess
         'addr_line_2' => 'addr_line_2',
         'city' => 'city',
         'country' => 'country',
-        'phone' => 'phone',
         'state' => 'state',
         'zip' => 'zip'
     ];
@@ -96,7 +93,6 @@ class BillingAddress implements ModelInterface, ArrayAccess
         'addr_line_2' => 'setAddrLine2',
         'city' => 'setCity',
         'country' => 'setCountry',
-        'phone' => 'setPhone',
         'state' => 'setState',
         'zip' => 'setZip'
     ];
@@ -111,7 +107,6 @@ class BillingAddress implements ModelInterface, ArrayAccess
         'addr_line_2' => 'getAddrLine2',
         'city' => 'getCity',
         'country' => 'getCountry',
-        'phone' => 'getPhone',
         'state' => 'getState',
         'zip' => 'getZip'
     ];
@@ -180,7 +175,6 @@ class BillingAddress implements ModelInterface, ArrayAccess
         $this->container['addr_line_2'] = isset($data['addr_line_2']) ? $data['addr_line_2'] : null;
         $this->container['city'] = isset($data['city']) ? $data['city'] : null;
         $this->container['country'] = isset($data['country']) ? $data['country'] : null;
-        $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
         $this->container['state'] = isset($data['state']) ? $data['state'] : null;
         $this->container['zip'] = isset($data['zip']) ? $data['zip'] : null;
     }
@@ -194,26 +188,23 @@ class BillingAddress implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 50)) {
+        if ($this->container['addr_line_1'] === null) {
+            $invalidProperties[] = "'addr_line_1' can't be null";
+        }
+        if ($this->container['city'] === null) {
+            $invalidProperties[] = "'city' can't be null";
+        }
+        if ((mb_strlen($this->container['city']) > 50)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 50.";
         }
 
-        if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) < 0)) {
+        if ((mb_strlen($this->container['city']) < 0)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 20)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 20.";
+        if ($this->container['country'] === null) {
+            $invalidProperties[] = "'country' can't be null";
         }
-
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 5)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 5.";
-        }
-
-        if (!is_null($this->container['phone']) && !preg_match("/[-+\\d()wp\\s]+/", $this->container['phone'])) {
-            $invalidProperties[] = "invalid value for 'phone', must be conform to the pattern /[-+\\d()wp\\s]+/.";
-        }
-
         if (!is_null($this->container['state']) && (mb_strlen($this->container['state']) > 40)) {
             $invalidProperties[] = "invalid value for 'state', the character length must be smaller than or equal to 40.";
         }
@@ -222,11 +213,14 @@ class BillingAddress implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'state', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['zip']) && (mb_strlen($this->container['zip']) > 12)) {
+        if ($this->container['zip'] === null) {
+            $invalidProperties[] = "'zip' can't be null";
+        }
+        if ((mb_strlen($this->container['zip']) > 12)) {
             $invalidProperties[] = "invalid value for 'zip', the character length must be smaller than or equal to 12.";
         }
 
-        if (!is_null($this->container['zip']) && (mb_strlen($this->container['zip']) < 0)) {
+        if ((mb_strlen($this->container['zip']) < 0)) {
             $invalidProperties[] = "invalid value for 'zip', the character length must be bigger than or equal to 0.";
         }
 
@@ -258,7 +252,7 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets addr_line_1
      *
-     * @param string $addr_line_1 Street address. May include whitespaces, hyphens, apostrophes, commas, quotes, dots, slashes and semicolons
+     * @param string $addr_line_1 First line of the street address or equivalent local portion of the Cardholder billing address associated with the card used for this purchase. Should include street and house number. May include whitespaces, hyphens, apostrophes, commas, quotes, dots, slashes and semicolons. Required (if available) unless market or regional mandate restricts sending this information. For recurring: field will be ignored if 'filing.id' is presented in request (continue one-click scenario) *Length: 0 - 50*
      *
      * @return $this
      */
@@ -282,7 +276,7 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets addr_line_2
      *
-     * @param string $addr_line_2 Second line of the street address or equivalent local portion of the Cardholder billing address associated with the card used for this purchase.
+     * @param string $addr_line_2 Second line of the street address or equivalent local portion of the Cardholder billing address associated with the card used for this purchase. Required (if available) unless market or regional mandate restricts sending this information. For recurring: field will be ignored if 'filing.id' is presented in request (continue one-click scenario) *Length: 0 - 50*
      *
      * @return $this
      */
@@ -306,16 +300,16 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets city
      *
-     * @param string $city Delivery city. May include whitespaces, hyphens, apostrophes, commas and dots
+     * @param string $city Billing city. May include whitespaces, hyphens, apostrophes, commas and dots
      *
      * @return $this
      */
     public function setCity($city)
     {
-        if (!is_null($city) && (mb_strlen($city) > 50)) {
+        if ((mb_strlen($city) > 50)) {
             throw new \InvalidArgumentException('invalid length for $city when calling BillingAddress., must be smaller than or equal to 50.');
         }
-        if (!is_null($city) && (mb_strlen($city) < 0)) {
+        if ((mb_strlen($city) < 0)) {
             throw new \InvalidArgumentException('invalid length for $city when calling BillingAddress., must be bigger than or equal to 0.');
         }
 
@@ -337,47 +331,13 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets country
      *
-     * @param string $country [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code of country: 2 or 3 latin letters or numeric code. Mandatory if 'shipping_address' is presented.
+     * @param string $country [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code of billing country: 2 or 3 latin letters or numeric code
      *
      * @return $this
      */
     public function setCountry($country)
     {
         $this->container['country'] = $country;
-
-        return $this;
-    }
-
-    /**
-     * Gets phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->container['phone'];
-    }
-
-    /**
-     * Sets phone
-     *
-     * @param string $phone Valid customer phone number
-     *
-     * @return $this
-     */
-    public function setPhone($phone)
-    {
-        if (!is_null($phone) && (mb_strlen($phone) > 20)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling BillingAddress., must be smaller than or equal to 20.');
-        }
-        if (!is_null($phone) && (mb_strlen($phone) < 5)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling BillingAddress., must be bigger than or equal to 5.');
-        }
-        if (!is_null($phone) && (!preg_match("/[-+\\d()wp\\s]+/", $phone))) {
-            throw new \InvalidArgumentException("invalid value for $phone when calling BillingAddress., must conform to the pattern /[-+\\d()wp\\s]+/.");
-        }
-
-        $this->container['phone'] = $phone;
 
         return $this;
     }
@@ -395,7 +355,7 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets state
      *
-     * @param string $state Delivery state or province. May include whitespaces, hyphens, apostrophes, commas and dots
+     * @param string $state The state or province of the billing address associated with the card being used for this purchase. It's recommended to send in following format: the country subdivision code defined in [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2). May include whitespaces, hyphens, apostrophes, commas and dots
      *
      * @return $this
      */
@@ -426,16 +386,16 @@ class BillingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets zip
      *
-     * @param string $zip Delivery postal code
+     * @param string $zip Billing postal code
      *
      * @return $this
      */
     public function setZip($zip)
     {
-        if (!is_null($zip) && (mb_strlen($zip) > 12)) {
+        if ((mb_strlen($zip) > 12)) {
             throw new \InvalidArgumentException('invalid length for $zip when calling BillingAddress., must be smaller than or equal to 12.');
         }
-        if (!is_null($zip) && (mb_strlen($zip) < 0)) {
+        if ((mb_strlen($zip) < 0)) {
             throw new \InvalidArgumentException('invalid length for $zip when calling BillingAddress., must be bigger than or equal to 0.');
         }
 

@@ -250,7 +250,7 @@ class ShippingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets addr_line_1
      *
-     * @param string $addr_line_1 Street address. May include whitespaces, hyphens, apostrophes, commas, quotes, dots, slashes and semicolons
+     * @param string $addr_line_1 First line of the street address or equivalent local portion of the Cardholder shipping address associated with the card used for this purchase. Can include street and house number. *Length: 0 - 50*
      *
      * @return $this
      */
@@ -274,7 +274,7 @@ class ShippingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets addr_line_2
      *
-     * @param string $addr_line_2 Second line of the street address or equivalent local portion of the Cardholder billing address associated with the card used for this purchase.
+     * @param string $addr_line_2 Second line of the street address or equivalent local portion of the Cardholder shipping address associated with the card used for this purchase. *Length: 0 - 50*
      *
      * @return $this
      */
@@ -329,7 +329,7 @@ class ShippingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets country
      *
-     * @param string $country [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code of country: 2 or 3 latin letters or numeric code. Mandatory if 'shipping_address' is presented.
+     * @param string $country [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) code of delivery country: 2 or 3 latin letters or numeric code. Required for BANKCARD payment method if 'shipping_address' is presented.
      *
      * @return $this
      */
@@ -387,7 +387,7 @@ class ShippingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets state
      *
-     * @param string $state Delivery state or province. May include whitespaces, hyphens, apostrophes, commas and dots
+     * @param string $state The state or province of the shipping address associated with the card being used for this purchase. It's recommended to send in following format: the country subdivision code defined in [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2). May include whitespaces, hyphens, apostrophes, commas and dots.
      *
      * @return $this
      */
@@ -418,7 +418,7 @@ class ShippingAddress implements ModelInterface, ArrayAccess
     /**
      * Sets zip
      *
-     * @param string $zip Delivery postal code
+     * @param string $zip Delivery postal code. For BANKCARD payment method max length: 12 Mandatory for BOLETO and LOTERICA payment methods only.
      *
      * @return $this
      */
