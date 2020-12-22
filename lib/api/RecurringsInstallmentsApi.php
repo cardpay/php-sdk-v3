@@ -290,8 +290,8 @@ class RecurringsInstallmentsApi
         if (strlen($request_id) > 50) {
             throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsInstallmentsApi.calculateSchedule, must be smaller than or equal to 50.');
         }
-        if (strlen($request_id) < 0) {
-            throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsInstallmentsApi.calculateSchedule, must be bigger than or equal to 0.');
+        if (strlen($request_id) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$request_id" when calling RecurringsInstallmentsApi.calculateSchedule, must be bigger than or equal to 1.');
         }
 
 
