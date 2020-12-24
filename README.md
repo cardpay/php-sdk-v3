@@ -1,5 +1,5 @@
-# PHP SDK for Cardpay API v3
-The Cardpay API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
+# PHP SDK for Unlimint API v3
+The Unlimint API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
 - PHP SDK version: 2.26.1
@@ -46,7 +46,7 @@ require_once('./vendor/autoload.php');
 **Important:** please note that current implementation is using temporary files storage (see [FileTokensStorageApi](lib/api/FileTokensStorageApi.php)), to save, read and delete (if needed) the API tokens.
 You may implement another tokens storage (session, database, Memcached, Redis, etc) by implementing [TokensStorageApi](lib/api/TokensStorageApi.php) interface.
 
-In order to obtain the API tokens please use [AuthApiClient](lib/api/AuthApiClient.php). It requires API terminal code and password, provided by Cardpay.
+In order to obtain the API tokens please use [AuthApiClient](lib/api/AuthApiClient.php). It requires API terminal code and password, provided by Unlimint.
 
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
@@ -253,4 +253,4 @@ composer install
 
 ## Author
 
-support@cardpay.com
+support@unlimint.com
