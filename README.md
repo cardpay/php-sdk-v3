@@ -4,7 +4,7 @@ The Unlimint API uses HTTP verbs and a RESTful endpoint structure. Request and r
 - API version: 3.0
 - PHP SDK version: 2.26.1
 
-For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
+For more information, please visit [https://integration.unlimint.com](https://integration.unlimint.com)
 
 ## Requirements
 
