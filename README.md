@@ -2,9 +2,9 @@
 The Unlimint API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 2.26.1
+- PHP SDK version: 2.27.6
 
-For more information, please visit [https://integration.unlimint.com](https://integration.unlimint.com)
+For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
 ## Requirements
 
@@ -133,6 +133,8 @@ composer install
  - [PaymentCallback](lib/model/PaymentCallback.php)
  - [PaymentGatewayCreationResponse](lib/model/PaymentGatewayCreationResponse.php)
  - [PaymentGatewayResponsePaymentData](lib/model/PaymentGatewayResponsePaymentData.php)
+ - [PaymentMethodsList](lib/model/PaymentMethodsList.php)
+ - [PaymentMethodsResponse](lib/model/PaymentMethodsResponse.php)
  - [PaymentPatchRequest](lib/model/PaymentPatchRequest.php)
  - [PaymentRequest](lib/model/PaymentRequest.php)
  - [PaymentRequestCard](lib/model/PaymentRequestCard.php)

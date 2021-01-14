@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PaymentExecuteRequest implements ModelInterface, ArrayAccess
+class PaymentMethodsList implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PaymentExecuteRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PaymentExecuteRequest';
+    protected static $swaggerModelName = 'PaymentMethodsList';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,9 +26,7 @@ class PaymentExecuteRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'request' => '\Cardpay\model\Request',
-        'operation' => 'string',
-        'payment_data' => '\Cardpay\model\PaymentUpdateTransactionData'
+        'payment_methods' => '\Cardpay\model\PaymentMethodsResponse[]'
     ];
 
     /**
@@ -37,9 +35,7 @@ class PaymentExecuteRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'request' => null,
-        'operation' => null,
-        'payment_data' => null
+        'payment_methods' => null
     ];
 
     /**
@@ -69,9 +65,7 @@ class PaymentExecuteRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'request' => 'request',
-        'operation' => 'operation',
-        'payment_data' => 'payment_data'
+        'payment_methods' => 'payment_methods'
     ];
 
     /**
@@ -80,9 +74,7 @@ class PaymentExecuteRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'request' => 'setRequest',
-        'operation' => 'setOperation',
-        'payment_data' => 'setPaymentData'
+        'payment_methods' => 'setPaymentMethods'
     ];
 
     /**
@@ -91,9 +83,7 @@ class PaymentExecuteRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'request' => 'getRequest',
-        'operation' => 'getOperation',
-        'payment_data' => 'getPaymentData'
+        'payment_methods' => 'getPaymentMethods'
     ];
 
     /**
@@ -137,25 +127,8 @@ class PaymentExecuteRequest implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
-    const OPERATION_CONFIRM_3_DS = 'CONFIRM_3DS';
-    const OPERATION_EXECUTE = 'EXECUTE';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getOperationAllowableValues()
-    {
-        return [
-            self::OPERATION_CHANGE_STATUS,
-            self::OPERATION_CONFIRM_3_DS,
-            self::OPERATION_EXECUTE,
-        ];
-    }
     
 
     /**
@@ -173,9 +146,7 @@ class PaymentExecuteRequest implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
-        $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
-        $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
+        $this->container['payment_methods'] = isset($data['payment_methods']) ? $data['payment_methods'] : null;
     }
 
     /**
@@ -186,20 +157,6 @@ class PaymentExecuteRequest implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        if ($this->container['request'] === null) {
-            $invalidProperties[] = "'request' can't be null";
-        }
-        if ($this->container['operation'] === null) {
-            $invalidProperties[] = "'operation' can't be null";
-        }
-        $allowedValues = $this->getOperationAllowableValues();
-        if (!is_null($this->container['operation']) && !in_array($this->container['operation'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'operation', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
 
         return $invalidProperties;
     }
@@ -217,82 +174,25 @@ class PaymentExecuteRequest implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets request
+     * Gets payment_methods
      *
-     * @return \Cardpay\model\Request
+     * @return \Cardpay\model\PaymentMethodsResponse[]
      */
-    public function getRequest()
+    public function getPaymentMethods()
     {
-        return $this->container['request'];
+        return $this->container['payment_methods'];
     }
 
     /**
-     * Sets request
+     * Sets payment_methods
      *
-     * @param \Cardpay\model\Request $request Request
+     * @param \Cardpay\model\PaymentMethodsResponse[] $payment_methods Payment methods list
      *
      * @return $this
      */
-    public function setRequest($request)
+    public function setPaymentMethods($payment_methods)
     {
-        $this->container['request'] = $request;
-
-        return $this;
-    }
-
-    /**
-     * Gets operation
-     *
-     * @return string
-     */
-    public function getOperation()
-    {
-        return $this->container['operation'];
-    }
-
-    /**
-     * Sets operation
-     *
-     * @param string $operation `EXECUTE` value
-     *
-     * @return $this
-     */
-    public function setOperation($operation)
-    {
-        $allowedValues = $this->getOperationAllowableValues();
-        if (!in_array($operation, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'operation', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['operation'] = $operation;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_data
-     *
-     * @return \Cardpay\model\PaymentUpdateTransactionData
-     */
-    public function getPaymentData()
-    {
-        return $this->container['payment_data'];
-    }
-
-    /**
-     * Sets payment_data
-     *
-     * @param \Cardpay\model\PaymentUpdateTransactionData $payment_data Payment data
-     *
-     * @return $this
-     */
-    public function setPaymentData($payment_data)
-    {
-        $this->container['payment_data'] = $payment_data;
+        $this->container['payment_methods'] = $payment_methods;
 
         return $this;
     }
