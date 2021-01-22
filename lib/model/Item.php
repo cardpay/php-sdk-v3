@@ -176,6 +176,10 @@ class Item implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['count']) && ($this->container['count'] < 1)) {
+            $invalidProperties[] = "invalid value for 'count', must be bigger than or equal to 1.";
+        }
+
         if (!is_null($this->container['description']) && (mb_strlen($this->container['description']) > 200)) {
             $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 200.";
         }
@@ -229,6 +233,11 @@ class Item implements ModelInterface, ArrayAccess
      */
     public function setCount($count)
     {
+
+        if (!is_null($count) && ($count < 1)) {
+            throw new \InvalidArgumentException('invalid value for $count when calling Item., must be bigger than or equal to 1.');
+        }
+
         $this->container['count'] = $count;
 
         return $this;
