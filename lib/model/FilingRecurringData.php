@@ -211,6 +211,14 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be bigger than or equal to 0.";
         }
 
+        if (!is_null($this->container['initiator']) && (mb_strlen($this->container['initiator']) > 3)) {
+            $invalidProperties[] = "invalid value for 'initiator', the character length must be smaller than or equal to 3.";
+        }
+
+        if (!is_null($this->container['initiator']) && (mb_strlen($this->container['initiator']) < 0)) {
+            $invalidProperties[] = "invalid value for 'initiator', the character length must be bigger than or equal to 0.";
+        }
+
         if (!is_null($this->container['initiator']) && !preg_match("/cit/", $this->container['initiator'])) {
             $invalidProperties[] = "invalid value for 'initiator', must be conform to the pattern /cit/.";
         }
@@ -320,7 +328,12 @@ class FilingRecurringData implements ModelInterface, ArrayAccess
      */
     public function setInitiator($initiator)
     {
-
+        if (!is_null($initiator) && (mb_strlen($initiator) > 3)) {
+            throw new \InvalidArgumentException('invalid length for $initiator when calling FilingRecurringData., must be smaller than or equal to 3.');
+        }
+        if (!is_null($initiator) && (mb_strlen($initiator) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $initiator when calling FilingRecurringData., must be bigger than or equal to 0.');
+        }
         if (!is_null($initiator) && (!preg_match("/cit/", $initiator))) {
             throw new \InvalidArgumentException("invalid value for $initiator when calling FilingRecurringData., must conform to the pattern /cit/.");
         }

@@ -218,6 +218,10 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         if ($this->container['interval'] === null) {
             $invalidProperties[] = "'interval' can't be null";
         }
+        if (($this->container['interval'] > 365)) {
+            $invalidProperties[] = "invalid value for 'interval', must be smaller than or equal to 365.";
+        }
+
         if (($this->container['interval'] < 1)) {
             $invalidProperties[] = "invalid value for 'interval', must be bigger than or equal to 1.";
         }
@@ -339,6 +343,9 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
     public function setInterval($interval)
     {
 
+        if (($interval > 365)) {
+            throw new \InvalidArgumentException('invalid value for $interval when calling RecurringPlanRequestPlanData., must be smaller than or equal to 365.');
+        }
         if (($interval < 1)) {
             throw new \InvalidArgumentException('invalid value for $interval when calling RecurringPlanRequestPlanData., must be bigger than or equal to 1.');
         }

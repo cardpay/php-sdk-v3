@@ -206,12 +206,60 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['document_type']) && (mb_strlen($this->container['document_type']) > 10)) {
+            $invalidProperties[] = "invalid value for 'document_type', the character length must be smaller than or equal to 10.";
+        }
+
+        if (!is_null($this->container['document_type']) && (mb_strlen($this->container['document_type']) < 0)) {
+            $invalidProperties[] = "invalid value for 'document_type', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 256)) {
+            $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 256.";
+        }
+
+        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 0)) {
+            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['first_name']) && (mb_strlen($this->container['first_name']) > 100)) {
+            $invalidProperties[] = "invalid value for 'first_name', the character length must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['first_name']) && (mb_strlen($this->container['first_name']) < 0)) {
+            $invalidProperties[] = "invalid value for 'first_name', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['full_name']) && (mb_strlen($this->container['full_name']) > 100)) {
+            $invalidProperties[] = "invalid value for 'full_name', the character length must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['full_name']) && (mb_strlen($this->container['full_name']) < 0)) {
+            $invalidProperties[] = "invalid value for 'full_name', the character length must be bigger than or equal to 0.";
+        }
+
         if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 256)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 256.";
         }
 
         if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) < 0)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['last_name']) && (mb_strlen($this->container['last_name']) > 100)) {
+            $invalidProperties[] = "invalid value for 'last_name', the character length must be smaller than or equal to 100.";
+        }
+
+        if (!is_null($this->container['last_name']) && (mb_strlen($this->container['last_name']) < 0)) {
+            $invalidProperties[] = "invalid value for 'last_name', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 18)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 18.";
+        }
+
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 5)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 5.";
         }
 
         return $invalidProperties;
@@ -248,6 +296,13 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function setDocumentType($document_type)
     {
+        if (!is_null($document_type) && (mb_strlen($document_type) > 10)) {
+            throw new \InvalidArgumentException('invalid length for $document_type when calling PayoutRequestCustomer., must be smaller than or equal to 10.');
+        }
+        if (!is_null($document_type) && (mb_strlen($document_type) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $document_type when calling PayoutRequestCustomer., must be bigger than or equal to 0.');
+        }
+
         $this->container['document_type'] = $document_type;
 
         return $this;
@@ -272,6 +327,13 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function setEmail($email)
     {
+        if (!is_null($email) && (mb_strlen($email) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $email when calling PayoutRequestCustomer., must be smaller than or equal to 256.');
+        }
+        if (!is_null($email) && (mb_strlen($email) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $email when calling PayoutRequestCustomer., must be bigger than or equal to 0.');
+        }
+
         $this->container['email'] = $email;
 
         return $this;
@@ -296,6 +358,13 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function setFirstName($first_name)
     {
+        if (!is_null($first_name) && (mb_strlen($first_name) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $first_name when calling PayoutRequestCustomer., must be smaller than or equal to 100.');
+        }
+        if (!is_null($first_name) && (mb_strlen($first_name) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $first_name when calling PayoutRequestCustomer., must be bigger than or equal to 0.');
+        }
+
         $this->container['first_name'] = $first_name;
 
         return $this;
@@ -320,6 +389,13 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function setFullName($full_name)
     {
+        if (!is_null($full_name) && (mb_strlen($full_name) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $full_name when calling PayoutRequestCustomer., must be smaller than or equal to 100.');
+        }
+        if (!is_null($full_name) && (mb_strlen($full_name) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $full_name when calling PayoutRequestCustomer., must be bigger than or equal to 0.');
+        }
+
         $this->container['full_name'] = $full_name;
 
         return $this;
@@ -399,6 +475,13 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function setLastName($last_name)
     {
+        if (!is_null($last_name) && (mb_strlen($last_name) > 100)) {
+            throw new \InvalidArgumentException('invalid length for $last_name when calling PayoutRequestCustomer., must be smaller than or equal to 100.');
+        }
+        if (!is_null($last_name) && (mb_strlen($last_name) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $last_name when calling PayoutRequestCustomer., must be bigger than or equal to 0.');
+        }
+
         $this->container['last_name'] = $last_name;
 
         return $this;
@@ -447,6 +530,13 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function setPhone($phone)
     {
+        if (!is_null($phone) && (mb_strlen($phone) > 18)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling PayoutRequestCustomer., must be smaller than or equal to 18.');
+        }
+        if (!is_null($phone) && (mb_strlen($phone) < 5)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling PayoutRequestCustomer., must be bigger than or equal to 5.');
+        }
+
         $this->container['phone'] = $phone;
 
         return $this;

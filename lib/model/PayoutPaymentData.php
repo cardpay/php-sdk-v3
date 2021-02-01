@@ -161,6 +161,14 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
         }
+        if ((mb_strlen($this->container['id']) > 38)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 38.";
+        }
+
+        if ((mb_strlen($this->container['id']) < 0)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -195,6 +203,13 @@ class PayoutPaymentData implements ModelInterface, ArrayAccess
      */
     public function setId($id)
     {
+        if ((mb_strlen($id) > 38)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling PayoutPaymentData., must be smaller than or equal to 38.');
+        }
+        if ((mb_strlen($id) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling PayoutPaymentData., must be bigger than or equal to 0.');
+        }
+
         $this->container['id'] = $id;
 
         return $this;
