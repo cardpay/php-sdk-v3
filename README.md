@@ -41,6 +41,11 @@ require_once('./vendor/autoload.php');
 ```
 
 
+### Proxy Usage
+
+SDK will automatically use the proxy if the `HTTPS_PROXY` or `HTTP_PROXY` environment variable is set.
+
+
 ## Getting Started
 
 **Important:** please note that current implementation is using temporary files storage (see [FileTokensStorageApi](lib/api/FileTokensStorageApi.php)), to save, read and delete (if needed) the API tokens.
