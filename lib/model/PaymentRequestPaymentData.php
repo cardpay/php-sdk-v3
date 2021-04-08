@@ -293,7 +293,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     /**
      * Sets amount
      *
-     * @param float $amount The total transaction amount in selected currency with dot as a decimal separator, must be less than 100 millions If 'payment_method' = `BITCOIN` then minimum order amount is approximately 0.003 bitcoins or its equivalent. The exact value should be provided by the account manager.
+     * @param float $amount The total transaction amount in selected currency with dot as a decimal separator, must be less than 10 billion If 'payment_method' = `BITCOIN` then minimum order amount is approximately 0.003 bitcoins or its equivalent. The exact value should be provided by the account manager.
      *
      * @return $this
      */

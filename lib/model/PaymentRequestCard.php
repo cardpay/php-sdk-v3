@@ -207,39 +207,27 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
             );
         }
 
-        if ($this->container['expiration'] === null) {
-            $invalidProperties[] = "'expiration' can't be null";
-        }
-        if (!preg_match("/([0-9]{2}\/[0-9]{4})/", $this->container['expiration'])) {
+        if (!is_null($this->container['expiration']) && !preg_match("/([0-9]{2}\/[0-9]{4})/", $this->container['expiration'])) {
             $invalidProperties[] = "invalid value for 'expiration', must be conform to the pattern /([0-9]{2}\/[0-9]{4})/.";
         }
 
-        if ($this->container['holder'] === null) {
-            $invalidProperties[] = "'holder' can't be null";
-        }
-        if ((mb_strlen($this->container['holder']) > 50)) {
+        if (!is_null($this->container['holder']) && (mb_strlen($this->container['holder']) > 50)) {
             $invalidProperties[] = "invalid value for 'holder', the character length must be smaller than or equal to 50.";
         }
 
-        if ((mb_strlen($this->container['holder']) < 1)) {
+        if (!is_null($this->container['holder']) && (mb_strlen($this->container['holder']) < 1)) {
             $invalidProperties[] = "invalid value for 'holder', the character length must be bigger than or equal to 1.";
         }
 
-        if ($this->container['pan'] === null) {
-            $invalidProperties[] = "'pan' can't be null";
-        }
-        if ((mb_strlen($this->container['pan']) > 19)) {
+        if (!is_null($this->container['pan']) && (mb_strlen($this->container['pan']) > 19)) {
             $invalidProperties[] = "invalid value for 'pan', the character length must be smaller than or equal to 19.";
         }
 
-        if ((mb_strlen($this->container['pan']) < 13)) {
+        if (!is_null($this->container['pan']) && (mb_strlen($this->container['pan']) < 13)) {
             $invalidProperties[] = "invalid value for 'pan', the character length must be bigger than or equal to 13.";
         }
 
-        if ($this->container['security_code'] === null) {
-            $invalidProperties[] = "'security_code' can't be null";
-        }
-        if (!preg_match("/[0-9]{3,4}/", $this->container['security_code'])) {
+        if (!is_null($this->container['security_code']) && !preg_match("/[0-9]{3,4}/", $this->container['security_code'])) {
             $invalidProperties[] = "invalid value for 'security_code', must be conform to the pattern /[0-9]{3,4}/.";
         }
 
@@ -311,7 +299,7 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
     public function setExpiration($expiration)
     {
 
-        if ((!preg_match("/([0-9]{2}\/[0-9]{4})/", $expiration))) {
+        if (!is_null($expiration) && (!preg_match("/([0-9]{2}\/[0-9]{4})/", $expiration))) {
             throw new \InvalidArgumentException("invalid value for $expiration when calling PaymentRequestCard., must conform to the pattern /([0-9]{2}\/[0-9]{4})/.");
         }
 
@@ -339,10 +327,10 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
      */
     public function setHolder($holder)
     {
-        if ((mb_strlen($holder) > 50)) {
+        if (!is_null($holder) && (mb_strlen($holder) > 50)) {
             throw new \InvalidArgumentException('invalid length for $holder when calling PaymentRequestCard., must be smaller than or equal to 50.');
         }
-        if ((mb_strlen($holder) < 1)) {
+        if (!is_null($holder) && (mb_strlen($holder) < 1)) {
             throw new \InvalidArgumentException('invalid length for $holder when calling PaymentRequestCard., must be bigger than or equal to 1.');
         }
 
@@ -370,10 +358,10 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
      */
     public function setPan($pan)
     {
-        if ((mb_strlen($pan) > 19)) {
+        if (!is_null($pan) && (mb_strlen($pan) > 19)) {
             throw new \InvalidArgumentException('invalid length for $pan when calling PaymentRequestCard., must be smaller than or equal to 19.');
         }
-        if ((mb_strlen($pan) < 13)) {
+        if (!is_null($pan) && (mb_strlen($pan) < 13)) {
             throw new \InvalidArgumentException('invalid length for $pan when calling PaymentRequestCard., must be bigger than or equal to 13.');
         }
 
@@ -402,7 +390,7 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
     public function setSecurityCode($security_code)
     {
 
-        if ((!preg_match("/[0-9]{3,4}/", $security_code))) {
+        if (!is_null($security_code) && (!preg_match("/[0-9]{3,4}/", $security_code))) {
             throw new \InvalidArgumentException("invalid value for $security_code when calling PaymentRequestCard., must conform to the pattern /[0-9]{3,4}/.");
         }
 

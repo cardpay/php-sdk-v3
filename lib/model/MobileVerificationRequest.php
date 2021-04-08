@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
+class MobileVerificationRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PaymentUpdateTransactionData';
+    protected static $swaggerModelName = 'MobileVerificationRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,8 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'amount' => 'float',
-        'status_to' => 'string'
+        'nonce' => 'string',
+        'jws_result' => 'string'
     ];
 
     /**
@@ -36,8 +36,8 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'amount' => null,
-        'status_to' => null
+        'nonce' => null,
+        'jws_result' => null
     ];
 
     /**
@@ -67,8 +67,8 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'amount' => 'amount',
-        'status_to' => 'status_to'
+        'nonce' => 'nonce',
+        'jws_result' => 'jwsResult'
     ];
 
     /**
@@ -77,8 +77,8 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'amount' => 'setAmount',
-        'status_to' => 'setStatusTo'
+        'nonce' => 'setNonce',
+        'jws_result' => 'setJwsResult'
     ];
 
     /**
@@ -87,8 +87,8 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'amount' => 'getAmount',
-        'status_to' => 'getStatusTo'
+        'nonce' => 'getNonce',
+        'jws_result' => 'getJwsResult'
     ];
 
     /**
@@ -132,25 +132,8 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const STATUS_TO_REVERSE = 'REVERSE';
-    const STATUS_TO_COMPLETE = 'COMPLETE';
-    const STATUS_TO_TERMINATE = 'TERMINATE';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getStatusToAllowableValues()
-    {
-        return [
-            self::STATUS_TO_REVERSE,
-            self::STATUS_TO_COMPLETE,
-            self::STATUS_TO_TERMINATE,
-        ];
-    }
     
 
     /**
@@ -168,8 +151,8 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['status_to'] = isset($data['status_to']) ? $data['status_to'] : null;
+        $this->container['nonce'] = isset($data['nonce']) ? $data['nonce'] : null;
+        $this->container['jws_result'] = isset($data['jws_result']) ? $data['jws_result'] : null;
     }
 
     /**
@@ -180,14 +163,6 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        $allowedValues = $this->getStatusToAllowableValues();
-        if (!is_null($this->container['status_to']) && !in_array($this->container['status_to'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'status_to', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
 
         return $invalidProperties;
     }
@@ -205,58 +180,49 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets amount
+     * Gets nonce
      *
-     * @return float
+     * @return string
      */
-    public function getAmount()
+    public function getNonce()
     {
-        return $this->container['amount'];
+        return $this->container['nonce'];
     }
 
     /**
-     * Sets amount
+     * Sets nonce
      *
-     * @param float $amount The total transaction amount in selected currency with dot as a decimal separator, must be less than 10 billion
+     * @param string $nonce Application's nonce
      *
      * @return $this
      */
-    public function setAmount($amount)
+    public function setNonce($nonce)
     {
-        $this->container['amount'] = $amount;
+        $this->container['nonce'] = $nonce;
 
         return $this;
     }
 
     /**
-     * Gets status_to
+     * Gets jws_result
      *
      * @return string
      */
-    public function getStatusTo()
+    public function getJwsResult()
     {
-        return $this->container['status_to'];
+        return $this->container['jws_result'];
     }
 
     /**
-     * Sets status_to
+     * Sets jws_result
      *
-     * @param string $status_to Payment, one-click recurring: `COMPLETE` or `REVERSE` status to be set. Refund, payout: `REVERSE` status to be set.
+     * @param string $jws_result Application's JWS result. Format of a JWS is: <Base64url encoded header>.<Base64url encoded JSON data>.<Base64url encoded signature>
      *
      * @return $this
      */
-    public function setStatusTo($status_to)
+    public function setJwsResult($jws_result)
     {
-        $allowedValues = $this->getStatusToAllowableValues();
-        if (!is_null($status_to) && !in_array($status_to, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'status_to', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['status_to'] = $status_to;
+        $this->container['jws_result'] = $jws_result;
 
         return $this;
     }

@@ -197,9 +197,6 @@ class MobilePaymentRequest implements ModelInterface, ArrayAccess
         if ($this->container['request'] === null) {
             $invalidProperties[] = "'request' can't be null";
         }
-        if ($this->container['card_account'] === null) {
-            $invalidProperties[] = "'card_account' can't be null";
-        }
         if ($this->container['customer'] === null) {
             $invalidProperties[] = "'customer' can't be null";
         }

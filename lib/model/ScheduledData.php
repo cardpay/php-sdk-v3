@@ -32,6 +32,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'initiator' => 'string',
         'note' => 'string',
         'plan' => '\Cardpay\model\Plan',
+        'scheduled_type' => 'string',
         'subscription_start' => '\DateTime',
         'trans_type' => 'string'
     ];
@@ -48,6 +49,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'initiator' => null,
         'note' => null,
         'plan' => null,
+        'scheduled_type' => null,
         'subscription_start' => 'date-time',
         'trans_type' => null
     ];
@@ -85,6 +87,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'initiator' => 'initiator',
         'note' => 'note',
         'plan' => 'plan',
+        'scheduled_type' => 'scheduled_type',
         'subscription_start' => 'subscription_start',
         'trans_type' => 'trans_type'
     ];
@@ -101,6 +104,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'initiator' => 'setInitiator',
         'note' => 'setNote',
         'plan' => 'setPlan',
+        'scheduled_type' => 'setScheduledType',
         'subscription_start' => 'setSubscriptionStart',
         'trans_type' => 'setTransType'
     ];
@@ -117,6 +121,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'initiator' => 'getInitiator',
         'note' => 'getNote',
         'plan' => 'getPlan',
+        'scheduled_type' => 'getScheduledType',
         'subscription_start' => 'getSubscriptionStart',
         'trans_type' => 'getTransType'
     ];
@@ -208,6 +213,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
+        $this->container['scheduled_type'] = isset($data['scheduled_type']) ? $data['scheduled_type'] : null;
         $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
@@ -242,6 +248,10 @@ class ScheduledData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['scheduled_type']) && !preg_match("/SA/", $this->container['scheduled_type'])) {
+            $invalidProperties[] = "invalid value for 'scheduled_type', must be conform to the pattern /SA/.";
         }
 
         $allowedValues = $this->getTransTypeAllowableValues();
@@ -426,6 +436,35 @@ class ScheduledData implements ModelInterface, ArrayAccess
     public function setPlan($plan)
     {
         $this->container['plan'] = $plan;
+
+        return $this;
+    }
+
+    /**
+     * Gets scheduled_type
+     *
+     * @return string
+     */
+    public function getScheduledType()
+    {
+        return $this->container['scheduled_type'];
+    }
+
+    /**
+     * Sets scheduled_type
+     *
+     * @param string $scheduled_type Scheduled payment type attribute. For typical scheduled payments should be absent or `SA` - scheduled by acquirer
+     *
+     * @return $this
+     */
+    public function setScheduledType($scheduled_type)
+    {
+
+        if (!is_null($scheduled_type) && (!preg_match("/SA/", $scheduled_type))) {
+            throw new \InvalidArgumentException("invalid value for $scheduled_type when calling ScheduledData., must conform to the pattern /SA/.");
+        }
+
+        $this->container['scheduled_type'] = $scheduled_type;
 
         return $this;
     }

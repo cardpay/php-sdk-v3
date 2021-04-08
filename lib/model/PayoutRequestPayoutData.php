@@ -232,7 +232,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
     /**
      * Sets amount
      *
-     * @param float $amount Represents the amount to be transferred to Customer's card, must be less than 100 millions.
+     * @param float $amount Represents the amount to be transferred to Customer's card, must be less than 10 billion.
      *
      * @return $this
      */

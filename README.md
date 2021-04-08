@@ -2,7 +2,7 @@
 The Unlimint API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 2.29.5
+- PHP SDK version: 2.33.8
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
@@ -131,6 +131,8 @@ composer install
  - [MobilePaymentResponse](lib/model/MobilePaymentResponse.php)
  - [MobileTokenRequest](lib/model/MobileTokenRequest.php)
  - [MobileTokenResponse](lib/model/MobileTokenResponse.php)
+ - [MobileVerificationRequest](lib/model/MobileVerificationRequest.php)
+ - [MobileVerificationResponse](lib/model/MobileVerificationResponse.php)
  - [NextSubscriptionPayment](lib/model/NextSubscriptionPayment.php)
  - [NotFoundError](lib/model/NotFoundError.php)
  - [OAuthError](lib/model/OAuthError.php)
@@ -230,6 +232,7 @@ composer install
  - [ReturnUrls](lib/model/ReturnUrls.php)
  - [ScheduleOption](lib/model/ScheduleOption.php)
  - [ScheduleOptionsResponse](lib/model/ScheduleOptionsResponse.php)
+ - [ScheduledByMerchantData](lib/model/ScheduledByMerchantData.php)
  - [ScheduledData](lib/model/ScheduledData.php)
  - [ShippingAddress](lib/model/ShippingAddress.php)
  - [Subscription](lib/model/Subscription.php)

@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
+class MobileVerificationResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PaymentUpdateTransactionData';
+    protected static $swaggerModelName = 'MobileVerificationResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,7 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'amount' => 'float',
-        'status_to' => 'string'
+        'result' => 'string'
     ];
 
     /**
@@ -36,8 +35,7 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'amount' => null,
-        'status_to' => null
+        'result' => null
     ];
 
     /**
@@ -67,8 +65,7 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'amount' => 'amount',
-        'status_to' => 'status_to'
+        'result' => 'result'
     ];
 
     /**
@@ -77,8 +74,7 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'amount' => 'setAmount',
-        'status_to' => 'setStatusTo'
+        'result' => 'setResult'
     ];
 
     /**
@@ -87,8 +83,7 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'amount' => 'getAmount',
-        'status_to' => 'getStatusTo'
+        'result' => 'getResult'
     ];
 
     /**
@@ -132,25 +127,8 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const STATUS_TO_REVERSE = 'REVERSE';
-    const STATUS_TO_COMPLETE = 'COMPLETE';
-    const STATUS_TO_TERMINATE = 'TERMINATE';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getStatusToAllowableValues()
-    {
-        return [
-            self::STATUS_TO_REVERSE,
-            self::STATUS_TO_COMPLETE,
-            self::STATUS_TO_TERMINATE,
-        ];
-    }
     
 
     /**
@@ -168,8 +146,7 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['status_to'] = isset($data['status_to']) ? $data['status_to'] : null;
+        $this->container['result'] = isset($data['result']) ? $data['result'] : null;
     }
 
     /**
@@ -180,14 +157,6 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        $allowedValues = $this->getStatusToAllowableValues();
-        if (!is_null($this->container['status_to']) && !in_array($this->container['status_to'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'status_to', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
-        }
 
         return $invalidProperties;
     }
@@ -205,58 +174,25 @@ class PaymentUpdateTransactionData implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets amount
-     *
-     * @return float
-     */
-    public function getAmount()
-    {
-        return $this->container['amount'];
-    }
-
-    /**
-     * Sets amount
-     *
-     * @param float $amount The total transaction amount in selected currency with dot as a decimal separator, must be less than 10 billion
-     *
-     * @return $this
-     */
-    public function setAmount($amount)
-    {
-        $this->container['amount'] = $amount;
-
-        return $this;
-    }
-
-    /**
-     * Gets status_to
+     * Gets result
      *
      * @return string
      */
-    public function getStatusTo()
+    public function getResult()
     {
-        return $this->container['status_to'];
+        return $this->container['result'];
     }
 
     /**
-     * Sets status_to
+     * Sets result
      *
-     * @param string $status_to Payment, one-click recurring: `COMPLETE` or `REVERSE` status to be set. Refund, payout: `REVERSE` status to be set.
+     * @param string $result Result of application attestation statement's verification: 'SUCCESS' or error message
      *
      * @return $this
      */
-    public function setStatusTo($status_to)
+    public function setResult($result)
     {
-        $allowedValues = $this->getStatusToAllowableValues();
-        if (!is_null($status_to) && !in_array($status_to, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'status_to', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['status_to'] = $status_to;
+        $this->container['result'] = $result;
 
         return $this;
     }

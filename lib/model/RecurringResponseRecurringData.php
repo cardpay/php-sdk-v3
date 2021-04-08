@@ -35,6 +35,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'string',
         'filing' => '\Cardpay\model\RecurringResponseFiling',
         'id' => 'string',
+        'initiator' => 'string',
         'installment_amount' => 'float',
         'installment_type' => 'string',
         'invalid_data' => 'string[]',
@@ -42,6 +43,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'note' => 'string',
         'payments' => 'string',
         'rrn' => 'string',
+        'scheduled_type' => 'string',
         'status' => 'string',
         'subscription' => '\Cardpay\model\Subscription',
         'type' => 'string',
@@ -63,6 +65,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => null,
         'filing' => null,
         'id' => null,
+        'initiator' => null,
         'installment_amount' => null,
         'installment_type' => null,
         'invalid_data' => null,
@@ -70,6 +73,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'note' => null,
         'payments' => null,
         'rrn' => null,
+        'scheduled_type' => null,
         'status' => null,
         'subscription' => null,
         'type' => null,
@@ -112,6 +116,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'decline_reason',
         'filing' => 'filing',
         'id' => 'id',
+        'initiator' => 'initiator',
         'installment_amount' => 'installment_amount',
         'installment_type' => 'installment_type',
         'invalid_data' => 'invalid_data',
@@ -119,6 +124,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'note' => 'note',
         'payments' => 'payments',
         'rrn' => 'rrn',
+        'scheduled_type' => 'scheduled_type',
         'status' => 'status',
         'subscription' => 'subscription',
         'type' => 'type',
@@ -140,6 +146,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'setDeclineReason',
         'filing' => 'setFiling',
         'id' => 'setId',
+        'initiator' => 'setInitiator',
         'installment_amount' => 'setInstallmentAmount',
         'installment_type' => 'setInstallmentType',
         'invalid_data' => 'setInvalidData',
@@ -147,6 +154,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'note' => 'setNote',
         'payments' => 'setPayments',
         'rrn' => 'setRrn',
+        'scheduled_type' => 'setScheduledType',
         'status' => 'setStatus',
         'subscription' => 'setSubscription',
         'type' => 'setType',
@@ -168,6 +176,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'decline_reason' => 'getDeclineReason',
         'filing' => 'getFiling',
         'id' => 'getId',
+        'initiator' => 'getInitiator',
         'installment_amount' => 'getInstallmentAmount',
         'installment_type' => 'getInstallmentType',
         'invalid_data' => 'getInvalidData',
@@ -175,6 +184,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'note' => 'getNote',
         'payments' => 'getPayments',
         'rrn' => 'getRrn',
+        'scheduled_type' => 'getScheduledType',
         'status' => 'getStatus',
         'subscription' => 'getSubscription',
         'type' => 'getType',
@@ -222,6 +232,8 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const SCHEDULED_TYPE_SA = 'SA';
+    const SCHEDULED_TYPE_SM = 'SM';
     const STATUS__NEW = 'NEW';
     const STATUS_IN_PROGRESS = 'IN_PROGRESS';
     const STATUS_DECLINED = 'DECLINED';
@@ -244,6 +256,19 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     const TRANS_TYPE__28 = '28';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getScheduledTypeAllowableValues()
+    {
+        return [
+            self::SCHEDULED_TYPE_SA,
+            self::SCHEDULED_TYPE_SM,
+        ];
+    }
     
     /**
      * Gets allowable values of the enum
@@ -323,6 +348,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         $this->container['decline_reason'] = isset($data['decline_reason']) ? $data['decline_reason'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['installment_amount'] = isset($data['installment_amount']) ? $data['installment_amount'] : null;
         $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
         $this->container['invalid_data'] = isset($data['invalid_data']) ? $data['invalid_data'] : null;
@@ -330,6 +356,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['payments'] = isset($data['payments']) ? $data['payments'] : null;
         $this->container['rrn'] = isset($data['rrn']) ? $data['rrn'] : null;
+        $this->container['scheduled_type'] = isset($data['scheduled_type']) ? $data['scheduled_type'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['subscription'] = isset($data['subscription']) ? $data['subscription'] : null;
         $this->container['type'] = isset($data['type']) ? $data['type'] : null;
@@ -344,6 +371,14 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        $allowedValues = $this->getScheduledTypeAllowableValues();
+        if (!is_null($this->container['scheduled_type']) && !in_array($this->container['scheduled_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'scheduled_type', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
+        }
 
         $allowedValues = $this->getStatusAllowableValues();
         if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
@@ -601,6 +636,30 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets initiator
+     *
+     * @return string
+     */
+    public function getInitiator()
+    {
+        return $this->container['initiator'];
+    }
+
+    /**
+     * Sets initiator
+     *
+     * @param string $initiator Initiator of scheduled transaction (applicable only for scheduled by merchant payments)
+     *
+     * @return $this
+     */
+    public function setInitiator($initiator)
+    {
+        $this->container['initiator'] = $initiator;
+
+        return $this;
+    }
+
+    /**
      * Gets installment_amount
      *
      * @return float
@@ -764,6 +823,39 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     public function setRrn($rrn)
     {
         $this->container['rrn'] = $rrn;
+
+        return $this;
+    }
+
+    /**
+     * Gets scheduled_type
+     *
+     * @return string
+     */
+    public function getScheduledType()
+    {
+        return $this->container['scheduled_type'];
+    }
+
+    /**
+     * Sets scheduled_type
+     *
+     * @param string $scheduled_type Scheduled payment type attribute. `SM` - value for scheduled by merchant case `SA` - value for scheduled by acquirer case
+     *
+     * @return $this
+     */
+    public function setScheduledType($scheduled_type)
+    {
+        $allowedValues = $this->getScheduledTypeAllowableValues();
+        if (!is_null($scheduled_type) && !in_array($scheduled_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'scheduled_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['scheduled_type'] = $scheduled_type;
 
         return $this;
     }
