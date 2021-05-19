@@ -1583,7 +1583,7 @@ class MobileApi
     /**
      * Operation verify
      *
-     * Verify Attestation Statement
+     * Verify attestation statement
      *
      * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\MobileVerificationRequest $request request (required)
@@ -1601,7 +1601,7 @@ class MobileApi
     /**
      * Operation verifyWithHttpInfo
      *
-     * Verify Attestation Statement
+     * Verify attestation statement
      *
      * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\MobileVerificationRequest $request request (required)
@@ -1709,7 +1709,7 @@ class MobileApi
     /**
      * Operation verifyAsync
      *
-     * Verify Attestation Statement
+     * Verify attestation statement
      *
      * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\MobileVerificationRequest $request request (required)
@@ -1730,7 +1730,7 @@ class MobileApi
     /**
      * Operation verifyAsyncWithHttpInfo
      *
-     * Verify Attestation Statement
+     * Verify attestation statement
      *
      * @param  string $authorization Authorization (required)
      * @param  \Cardpay\model\MobileVerificationRequest $request request (required)

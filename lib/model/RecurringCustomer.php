@@ -29,6 +29,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         'email' => 'string',
         'home_phone' => 'string',
         'id' => 'string',
+        'identity' => 'string',
         'ip' => 'string',
         'locale' => 'string',
         'phone' => 'string',
@@ -44,6 +45,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         'email' => null,
         'home_phone' => null,
         'id' => null,
+        'identity' => null,
         'ip' => null,
         'locale' => null,
         'phone' => null,
@@ -80,6 +82,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         'email' => 'email',
         'home_phone' => 'home_phone',
         'id' => 'id',
+        'identity' => 'identity',
         'ip' => 'ip',
         'locale' => 'locale',
         'phone' => 'phone',
@@ -95,6 +98,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         'email' => 'setEmail',
         'home_phone' => 'setHomePhone',
         'id' => 'setId',
+        'identity' => 'setIdentity',
         'ip' => 'setIp',
         'locale' => 'setLocale',
         'phone' => 'setPhone',
@@ -110,6 +114,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         'email' => 'getEmail',
         'home_phone' => 'getHomePhone',
         'id' => 'getId',
+        'identity' => 'getIdentity',
         'ip' => 'getIp',
         'locale' => 'getLocale',
         'phone' => 'getPhone',
@@ -198,6 +203,7 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
         $this->container['home_phone'] = isset($data['home_phone']) ? $data['home_phone'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['identity'] = isset($data['identity']) ? $data['identity'] : null;
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
         $this->container['locale'] = isset($data['locale']) ? $data['locale'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
@@ -241,6 +247,14 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
 
         if ((mb_strlen($this->container['id']) < 0)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['identity']) && (mb_strlen($this->container['identity']) > 256)) {
+            $invalidProperties[] = "invalid value for 'identity', the character length must be smaller than or equal to 256.";
+        }
+
+        if (!is_null($this->container['identity']) && (mb_strlen($this->container['identity']) < 0)) {
+            $invalidProperties[] = "invalid value for 'identity', the character length must be bigger than or equal to 0.";
         }
 
         $allowedValues = $this->getLocaleAllowableValues();
@@ -371,6 +385,37 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         }
 
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets identity
+     *
+     * @return string
+     */
+    public function getIdentity()
+    {
+        return $this->container['identity'];
+    }
+
+    /**
+     * Sets identity
+     *
+     * @param string $identity Customer's identity in Merchant's system required for Brazil Installments
+     *
+     * @return $this
+     */
+    public function setIdentity($identity)
+    {
+        if (!is_null($identity) && (mb_strlen($identity) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $identity when calling RecurringCustomer., must be smaller than or equal to 256.');
+        }
+        if (!is_null($identity) && (mb_strlen($identity) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $identity when calling RecurringCustomer., must be bigger than or equal to 0.');
+        }
+
+        $this->container['identity'] = $identity;
 
         return $this;
     }
