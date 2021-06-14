@@ -37,6 +37,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'note' => 'string',
         'payments' => 'int',
         'period' => 'string',
+        'preauth' => 'bool',
         'retries' => 'int',
         'subscription_start' => '\DateTime',
         'trans_type' => 'string'
@@ -59,6 +60,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'note' => null,
         'payments' => 'int32',
         'period' => null,
+        'preauth' => null,
         'retries' => 'int32',
         'subscription_start' => 'date-time',
         'trans_type' => null
@@ -102,6 +104,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'note' => 'note',
         'payments' => 'payments',
         'period' => 'period',
+        'preauth' => 'preauth',
         'retries' => 'retries',
         'subscription_start' => 'subscription_start',
         'trans_type' => 'trans_type'
@@ -124,6 +127,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'note' => 'setNote',
         'payments' => 'setPayments',
         'period' => 'setPeriod',
+        'preauth' => 'setPreauth',
         'retries' => 'setRetries',
         'subscription_start' => 'setSubscriptionStart',
         'trans_type' => 'setTransType'
@@ -146,6 +150,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'note' => 'getNote',
         'payments' => 'getPayments',
         'period' => 'getPeriod',
+        'preauth' => 'getPreauth',
         'retries' => 'getRetries',
         'subscription_start' => 'getSubscriptionStart',
         'trans_type' => 'getTransType'
@@ -264,6 +269,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['payments'] = isset($data['payments']) ? $data['payments'] : null;
         $this->container['period'] = isset($data['period']) ? $data['period'] : null;
+        $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
         $this->container['retries'] = isset($data['retries']) ? $data['retries'] : null;
         $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
@@ -641,6 +647,30 @@ class InstallmentData implements ModelInterface, ArrayAccess
             );
         }
         $this->container['period'] = $period;
+
+        return $this;
+    }
+
+    /**
+     * Gets preauth
+     *
+     * @return bool
+     */
+    public function getPreauth()
+    {
+        return $this->container['preauth'];
+    }
+
+    /**
+     * Sets preauth
+     *
+     * @param bool $preauth If set to `true`, the amount will not be captured but only blocked. Installment with `preauth` attribute will be voided automatically in 5 days from the time of creating the preauth transaction.
+     *
+     * @return $this
+     */
+    public function setPreauth($preauth)
+    {
+        $this->container['preauth'] = $preauth;
 
         return $this;
     }

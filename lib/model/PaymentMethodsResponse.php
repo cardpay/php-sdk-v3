@@ -26,6 +26,7 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'brands' => 'string[]',
         'category' => 'string',
         'name' => 'string'
     ];
@@ -36,6 +37,7 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'brands' => null,
         'category' => null,
         'name' => null
     ];
@@ -67,6 +69,7 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'brands' => 'brands',
         'category' => 'category',
         'name' => 'name'
     ];
@@ -77,6 +80,7 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'brands' => 'setBrands',
         'category' => 'setCategory',
         'name' => 'setName'
     ];
@@ -87,6 +91,7 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'brands' => 'getBrands',
         'category' => 'getCategory',
         'name' => 'getName'
     ];
@@ -151,6 +156,7 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['brands'] = isset($data['brands']) ? $data['brands'] : null;
         $this->container['category'] = isset($data['category']) ? $data['category'] : null;
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
     }
@@ -178,6 +184,30 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets brands
+     *
+     * @return string[]
+     */
+    public function getBrands()
+    {
+        return $this->container['brands'];
+    }
+
+    /**
+     * Sets brands
+     *
+     * @param string[] $brands Available Card Brands, is presented only for \"bankcard\" payment method
+     *
+     * @return $this
+     */
+    public function setBrands($brands)
+    {
+        $this->container['brands'] = $brands;
+
+        return $this;
+    }
 
     /**
      * Gets category
