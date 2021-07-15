@@ -17,11 +17,11 @@ class RecurringCancelScheduledSubscriptionTest extends BaseTestCase
     {
         // create new plan
         $recurringPlanUtils = new RecurringPlanUtils();
-        $recurringPlanResponse = $recurringPlanUtils->createPlan(Config::$gatewayTerminalCode, Config::$gatewayPassword);
+        $recurringPlanResponse = $recurringPlanUtils->createPlan(Config::$gatewayPostponedTerminalCode, Config::$gatewayPostponedPassword);
         $planId = $recurringPlanResponse->getPlanData()->getId();
 
         // create scheduled subscription
-        $recurringScheduledUtils = new RecurringScheduledUtils(Config::$gatewayTerminalCode, Config::$gatewayPassword);
+        $recurringScheduledUtils = new RecurringScheduledUtils(Config::$gatewayPostponedTerminalCode, Config::$gatewayPostponedPassword);
         $recurringResponse = $recurringScheduledUtils->createScheduledSubscriptionInGatewayMode(time(), $planId);
 
         // cancel subscription

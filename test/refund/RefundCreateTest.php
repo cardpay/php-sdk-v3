@@ -17,13 +17,13 @@ class RefundCreateTest extends BaseTestCase
     {
         // create payment
         $paymentUtils = new PaymentUtils();
-        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time(), Config::$gatewayTerminalCode, Config::$gatewayPassword);
+        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time(), Config::$gatewayPostponedTerminalCode, Config::$gatewayPostponedPassword);
         $paymentId = $paymentResponse->getPaymentData()->getId();
 
         // create refund
         $refundUtils = new RefundUtils();
         $refundResponse = $refundUtils->createRefund($paymentId, $paymentUtils, Config::$terminalCurrency);
 
-        self::assertEquals(RefundResponseRefundData::STATUS_COMPLETED, $refundResponse->getRefundData()->getStatus());
+        self::assertEquals(RefundResponseRefundData::STATUS_AUTHORIZED, $refundResponse->getRefundData()->getStatus());
     }
 }

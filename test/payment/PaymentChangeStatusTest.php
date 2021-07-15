@@ -22,8 +22,8 @@ class PaymentChangeStatusTest extends BaseTestCase
         $paymentUtils = new PaymentUtils();
         $paymentResponse = $paymentUtils->createPaymentInGatewayMode(
             time(),
-            Config::$gatewayTerminalCode,
-            Config::$gatewayPassword,
+            Config::$gatewayPostponedTerminalCode,
+            Config::$gatewayPostponedPassword,
             true
         );
         $paymentId = $paymentResponse->getPaymentData()->getId();

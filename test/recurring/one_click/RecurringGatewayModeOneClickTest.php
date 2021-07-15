@@ -15,7 +15,7 @@ class RecurringGatewayModeOneClickTest extends BaseTestCase
     public function testRecurringGatewayModeOneClick()
     {
         $recurringOneClickUtils = new RecurringOneClickUtils();
-        $recurringResponse = $recurringOneClickUtils->createRecurringInGatewayMode(time(), Config::$gatewayTerminalCode, Config::$gatewayPassword);
+        $recurringResponse = $recurringOneClickUtils->createRecurringInGatewayMode(time(), Config::$gatewayPostponedTerminalCode, Config::$gatewayPostponedPassword);
 
         self::assertEquals(RecurringResponseRecurringData::STATUS_COMPLETED, $recurringResponse->getRecurringData()->getStatus());
     }

@@ -12,8 +12,6 @@ class BaseTestCase extends TestCase
     public function __construct()
     {
         parent::__construct();
-
-        date_default_timezone_set('UTC');
         Config::init();
     }
 }

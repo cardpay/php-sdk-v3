@@ -34,8 +34,8 @@ class Config
         self::$paymentpagePassword = self::getEnvVariable('PAYMENTPAGE_PASSWORD', 'FpK2cy143POj');
 
         // process refunds and payouts immediately
-        self::$gatewayTerminalCode = self::getEnvVariable('GATEWAY_TERMINAL_CODE', '18833');
-        self::$gatewayPassword = self::getEnvVariable('GATEWAY_PASSWORD', 'pzQf529Wa0AV');
+        self::$gatewayTerminalCode = self::getEnvVariable('GATEWAY_TERMINAL_CODE', '32071');
+        self::$gatewayPassword = self::getEnvVariable('GATEWAY_PASSWORD', 'FP708uO2ralC');
 
         // postponed refunds and payouts
         self::$gatewayPostponedTerminalCode = self::getEnvVariable('GATEWAY_POSTPONED_TERMINAL_CODE', '18399');

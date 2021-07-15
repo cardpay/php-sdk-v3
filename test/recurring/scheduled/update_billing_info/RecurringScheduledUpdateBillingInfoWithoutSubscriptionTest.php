@@ -22,6 +22,7 @@ class RecurringScheduledUpdateBillingInfoWithoutSubscriptionTest extends Recurri
 {
     public function __construct()
     {
+        Config::init();
         parent::__construct(Config::$gatewayTerminalCode, Config::$gatewayPassword);
     }
 

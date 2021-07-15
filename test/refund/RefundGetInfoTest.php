@@ -16,7 +16,7 @@ class RefundGetInfoTest extends BaseTestCase
     {
         // create payment
         $paymentUtils = new PaymentUtils();
-        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time(), Config::$gatewayTerminalCode, Config::$gatewayPassword);
+        $paymentResponse = $paymentUtils->createPaymentInGatewayMode(time(), Config::$gatewayPostponedTerminalCode, Config::$gatewayPostponedPassword);
         $paymentId = $paymentResponse->getPaymentData()->getId();
 
         // create refund

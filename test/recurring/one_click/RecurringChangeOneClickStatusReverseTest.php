@@ -22,8 +22,8 @@ class RecurringChangeOneClickStatusReverseTest extends BaseTestCase
         $recurringOneClickUtils = new RecurringOneClickUtils();
         $recurringResponse = $recurringOneClickUtils->createRecurringInGatewayMode(
             time(),
-            Config::$gatewayTerminalCode,
-            Config::$gatewayPassword,
+            Config::$gatewayPostponedTerminalCode,
+            Config::$gatewayPostponedPassword,
             null,
             true
         );

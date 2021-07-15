@@ -11,7 +11,8 @@ class RecurringScheduledResumeTest extends RecurringScheduledTestCase
 {
     public function __construct()
     {
-        parent::__construct(Config::$gatewayTerminalCode, Config::$gatewayPassword);
+        Config::init();
+        parent::__construct(Config::$gatewayPostponedTerminalCode, Config::$gatewayPostponedPassword);
     }
 
     /**
