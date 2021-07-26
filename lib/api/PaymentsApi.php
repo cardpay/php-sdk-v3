@@ -653,6 +653,691 @@ class PaymentsApi
     }
 
     /**
+     * Operation getDispute
+     *
+     * Get a list of disputes by payment id
+     *
+     * @param  string $payment_id Payment ID (or refund ID, or recurring ID) (required)
+     *
+     * @throws \Cardpay\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Cardpay\model\DisputeList
+     */
+    public function getDispute($payment_id)
+    {
+        list($response) = $this->getDisputeWithHttpInfo($payment_id);
+        return $response;
+    }
+
+    /**
+     * Operation getDisputeWithHttpInfo
+     *
+     * Get a list of disputes by payment id
+     *
+     * @param  string $payment_id Payment ID (or refund ID, or recurring ID) (required)
+     *
+     * @throws \Cardpay\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Cardpay\model\DisputeList, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getDisputeWithHttpInfo($payment_id)
+    {
+        $returnType = '\Cardpay\model\DisputeList';
+        $request = $this->getDisputeRequest($payment_id);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = (string) $responseBody;
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\DisputeList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\BadRequestError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\AuthenticationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\OAuthError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\NotFoundError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getDisputeAsync
+     *
+     * Get a list of disputes by payment id
+     *
+     * @param  string $payment_id Payment ID (or refund ID, or recurring ID) (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDisputeAsync($payment_id)
+    {
+        return $this->getDisputeAsyncWithHttpInfo($payment_id)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getDisputeAsyncWithHttpInfo
+     *
+     * Get a list of disputes by payment id
+     *
+     * @param  string $payment_id Payment ID (or refund ID, or recurring ID) (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDisputeAsyncWithHttpInfo($payment_id)
+    {
+        $returnType = '\Cardpay\model\DisputeList';
+        $request = $this->getDisputeRequest($payment_id);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = (string) $responseBody;
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getDispute'
+     *
+     * @param  string $payment_id Payment ID (or refund ID, or recurring ID) (required)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function getDisputeRequest($payment_id)
+    {
+        // verify the required parameter 'payment_id' is set
+        if ($payment_id === null || (is_array($payment_id) && count($payment_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $payment_id when calling getDispute'
+            );
+        }
+
+        $resourcePath = '/api/disputes/{paymentId}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+        // path params
+        if ($payment_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'paymentId' . '}',
+                ObjectSerializer::toPathValue($payment_id),
+                $resourcePath
+            );
+        }
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Authorization');
+        if ($apiKey !== null) {
+            $headers['Authorization'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation getDisputes
+     *
+     * Get a list of disputes
+     *
+     * @param  string $request_id Request ID (required)
+     * @param  string $type Defines dispute entity type: &#x60;CB&#x60; - for chargebacks &#x60;RR&#x60; - for retrieval requests &#x60;FR&#x60; - for fraud reports (required)
+     * @param  int $max_count Limit number of returned dispute entities Must be less or equal to 1000, default is 100, minimal value is 1 (optional)
+     * @param  int $offset Starting position (offset) in the list of dispute entities. Must be less or equal to 10000, default is 0, minimal value is 0 (optional)
+     * @param  \DateTime $reg_end_time Dispute registration date &amp; time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (inclusive); the default is current time UTC (format - yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) Must be less than 10 days after reg_start_time (optional)
+     * @param  \DateTime $reg_start_time Dispute registration date &amp; time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive); the default is 24 hours before reg_end_time UTC (format - yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (in UTC format) (optional)
+     * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) by dispute registration date (optional)
+     *
+     * @throws \Cardpay\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return \Cardpay\model\DisputeList
+     */
+    public function getDisputes($request_id, $type, $max_count = null, $offset = null, $reg_end_time = null, $reg_start_time = null, $sort_order = null)
+    {
+        list($response) = $this->getDisputesWithHttpInfo($request_id, $type, $max_count, $offset, $reg_end_time, $reg_start_time, $sort_order);
+        return $response;
+    }
+
+    /**
+     * Operation getDisputesWithHttpInfo
+     *
+     * Get a list of disputes
+     *
+     * @param  string $request_id Request ID (required)
+     * @param  string $type Defines dispute entity type: &#x60;CB&#x60; - for chargebacks &#x60;RR&#x60; - for retrieval requests &#x60;FR&#x60; - for fraud reports (required)
+     * @param  int $max_count Limit number of returned dispute entities Must be less or equal to 1000, default is 100, minimal value is 1 (optional)
+     * @param  int $offset Starting position (offset) in the list of dispute entities. Must be less or equal to 10000, default is 0, minimal value is 0 (optional)
+     * @param  \DateTime $reg_end_time Dispute registration date &amp; time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (inclusive); the default is current time UTC (format - yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) Must be less than 10 days after reg_start_time (optional)
+     * @param  \DateTime $reg_start_time Dispute registration date &amp; time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive); the default is 24 hours before reg_end_time UTC (format - yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (in UTC format) (optional)
+     * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) by dispute registration date (optional)
+     *
+     * @throws \Cardpay\ApiException on non-2xx response
+     * @throws \InvalidArgumentException
+     * @return array of \Cardpay\model\DisputeList, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getDisputesWithHttpInfo($request_id, $type, $max_count = null, $offset = null, $reg_end_time = null, $reg_start_time = null, $sort_order = null)
+    {
+        $returnType = '\Cardpay\model\DisputeList';
+        $request = $this->getDisputesRequest($request_id, $type, $max_count, $offset, $reg_end_time, $reg_start_time, $sort_order);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? $e->getResponse()->getBody()->getContents() : null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    $response->getBody()
+                );
+            }
+
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = (string) $responseBody;
+                if ($returnType !== 'string') {
+                    $content = json_decode($content);
+                }
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
+
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\DisputeList',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\BadRequestError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\AuthenticationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\OAuthError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+            }
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getDisputesAsync
+     *
+     * Get a list of disputes
+     *
+     * @param  string $request_id Request ID (required)
+     * @param  string $type Defines dispute entity type: &#x60;CB&#x60; - for chargebacks &#x60;RR&#x60; - for retrieval requests &#x60;FR&#x60; - for fraud reports (required)
+     * @param  int $max_count Limit number of returned dispute entities Must be less or equal to 1000, default is 100, minimal value is 1 (optional)
+     * @param  int $offset Starting position (offset) in the list of dispute entities. Must be less or equal to 10000, default is 0, minimal value is 0 (optional)
+     * @param  \DateTime $reg_end_time Dispute registration date &amp; time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (inclusive); the default is current time UTC (format - yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) Must be less than 10 days after reg_start_time (optional)
+     * @param  \DateTime $reg_start_time Dispute registration date &amp; time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive); the default is 24 hours before reg_end_time UTC (format - yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (in UTC format) (optional)
+     * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) by dispute registration date (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDisputesAsync($request_id, $type, $max_count = null, $offset = null, $reg_end_time = null, $reg_start_time = null, $sort_order = null)
+    {
+        return $this->getDisputesAsyncWithHttpInfo($request_id, $type, $max_count, $offset, $reg_end_time, $reg_start_time, $sort_order)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getDisputesAsyncWithHttpInfo
+     *
+     * Get a list of disputes
+     *
+     * @param  string $request_id Request ID (required)
+     * @param  string $type Defines dispute entity type: &#x60;CB&#x60; - for chargebacks &#x60;RR&#x60; - for retrieval requests &#x60;FR&#x60; - for fraud reports (required)
+     * @param  int $max_count Limit number of returned dispute entities Must be less or equal to 1000, default is 100, minimal value is 1 (optional)
+     * @param  int $offset Starting position (offset) in the list of dispute entities. Must be less or equal to 10000, default is 0, minimal value is 0 (optional)
+     * @param  \DateTime $reg_end_time Dispute registration date &amp; time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (inclusive); the default is current time UTC (format - yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) Must be less than 10 days after reg_start_time (optional)
+     * @param  \DateTime $reg_start_time Dispute registration date &amp; time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive); the default is 24 hours before reg_end_time UTC (format - yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (in UTC format) (optional)
+     * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) by dispute registration date (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getDisputesAsyncWithHttpInfo($request_id, $type, $max_count = null, $offset = null, $reg_end_time = null, $reg_start_time = null, $sort_order = null)
+    {
+        $returnType = '\Cardpay\model\DisputeList';
+        $request = $this->getDisputesRequest($request_id, $type, $max_count, $offset, $reg_end_time, $reg_start_time, $sort_order);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = (string) $responseBody;
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getDisputes'
+     *
+     * @param  string $request_id Request ID (required)
+     * @param  string $type Defines dispute entity type: &#x60;CB&#x60; - for chargebacks &#x60;RR&#x60; - for retrieval requests &#x60;FR&#x60; - for fraud reports (required)
+     * @param  int $max_count Limit number of returned dispute entities Must be less or equal to 1000, default is 100, minimal value is 1 (optional)
+     * @param  int $offset Starting position (offset) in the list of dispute entities. Must be less or equal to 10000, default is 0, minimal value is 0 (optional)
+     * @param  \DateTime $reg_end_time Dispute registration date &amp; time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (inclusive); the default is current time UTC (format - yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) Must be less than 10 days after reg_start_time (optional)
+     * @param  \DateTime $reg_start_time Dispute registration date &amp; time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period starts (inclusive); the default is 24 hours before reg_end_time UTC (format - yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;) (in UTC format) (optional)
+     * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) by dispute registration date (optional)
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function getDisputesRequest($request_id, $type, $max_count = null, $offset = null, $reg_end_time = null, $reg_start_time = null, $sort_order = null)
+    {
+        // verify the required parameter 'request_id' is set
+        if ($request_id === null || (is_array($request_id) && count($request_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $request_id when calling getDisputes'
+            );
+        }
+        if (strlen($request_id) > 50) {
+            throw new \InvalidArgumentException('invalid length for "$request_id" when calling PaymentsApi.getDisputes, must be smaller than or equal to 50.');
+        }
+        if (strlen($request_id) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$request_id" when calling PaymentsApi.getDisputes, must be bigger than or equal to 1.');
+        }
+
+        // verify the required parameter 'type' is set
+        if ($type === null || (is_array($type) && count($type) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $type when calling getDisputes'
+            );
+        }
+        if (!preg_match("/CB|RR|FR/", $type)) {
+            throw new \InvalidArgumentException("invalid value for \"type\" when calling PaymentsApi.getDisputes, must conform to the pattern /CB|RR|FR/.");
+        }
+
+        if ($max_count !== null && $max_count > 1000) {
+            throw new \InvalidArgumentException('invalid value for "$max_count" when calling PaymentsApi.getDisputes, must be smaller than or equal to 1000.');
+        }
+
+        if ($offset !== null && $offset > 10000) {
+            throw new \InvalidArgumentException('invalid value for "$offset" when calling PaymentsApi.getDisputes, must be smaller than or equal to 10000.');
+        }
+
+        if ($sort_order !== null && !preg_match("/asc|desc/", $sort_order)) {
+            throw new \InvalidArgumentException("invalid value for \"sort_order\" when calling PaymentsApi.getDisputes, must conform to the pattern /asc|desc/.");
+        }
+
+
+        $resourcePath = '/api/disputes';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        if ($max_count !== null) {
+            $queryParams['max_count'] = ObjectSerializer::toQueryValue($max_count);
+        }
+        // query params
+        if ($offset !== null) {
+            $queryParams['offset'] = ObjectSerializer::toQueryValue($offset);
+        }
+        // query params
+        if ($reg_end_time !== null) {
+            $queryParams['reg_end_time'] = ObjectSerializer::toQueryValue($reg_end_time);
+        }
+        // query params
+        if ($reg_start_time !== null) {
+            $queryParams['reg_start_time'] = ObjectSerializer::toQueryValue($reg_start_time);
+        }
+        // query params
+        if ($request_id !== null) {
+            $queryParams['request_id'] = ObjectSerializer::toQueryValue($request_id);
+        }
+        // query params
+        if ($sort_order !== null) {
+            $queryParams['sort_order'] = ObjectSerializer::toQueryValue($sort_order);
+        }
+        // query params
+        if ($type !== null) {
+            $queryParams['type'] = ObjectSerializer::toQueryValue($type);
+        }
+
+
+        // body params
+        $_tempBody = null;
+
+        if ($multipart) {
+            $headers = $this->headerSelector->selectHeadersForMultipart(
+                ['application/json']
+            );
+        } else {
+            $headers = $this->headerSelector->selectHeaders(
+                ['application/json'],
+                []
+            );
+        }
+
+        // for model (json/xml)
+        if (isset($_tempBody)) {
+            // $_tempBody is the method argument, if present
+            $httpBody = $_tempBody;
+            // \stdClass has no __toString(), so we should encode it manually
+            if ($httpBody instanceof \stdClass && $headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($httpBody);
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $multipartContents[] = [
+                        'name' => $formParamName,
+                        'contents' => $formParamValue
+                    ];
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif ($headers['Content-Type'] === 'application/json') {
+                $httpBody = \GuzzleHttp\json_encode($formParams);
+
+            } else {
+                // for HTTP post (form)
+                $httpBody = \GuzzleHttp\Psr7\build_query($formParams);
+            }
+        }
+
+        // this endpoint requires API key authentication
+        $apiKey = $this->config->getApiKeyWithPrefix('Authorization');
+        if ($apiKey !== null) {
+            $headers['Authorization'] = $apiKey;
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $query = \GuzzleHttp\Psr7\build_query($queryParams);
+        return new Request(
+            'GET',
+            $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getPayment
      *
      * Get payment information
