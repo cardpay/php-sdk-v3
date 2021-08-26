@@ -676,7 +676,7 @@ class RefundsApi
      * @param  string $request_id Request ID (required)
      * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
      * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
-     * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
+     * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000, minimal value is 1) (optional)
      * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
@@ -700,7 +700,7 @@ class RefundsApi
      * @param  string $request_id Request ID (required)
      * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
      * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
-     * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
+     * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000, minimal value is 1) (optional)
      * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
@@ -814,7 +814,7 @@ class RefundsApi
      * @param  string $request_id Request ID (required)
      * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
      * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
-     * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
+     * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000, minimal value is 1) (optional)
      * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
@@ -841,7 +841,7 @@ class RefundsApi
      * @param  string $request_id Request ID (required)
      * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
      * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
-     * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
+     * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000, minimal value is 1) (optional)
      * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
@@ -898,7 +898,7 @@ class RefundsApi
      * @param  string $request_id Request ID (required)
      * @param  string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code of transactions currency (optional)
      * @param  \DateTime $end_time Date and time up to milliseconds (in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format) when requested period ends (not inclusive), UTC time, must be less than 7 days after &#39;start_time&#39;, default is current time (format: yyyy-MM-dd&#39;T&#39;HH:mm:ss&#39;Z&#39;) (optional)
-     * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000) (optional)
+     * @param  int $max_count Limit number of returned transactions (must be less than 10000, default is 1000, minimal value is 1) (optional)
      * @param  string $merchant_order_id Merchant order number from the merchant system (optional)
      * @param  string $payment_method Used payment method type name from payment methods list (optional)
      * @param  string $sort_order Sort based on order of results. &#x60;asc&#x60; for ascending order or &#x60;desc&#x60; for descending order (default value) (optional)
@@ -924,6 +924,9 @@ class RefundsApi
 
         if ($max_count !== null && $max_count > 10000) {
             throw new \InvalidArgumentException('invalid value for "$max_count" when calling RefundsApi.getRefunds, must be smaller than or equal to 10000.');
+        }
+        if ($max_count !== null && $max_count < 1) {
+            throw new \InvalidArgumentException('invalid value for "$max_count" when calling RefundsApi.getRefunds, must be bigger than or equal to 1.');
         }
 
         if ($merchant_order_id !== null && strlen($merchant_order_id) > 50) {

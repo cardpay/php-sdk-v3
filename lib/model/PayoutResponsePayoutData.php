@@ -179,7 +179,6 @@ class PayoutResponsePayoutData implements ModelInterface, ArrayAccess
     const STATUS_COMPLETED = 'COMPLETED';
     const STATUS_CANCELLED = 'CANCELLED';
     const STATUS_REFUNDED = 'REFUNDED';
-    const STATUS_PARTIALLY_REFUNDED = 'PARTIALLY_REFUNDED';
     const STATUS_VOIDED = 'VOIDED';
     const STATUS_TERMINATED = 'TERMINATED';
     const STATUS_CHARGED_BACK = 'CHARGED_BACK';
@@ -202,7 +201,6 @@ class PayoutResponsePayoutData implements ModelInterface, ArrayAccess
             self::STATUS_COMPLETED,
             self::STATUS_CANCELLED,
             self::STATUS_REFUNDED,
-            self::STATUS_PARTIALLY_REFUNDED,
             self::STATUS_VOIDED,
             self::STATUS_TERMINATED,
             self::STATUS_CHARGED_BACK,

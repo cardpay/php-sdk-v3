@@ -269,6 +269,10 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'max_count', must be smaller than or equal to 10000.";
         }
 
+        if (!is_null($this->container['max_count']) && ($this->container['max_count'] < 1)) {
+            $invalidProperties[] = "invalid value for 'max_count', must be bigger than or equal to 1.";
+        }
+
         $allowedValues = $this->getSortOrderAllowableValues();
         if (!is_null($this->container['sort_order']) && !in_array($this->container['sort_order'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -458,7 +462,7 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
     /**
      * Sets max_count
      *
-     * @param int $max_count Limit number of returned transactions (must be less than 10000, default is 1000)
+     * @param int $max_count Limit number of returned transactions (must be less than 10000, default is 1000, minimal value is 1)
      *
      * @return $this
      */
@@ -467,6 +471,9 @@ class RecurringFilterParameters implements ModelInterface, ArrayAccess
 
         if (!is_null($max_count) && ($max_count > 10000)) {
             throw new \InvalidArgumentException('invalid value for $max_count when calling RecurringFilterParameters., must be smaller than or equal to 10000.');
+        }
+        if (!is_null($max_count) && ($max_count < 1)) {
+            throw new \InvalidArgumentException('invalid value for $max_count when calling RecurringFilterParameters., must be bigger than or equal to 1.');
         }
 
         $this->container['max_count'] = $max_count;
