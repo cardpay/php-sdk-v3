@@ -198,7 +198,7 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
     /**
      * Sets brands
      *
-     * @param string[] $brands Available Card Brands, is presented only for \"bankcard\" payment method
+     * @param string[] $brands Available Card Brands, is presented only for 'BANKCARD' payment method
      *
      * @return $this
      */

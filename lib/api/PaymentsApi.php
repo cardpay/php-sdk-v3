@@ -1646,7 +1646,7 @@ class PaymentsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Cardpay\model\PaymentMethodsList
+     * @return \Cardpay\model\TransactionMethodsList
      */
     public function getPaymentMethods($request_id, $payout_methods_only = null)
     {
@@ -1664,11 +1664,11 @@ class PaymentsApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Cardpay\model\PaymentMethodsList, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Cardpay\model\TransactionMethodsList, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPaymentMethodsWithHttpInfo($request_id, $payout_methods_only = null)
     {
-        $returnType = '\Cardpay\model\PaymentMethodsList';
+        $returnType = '\Cardpay\model\TransactionMethodsList';
         $request = $this->getPaymentMethodsRequest($request_id, $payout_methods_only);
 
         try {
@@ -1720,7 +1720,7 @@ class PaymentsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\PaymentMethodsList',
+                        '\Cardpay\model\TransactionMethodsList',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1796,7 +1796,7 @@ class PaymentsApi
      */
     public function getPaymentMethodsAsyncWithHttpInfo($request_id, $payout_methods_only = null)
     {
-        $returnType = '\Cardpay\model\PaymentMethodsList';
+        $returnType = '\Cardpay\model\TransactionMethodsList';
         $request = $this->getPaymentMethodsRequest($request_id, $payout_methods_only);
 
         return $this->client

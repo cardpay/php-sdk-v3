@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PaymentMethodsList implements ModelInterface, ArrayAccess
+class TransactionMethodsList implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PaymentMethodsList implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PaymentMethodsList';
+    protected static $swaggerModelName = 'TransactionMethodsList';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,7 +26,8 @@ class PaymentMethodsList implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'payment_methods' => '\Cardpay\model\PaymentMethodsResponse[]'
+        'payment_methods' => '\Cardpay\model\PaymentMethodsResponse[]',
+        'payout_methods' => '\Cardpay\model\PaymentMethodsResponse[]'
     ];
 
     /**
@@ -35,7 +36,8 @@ class PaymentMethodsList implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'payment_methods' => null
+        'payment_methods' => null,
+        'payout_methods' => null
     ];
 
     /**
@@ -65,7 +67,8 @@ class PaymentMethodsList implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'payment_methods' => 'payment_methods'
+        'payment_methods' => 'payment_methods',
+        'payout_methods' => 'payout_methods'
     ];
 
     /**
@@ -74,7 +77,8 @@ class PaymentMethodsList implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'payment_methods' => 'setPaymentMethods'
+        'payment_methods' => 'setPaymentMethods',
+        'payout_methods' => 'setPayoutMethods'
     ];
 
     /**
@@ -83,7 +87,8 @@ class PaymentMethodsList implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'payment_methods' => 'getPaymentMethods'
+        'payment_methods' => 'getPaymentMethods',
+        'payout_methods' => 'getPayoutMethods'
     ];
 
     /**
@@ -147,6 +152,7 @@ class PaymentMethodsList implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['payment_methods'] = isset($data['payment_methods']) ? $data['payment_methods'] : null;
+        $this->container['payout_methods'] = isset($data['payout_methods']) ? $data['payout_methods'] : null;
     }
 
     /**
@@ -193,6 +199,30 @@ class PaymentMethodsList implements ModelInterface, ArrayAccess
     public function setPaymentMethods($payment_methods)
     {
         $this->container['payment_methods'] = $payment_methods;
+
+        return $this;
+    }
+
+    /**
+     * Gets payout_methods
+     *
+     * @return \Cardpay\model\PaymentMethodsResponse[]
+     */
+    public function getPayoutMethods()
+    {
+        return $this->container['payout_methods'];
+    }
+
+    /**
+     * Sets payout_methods
+     *
+     * @param \Cardpay\model\PaymentMethodsResponse[] $payout_methods Payout methods list
+     *
+     * @return $this
+     */
+    public function setPayoutMethods($payout_methods)
+    {
+        $this->container['payout_methods'] = $payout_methods;
 
         return $this;
     }
