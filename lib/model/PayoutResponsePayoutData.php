@@ -26,6 +26,7 @@ class PayoutResponsePayoutData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'action_code' => 'string',
         'amount' => 'float',
         'arn' => 'string',
         'created' => 'string',
@@ -44,6 +45,7 @@ class PayoutResponsePayoutData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'action_code' => null,
         'amount' => null,
         'arn' => null,
         'created' => null,
@@ -83,6 +85,7 @@ class PayoutResponsePayoutData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'action_code' => 'action_code',
         'amount' => 'amount',
         'arn' => 'arn',
         'created' => 'created',
@@ -101,6 +104,7 @@ class PayoutResponsePayoutData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'action_code' => 'setActionCode',
         'amount' => 'setAmount',
         'arn' => 'setArn',
         'created' => 'setCreated',
@@ -119,6 +123,7 @@ class PayoutResponsePayoutData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'action_code' => 'getActionCode',
         'amount' => 'getAmount',
         'arn' => 'getArn',
         'created' => 'getCreated',
@@ -224,6 +229,7 @@ class PayoutResponsePayoutData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['action_code'] = isset($data['action_code']) ? $data['action_code'] : null;
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
         $this->container['arn'] = isset($data['arn']) ? $data['arn'] : null;
         $this->container['created'] = isset($data['created']) ? $data['created'] : null;
@@ -267,6 +273,30 @@ class PayoutResponsePayoutData implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets action_code
+     *
+     * @return string
+     */
+    public function getActionCode()
+    {
+        return $this->container['action_code'];
+    }
+
+    /**
+     * Sets action_code
+     *
+     * @param string $action_code Action code (only in decline case)
+     *
+     * @return $this
+     */
+    public function setActionCode($action_code)
+    {
+        $this->container['action_code'] = $action_code;
+
+        return $this;
+    }
 
     /**
      * Gets amount
