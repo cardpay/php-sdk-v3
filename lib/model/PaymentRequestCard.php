@@ -30,6 +30,7 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         'expiration' => 'string',
         'holder' => 'string',
         'pan' => 'string',
+        'pin_code' => 'string',
         'security_code' => 'string'
     ];
 
@@ -43,6 +44,7 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         'expiration' => null,
         'holder' => null,
         'pan' => null,
+        'pin_code' => null,
         'security_code' => null
     ];
 
@@ -77,6 +79,7 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         'expiration' => 'expiration',
         'holder' => 'holder',
         'pan' => 'pan',
+        'pin_code' => 'pin_code',
         'security_code' => 'security_code'
     ];
 
@@ -90,6 +93,7 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         'expiration' => 'setExpiration',
         'holder' => 'setHolder',
         'pan' => 'setPan',
+        'pin_code' => 'setPinCode',
         'security_code' => 'setSecurityCode'
     ];
 
@@ -103,6 +107,7 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         'expiration' => 'getExpiration',
         'holder' => 'getHolder',
         'pan' => 'getPan',
+        'pin_code' => 'getPinCode',
         'security_code' => 'getSecurityCode'
     ];
 
@@ -187,6 +192,7 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
         $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
         $this->container['pan'] = isset($data['pan']) ? $data['pan'] : null;
+        $this->container['pin_code'] = isset($data['pin_code']) ? $data['pin_code'] : null;
         $this->container['security_code'] = isset($data['security_code']) ? $data['security_code'] : null;
     }
 
@@ -225,6 +231,10 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['pan']) && (mb_strlen($this->container['pan']) < 13)) {
             $invalidProperties[] = "invalid value for 'pan', the character length must be bigger than or equal to 13.";
+        }
+
+        if (!is_null($this->container['pin_code']) && !preg_match("/^[0-9]{4}$/", $this->container['pin_code'])) {
+            $invalidProperties[] = "invalid value for 'pin_code', must be conform to the pattern /^[0-9]{4}$/.";
         }
 
         if (!is_null($this->container['security_code']) && !preg_match("/[0-9]{3,4}/", $this->container['security_code'])) {
@@ -366,6 +376,35 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         }
 
         $this->container['pan'] = $pan;
+
+        return $this;
+    }
+
+    /**
+     * Gets pin_code
+     *
+     * @return string
+     */
+    public function getPinCode()
+    {
+        return $this->container['pin_code'];
+    }
+
+    /**
+     * Sets pin_code
+     *
+     * @param string $pin_code pin_code
+     *
+     * @return $this
+     */
+    public function setPinCode($pin_code)
+    {
+
+        if (!is_null($pin_code) && (!preg_match("/^[0-9]{4}$/", $pin_code))) {
+            throw new \InvalidArgumentException("invalid value for $pin_code when calling PaymentRequestCard., must conform to the pattern /^[0-9]{4}$/.");
+        }
+
+        $this->container['pin_code'] = $pin_code;
 
         return $this;
     }

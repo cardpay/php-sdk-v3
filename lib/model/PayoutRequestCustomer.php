@@ -34,7 +34,8 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         'identity' => 'string',
         'last_name' => 'string',
         'living_address' => '\Cardpay\model\PayoutRequestLivingAddress',
-        'phone' => 'string'
+        'phone' => 'string',
+        'tax_reason_code' => 'string'
     ];
 
     /**
@@ -51,7 +52,8 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         'identity' => null,
         'last_name' => null,
         'living_address' => null,
-        'phone' => null
+        'phone' => null,
+        'tax_reason_code' => null
     ];
 
     /**
@@ -89,7 +91,8 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         'identity' => 'identity',
         'last_name' => 'last_name',
         'living_address' => 'living_address',
-        'phone' => 'phone'
+        'phone' => 'phone',
+        'tax_reason_code' => 'tax_reason_code'
     ];
 
     /**
@@ -106,7 +109,8 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         'identity' => 'setIdentity',
         'last_name' => 'setLastName',
         'living_address' => 'setLivingAddress',
-        'phone' => 'setPhone'
+        'phone' => 'setPhone',
+        'tax_reason_code' => 'setTaxReasonCode'
     ];
 
     /**
@@ -123,7 +127,8 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         'identity' => 'getIdentity',
         'last_name' => 'getLastName',
         'living_address' => 'getLivingAddress',
-        'phone' => 'getPhone'
+        'phone' => 'getPhone',
+        'tax_reason_code' => 'getTaxReasonCode'
     ];
 
     /**
@@ -195,6 +200,7 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         $this->container['last_name'] = isset($data['last_name']) ? $data['last_name'] : null;
         $this->container['living_address'] = isset($data['living_address']) ? $data['living_address'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
+        $this->container['tax_reason_code'] = isset($data['tax_reason_code']) ? $data['tax_reason_code'] : null;
     }
 
     /**
@@ -260,6 +266,10 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 5)) {
             $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 5.";
+        }
+
+        if (!is_null($this->container['tax_reason_code']) && !preg_match("/^[0-9]{9}$/", $this->container['tax_reason_code'])) {
+            $invalidProperties[] = "invalid value for 'tax_reason_code', must be conform to the pattern /^[0-9]{9}$/.";
         }
 
         return $invalidProperties;
@@ -538,6 +548,35 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         }
 
         $this->container['phone'] = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Gets tax_reason_code
+     *
+     * @return string
+     */
+    public function getTaxReasonCode()
+    {
+        return $this->container['tax_reason_code'];
+    }
+
+    /**
+     * Sets tax_reason_code
+     *
+     * @param string $tax_reason_code Customer's tax reason codeFor 'BANK131 back account mode' is required for methods where country = RU
+     *
+     * @return $this
+     */
+    public function setTaxReasonCode($tax_reason_code)
+    {
+
+        if (!is_null($tax_reason_code) && (!preg_match("/^[0-9]{9}$/", $tax_reason_code))) {
+            throw new \InvalidArgumentException("invalid value for $tax_reason_code when calling PayoutRequestCustomer., must conform to the pattern /^[0-9]{9}$/.");
+        }
+
+        $this->container['tax_reason_code'] = $tax_reason_code;
 
         return $this;
     }
