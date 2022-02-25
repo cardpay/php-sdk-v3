@@ -71,9 +71,7 @@ class RecurringOneClickUtils
      */
     public function createRecurringInGatewayMode($orderId, $terminalCode, $password, $filingId = null, $preAuth = false)
     {
-        /** @var RecurringResponse $recurringResponse */
-        $recurringResponse = $this->createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth);
-        return $recurringResponse;
+        return $this->createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth);
     }
 
     /**
@@ -88,10 +86,10 @@ class RecurringOneClickUtils
     private function createRecurring($orderId, $terminalCode, $password, $filingId, $preAuth)
     {
         $orderDescription = 'Order description (one-click recurring)';
-        $orderAmount = rand(Constants::MIN_PAYMENT_AMOUNT, Constants::MAX_PAYMENT_AMOUNT);
+        $orderAmount = mt_rand(Constants::MIN_PAYMENT_AMOUNT, Constants::MAX_PAYMENT_AMOUNT);
         $orderCurrency = Config::$terminalCurrency;
         $customerId = time();
-        $customerEmail = substr(sha1(rand()), 0, 20) . '@' . Config::$emailsDomain;
+        $customerEmail = substr(sha1(mt_rand()), 0, 20) . '@' . Config::$emailsDomain;
 
         if (null == $this->config) {
             $authUtils = new AuthUtils();
@@ -202,11 +200,10 @@ class RecurringOneClickUtils
 
             /** @var RecurringResponse */
             return $data[0];
-
-        } else {
-            // payment page mode
-            return $redirectURL;
         }
+
+        // payment page mode
+        return $redirectURL;
     }
 
     /**

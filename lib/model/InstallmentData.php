@@ -33,13 +33,9 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'initiator' => 'string',
         'installment_amount' => 'float',
         'installment_type' => 'string',
-        'interval' => 'int',
         'note' => 'string',
         'payments' => 'int',
-        'period' => 'string',
         'preauth' => 'bool',
-        'retries' => 'int',
-        'subscription_start' => '\DateTime',
         'trans_type' => 'string'
     ];
 
@@ -56,13 +52,9 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'initiator' => null,
         'installment_amount' => null,
         'installment_type' => null,
-        'interval' => 'int32',
         'note' => null,
         'payments' => 'int32',
-        'period' => null,
         'preauth' => null,
-        'retries' => 'int32',
-        'subscription_start' => 'date-time',
         'trans_type' => null
     ];
 
@@ -100,13 +92,9 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'initiator' => 'initiator',
         'installment_amount' => 'installment_amount',
         'installment_type' => 'installment_type',
-        'interval' => 'interval',
         'note' => 'note',
         'payments' => 'payments',
-        'period' => 'period',
         'preauth' => 'preauth',
-        'retries' => 'retries',
-        'subscription_start' => 'subscription_start',
         'trans_type' => 'trans_type'
     ];
 
@@ -123,13 +111,9 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'initiator' => 'setInitiator',
         'installment_amount' => 'setInstallmentAmount',
         'installment_type' => 'setInstallmentType',
-        'interval' => 'setInterval',
         'note' => 'setNote',
         'payments' => 'setPayments',
-        'period' => 'setPeriod',
         'preauth' => 'setPreauth',
-        'retries' => 'setRetries',
-        'subscription_start' => 'setSubscriptionStart',
         'trans_type' => 'setTransType'
     ];
 
@@ -146,13 +130,9 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'initiator' => 'getInitiator',
         'installment_amount' => 'getInstallmentAmount',
         'installment_type' => 'getInstallmentType',
-        'interval' => 'getInterval',
         'note' => 'getNote',
         'payments' => 'getPayments',
-        'period' => 'getPeriod',
         'preauth' => 'getPreauth',
-        'retries' => 'getRetries',
-        'subscription_start' => 'getSubscriptionStart',
         'trans_type' => 'getTransType'
     ];
 
@@ -197,11 +177,6 @@ class InstallmentData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const PERIOD_MINUTE = 'minute';
-    const PERIOD_DAY = 'day';
-    const PERIOD_WEEK = 'week';
-    const PERIOD_MONTH = 'month';
-    const PERIOD_YEAR = 'year';
     const TRANS_TYPE__01 = '01';
     const TRANS_TYPE__03 = '03';
     const TRANS_TYPE__10 = '10';
@@ -209,22 +184,6 @@ class InstallmentData implements ModelInterface, ArrayAccess
     const TRANS_TYPE__28 = '28';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getPeriodAllowableValues()
-    {
-        return [
-            self::PERIOD_MINUTE,
-            self::PERIOD_DAY,
-            self::PERIOD_WEEK,
-            self::PERIOD_MONTH,
-            self::PERIOD_YEAR,
-        ];
-    }
     
     /**
      * Gets allowable values of the enum
@@ -265,13 +224,9 @@ class InstallmentData implements ModelInterface, ArrayAccess
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['installment_amount'] = isset($data['installment_amount']) ? $data['installment_amount'] : null;
         $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
-        $this->container['interval'] = isset($data['interval']) ? $data['interval'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['payments'] = isset($data['payments']) ? $data['payments'] : null;
-        $this->container['period'] = isset($data['period']) ? $data['period'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
-        $this->container['retries'] = isset($data['retries']) ? $data['retries'] : null;
-        $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
@@ -302,12 +257,8 @@ class InstallmentData implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'initiator', must be conform to the pattern /mit|cit/.";
         }
 
-        if (!is_null($this->container['installment_type']) && !preg_match("/IF|MF_HOLD|MF_HOLD_SPLIT|MF_WITHOUT_HOLD/", $this->container['installment_type'])) {
-            $invalidProperties[] = "invalid value for 'installment_type', must be conform to the pattern /IF|MF_HOLD|MF_HOLD_SPLIT|MF_WITHOUT_HOLD/.";
-        }
-
-        if (!is_null($this->container['interval']) && ($this->container['interval'] < 1)) {
-            $invalidProperties[] = "invalid value for 'interval', must be bigger than or equal to 1.";
+        if (!is_null($this->container['installment_type']) && !preg_match("/IF|MF_HOLD/", $this->container['installment_type'])) {
+            $invalidProperties[] = "invalid value for 'installment_type', must be conform to the pattern /IF|MF_HOLD/.";
         }
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) > 100)) {
@@ -316,14 +267,6 @@ class InstallmentData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
-        }
-
-        $allowedValues = $this->getPeriodAllowableValues();
-        if (!is_null($this->container['period']) && !in_array($this->container['period'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'period', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
         }
 
         $allowedValues = $this->getTransTypeAllowableValues();
@@ -518,47 +461,18 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Sets installment_type
      *
-     * @param string $installment_type Installment type, 4 possible values: `IF` - issuer financed `MF_HOLD' - merchant financed hold `MF_HOLD_SPLIT' - merchant financed split `MF_WITHOUT_HOLD' - merchant financed without hold
+     * @param string $installment_type Installment type, 2 possible values: `IF` - issuer financed `MF_HOLD' - merchant financed hold
      *
      * @return $this
      */
     public function setInstallmentType($installment_type)
     {
 
-        if (!is_null($installment_type) && (!preg_match("/IF|MF_HOLD|MF_HOLD_SPLIT|MF_WITHOUT_HOLD/", $installment_type))) {
-            throw new \InvalidArgumentException("invalid value for $installment_type when calling InstallmentData., must conform to the pattern /IF|MF_HOLD|MF_HOLD_SPLIT|MF_WITHOUT_HOLD/.");
+        if (!is_null($installment_type) && (!preg_match("/IF|MF_HOLD/", $installment_type))) {
+            throw new \InvalidArgumentException("invalid value for $installment_type when calling InstallmentData., must conform to the pattern /IF|MF_HOLD/.");
         }
 
         $this->container['installment_type'] = $installment_type;
-
-        return $this;
-    }
-
-    /**
-     * Gets interval
-     *
-     * @return int
-     */
-    public function getInterval()
-    {
-        return $this->container['interval'];
-    }
-
-    /**
-     * Sets interval
-     *
-     * @param int $interval Frequency interval of period, can be 1-365 depending on selected period value. Minimum value of period + interval can be 7 days / 1 week. Maximum value of period + interval plan can be 365 days / 52 weeks / 12 months / 1 year. 1-60 minutes - for **sandbox environment** and testing purpose only.
-     *
-     * @return $this
-     */
-    public function setInterval($interval)
-    {
-
-        if (!is_null($interval) && ($interval < 1)) {
-            throw new \InvalidArgumentException('invalid value for $interval when calling InstallmentData., must be bigger than or equal to 1.');
-        }
-
-        $this->container['interval'] = $interval;
 
         return $this;
     }
@@ -607,46 +521,13 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Sets payments
      *
-     * @param int $payments Number of total payments to be charged per defined interval, can be 2-200. For Mexican installment subscription (installment_type = `IF`) should be 1-99.
+     * @param int $payments Number of total payments, to be charged per defined interval. For installment subscription with installment_type = `MF_HOLD` can be 2-12. For Mexican installment subscription (installment_type = `IF`) should be 1-99.
      *
      * @return $this
      */
     public function setPayments($payments)
     {
         $this->container['payments'] = $payments;
-
-        return $this;
-    }
-
-    /**
-     * Gets period
-     *
-     * @return string
-     */
-    public function getPeriod()
-    {
-        return $this->container['period'];
-    }
-
-    /**
-     * Sets period
-     *
-     * @param string $period Initial period of recurring, can be `day`, `week`, `month`, `year`
-     *
-     * @return $this
-     */
-    public function setPeriod($period)
-    {
-        $allowedValues = $this->getPeriodAllowableValues();
-        if (!is_null($period) && !in_array($period, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'period', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['period'] = $period;
 
         return $this;
     }
@@ -664,61 +545,13 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Sets preauth
      *
-     * @param bool $preauth If set to `true`, the amount will not be captured but only blocked. Installment with `preauth` attribute will be voided automatically in 5 days from the time of creating the preauth transaction.
+     * @param bool $preauth If set to `true`, the amount will not be captured but only blocked. Installment with `preauth` attribute will be voided automatically in 7 days from the time of creating the preauth transaction.
      *
      * @return $this
      */
     public function setPreauth($preauth)
     {
         $this->container['preauth'] = $preauth;
-
-        return $this;
-    }
-
-    /**
-     * Gets retries
-     *
-     * @return int
-     */
-    public function getRetries()
-    {
-        return $this->container['retries'];
-    }
-
-    /**
-     * Sets retries
-     *
-     * @param int $retries Number of daily basis retry attempts in case of payment has not been captured successfully, from 1 to 15 attempts can be specified.
-     *
-     * @return $this
-     */
-    public function setRetries($retries)
-    {
-        $this->container['retries'] = $retries;
-
-        return $this;
-    }
-
-    /**
-     * Gets subscription_start
-     *
-     * @return \DateTime
-     */
-    public function getSubscriptionStart()
-    {
-        return $this->container['subscription_start'];
-    }
-
-    /**
-     * Sets subscription_start
-     *
-     * @param \DateTime $subscription_start The date in yyyy-MM-dd format when subscription will actually become activated (grace period). Auth request will be created but Customer will be charged only when subscription start date comes. Leave it empty or specify the current date to activate subscription at once without any grace period applied.
-     *
-     * @return $this
-     */
-    public function setSubscriptionStart($subscription_start)
-    {
-        $this->container['subscription_start'] = $subscription_start;
 
         return $this;
     }

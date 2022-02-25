@@ -21,7 +21,7 @@ class RecurringRetryLogicScheduledSubscriptionTest extends RecurringScheduledTes
     public function testRetryLogicScheduledSubscription()
     {
         // create plan with retries
-        $retries = rand(2, 10);
+        $retries = mt_rand(2, 10);
 
         $recurringPlanResponse = $this->recurringPlanUtils->createPlan($this->terminalCode, $this->password, $retries);
 

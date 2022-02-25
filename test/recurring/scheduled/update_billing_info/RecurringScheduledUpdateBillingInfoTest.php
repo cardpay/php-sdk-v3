@@ -8,7 +8,6 @@ use Cardpay\model\FilingRecurringData;
 use Cardpay\model\FilingRequest;
 use Cardpay\model\FilingRequestMerchantOrder;
 use Cardpay\model\FilingRequestSubscriptionData;
-use Cardpay\model\PaymentCreationResponse;
 use Cardpay\model\PaymentRequestCard;
 use Cardpay\model\PaymentRequestCardAccount;
 use Cardpay\model\RecurringCustomer;
@@ -38,7 +37,7 @@ class RecurringScheduledUpdateBillingInfoTest extends RecurringScheduledTestCase
         $recurringPlanResponse = $this->recurringPlanUtils->createPlan($this->terminalCode, $this->password);
         $planId = $recurringPlanResponse->getPlanData()->getId();
         $customerId = time();
-        $customerEmail = substr(sha1(rand()), 0, 20) . '@' . Config::$emailsDomain;
+        $customerEmail = substr(sha1(mt_rand()), 0, 20) . '@' . Config::$emailsDomain;
 
         self::assertNotEmpty($planId);
 
@@ -113,12 +112,11 @@ class RecurringScheduledUpdateBillingInfoTest extends RecurringScheduledTestCase
             'customer' => $recurringCustomer
         ]);
 
-        /** @var PaymentCreationResponse $paymentCreationResponse */
-        $paymentCreationResponse = $this->recurringScheduledUtils
+        $recurringGatewayCreationResponse = $this->recurringScheduledUtils
             ->getRecurringsApi()
             ->createFiling($filingRequest);
 
-        $redirectUrl = $paymentCreationResponse->getRedirectUrl();
+        $redirectUrl = $recurringGatewayCreationResponse->getRedirectUrl();
         self::assertNotEmpty($redirectUrl);
 
         try {

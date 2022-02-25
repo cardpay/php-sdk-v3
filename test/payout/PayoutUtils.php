@@ -65,7 +65,7 @@ class PayoutUtils
         ]);
 
         $payoutData = new PayoutRequestPayoutData([
-            'amount' => rand(10, 100),
+            'amount' => mt_rand(10, 100),
             'currency' => Config::$terminalCurrency
         ]);
 
@@ -94,9 +94,7 @@ class PayoutUtils
         }
 
         $this->payoutsApi = new PayoutsApi(Config::$cardpayApiUrl, $this->client, $this->config, $this->headerSelector);
-        $payoutResponse = $this->payoutsApi->createPayout($payoutRequest);
-
-        return $payoutResponse;
+        return $this->payoutsApi->createPayout($payoutRequest);
     }
 
     /**

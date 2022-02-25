@@ -101,9 +101,9 @@ class PaymentUtils
     private function createPayment($orderId, $terminalCode, $password, $preAuth)
     {
         $orderDescription = 'Order description';
-        $orderAmount = rand(Constants::MIN_PAYMENT_AMOUNT, Constants::MAX_PAYMENT_AMOUNT);
+        $orderAmount = mt_rand(Constants::MIN_PAYMENT_AMOUNT, Constants::MAX_PAYMENT_AMOUNT);
         $orderCurrency = Config::$terminalCurrency;
-        $customerEmail = substr(sha1(rand()), 0, 20) . '@' . Config::$emailsDomain;
+        $customerEmail = substr(sha1(mt_rand()), 0, 20) . '@' . Config::$emailsDomain;
 
         if (null == $this->config) {
             $authUtils = new AuthUtils();
@@ -216,11 +216,10 @@ class PaymentUtils
 
             /** @var PaymentResponse */
             return $data[0];
-
-        } else {
-            // payment page mode
-            return $redirectURL;
         }
+
+        // payment page mode
+        return $redirectURL;
     }
 
     /**
