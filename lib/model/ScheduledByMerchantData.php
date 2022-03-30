@@ -34,6 +34,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'initiator' => 'string',
         'note' => 'string',
         'scheduled_type' => 'string',
+        'three_ds_challenge_indicator' => 'string',
         'trans_type' => 'string'
     ];
 
@@ -51,6 +52,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'initiator' => null,
         'note' => null,
         'scheduled_type' => null,
+        'three_ds_challenge_indicator' => null,
         'trans_type' => null
     ];
 
@@ -89,6 +91,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'initiator' => 'initiator',
         'note' => 'note',
         'scheduled_type' => 'scheduled_type',
+        'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
         'trans_type' => 'trans_type'
     ];
 
@@ -106,6 +109,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'initiator' => 'setInitiator',
         'note' => 'setNote',
         'scheduled_type' => 'setScheduledType',
+        'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
         'trans_type' => 'setTransType'
     ];
 
@@ -123,6 +127,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'initiator' => 'getInitiator',
         'note' => 'getNote',
         'scheduled_type' => 'getScheduledType',
+        'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
         'trans_type' => 'getTransType'
     ];
 
@@ -215,6 +220,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['scheduled_type'] = isset($data['scheduled_type']) ? $data['scheduled_type'] : null;
+        $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
@@ -261,6 +267,10 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         }
         if (!preg_match("/SM/", $this->container['scheduled_type'])) {
             $invalidProperties[] = "invalid value for 'scheduled_type', must be conform to the pattern /SM/.";
+        }
+
+        if (!is_null($this->container['three_ds_challenge_indicator']) && !preg_match("/01|04/", $this->container['three_ds_challenge_indicator'])) {
+            $invalidProperties[] = "invalid value for 'three_ds_challenge_indicator', must be conform to the pattern /01|04/.";
         }
 
         $allowedValues = $this->getTransTypeAllowableValues();
@@ -498,6 +508,35 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         }
 
         $this->container['scheduled_type'] = $scheduled_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets three_ds_challenge_indicator
+     *
+     * @return string
+     */
+    public function getThreeDsChallengeIndicator()
+    {
+        return $this->container['three_ds_challenge_indicator'];
+    }
+
+    /**
+     * Sets three_ds_challenge_indicator
+     *
+     * @param string $three_ds_challenge_indicator three_ds_challenge_indicator
+     *
+     * @return $this
+     */
+    public function setThreeDsChallengeIndicator($three_ds_challenge_indicator)
+    {
+
+        if (!is_null($three_ds_challenge_indicator) && (!preg_match("/01|04/", $three_ds_challenge_indicator))) {
+            throw new \InvalidArgumentException("invalid value for $three_ds_challenge_indicator when calling ScheduledByMerchantData., must conform to the pattern /01|04/.");
+        }
+
+        $this->container['three_ds_challenge_indicator'] = $three_ds_challenge_indicator;
 
         return $this;
     }

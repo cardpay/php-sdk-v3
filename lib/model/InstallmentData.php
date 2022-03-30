@@ -36,6 +36,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'note' => 'string',
         'payments' => 'int',
         'preauth' => 'bool',
+        'three_ds_challenge_indicator' => 'string',
         'trans_type' => 'string'
     ];
 
@@ -55,6 +56,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'note' => null,
         'payments' => 'int32',
         'preauth' => null,
+        'three_ds_challenge_indicator' => null,
         'trans_type' => null
     ];
 
@@ -95,6 +97,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'note' => 'note',
         'payments' => 'payments',
         'preauth' => 'preauth',
+        'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
         'trans_type' => 'trans_type'
     ];
 
@@ -114,6 +117,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'note' => 'setNote',
         'payments' => 'setPayments',
         'preauth' => 'setPreauth',
+        'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
         'trans_type' => 'setTransType'
     ];
 
@@ -133,6 +137,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'note' => 'getNote',
         'payments' => 'getPayments',
         'preauth' => 'getPreauth',
+        'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
         'trans_type' => 'getTransType'
     ];
 
@@ -227,6 +232,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['payments'] = isset($data['payments']) ? $data['payments'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
+        $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
@@ -267,6 +273,10 @@ class InstallmentData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['three_ds_challenge_indicator']) && !preg_match("/01|04/", $this->container['three_ds_challenge_indicator'])) {
+            $invalidProperties[] = "invalid value for 'three_ds_challenge_indicator', must be conform to the pattern /01|04/.";
         }
 
         $allowedValues = $this->getTransTypeAllowableValues();
@@ -552,6 +562,35 @@ class InstallmentData implements ModelInterface, ArrayAccess
     public function setPreauth($preauth)
     {
         $this->container['preauth'] = $preauth;
+
+        return $this;
+    }
+
+    /**
+     * Gets three_ds_challenge_indicator
+     *
+     * @return string
+     */
+    public function getThreeDsChallengeIndicator()
+    {
+        return $this->container['three_ds_challenge_indicator'];
+    }
+
+    /**
+     * Sets three_ds_challenge_indicator
+     *
+     * @param string $three_ds_challenge_indicator three_ds_challenge_indicator
+     *
+     * @return $this
+     */
+    public function setThreeDsChallengeIndicator($three_ds_challenge_indicator)
+    {
+
+        if (!is_null($three_ds_challenge_indicator) && (!preg_match("/01|04/", $three_ds_challenge_indicator))) {
+            throw new \InvalidArgumentException("invalid value for $three_ds_challenge_indicator when calling InstallmentData., must conform to the pattern /01|04/.");
+        }
+
+        $this->container['three_ds_challenge_indicator'] = $three_ds_challenge_indicator;
 
         return $this;
     }

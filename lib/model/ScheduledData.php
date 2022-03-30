@@ -34,6 +34,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'plan' => '\Cardpay\model\Plan',
         'scheduled_type' => 'string',
         'subscription_start' => '\DateTime',
+        'three_ds_challenge_indicator' => 'string',
         'trans_type' => 'string'
     ];
 
@@ -51,6 +52,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'plan' => null,
         'scheduled_type' => null,
         'subscription_start' => 'date-time',
+        'three_ds_challenge_indicator' => null,
         'trans_type' => null
     ];
 
@@ -89,6 +91,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'plan' => 'plan',
         'scheduled_type' => 'scheduled_type',
         'subscription_start' => 'subscription_start',
+        'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
         'trans_type' => 'trans_type'
     ];
 
@@ -106,6 +109,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'plan' => 'setPlan',
         'scheduled_type' => 'setScheduledType',
         'subscription_start' => 'setSubscriptionStart',
+        'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
         'trans_type' => 'setTransType'
     ];
 
@@ -123,6 +127,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'plan' => 'getPlan',
         'scheduled_type' => 'getScheduledType',
         'subscription_start' => 'getSubscriptionStart',
+        'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
         'trans_type' => 'getTransType'
     ];
 
@@ -215,6 +220,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
         $this->container['scheduled_type'] = isset($data['scheduled_type']) ? $data['scheduled_type'] : null;
         $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
+        $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
@@ -252,6 +258,10 @@ class ScheduledData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['scheduled_type']) && !preg_match("/SA/", $this->container['scheduled_type'])) {
             $invalidProperties[] = "invalid value for 'scheduled_type', must be conform to the pattern /SA/.";
+        }
+
+        if (!is_null($this->container['three_ds_challenge_indicator']) && !preg_match("/01|04/", $this->container['three_ds_challenge_indicator'])) {
+            $invalidProperties[] = "invalid value for 'three_ds_challenge_indicator', must be conform to the pattern /01|04/.";
         }
 
         $allowedValues = $this->getTransTypeAllowableValues();
@@ -489,6 +499,35 @@ class ScheduledData implements ModelInterface, ArrayAccess
     public function setSubscriptionStart($subscription_start)
     {
         $this->container['subscription_start'] = $subscription_start;
+
+        return $this;
+    }
+
+    /**
+     * Gets three_ds_challenge_indicator
+     *
+     * @return string
+     */
+    public function getThreeDsChallengeIndicator()
+    {
+        return $this->container['three_ds_challenge_indicator'];
+    }
+
+    /**
+     * Sets three_ds_challenge_indicator
+     *
+     * @param string $three_ds_challenge_indicator three_ds_challenge_indicator
+     *
+     * @return $this
+     */
+    public function setThreeDsChallengeIndicator($three_ds_challenge_indicator)
+    {
+
+        if (!is_null($three_ds_challenge_indicator) && (!preg_match("/01|04/", $three_ds_challenge_indicator))) {
+            throw new \InvalidArgumentException("invalid value for $three_ds_challenge_indicator when calling ScheduledData., must conform to the pattern /01|04/.");
+        }
+
+        $this->container['three_ds_challenge_indicator'] = $three_ds_challenge_indicator;
 
         return $this;
     }
