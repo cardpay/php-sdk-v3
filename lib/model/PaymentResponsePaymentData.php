@@ -35,6 +35,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'string',
         'decline_reason' => 'string',
         'id' => 'string',
+        'installment_type' => 'string',
+        'installments' => 'string',
         'invalid_data' => 'string[]',
         'is_3d' => 'bool',
         'note' => 'string',
@@ -58,6 +60,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => null,
         'decline_reason' => null,
         'id' => null,
+        'installment_type' => null,
+        'installments' => null,
         'invalid_data' => null,
         'is_3d' => null,
         'note' => null,
@@ -102,6 +106,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'decline_code',
         'decline_reason' => 'decline_reason',
         'id' => 'id',
+        'installment_type' => 'installment_type',
+        'installments' => 'installments',
         'invalid_data' => 'invalid_data',
         'is_3d' => 'is_3d',
         'note' => 'note',
@@ -125,6 +131,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'setDeclineCode',
         'decline_reason' => 'setDeclineReason',
         'id' => 'setId',
+        'installment_type' => 'setInstallmentType',
+        'installments' => 'setInstallments',
         'invalid_data' => 'setInvalidData',
         'is_3d' => 'setIs3d',
         'note' => 'setNote',
@@ -148,6 +156,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'getDeclineCode',
         'decline_reason' => 'getDeclineReason',
         'id' => 'getId',
+        'installment_type' => 'getInstallmentType',
+        'installments' => 'getInstallments',
         'invalid_data' => 'getInvalidData',
         'is_3d' => 'getIs3d',
         'note' => 'getNote',
@@ -279,6 +289,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         $this->container['decline_code'] = isset($data['decline_code']) ? $data['decline_code'] : null;
         $this->container['decline_reason'] = isset($data['decline_reason']) ? $data['decline_reason'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
+        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
         $this->container['invalid_data'] = isset($data['invalid_data']) ? $data['invalid_data'] : null;
         $this->container['is_3d'] = isset($data['is_3d']) ? $data['is_3d'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
@@ -539,6 +551,54 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
     public function setId($id)
     {
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets installment_type
+     *
+     * @return string
+     */
+    public function getInstallmentType()
+    {
+        return $this->container['installment_type'];
+    }
+
+    /**
+     * Sets installment_type
+     *
+     * @param string $installment_type Selected installment type
+     *
+     * @return $this
+     */
+    public function setInstallmentType($installment_type)
+    {
+        $this->container['installment_type'] = $installment_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets installments
+     *
+     * @return string
+     */
+    public function getInstallments()
+    {
+        return $this->container['installments'];
+    }
+
+    /**
+     * Sets installments
+     *
+     * @param string $installments Number of total installment payments, to be charged
+     *
+     * @return $this
+     */
+    public function setInstallments($installments)
+    {
+        $this->container['installments'] = $installments;
 
         return $this;
     }

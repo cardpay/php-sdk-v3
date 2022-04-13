@@ -32,6 +32,9 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'string',
         'encrypted_data' => 'string',
         'generate_token' => 'bool',
+        'installment_amount' => 'float',
+        'installment_type' => 'string',
+        'installments' => 'int',
         'note' => 'string',
         'preauth' => 'bool',
         'three_ds_challenge_indicator' => 'string',
@@ -50,6 +53,9 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => null,
         'encrypted_data' => null,
         'generate_token' => null,
+        'installment_amount' => null,
+        'installment_type' => null,
+        'installments' => 'int32',
         'note' => null,
         'preauth' => null,
         'three_ds_challenge_indicator' => null,
@@ -89,6 +95,9 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'dynamic_descriptor',
         'encrypted_data' => 'encrypted_data',
         'generate_token' => 'generate_token',
+        'installment_amount' => 'installment_amount',
+        'installment_type' => 'installment_type',
+        'installments' => 'installments',
         'note' => 'note',
         'preauth' => 'preauth',
         'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
@@ -107,6 +116,9 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'encrypted_data' => 'setEncryptedData',
         'generate_token' => 'setGenerateToken',
+        'installment_amount' => 'setInstallmentAmount',
+        'installment_type' => 'setInstallmentType',
+        'installments' => 'setInstallments',
         'note' => 'setNote',
         'preauth' => 'setPreauth',
         'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
@@ -125,6 +137,9 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'encrypted_data' => 'getEncryptedData',
         'generate_token' => 'getGenerateToken',
+        'installment_amount' => 'getInstallmentAmount',
+        'installment_type' => 'getInstallmentType',
+        'installments' => 'getInstallments',
         'note' => 'getNote',
         'preauth' => 'getPreauth',
         'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
@@ -218,6 +233,9 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['encrypted_data'] = isset($data['encrypted_data']) ? $data['encrypted_data'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
+        $this->container['installment_amount'] = isset($data['installment_amount']) ? $data['installment_amount'] : null;
+        $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
+        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
         $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
@@ -253,6 +271,10 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['encrypted_data']) && (mb_strlen($this->container['encrypted_data']) < 0)) {
             $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['installment_type']) && !preg_match("/IF|MF_HOLD/", $this->container['installment_type'])) {
+            $invalidProperties[] = "invalid value for 'installment_type', must be conform to the pattern /IF|MF_HOLD/.";
         }
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) > 100)) {
@@ -444,6 +466,83 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     public function setGenerateToken($generate_token)
     {
         $this->container['generate_token'] = $generate_token;
+
+        return $this;
+    }
+
+    /**
+     * Gets installment_amount
+     *
+     * @return float
+     */
+    public function getInstallmentAmount()
+    {
+        return $this->container['installment_amount'];
+    }
+
+    /**
+     * Sets installment_amount
+     *
+     * @param float $installment_amount Amount of 1 installment payment, should be less or equal to total amount of subscription, can have dot as a decimal separator. Mandatory for Payment Page Mode only.
+     *
+     * @return $this
+     */
+    public function setInstallmentAmount($installment_amount)
+    {
+        $this->container['installment_amount'] = $installment_amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets installment_type
+     *
+     * @return string
+     */
+    public function getInstallmentType()
+    {
+        return $this->container['installment_type'];
+    }
+
+    /**
+     * Sets installment_type
+     *
+     * @param string $installment_type Installment type, 2 possible values: `IF` - issuer financed `MF_HOLD' - merchant financed. For installment subscription with hold rest amount.
+     *
+     * @return $this
+     */
+    public function setInstallmentType($installment_type)
+    {
+
+        if (!is_null($installment_type) && (!preg_match("/IF|MF_HOLD/", $installment_type))) {
+            throw new \InvalidArgumentException("invalid value for $installment_type when calling PaymentRequestPaymentData., must conform to the pattern /IF|MF_HOLD/.");
+        }
+
+        $this->container['installment_type'] = $installment_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets installments
+     *
+     * @return int
+     */
+    public function getInstallments()
+    {
+        return $this->container['installments'];
+    }
+
+    /**
+     * Sets installments
+     *
+     * @param int $installments Number of total installment payments, to be charged per defined interval. For installment subscription with installment_type = `MF_HOLD` can be 1-12. For installment subscription with installment_type = `IF` can be 1-99.
+     *
+     * @return $this
+     */
+    public function setInstallments($installments)
+    {
+        $this->container['installments'] = $installments;
 
         return $this;
     }

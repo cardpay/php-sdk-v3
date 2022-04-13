@@ -28,6 +28,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'billing_address' => '\Cardpay\model\BillingAddress',
         'card' => '\Cardpay\model\PaymentRequestCard',
+        'encrypted_card_data' => 'string',
         'token' => 'string'
     ];
 
@@ -39,6 +40,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'billing_address' => null,
         'card' => null,
+        'encrypted_card_data' => null,
         'token' => null
     ];
 
@@ -71,6 +73,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'billing_address' => 'billing_address',
         'card' => 'card',
+        'encrypted_card_data' => 'encrypted_card_data',
         'token' => 'token'
     ];
 
@@ -82,6 +85,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $setters = [
         'billing_address' => 'setBillingAddress',
         'card' => 'setCard',
+        'encrypted_card_data' => 'setEncryptedCardData',
         'token' => 'setToken'
     ];
 
@@ -93,6 +97,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $getters = [
         'billing_address' => 'getBillingAddress',
         'card' => 'getCard',
+        'encrypted_card_data' => 'getEncryptedCardData',
         'token' => 'getToken'
     ];
 
@@ -158,6 +163,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     {
         $this->container['billing_address'] = isset($data['billing_address']) ? $data['billing_address'] : null;
         $this->container['card'] = isset($data['card']) ? $data['card'] : null;
+        $this->container['encrypted_card_data'] = isset($data['encrypted_card_data']) ? $data['encrypted_card_data'] : null;
         $this->container['token'] = isset($data['token']) ? $data['token'] : null;
     }
 
@@ -169,6 +175,14 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['encrypted_card_data']) && (mb_strlen($this->container['encrypted_card_data']) > 1000)) {
+            $invalidProperties[] = "invalid value for 'encrypted_card_data', the character length must be smaller than or equal to 1000.";
+        }
+
+        if (!is_null($this->container['encrypted_card_data']) && (mb_strlen($this->container['encrypted_card_data']) < 0)) {
+            $invalidProperties[] = "invalid value for 'encrypted_card_data', the character length must be bigger than or equal to 0.";
+        }
 
         if (!is_null($this->container['token']) && (mb_strlen($this->container['token']) > 36)) {
             $invalidProperties[] = "invalid value for 'token', the character length must be smaller than or equal to 36.";
@@ -237,6 +251,37 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     public function setCard($card)
     {
         $this->container['card'] = $card;
+
+        return $this;
+    }
+
+    /**
+     * Gets encrypted_card_data
+     *
+     * @return string
+     */
+    public function getEncryptedCardData()
+    {
+        return $this->container['encrypted_card_data'];
+    }
+
+    /**
+     * Sets encrypted_card_data
+     *
+     * @param string $encrypted_card_data Encrypted card data. The field includes: pan, security_code, expiration. Only for Gateway mode.
+     *
+     * @return $this
+     */
+    public function setEncryptedCardData($encrypted_card_data)
+    {
+        if (!is_null($encrypted_card_data) && (mb_strlen($encrypted_card_data) > 1000)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_card_data when calling PaymentRequestCardAccount., must be smaller than or equal to 1000.');
+        }
+        if (!is_null($encrypted_card_data) && (mb_strlen($encrypted_card_data) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_card_data when calling PaymentRequestCardAccount., must be bigger than or equal to 0.');
+        }
+
+        $this->container['encrypted_card_data'] = $encrypted_card_data;
 
         return $this;
     }
