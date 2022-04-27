@@ -31,6 +31,7 @@ class ThreeDSecureResponse implements ModelInterface, ArrayAccess
         'cavv' => 'string',
         'cavv_algorithm' => 'string',
         'challenge_cancel' => 'string',
+        'ds_transaction_id' => 'string',
         'eci' => 'string',
         'pa_res' => 'string',
         'protocol_version' => 'string',
@@ -52,6 +53,7 @@ class ThreeDSecureResponse implements ModelInterface, ArrayAccess
         'cavv' => null,
         'cavv_algorithm' => null,
         'challenge_cancel' => null,
+        'ds_transaction_id' => null,
         'eci' => null,
         'pa_res' => null,
         'protocol_version' => null,
@@ -94,6 +96,7 @@ class ThreeDSecureResponse implements ModelInterface, ArrayAccess
         'cavv' => 'cavv',
         'cavv_algorithm' => 'cavv_algorithm',
         'challenge_cancel' => 'challenge_cancel',
+        'ds_transaction_id' => 'ds_transaction_id',
         'eci' => 'eci',
         'pa_res' => 'pa_res',
         'protocol_version' => 'protocol_version',
@@ -115,6 +118,7 @@ class ThreeDSecureResponse implements ModelInterface, ArrayAccess
         'cavv' => 'setCavv',
         'cavv_algorithm' => 'setCavvAlgorithm',
         'challenge_cancel' => 'setChallengeCancel',
+        'ds_transaction_id' => 'setDsTransactionId',
         'eci' => 'setEci',
         'pa_res' => 'setPaRes',
         'protocol_version' => 'setProtocolVersion',
@@ -136,6 +140,7 @@ class ThreeDSecureResponse implements ModelInterface, ArrayAccess
         'cavv' => 'getCavv',
         'cavv_algorithm' => 'getCavvAlgorithm',
         'challenge_cancel' => 'getChallengeCancel',
+        'ds_transaction_id' => 'getDsTransactionId',
         'eci' => 'getEci',
         'pa_res' => 'getPaRes',
         'protocol_version' => 'getProtocolVersion',
@@ -211,6 +216,7 @@ class ThreeDSecureResponse implements ModelInterface, ArrayAccess
         $this->container['cavv'] = isset($data['cavv']) ? $data['cavv'] : null;
         $this->container['cavv_algorithm'] = isset($data['cavv_algorithm']) ? $data['cavv_algorithm'] : null;
         $this->container['challenge_cancel'] = isset($data['challenge_cancel']) ? $data['challenge_cancel'] : null;
+        $this->container['ds_transaction_id'] = isset($data['ds_transaction_id']) ? $data['ds_transaction_id'] : null;
         $this->container['eci'] = isset($data['eci']) ? $data['eci'] : null;
         $this->container['pa_res'] = isset($data['pa_res']) ? $data['pa_res'] : null;
         $this->container['protocol_version'] = isset($data['protocol_version']) ? $data['protocol_version'] : null;
@@ -361,6 +367,30 @@ class ThreeDSecureResponse implements ModelInterface, ArrayAccess
     public function setChallengeCancel($challenge_cancel)
     {
         $this->container['challenge_cancel'] = $challenge_cancel;
+
+        return $this;
+    }
+
+    /**
+     * Gets ds_transaction_id
+     *
+     * @return string
+     */
+    public function getDsTransactionId()
+    {
+        return $this->container['ds_transaction_id'];
+    }
+
+    /**
+     * Sets ds_transaction_id
+     *
+     * @param string $ds_transaction_id Transaction Id
+     *
+     * @return $this
+     */
+    public function setDsTransactionId($ds_transaction_id)
+    {
+        $this->container['ds_transaction_id'] = $ds_transaction_id;
 
         return $this;
     }
