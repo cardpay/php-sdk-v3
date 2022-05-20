@@ -480,7 +480,7 @@ class ThreeDSecureResponse implements ModelInterface, ArrayAccess
     /**
      * Sets status
      *
-     * @param string $status 3DS status (from PaRes for 3Ds 1.0, ARes message for 3Ds 2.0) (possible values Y,A,U)
+     * @param string $status 3DS status (from PaRes for 3Ds 1.0, ARes message for 3Ds 2.0) (possible values Y,A,U,N)
      *
      * @return $this
      */
