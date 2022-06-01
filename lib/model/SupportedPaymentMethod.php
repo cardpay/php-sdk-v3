@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class ScheduleOption implements ModelInterface, ArrayAccess
+class SupportedPaymentMethod implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class ScheduleOption implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'ScheduleOption';
+    protected static $swaggerModelName = 'SupportedPaymentMethod';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'amount' => 'float',
-        'installments' => 'int'
+        'logo' => 'string',
+        'name' => 'string'
     ];
 
     /**
@@ -36,8 +36,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'amount' => null,
-        'installments' => 'int32'
+        'logo' => null,
+        'name' => null
     ];
 
     /**
@@ -67,8 +67,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'amount' => 'amount',
-        'installments' => 'installments'
+        'logo' => 'logo',
+        'name' => 'name'
     ];
 
     /**
@@ -77,8 +77,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'amount' => 'setAmount',
-        'installments' => 'setInstallments'
+        'logo' => 'setLogo',
+        'name' => 'setName'
     ];
 
     /**
@@ -87,8 +87,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'amount' => 'getAmount',
-        'installments' => 'getInstallments'
+        'logo' => 'getLogo',
+        'name' => 'getName'
     ];
 
     /**
@@ -151,8 +151,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
+        $this->container['logo'] = isset($data['logo']) ? $data['logo'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
     }
 
     /**
@@ -180,49 +180,49 @@ class ScheduleOption implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets amount
+     * Gets logo
      *
-     * @return float
+     * @return string
      */
-    public function getAmount()
+    public function getLogo()
     {
-        return $this->container['amount'];
+        return $this->container['logo'];
     }
 
     /**
-     * Sets amount
+     * Sets logo
      *
-     * @param float $amount Amount per one payment.
+     * @param string $logo Url to Payment Method logo
      *
      * @return $this
      */
-    public function setAmount($amount)
+    public function setLogo($logo)
     {
-        $this->container['amount'] = $amount;
+        $this->container['logo'] = $logo;
 
         return $this;
     }
 
     /**
-     * Gets installments
+     * Gets name
      *
-     * @return int
+     * @return string
      */
-    public function getInstallments()
+    public function getName()
     {
-        return $this->container['installments'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets installments
+     * Sets name
      *
-     * @param int $installments Number of payments, can be 3-12.
+     * @param string $name Name of Payment Method
      *
      * @return $this
      */
-    public function setInstallments($installments)
+    public function setName($name)
     {
-        $this->container['installments'] = $installments;
+        $this->container['name'] = $name;
 
         return $this;
     }

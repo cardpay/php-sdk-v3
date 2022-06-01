@@ -73,10 +73,10 @@ class ReportsResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'download_url' => 'downloadUrl',
-        'hash_sum' => 'hashSum',
+        'download_url' => 'download_url',
+        'hash_sum' => 'hash_sum',
         'reports' => 'reports',
-        'sample_id' => 'sampleId',
+        'sample_id' => 'sample_id',
         'size' => 'size'
     ];
 
@@ -210,7 +210,7 @@ class ReportsResponse implements ModelInterface, ArrayAccess
     /**
      * Sets download_url
      *
-     * @param string $download_url download_url
+     * @param string $download_url Link to file downloading. Link is available for 24 hours
      *
      * @return $this
      */
@@ -234,7 +234,7 @@ class ReportsResponse implements ModelInterface, ArrayAccess
     /**
      * Sets hash_sum
      *
-     * @param string $hash_sum hash_sum
+     * @param string $hash_sum Hash sum of file (sha256)
      *
      * @return $this
      */
@@ -258,7 +258,7 @@ class ReportsResponse implements ModelInterface, ArrayAccess
     /**
      * Sets reports
      *
-     * @param \Cardpay\model\Report[] $reports reports
+     * @param \Cardpay\model\Report[] $reports List of settlement reports
      *
      * @return $this
      */
@@ -282,7 +282,7 @@ class ReportsResponse implements ModelInterface, ArrayAccess
     /**
      * Sets sample_id
      *
-     * @param string $sample_id sample_id
+     * @param string $sample_id The identifier of reports' sample
      *
      * @return $this
      */
@@ -306,7 +306,7 @@ class ReportsResponse implements ModelInterface, ArrayAccess
     /**
      * Sets size
      *
-     * @param int $size size
+     * @param int $size Size of file in bytes
      *
      * @return $this
      */

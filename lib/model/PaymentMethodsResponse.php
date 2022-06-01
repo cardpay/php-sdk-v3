@@ -28,7 +28,8 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'brands' => 'string[]',
         'category' => 'string',
-        'name' => 'string'
+        'name' => 'string',
+        'supported_payment_methods' => '\Cardpay\model\SupportedPaymentMethod[]'
     ];
 
     /**
@@ -39,7 +40,8 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'brands' => null,
         'category' => null,
-        'name' => null
+        'name' => null,
+        'supported_payment_methods' => null
     ];
 
     /**
@@ -71,7 +73,8 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'brands' => 'brands',
         'category' => 'category',
-        'name' => 'name'
+        'name' => 'name',
+        'supported_payment_methods' => 'supported_payment_methods'
     ];
 
     /**
@@ -82,7 +85,8 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
     protected static $setters = [
         'brands' => 'setBrands',
         'category' => 'setCategory',
-        'name' => 'setName'
+        'name' => 'setName',
+        'supported_payment_methods' => 'setSupportedPaymentMethods'
     ];
 
     /**
@@ -93,7 +97,8 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
     protected static $getters = [
         'brands' => 'getBrands',
         'category' => 'getCategory',
-        'name' => 'getName'
+        'name' => 'getName',
+        'supported_payment_methods' => 'getSupportedPaymentMethods'
     ];
 
     /**
@@ -159,6 +164,7 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
         $this->container['brands'] = isset($data['brands']) ? $data['brands'] : null;
         $this->container['category'] = isset($data['category']) ? $data['category'] : null;
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
+        $this->container['supported_payment_methods'] = isset($data['supported_payment_methods']) ? $data['supported_payment_methods'] : null;
     }
 
     /**
@@ -253,6 +259,30 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
     public function setName($name)
     {
         $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
+     * Gets supported_payment_methods
+     *
+     * @return \Cardpay\model\SupportedPaymentMethod[]
+     */
+    public function getSupportedPaymentMethods()
+    {
+        return $this->container['supported_payment_methods'];
+    }
+
+    /**
+     * Sets supported_payment_methods
+     *
+     * @param \Cardpay\model\SupportedPaymentMethod[] $supported_payment_methods Supported by adapter Payment Methods
+     *
+     * @return $this
+     */
+    public function setSupportedPaymentMethods($supported_payment_methods)
+    {
+        $this->container['supported_payment_methods'] = $supported_payment_methods;
 
         return $this;
     }

@@ -353,35 +353,35 @@ class ReportsApiControllerApi
     /**
      * Operation gETReportsContent
      *
-     * Download prepared file: single report by id or all reports collected into archive by sample id
+     * Download the report file
      *
-     * @param  string $file_id file_id (required)
+     * @param  string $id id (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return string
      */
-    public function gETReportsContent($file_id)
+    public function gETReportsContent($id)
     {
-        list($response) = $this->gETReportsContentWithHttpInfo($file_id);
+        list($response) = $this->gETReportsContentWithHttpInfo($id);
         return $response;
     }
 
     /**
      * Operation gETReportsContentWithHttpInfo
      *
-     * Download prepared file: single report by id or all reports collected into archive by sample id
+     * Download the report file
      *
-     * @param  string $file_id file_id (required)
+     * @param  string $id id (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of string, HTTP status code, HTTP response headers (array of strings)
      */
-    public function gETReportsContentWithHttpInfo($file_id)
+    public function gETReportsContentWithHttpInfo($id)
     {
         $returnType = 'string';
-        $request = $this->gETReportsContentRequest($file_id);
+        $request = $this->gETReportsContentRequest($id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -469,16 +469,16 @@ class ReportsApiControllerApi
     /**
      * Operation gETReportsContentAsync
      *
-     * Download prepared file: single report by id or all reports collected into archive by sample id
+     * Download the report file
      *
-     * @param  string $file_id file_id (required)
+     * @param  string $id id (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function gETReportsContentAsync($file_id)
+    public function gETReportsContentAsync($id)
     {
-        return $this->gETReportsContentAsyncWithHttpInfo($file_id)
+        return $this->gETReportsContentAsyncWithHttpInfo($id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -489,17 +489,17 @@ class ReportsApiControllerApi
     /**
      * Operation gETReportsContentAsyncWithHttpInfo
      *
-     * Download prepared file: single report by id or all reports collected into archive by sample id
+     * Download the report file
      *
-     * @param  string $file_id file_id (required)
+     * @param  string $id id (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function gETReportsContentAsyncWithHttpInfo($file_id)
+    public function gETReportsContentAsyncWithHttpInfo($id)
     {
         $returnType = 'string';
-        $request = $this->gETReportsContentRequest($file_id);
+        $request = $this->gETReportsContentRequest($id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -541,32 +541,36 @@ class ReportsApiControllerApi
     /**
      * Create request for operation 'gETReportsContent'
      *
-     * @param  string $file_id file_id (required)
+     * @param  string $id id (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function gETReportsContentRequest($file_id)
+    protected function gETReportsContentRequest($id)
     {
-        // verify the required parameter 'file_id' is set
-        if ($file_id === null || (is_array($file_id) && count($file_id) === 0)) {
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $file_id when calling gETReportsContent'
+                'Missing the required parameter $id when calling gETReportsContent'
             );
         }
 
-        $resourcePath = '/api/reports/download';
+        $resourcePath = '/api/reports/download/{id}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
         $httpBody = '';
         $multipart = false;
 
-        // query params
-        if ($file_id !== null) {
-            $queryParams['file_id'] = ObjectSerializer::toQueryValue($file_id);
-        }
 
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'id' . '}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
 
         // body params
         $_tempBody = null;
@@ -640,7 +644,7 @@ class ReportsApiControllerApi
     /**
      * Operation pOSTReports
      *
-     * Starts preparation of settlement reports for merchants
+     * Initiate the reports' preparation
      *
      * @param  \Cardpay\model\ReportsRequest $request request (required)
      *
@@ -657,7 +661,7 @@ class ReportsApiControllerApi
     /**
      * Operation pOSTReportsWithHttpInfo
      *
-     * Starts preparation of settlement reports for merchants
+     * Initiate the reports' preparation
      *
      * @param  \Cardpay\model\ReportsRequest $request request (required)
      *
@@ -748,7 +752,7 @@ class ReportsApiControllerApi
     /**
      * Operation pOSTReportsAsync
      *
-     * Starts preparation of settlement reports for merchants
+     * Initiate the reports' preparation
      *
      * @param  \Cardpay\model\ReportsRequest $request request (required)
      *
@@ -768,7 +772,7 @@ class ReportsApiControllerApi
     /**
      * Operation pOSTReportsAsyncWithHttpInfo
      *
-     * Starts preparation of settlement reports for merchants
+     * Initiate the reports' preparation
      *
      * @param  \Cardpay\model\ReportsRequest $request request (required)
      *

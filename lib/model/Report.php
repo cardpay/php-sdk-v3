@@ -26,7 +26,6 @@ class Report implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'currency' => 'string',
         'download_url' => 'string',
         'file_id' => 'string',
         'file_name' => 'string',
@@ -45,7 +44,6 @@ class Report implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'currency' => null,
         'download_url' => null,
         'file_id' => 'uuid',
         'file_name' => null,
@@ -85,17 +83,16 @@ class Report implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'currency' => 'currency',
-        'download_url' => 'downloadUrl',
-        'file_id' => 'fileId',
-        'file_name' => 'fileName',
-        'hash_sum' => 'hashSum',
-        'report_type' => 'reportType',
-        'settlement_date' => 'settlementDate',
-        'settlement_id' => 'settlementId',
+        'download_url' => 'download_url',
+        'file_id' => 'file_id',
+        'file_name' => 'file_name',
+        'hash_sum' => 'hash_sum',
+        'report_type' => 'report_type',
+        'settlement_date' => 'settlement_date',
+        'settlement_id' => 'settlement_id',
         'size' => 'size',
         'status' => 'status',
-        'website_name' => 'websiteName'
+        'website_name' => 'website_name'
     ];
 
     /**
@@ -104,7 +101,6 @@ class Report implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'currency' => 'setCurrency',
         'download_url' => 'setDownloadUrl',
         'file_id' => 'setFileId',
         'file_name' => 'setFileName',
@@ -123,7 +119,6 @@ class Report implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'currency' => 'getCurrency',
         'download_url' => 'getDownloadUrl',
         'file_id' => 'getFileId',
         'file_name' => 'getFileName',
@@ -213,7 +208,6 @@ class Report implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['download_url'] = isset($data['download_url']) ? $data['download_url'] : null;
         $this->container['file_id'] = isset($data['file_id']) ? $data['file_id'] : null;
         $this->container['file_name'] = isset($data['file_name']) ? $data['file_name'] : null;
@@ -259,30 +253,6 @@ class Report implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets currency
-     *
-     * @return string
-     */
-    public function getCurrency()
-    {
-        return $this->container['currency'];
-    }
-
-    /**
-     * Sets currency
-     *
-     * @param string $currency currency
-     *
-     * @return $this
-     */
-    public function setCurrency($currency)
-    {
-        $this->container['currency'] = $currency;
-
-        return $this;
-    }
-
-    /**
      * Gets download_url
      *
      * @return string
@@ -295,7 +265,7 @@ class Report implements ModelInterface, ArrayAccess
     /**
      * Sets download_url
      *
-     * @param string $download_url download_url
+     * @param string $download_url Link to archive downloading. Link is available for 24 hours
      *
      * @return $this
      */
@@ -319,7 +289,7 @@ class Report implements ModelInterface, ArrayAccess
     /**
      * Sets file_id
      *
-     * @param string $file_id file_id
+     * @param string $file_id The identifier of report's file
      *
      * @return $this
      */
@@ -343,7 +313,7 @@ class Report implements ModelInterface, ArrayAccess
     /**
      * Sets file_name
      *
-     * @param string $file_name file_name
+     * @param string $file_name The file name
      *
      * @return $this
      */
@@ -367,7 +337,7 @@ class Report implements ModelInterface, ArrayAccess
     /**
      * Sets hash_sum
      *
-     * @param string $hash_sum hash_sum
+     * @param string $hash_sum Hash sum of file (sha256)
      *
      * @return $this
      */
@@ -391,7 +361,7 @@ class Report implements ModelInterface, ArrayAccess
     /**
      * Sets report_type
      *
-     * @param string $report_type report_type
+     * @param string $report_type Specific report type, one of: \"regular_settlement\", \"icpp_settlement\"
      *
      * @return $this
      */
@@ -415,7 +385,7 @@ class Report implements ModelInterface, ArrayAccess
     /**
      * Sets settlement_date
      *
-     * @param string $settlement_date settlement_date
+     * @param string $settlement_date Date of settlement. The format is yyyy-MM-dd
      *
      * @return $this
      */
@@ -439,7 +409,7 @@ class Report implements ModelInterface, ArrayAccess
     /**
      * Sets settlement_id
      *
-     * @param int $settlement_id settlement_id
+     * @param int $settlement_id The identifier of settlement. Can be the same for several objects in sample
      *
      * @return $this
      */
@@ -463,7 +433,7 @@ class Report implements ModelInterface, ArrayAccess
     /**
      * Sets size
      *
-     * @param int $size size
+     * @param int $size Size of file in bytes
      *
      * @return $this
      */
@@ -487,7 +457,7 @@ class Report implements ModelInterface, ArrayAccess
     /**
      * Sets status
      *
-     * @param string $status status
+     * @param string $status One of statuses:  \"IN_PROGRESS\"  \"COMPLETED\"  \"FAILED\"
      *
      * @return $this
      */
@@ -520,7 +490,7 @@ class Report implements ModelInterface, ArrayAccess
     /**
      * Sets website_name
      *
-     * @param string $website_name website_name
+     * @param string $website_name Name of website
      *
      * @return $this
      */

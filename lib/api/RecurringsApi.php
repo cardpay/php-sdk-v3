@@ -1222,7 +1222,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation getAuthenticationData2
+     * Operation getAuthenticationData1
      *
      * Get recurring payment 3DS result information
      *
@@ -1232,14 +1232,14 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\AuthenticationDataResponse
      */
-    public function getAuthenticationData2($recurring_id)
+    public function getAuthenticationData1($recurring_id)
     {
-        list($response) = $this->getAuthenticationData2WithHttpInfo($recurring_id);
+        list($response) = $this->getAuthenticationData1WithHttpInfo($recurring_id);
         return $response;
     }
 
     /**
-     * Operation getAuthenticationData2WithHttpInfo
+     * Operation getAuthenticationData1WithHttpInfo
      *
      * Get recurring payment 3DS result information
      *
@@ -1249,10 +1249,10 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\AuthenticationDataResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAuthenticationData2WithHttpInfo($recurring_id)
+    public function getAuthenticationData1WithHttpInfo($recurring_id)
     {
         $returnType = '\Cardpay\model\AuthenticationDataResponse';
-        $request = $this->getAuthenticationData2Request($recurring_id);
+        $request = $this->getAuthenticationData1Request($recurring_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1346,7 +1346,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation getAuthenticationData2Async
+     * Operation getAuthenticationData1Async
      *
      * Get recurring payment 3DS result information
      *
@@ -1355,9 +1355,9 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAuthenticationData2Async($recurring_id)
+    public function getAuthenticationData1Async($recurring_id)
     {
-        return $this->getAuthenticationData2AsyncWithHttpInfo($recurring_id)
+        return $this->getAuthenticationData1AsyncWithHttpInfo($recurring_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1366,7 +1366,7 @@ class RecurringsApi
     }
 
     /**
-     * Operation getAuthenticationData2AsyncWithHttpInfo
+     * Operation getAuthenticationData1AsyncWithHttpInfo
      *
      * Get recurring payment 3DS result information
      *
@@ -1375,10 +1375,10 @@ class RecurringsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAuthenticationData2AsyncWithHttpInfo($recurring_id)
+    public function getAuthenticationData1AsyncWithHttpInfo($recurring_id)
     {
         $returnType = '\Cardpay\model\AuthenticationDataResponse';
-        $request = $this->getAuthenticationData2Request($recurring_id);
+        $request = $this->getAuthenticationData1Request($recurring_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1418,19 +1418,19 @@ class RecurringsApi
     }
 
     /**
-     * Create request for operation 'getAuthenticationData2'
+     * Create request for operation 'getAuthenticationData1'
      *
      * @param  string $recurring_id Recurring ID (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAuthenticationData2Request($recurring_id)
+    protected function getAuthenticationData1Request($recurring_id)
     {
         // verify the required parameter 'recurring_id' is set
         if ($recurring_id === null || (is_array($recurring_id) && count($recurring_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $recurring_id when calling getAuthenticationData2'
+                'Missing the required parameter $recurring_id when calling getAuthenticationData1'
             );
         }
 

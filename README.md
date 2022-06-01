@@ -2,7 +2,7 @@
 The Unlimint API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 3.19.20
+- PHP SDK version: 3.19.24
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
@@ -123,7 +123,6 @@ composer install
  - [Flight](lib/model/Flight.php)
  - [Flights](lib/model/Flights.php)
  - [InstallmentData](lib/model/InstallmentData.php)
- - [InstallmentSubscriptionRequest](lib/model/InstallmentSubscriptionRequest.php)
  - [Item](lib/model/Item.php)
  - [LimitInfoResponse](lib/model/LimitInfoResponse.php)
  - [MobileCardAccountResponse](lib/model/MobileCardAccountResponse.php)
@@ -205,7 +204,6 @@ composer install
  - [RecurringPlanRequestPlanData](lib/model/RecurringPlanRequestPlanData.php)
  - [RecurringPlanResponse](lib/model/RecurringPlanResponse.php)
  - [RecurringRequestFiling](lib/model/RecurringRequestFiling.php)
- - [RecurringRequestMerchantOrder](lib/model/RecurringRequestMerchantOrder.php)
  - [RecurringRequestRecurringData](lib/model/RecurringRequestRecurringData.php)
  - [RecurringResponse](lib/model/RecurringResponse.php)
  - [RecurringResponseFiling](lib/model/RecurringResponseFiling.php)
@@ -241,8 +239,6 @@ composer install
  - [ResponsePlanData](lib/model/ResponsePlanData.php)
  - [ResponseUpdatedTransactionData](lib/model/ResponseUpdatedTransactionData.php)
  - [ReturnUrls](lib/model/ReturnUrls.php)
- - [ScheduleOption](lib/model/ScheduleOption.php)
- - [ScheduleOptionsResponse](lib/model/ScheduleOptionsResponse.php)
  - [ScheduledByMerchantData](lib/model/ScheduledByMerchantData.php)
  - [ScheduledData](lib/model/ScheduledData.php)
  - [ShippingAddress](lib/model/ShippingAddress.php)
@@ -255,6 +251,7 @@ composer install
  - [SubscriptionUpdateRequest](lib/model/SubscriptionUpdateRequest.php)
  - [SubscriptionUpdateRequestSubscriptionData](lib/model/SubscriptionUpdateRequestSubscriptionData.php)
  - [SubscriptionUpdateResponse](lib/model/SubscriptionUpdateResponse.php)
+ - [SupportedPaymentMethod](lib/model/SupportedPaymentMethod.php)
  - [ThreeDSecureData](lib/model/ThreeDSecureData.php)
  - [ThreeDSecureResponse](lib/model/ThreeDSecureResponse.php)
  - [TransactionMethodsList](lib/model/TransactionMethodsList.php)

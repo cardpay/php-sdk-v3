@@ -201,7 +201,7 @@ class ReportsData implements ModelInterface, ArrayAccess
     /**
      * Sets end_date
      *
-     * @param \DateTime $end_date End date of period in which the reports were generated. Period between dates is no more than 7 days. Format: yyyy-MM-dd
+     * @param \DateTime $end_date End date of period on which the reports were generated. Period between dates is no more than 7 days.  The format is yyyy-MM-dd  If ‘end_date’ is skipped then default value is used: ‘start_date’ + 7 days
      *
      * @return $this
      */
@@ -249,7 +249,7 @@ class ReportsData implements ModelInterface, ArrayAccess
     /**
      * Sets start_date
      *
-     * @param \DateTime $start_date Start date of period in which the reports were generated. Format: yyyy-MM-dd
+     * @param \DateTime $start_date Start date of period on which the reports were generated. The format is yyyy-MM-dd
      *
      * @return $this
      */
