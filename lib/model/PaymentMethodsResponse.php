@@ -276,7 +276,7 @@ class PaymentMethodsResponse implements ModelInterface, ArrayAccess
     /**
      * Sets supported_payment_methods
      *
-     * @param \Cardpay\model\SupportedPaymentMethod[] $supported_payment_methods Supported by adapter Payment Methods
+     * @param \Cardpay\model\SupportedPaymentMethod[] $supported_payment_methods Supported payment methods
      *
      * @return $this
      */

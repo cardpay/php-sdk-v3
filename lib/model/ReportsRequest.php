@@ -212,7 +212,7 @@ class ReportsRequest implements ModelInterface, ArrayAccess
     /**
      * Sets callback_url
      *
-     * @param string $callback_url Url for sending resulted callback. If field is skipped then callback won't be sent.  Common requirements for callback are actual https://integration.cardpay-test.com/#callbacks
+     * @param string $callback_url Url for sending resulted callback. If field is skipped then callback won't be sent.
      *
      * @return $this
      */
