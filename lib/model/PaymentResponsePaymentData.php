@@ -34,6 +34,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'currency' => 'string',
         'decline_code' => 'string',
         'decline_reason' => 'string',
+        'extended_data' => 'map[string,string]',
         'id' => 'string',
         'installment_type' => 'string',
         'installments' => 'string',
@@ -59,6 +60,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'currency' => null,
         'decline_code' => null,
         'decline_reason' => null,
+        'extended_data' => null,
         'id' => null,
         'installment_type' => null,
         'installments' => null,
@@ -105,6 +107,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'currency' => 'currency',
         'decline_code' => 'decline_code',
         'decline_reason' => 'decline_reason',
+        'extended_data' => 'extended_data',
         'id' => 'id',
         'installment_type' => 'installment_type',
         'installments' => 'installments',
@@ -130,6 +133,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'currency' => 'setCurrency',
         'decline_code' => 'setDeclineCode',
         'decline_reason' => 'setDeclineReason',
+        'extended_data' => 'setExtendedData',
         'id' => 'setId',
         'installment_type' => 'setInstallmentType',
         'installments' => 'setInstallments',
@@ -155,6 +159,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'currency' => 'getCurrency',
         'decline_code' => 'getDeclineCode',
         'decline_reason' => 'getDeclineReason',
+        'extended_data' => 'getExtendedData',
         'id' => 'getId',
         'installment_type' => 'getInstallmentType',
         'installments' => 'getInstallments',
@@ -288,6 +293,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['decline_code'] = isset($data['decline_code']) ? $data['decline_code'] : null;
         $this->container['decline_reason'] = isset($data['decline_reason']) ? $data['decline_reason'] : null;
+        $this->container['extended_data'] = isset($data['extended_data']) ? $data['extended_data'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
         $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
@@ -527,6 +533,30 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
     public function setDeclineReason($decline_reason)
     {
         $this->container['decline_reason'] = $decline_reason;
+
+        return $this;
+    }
+
+    /**
+     * Gets extended_data
+     *
+     * @return map[string,string]
+     */
+    public function getExtendedData()
+    {
+        return $this->container['extended_data'];
+    }
+
+    /**
+     * Sets extended_data
+     *
+     * @param map[string,string] $extended_data Extended structure with information for processing a payment in gateway mode. Contact your account manager to enable it
+     *
+     * @return $this
+     */
+    public function setExtendedData($extended_data)
+    {
+        $this->container['extended_data'] = $extended_data;
 
         return $this;
     }
