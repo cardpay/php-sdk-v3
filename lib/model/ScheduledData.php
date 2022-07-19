@@ -27,6 +27,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'dynamic_descriptor' => 'string',
+        'encrypted_data' => 'string',
         'generate_token' => 'bool',
         'initial_amount' => 'float',
         'initiator' => 'string',
@@ -45,6 +46,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'dynamic_descriptor' => null,
+        'encrypted_data' => null,
         'generate_token' => null,
         'initial_amount' => null,
         'initiator' => null,
@@ -84,6 +86,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'dynamic_descriptor' => 'dynamic_descriptor',
+        'encrypted_data' => 'encrypted_data',
         'generate_token' => 'generate_token',
         'initial_amount' => 'initial_amount',
         'initiator' => 'initiator',
@@ -102,6 +105,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'dynamic_descriptor' => 'setDynamicDescriptor',
+        'encrypted_data' => 'setEncryptedData',
         'generate_token' => 'setGenerateToken',
         'initial_amount' => 'setInitialAmount',
         'initiator' => 'setInitiator',
@@ -120,6 +124,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'dynamic_descriptor' => 'getDynamicDescriptor',
+        'encrypted_data' => 'getEncryptedData',
         'generate_token' => 'getGenerateToken',
         'initial_amount' => 'getInitialAmount',
         'initiator' => 'getInitiator',
@@ -213,6 +218,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
+        $this->container['encrypted_data'] = isset($data['encrypted_data']) ? $data['encrypted_data'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
         $this->container['initial_amount'] = isset($data['initial_amount']) ? $data['initial_amount'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
@@ -239,6 +245,14 @@ class ScheduledData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['dynamic_descriptor']) && (mb_strlen($this->container['dynamic_descriptor']) < 0)) {
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['encrypted_data']) && (mb_strlen($this->container['encrypted_data']) > 10000)) {
+            $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be smaller than or equal to 10000.";
+        }
+
+        if (!is_null($this->container['encrypted_data']) && (mb_strlen($this->container['encrypted_data']) < 0)) {
+            $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be bigger than or equal to 0.";
         }
 
         if ($this->container['initiator'] === null) {
@@ -314,6 +328,37 @@ class ScheduledData implements ModelInterface, ArrayAccess
         }
 
         $this->container['dynamic_descriptor'] = $dynamic_descriptor;
+
+        return $this;
+    }
+
+    /**
+     * Gets encrypted_data
+     *
+     * @return string
+     */
+    public function getEncryptedData()
+    {
+        return $this->container['encrypted_data'];
+    }
+
+    /**
+     * Sets encrypted_data
+     *
+     * @param string $encrypted_data The encrypted payment credentials encoded in base64. *(for APPLEPAY payment method only)*
+     *
+     * @return $this
+     */
+    public function setEncryptedData($encrypted_data)
+    {
+        if (!is_null($encrypted_data) && (mb_strlen($encrypted_data) > 10000)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_data when calling ScheduledData., must be smaller than or equal to 10000.');
+        }
+        if (!is_null($encrypted_data) && (mb_strlen($encrypted_data) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_data when calling ScheduledData., must be bigger than or equal to 0.');
+        }
+
+        $this->container['encrypted_data'] = $encrypted_data;
 
         return $this;
     }

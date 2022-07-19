@@ -2,7 +2,7 @@
 The Unlimint API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 3.21.3
+- PHP SDK version: 3.24.2
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
@@ -96,13 +96,6 @@ composer install
  - [BadRequestError](lib/model/BadRequestError.php)
  - [BankCardPayoutData](lib/model/BankCardPayoutData.php)
  - [BillingAddress](lib/model/BillingAddress.php)
- - [CardBindingCard](lib/model/CardBindingCard.php)
- - [CardBindingCardAccount](lib/model/CardBindingCardAccount.php)
- - [CardBindingData](lib/model/CardBindingData.php)
- - [CardBindingMerchantOrder](lib/model/CardBindingMerchantOrder.php)
- - [CardBindingRecurringDataResponse](lib/model/CardBindingRecurringDataResponse.php)
- - [CardBindingRequest](lib/model/CardBindingRequest.php)
- - [CardBindingResponse](lib/model/CardBindingResponse.php)
  - [ChangeSubscriptionStatusClaimResponse](lib/model/ChangeSubscriptionStatusClaimResponse.php)
  - [ChangedPlanData](lib/model/ChangedPlanData.php)
  - [ClaimResponseSubscriptionData](lib/model/ClaimResponseSubscriptionData.php)
@@ -125,21 +118,6 @@ composer install
  - [InstallmentData](lib/model/InstallmentData.php)
  - [Item](lib/model/Item.php)
  - [LimitInfoResponse](lib/model/LimitInfoResponse.php)
- - [MobileCardAccountResponse](lib/model/MobileCardAccountResponse.php)
- - [MobileCustomerResponse](lib/model/MobileCustomerResponse.php)
- - [MobileMerchantOrderResponse](lib/model/MobileMerchantOrderResponse.php)
- - [MobilePaymentData](lib/model/MobilePaymentData.php)
- - [MobilePaymentDataResponse](lib/model/MobilePaymentDataResponse.php)
- - [MobilePaymentFullResponse](lib/model/MobilePaymentFullResponse.php)
- - [MobilePaymentMerchantOrder](lib/model/MobilePaymentMerchantOrder.php)
- - [MobilePaymentMethodDataResponse](lib/model/MobilePaymentMethodDataResponse.php)
- - [MobilePaymentMethodListResponse](lib/model/MobilePaymentMethodListResponse.php)
- - [MobilePaymentRequest](lib/model/MobilePaymentRequest.php)
- - [MobilePaymentResponse](lib/model/MobilePaymentResponse.php)
- - [MobileTokenRequest](lib/model/MobileTokenRequest.php)
- - [MobileTokenResponse](lib/model/MobileTokenResponse.php)
- - [MobileVerificationRequest](lib/model/MobileVerificationRequest.php)
- - [MobileVerificationResponse](lib/model/MobileVerificationResponse.php)
  - [NextSubscriptionPayment](lib/model/NextSubscriptionPayment.php)
  - [NotFoundError](lib/model/NotFoundError.php)
  - [OAuthError](lib/model/OAuthError.php)

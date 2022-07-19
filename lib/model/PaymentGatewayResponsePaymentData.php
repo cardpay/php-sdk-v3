@@ -26,6 +26,7 @@ class PaymentGatewayResponsePaymentData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'extended_data' => 'map[string,string]',
         'id' => 'string',
         'separate_auth' => 'bool'
     ];
@@ -36,6 +37,7 @@ class PaymentGatewayResponsePaymentData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'extended_data' => null,
         'id' => null,
         'separate_auth' => null
     ];
@@ -67,6 +69,7 @@ class PaymentGatewayResponsePaymentData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'extended_data' => 'extended_data',
         'id' => 'id',
         'separate_auth' => 'separate_auth'
     ];
@@ -77,6 +80,7 @@ class PaymentGatewayResponsePaymentData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'extended_data' => 'setExtendedData',
         'id' => 'setId',
         'separate_auth' => 'setSeparateAuth'
     ];
@@ -87,6 +91,7 @@ class PaymentGatewayResponsePaymentData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'extended_data' => 'getExtendedData',
         'id' => 'getId',
         'separate_auth' => 'getSeparateAuth'
     ];
@@ -151,6 +156,7 @@ class PaymentGatewayResponsePaymentData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['extended_data'] = isset($data['extended_data']) ? $data['extended_data'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['separate_auth'] = isset($data['separate_auth']) ? $data['separate_auth'] : null;
     }
@@ -178,6 +184,30 @@ class PaymentGatewayResponsePaymentData implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets extended_data
+     *
+     * @return map[string,string]
+     */
+    public function getExtendedData()
+    {
+        return $this->container['extended_data'];
+    }
+
+    /**
+     * Sets extended_data
+     *
+     * @param map[string,string] $extended_data Extended structure with information for processing a payment in gateway mode. Contact your account manager to enable it
+     *
+     * @return $this
+     */
+    public function setExtendedData($extended_data)
+    {
+        $this->container['extended_data'] = $extended_data;
+
+        return $this;
+    }
 
     /**
      * Gets id
