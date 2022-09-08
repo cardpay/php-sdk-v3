@@ -37,6 +37,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'installments' => 'string',
         'note' => 'string',
         'preauth' => 'bool',
+        'sca_exemption' => 'string',
         'three_ds_challenge_indicator' => 'string',
         'trans_type' => 'string'
     ];
@@ -58,6 +59,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'installments' => null,
         'note' => null,
         'preauth' => null,
+        'sca_exemption' => null,
         'three_ds_challenge_indicator' => null,
         'trans_type' => null
     ];
@@ -100,6 +102,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'installments' => 'installments',
         'note' => 'note',
         'preauth' => 'preauth',
+        'sca_exemption' => 'sca_exemption',
         'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
         'trans_type' => 'trans_type'
     ];
@@ -121,6 +124,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'installments' => 'setInstallments',
         'note' => 'setNote',
         'preauth' => 'setPreauth',
+        'sca_exemption' => 'setScaExemption',
         'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
         'trans_type' => 'setTransType'
     ];
@@ -142,6 +146,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'installments' => 'getInstallments',
         'note' => 'getNote',
         'preauth' => 'getPreauth',
+        'sca_exemption' => 'getScaExemption',
         'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
         'trans_type' => 'getTransType'
     ];
@@ -238,6 +243,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
+        $this->container['sca_exemption'] = isset($data['sca_exemption']) ? $data['sca_exemption'] : null;
         $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
@@ -283,6 +289,10 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['sca_exemption']) && !preg_match("/LOW_VALUE/", $this->container['sca_exemption'])) {
+            $invalidProperties[] = "invalid value for 'sca_exemption', must be conform to the pattern /LOW_VALUE/.";
         }
 
         if (!is_null($this->container['three_ds_challenge_indicator']) && !preg_match("/01|04/", $this->container['three_ds_challenge_indicator'])) {
@@ -598,6 +608,35 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     public function setPreauth($preauth)
     {
         $this->container['preauth'] = $preauth;
+
+        return $this;
+    }
+
+    /**
+     * Gets sca_exemption
+     *
+     * @return string
+     */
+    public function getScaExemption()
+    {
+        return $this->container['sca_exemption'];
+    }
+
+    /**
+     * Sets sca_exemption
+     *
+     * @param string $sca_exemption Indicates the exemption type that you want to request for the transaction. Possible value: LOW_VALUE
+     *
+     * @return $this
+     */
+    public function setScaExemption($sca_exemption)
+    {
+
+        if (!is_null($sca_exemption) && (!preg_match("/LOW_VALUE/", $sca_exemption))) {
+            throw new \InvalidArgumentException("invalid value for $sca_exemption when calling PaymentRequestPaymentData., must conform to the pattern /LOW_VALUE/.");
+        }
+
+        $this->container['sca_exemption'] = $sca_exemption;
 
         return $this;
     }

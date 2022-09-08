@@ -315,7 +315,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Sets amount
      *
-     * @param float $amount The total transaction amount in selected currency with dot as a decimal separator, must be less than 100 millions
+     * @param float $amount The total transaction amount in selected currency with dot as a decimal separator, must be less than 10 billion
      *
      * @return $this
      */
