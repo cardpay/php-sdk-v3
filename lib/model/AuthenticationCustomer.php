@@ -30,8 +30,10 @@ class AuthenticationCustomer implements ModelInterface, ArrayAccess
         'home_phone' => 'string',
         'id' => 'string',
         'ip' => 'string',
+        'ip_country' => 'string',
         'locale' => 'string',
         'phone' => 'string',
+        'user_agent' => 'string',
         'work_phone' => 'string'
     ];
 
@@ -45,8 +47,10 @@ class AuthenticationCustomer implements ModelInterface, ArrayAccess
         'home_phone' => null,
         'id' => null,
         'ip' => null,
+        'ip_country' => null,
         'locale' => null,
         'phone' => null,
+        'user_agent' => null,
         'work_phone' => null
     ];
 
@@ -81,8 +85,10 @@ class AuthenticationCustomer implements ModelInterface, ArrayAccess
         'home_phone' => 'home_phone',
         'id' => 'id',
         'ip' => 'ip',
+        'ip_country' => 'ip_country',
         'locale' => 'locale',
         'phone' => 'phone',
+        'user_agent' => 'user_agent',
         'work_phone' => 'work_phone'
     ];
 
@@ -96,8 +102,10 @@ class AuthenticationCustomer implements ModelInterface, ArrayAccess
         'home_phone' => 'setHomePhone',
         'id' => 'setId',
         'ip' => 'setIp',
+        'ip_country' => 'setIpCountry',
         'locale' => 'setLocale',
         'phone' => 'setPhone',
+        'user_agent' => 'setUserAgent',
         'work_phone' => 'setWorkPhone'
     ];
 
@@ -111,8 +119,10 @@ class AuthenticationCustomer implements ModelInterface, ArrayAccess
         'home_phone' => 'getHomePhone',
         'id' => 'getId',
         'ip' => 'getIp',
+        'ip_country' => 'getIpCountry',
         'locale' => 'getLocale',
         'phone' => 'getPhone',
+        'user_agent' => 'getUserAgent',
         'work_phone' => 'getWorkPhone'
     ];
 
@@ -180,8 +190,10 @@ class AuthenticationCustomer implements ModelInterface, ArrayAccess
         $this->container['home_phone'] = isset($data['home_phone']) ? $data['home_phone'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
+        $this->container['ip_country'] = isset($data['ip_country']) ? $data['ip_country'] : null;
         $this->container['locale'] = isset($data['locale']) ? $data['locale'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
+        $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
         $this->container['work_phone'] = isset($data['work_phone']) ? $data['work_phone'] : null;
     }
 
@@ -306,6 +318,30 @@ class AuthenticationCustomer implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets ip_country
+     *
+     * @return string
+     */
+    public function getIpCountry()
+    {
+        return $this->container['ip_country'];
+    }
+
+    /**
+     * Sets ip_country
+     *
+     * @param string $ip_country Customer country by IP
+     *
+     * @return $this
+     */
+    public function setIpCountry($ip_country)
+    {
+        $this->container['ip_country'] = $ip_country;
+
+        return $this;
+    }
+
+    /**
      * Gets locale
      *
      * @return string
@@ -349,6 +385,30 @@ class AuthenticationCustomer implements ModelInterface, ArrayAccess
     public function setPhone($phone)
     {
         $this->container['phone'] = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Gets user_agent
+     *
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->container['user_agent'];
+    }
+
+    /**
+     * Sets user_agent
+     *
+     * @param string $user_agent User agent
+     *
+     * @return $this
+     */
+    public function setUserAgent($user_agent)
+    {
+        $this->container['user_agent'] = $user_agent;
 
         return $this;
     }
