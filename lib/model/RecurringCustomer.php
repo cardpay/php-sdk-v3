@@ -244,8 +244,8 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 256.";
         }
 
-        if ((mb_strlen($this->container['email']) < 1)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 1.";
+        if ((mb_strlen($this->container['email']) < 3)) {
+            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 3.";
         }
 
         if (!is_null($this->container['home_phone']) && (mb_strlen($this->container['home_phone']) > 18)) {
@@ -360,8 +360,8 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         if ((mb_strlen($email) > 256)) {
             throw new \InvalidArgumentException('invalid length for $email when calling RecurringCustomer., must be smaller than or equal to 256.');
         }
-        if ((mb_strlen($email) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling RecurringCustomer., must be bigger than or equal to 1.');
+        if ((mb_strlen($email) < 3)) {
+            throw new \InvalidArgumentException('invalid length for $email when calling RecurringCustomer., must be bigger than or equal to 3.');
         }
 
         $this->container['email'] = $email;

@@ -234,8 +234,8 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 256.";
         }
 
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 1)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 1.";
+        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 3)) {
+            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 3.";
         }
 
         if (!is_null($this->container['first_name']) && (mb_strlen($this->container['first_name']) > 256)) {
@@ -387,8 +387,8 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         if (!is_null($email) && (mb_strlen($email) > 256)) {
             throw new \InvalidArgumentException('invalid length for $email when calling PaymentRequestCustomer., must be smaller than or equal to 256.');
         }
-        if (!is_null($email) && (mb_strlen($email) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling PaymentRequestCustomer., must be bigger than or equal to 1.');
+        if (!is_null($email) && (mb_strlen($email) < 3)) {
+            throw new \InvalidArgumentException('invalid length for $email when calling PaymentRequestCustomer., must be bigger than or equal to 3.');
         }
 
         $this->container['email'] = $email;

@@ -42,7 +42,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'note' => 'string',
         'rrn' => 'string',
         'status' => 'string',
-        'trans_type' => 'string'
+        'trans_type' => 'string',
+        'type' => 'string'
     ];
 
     /**
@@ -67,7 +68,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'note' => null,
         'rrn' => null,
         'status' => null,
-        'trans_type' => null
+        'trans_type' => null,
+        'type' => null
     ];
 
     /**
@@ -113,7 +115,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'note' => 'note',
         'rrn' => 'rrn',
         'status' => 'status',
-        'trans_type' => 'trans_type'
+        'trans_type' => 'trans_type',
+        'type' => 'type'
     ];
 
     /**
@@ -138,7 +141,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'note' => 'setNote',
         'rrn' => 'setRrn',
         'status' => 'setStatus',
-        'trans_type' => 'setTransType'
+        'trans_type' => 'setTransType',
+        'type' => 'setType'
     ];
 
     /**
@@ -163,7 +167,8 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'note' => 'getNote',
         'rrn' => 'getRrn',
         'status' => 'getStatus',
-        'trans_type' => 'getTransType'
+        'trans_type' => 'getTransType',
+        'type' => 'getType'
     ];
 
     /**
@@ -297,6 +302,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         $this->container['rrn'] = isset($data['rrn']) ? $data['rrn'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
+        $this->container['type'] = isset($data['type']) ? $data['type'] : null;
     }
 
     /**
@@ -761,6 +767,30 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
             );
         }
         $this->container['trans_type'] = $trans_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->container['type'];
+    }
+
+    /**
+     * Sets type
+     *
+     * @param string $type Payment type, can be PAYMENT, INSTALLMENT
+     *
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->container['type'] = $type;
 
         return $this;
     }

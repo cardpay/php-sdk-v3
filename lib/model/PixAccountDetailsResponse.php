@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
+class PixAccountDetailsResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'TransactionResponseMerchantOrder';
+    protected static $swaggerModelName = 'PixAccountDetailsResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'description' => 'string',
-        'id' => 'string'
+        'ewallet_account' => '\Cardpay\model\EwalletAccount'
     ];
 
     /**
@@ -36,8 +35,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'description' => null,
-        'id' => null
+        'ewallet_account' => null
     ];
 
     /**
@@ -67,8 +65,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'description' => 'description',
-        'id' => 'id'
+        'ewallet_account' => 'ewallet_account'
     ];
 
     /**
@@ -77,8 +74,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'description' => 'setDescription',
-        'id' => 'setId'
+        'ewallet_account' => 'setEwalletAccount'
     ];
 
     /**
@@ -87,8 +83,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'description' => 'getDescription',
-        'id' => 'getId'
+        'ewallet_account' => 'getEwalletAccount'
     ];
 
     /**
@@ -151,8 +146,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['ewallet_account'] = isset($data['ewallet_account']) ? $data['ewallet_account'] : null;
     }
 
     /**
@@ -163,17 +157,6 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ((mb_strlen($this->container['id']) > 50)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 50.";
-        }
-
-        if ((mb_strlen($this->container['id']) < 1)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
-        }
 
         return $invalidProperties;
     }
@@ -191,56 +174,25 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets description
+     * Gets ewallet_account
      *
-     * @return string
+     * @return \Cardpay\model\EwalletAccount
      */
-    public function getDescription()
+    public function getEwalletAccount()
     {
-        return $this->container['description'];
+        return $this->container['ewallet_account'];
     }
 
     /**
-     * Sets description
+     * Sets ewallet_account
      *
-     * @param string $description Description of product/service being sold
+     * @param \Cardpay\model\EwalletAccount $ewallet_account An object containing customer account details
      *
      * @return $this
      */
-    public function setDescription($description)
+    public function setEwalletAccount($ewallet_account)
     {
-        $this->container['description'] = $description;
-
-        return $this;
-    }
-
-    /**
-     * Gets id
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->container['id'];
-    }
-
-    /**
-     * Sets id
-     *
-     * @param string $id Merchant's ID of the order
-     *
-     * @return $this
-     */
-    public function setId($id)
-    {
-        if ((mb_strlen($id) > 50)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling TransactionResponseMerchantOrder., must be smaller than or equal to 50.');
-        }
-        if ((mb_strlen($id) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling TransactionResponseMerchantOrder., must be bigger than or equal to 1.');
-        }
-
-        $this->container['id'] = $id;
+        $this->container['ewallet_account'] = $ewallet_account;
 
         return $this;
     }

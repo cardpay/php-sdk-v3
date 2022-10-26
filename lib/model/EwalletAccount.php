@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
+class EwalletAccount implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'TransactionResponseMerchantOrder';
+    protected static $swaggerModelName = 'EwalletAccount';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,10 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'description' => 'string',
-        'id' => 'string'
+        'bank_branch' => 'string',
+        'bank_code' => 'string',
+        'id' => 'string',
+        'type' => 'string'
     ];
 
     /**
@@ -36,8 +38,10 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'description' => null,
-        'id' => null
+        'bank_branch' => null,
+        'bank_code' => null,
+        'id' => null,
+        'type' => null
     ];
 
     /**
@@ -67,8 +71,10 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'description' => 'description',
-        'id' => 'id'
+        'bank_branch' => 'bank_branch',
+        'bank_code' => 'bank_code',
+        'id' => 'id',
+        'type' => 'type'
     ];
 
     /**
@@ -77,8 +83,10 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'description' => 'setDescription',
-        'id' => 'setId'
+        'bank_branch' => 'setBankBranch',
+        'bank_code' => 'setBankCode',
+        'id' => 'setId',
+        'type' => 'setType'
     ];
 
     /**
@@ -87,8 +95,10 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'description' => 'getDescription',
-        'id' => 'getId'
+        'bank_branch' => 'getBankBranch',
+        'bank_code' => 'getBankCode',
+        'id' => 'getId',
+        'type' => 'getType'
     ];
 
     /**
@@ -151,8 +161,10 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
+        $this->container['bank_branch'] = isset($data['bank_branch']) ? $data['bank_branch'] : null;
+        $this->container['bank_code'] = isset($data['bank_code']) ? $data['bank_code'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['type'] = isset($data['type']) ? $data['type'] : null;
     }
 
     /**
@@ -164,15 +176,36 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if (!is_null($this->container['bank_branch']) && (mb_strlen($this->container['bank_branch']) > 50)) {
+            $invalidProperties[] = "invalid value for 'bank_branch', the character length must be smaller than or equal to 50.";
         }
-        if ((mb_strlen($this->container['id']) > 50)) {
+
+        if (!is_null($this->container['bank_branch']) && (mb_strlen($this->container['bank_branch']) < 1)) {
+            $invalidProperties[] = "invalid value for 'bank_branch', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['bank_code']) && (mb_strlen($this->container['bank_code']) > 6)) {
+            $invalidProperties[] = "invalid value for 'bank_code', the character length must be smaller than or equal to 6.";
+        }
+
+        if (!is_null($this->container['bank_code']) && (mb_strlen($this->container['bank_code']) < 1)) {
+            $invalidProperties[] = "invalid value for 'bank_code', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 50)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 50.";
         }
 
-        if ((mb_strlen($this->container['id']) < 1)) {
+        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) < 1)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['type']) && (mb_strlen($this->container['type']) > 4)) {
+            $invalidProperties[] = "invalid value for 'type', the character length must be smaller than or equal to 4.";
+        }
+
+        if (!is_null($this->container['type']) && (mb_strlen($this->container['type']) < 1)) {
+            $invalidProperties[] = "invalid value for 'type', the character length must be bigger than or equal to 1.";
         }
 
         return $invalidProperties;
@@ -191,25 +224,63 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets description
+     * Gets bank_branch
      *
      * @return string
      */
-    public function getDescription()
+    public function getBankBranch()
     {
-        return $this->container['description'];
+        return $this->container['bank_branch'];
     }
 
     /**
-     * Sets description
+     * Sets bank_branch
      *
-     * @param string $description Description of product/service being sold
+     * @param string $bank_branch Customer bank branch number (name)
      *
      * @return $this
      */
-    public function setDescription($description)
+    public function setBankBranch($bank_branch)
     {
-        $this->container['description'] = $description;
+        if (!is_null($bank_branch) && (mb_strlen($bank_branch) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $bank_branch when calling EwalletAccount., must be smaller than or equal to 50.');
+        }
+        if (!is_null($bank_branch) && (mb_strlen($bank_branch) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $bank_branch when calling EwalletAccount., must be bigger than or equal to 1.');
+        }
+
+        $this->container['bank_branch'] = $bank_branch;
+
+        return $this;
+    }
+
+    /**
+     * Gets bank_code
+     *
+     * @return string
+     */
+    public function getBankCode()
+    {
+        return $this->container['bank_code'];
+    }
+
+    /**
+     * Sets bank_code
+     *
+     * @param string $bank_code Customer bank code
+     *
+     * @return $this
+     */
+    public function setBankCode($bank_code)
+    {
+        if (!is_null($bank_code) && (mb_strlen($bank_code) > 6)) {
+            throw new \InvalidArgumentException('invalid length for $bank_code when calling EwalletAccount., must be smaller than or equal to 6.');
+        }
+        if (!is_null($bank_code) && (mb_strlen($bank_code) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $bank_code when calling EwalletAccount., must be bigger than or equal to 1.');
+        }
+
+        $this->container['bank_code'] = $bank_code;
 
         return $this;
     }
@@ -227,20 +298,51 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id Merchant's ID of the order
+     * @param string $id Customer personal identification number
      *
      * @return $this
      */
     public function setId($id)
     {
-        if ((mb_strlen($id) > 50)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling TransactionResponseMerchantOrder., must be smaller than or equal to 50.');
+        if (!is_null($id) && (mb_strlen($id) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling EwalletAccount., must be smaller than or equal to 50.');
         }
-        if ((mb_strlen($id) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling TransactionResponseMerchantOrder., must be bigger than or equal to 1.');
+        if (!is_null($id) && (mb_strlen($id) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling EwalletAccount., must be bigger than or equal to 1.');
         }
 
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->container['type'];
+    }
+
+    /**
+     * Sets type
+     *
+     * @param string $type Customer account type
+     *
+     * @return $this
+     */
+    public function setType($type)
+    {
+        if (!is_null($type) && (mb_strlen($type) > 4)) {
+            throw new \InvalidArgumentException('invalid length for $type when calling EwalletAccount., must be smaller than or equal to 4.');
+        }
+        if (!is_null($type) && (mb_strlen($type) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $type when calling EwalletAccount., must be bigger than or equal to 1.');
+        }
+
+        $this->container['type'] = $type;
 
         return $this;
     }

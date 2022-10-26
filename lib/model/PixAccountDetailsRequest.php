@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
+class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'TransactionResponseMerchantOrder';
+    protected static $swaggerModelName = 'PixAccountDetailsRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'description' => 'string',
-        'id' => 'string'
+        'customer_identity' => 'string'
     ];
 
     /**
@@ -36,8 +35,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'description' => null,
-        'id' => null
+        'customer_identity' => null
     ];
 
     /**
@@ -67,8 +65,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'description' => 'description',
-        'id' => 'id'
+        'customer_identity' => 'customer_identity'
     ];
 
     /**
@@ -77,8 +74,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'description' => 'setDescription',
-        'id' => 'setId'
+        'customer_identity' => 'setCustomerIdentity'
     ];
 
     /**
@@ -87,8 +83,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'description' => 'getDescription',
-        'id' => 'getId'
+        'customer_identity' => 'getCustomerIdentity'
     ];
 
     /**
@@ -151,8 +146,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['customer_identity'] = isset($data['customer_identity']) ? $data['customer_identity'] : null;
     }
 
     /**
@@ -164,17 +158,9 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if ($this->container['customer_identity'] === null) {
+            $invalidProperties[] = "'customer_identity' can't be null";
         }
-        if ((mb_strlen($this->container['id']) > 50)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 50.";
-        }
-
-        if ((mb_strlen($this->container['id']) < 1)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
-        }
-
         return $invalidProperties;
     }
 
@@ -191,56 +177,25 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets description
+     * Gets customer_identity
      *
      * @return string
      */
-    public function getDescription()
+    public function getCustomerIdentity()
     {
-        return $this->container['description'];
+        return $this->container['customer_identity'];
     }
 
     /**
-     * Sets description
+     * Sets customer_identity
      *
-     * @param string $description Description of product/service being sold
+     * @param string $customer_identity Customer identity
      *
      * @return $this
      */
-    public function setDescription($description)
+    public function setCustomerIdentity($customer_identity)
     {
-        $this->container['description'] = $description;
-
-        return $this;
-    }
-
-    /**
-     * Gets id
-     *
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->container['id'];
-    }
-
-    /**
-     * Sets id
-     *
-     * @param string $id Merchant's ID of the order
-     *
-     * @return $this
-     */
-    public function setId($id)
-    {
-        if ((mb_strlen($id) > 50)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling TransactionResponseMerchantOrder., must be smaller than or equal to 50.');
-        }
-        if ((mb_strlen($id) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling TransactionResponseMerchantOrder., must be bigger than or equal to 1.');
-        }
-
-        $this->container['id'] = $id;
+        $this->container['customer_identity'] = $customer_identity;
 
         return $this;
     }
