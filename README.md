@@ -2,7 +2,7 @@
 The Unlimint API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 3.32.1
+- PHP SDK version: 3.37.3
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
@@ -102,6 +102,7 @@ composer install
  - [ChangedPlanData](lib/model/ChangedPlanData.php)
  - [ClaimResponseSubscriptionData](lib/model/ClaimResponseSubscriptionData.php)
  - [Confirm3dsRequest](lib/model/Confirm3dsRequest.php)
+ - [Customer](lib/model/Customer.php)
  - [DisputeList](lib/model/DisputeList.php)
  - [DisputeResponse](lib/model/DisputeResponse.php)
  - [DisputeResponseCard](lib/model/DisputeResponseCard.php)
@@ -119,8 +120,15 @@ composer install
  - [Flight](lib/model/Flight.php)
  - [Flights](lib/model/Flights.php)
  - [InstallmentData](lib/model/InstallmentData.php)
+ - [InvoiceCreationDataResponse](lib/model/InvoiceCreationDataResponse.php)
+ - [InvoiceCreationResponse](lib/model/InvoiceCreationResponse.php)
+ - [InvoiceDataRequest](lib/model/InvoiceDataRequest.php)
+ - [InvoiceGetDataResponse](lib/model/InvoiceGetDataResponse.php)
+ - [InvoiceGetResponse](lib/model/InvoiceGetResponse.php)
+ - [InvoiceRequest](lib/model/InvoiceRequest.php)
  - [Item](lib/model/Item.php)
  - [LimitInfoResponse](lib/model/LimitInfoResponse.php)
+ - [MerchantOrder](lib/model/MerchantOrder.php)
  - [NextSubscriptionPayment](lib/model/NextSubscriptionPayment.php)
  - [NotFoundError](lib/model/NotFoundError.php)
  - [OAuthError](lib/model/OAuthError.php)
