@@ -164,14 +164,20 @@ class MerchantOrder implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) > 50)) {
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ((mb_strlen($this->container['id']) > 50)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 50.";
         }
 
-        if (!is_null($this->container['id']) && (mb_strlen($this->container['id']) < 1)) {
+        if ((mb_strlen($this->container['id']) < 1)) {
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
         }
 
+        if ($this->container['items'] === null) {
+            $invalidProperties[] = "'items' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -200,16 +206,16 @@ class MerchantOrder implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id id
+     * @param string $id Order ID used by the merchant’s shopping cart
      *
      * @return $this
      */
     public function setId($id)
     {
-        if (!is_null($id) && (mb_strlen($id) > 50)) {
+        if ((mb_strlen($id) > 50)) {
             throw new \InvalidArgumentException('invalid length for $id when calling MerchantOrder., must be smaller than or equal to 50.');
         }
-        if (!is_null($id) && (mb_strlen($id) < 1)) {
+        if ((mb_strlen($id) < 1)) {
             throw new \InvalidArgumentException('invalid length for $id when calling MerchantOrder., must be bigger than or equal to 1.');
         }
 
@@ -231,7 +237,7 @@ class MerchantOrder implements ModelInterface, ArrayAccess
     /**
      * Sets items
      *
-     * @param \Cardpay\model\Item[] $items items
+     * @param \Cardpay\model\Item[] $items Array of items (in the shopping cart)
      *
      * @return $this
      */

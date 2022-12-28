@@ -213,7 +213,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets customer
      *
-     * @param \Cardpay\model\Customer $customer customer
+     * @param \Cardpay\model\Customer $customer Customer data
      *
      * @return $this
      */
@@ -237,7 +237,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets invoice_data
      *
-     * @param \Cardpay\model\InvoiceGetDataResponse $invoice_data invoice_data
+     * @param \Cardpay\model\InvoiceGetDataResponse $invoice_data Invoice data
      *
      * @return $this
      */
@@ -261,7 +261,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets invoice_url
      *
-     * @param string $invoice_url invoice_url
+     * @param string $invoice_url Invoice URL
      *
      * @return $this
      */
@@ -285,7 +285,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets merchant_order
      *
-     * @param \Cardpay\model\MerchantOrder $merchant_order merchant_order
+     * @param \Cardpay\model\MerchantOrder $merchant_order Merchant order data
      *
      * @return $this
      */

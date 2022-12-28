@@ -26,6 +26,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'contract_number' => 'string',
         'dynamic_descriptor' => 'string',
         'encrypted_data' => 'string',
         'generate_token' => 'bool',
@@ -45,6 +46,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'contract_number' => null,
         'dynamic_descriptor' => null,
         'encrypted_data' => null,
         'generate_token' => null,
@@ -85,6 +87,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'contract_number' => 'contract_number',
         'dynamic_descriptor' => 'dynamic_descriptor',
         'encrypted_data' => 'encrypted_data',
         'generate_token' => 'generate_token',
@@ -104,6 +107,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'contract_number' => 'setContractNumber',
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'encrypted_data' => 'setEncryptedData',
         'generate_token' => 'setGenerateToken',
@@ -123,6 +127,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'contract_number' => 'getContractNumber',
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'encrypted_data' => 'getEncryptedData',
         'generate_token' => 'getGenerateToken',
@@ -217,6 +222,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['contract_number'] = isset($data['contract_number']) ? $data['contract_number'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['encrypted_data'] = isset($data['encrypted_data']) ? $data['encrypted_data'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
@@ -300,6 +306,30 @@ class ScheduledData implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets contract_number
+     *
+     * @return string
+     */
+    public function getContractNumber()
+    {
+        return $this->container['contract_number'];
+    }
+
+    /**
+     * Sets contract_number
+     *
+     * @param string $contract_number Contract number between customer and merchant. Required for Mexican merchants for scheduled payments.
+     *
+     * @return $this
+     */
+    public function setContractNumber($contract_number)
+    {
+        $this->container['contract_number'] = $contract_number;
+
+        return $this;
+    }
 
     /**
      * Gets dynamic_descriptor

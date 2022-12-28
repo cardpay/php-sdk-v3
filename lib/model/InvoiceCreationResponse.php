@@ -192,7 +192,7 @@ class InvoiceCreationResponse implements ModelInterface, ArrayAccess
     /**
      * Sets invoice_data
      *
-     * @param \Cardpay\model\InvoiceCreationDataResponse $invoice_data invoice_data
+     * @param \Cardpay\model\InvoiceCreationDataResponse $invoice_data Structure of invoice data
      *
      * @return $this
      */
@@ -216,7 +216,7 @@ class InvoiceCreationResponse implements ModelInterface, ArrayAccess
     /**
      * Sets invoice_url
      *
-     * @param string $invoice_url invoice_url
+     * @param string $invoice_url Invoice URL
      *
      * @return $this
      */

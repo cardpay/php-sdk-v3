@@ -28,10 +28,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'amount' => 'float',
         'currency' => 'string',
-        'expire_at' => '\DateTime',
-        'installment_amount' => 'float',
-        'installment_type' => 'string',
-        'installments' => 'int[]'
+        'expire_at' => '\DateTime'
     ];
 
     /**
@@ -42,10 +39,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'amount' => null,
         'currency' => null,
-        'expire_at' => 'date-time',
-        'installment_amount' => null,
-        'installment_type' => null,
-        'installments' => 'int32'
+        'expire_at' => 'date-time'
     ];
 
     /**
@@ -77,10 +71,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'amount' => 'amount',
         'currency' => 'currency',
-        'expire_at' => 'expire_at',
-        'installment_amount' => 'installment_amount',
-        'installment_type' => 'installment_type',
-        'installments' => 'installments'
+        'expire_at' => 'expire_at'
     ];
 
     /**
@@ -91,10 +82,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     protected static $setters = [
         'amount' => 'setAmount',
         'currency' => 'setCurrency',
-        'expire_at' => 'setExpireAt',
-        'installment_amount' => 'setInstallmentAmount',
-        'installment_type' => 'setInstallmentType',
-        'installments' => 'setInstallments'
+        'expire_at' => 'setExpireAt'
     ];
 
     /**
@@ -105,10 +93,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     protected static $getters = [
         'amount' => 'getAmount',
         'currency' => 'getCurrency',
-        'expire_at' => 'getExpireAt',
-        'installment_amount' => 'getInstallmentAmount',
-        'installment_type' => 'getInstallmentType',
-        'installments' => 'getInstallments'
+        'expire_at' => 'getExpireAt'
     ];
 
     /**
@@ -174,9 +159,6 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['expire_at'] = isset($data['expire_at']) ? $data['expire_at'] : null;
-        $this->container['installment_amount'] = isset($data['installment_amount']) ? $data['installment_amount'] : null;
-        $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
-        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
     }
 
     /**
@@ -188,11 +170,11 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['amount'] === null) {
+            $invalidProperties[] = "'amount' can't be null";
+        }
         if ($this->container['currency'] === null) {
             $invalidProperties[] = "'currency' can't be null";
-        }
-        if ($this->container['expire_at'] === null) {
-            $invalidProperties[] = "'expire_at' can't be null";
         }
         return $invalidProperties;
     }
@@ -222,7 +204,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     /**
      * Sets amount
      *
-     * @param float $amount amount
+     * @param float $amount The total invoice amount in selected currency with dot as a decimal separator, must be less than 10 billion
      *
      * @return $this
      */
@@ -246,7 +228,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     /**
      * Sets currency
      *
-     * @param string $currency currency
+     * @param string $currency ISO 4217 currency code
      *
      * @return $this
      */
@@ -270,85 +252,13 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     /**
      * Sets expire_at
      *
-     * @param \DateTime $expire_at expire_at
+     * @param \DateTime $expire_at Date of invoice expiring. Invoice cannot be used after this date.
      *
      * @return $this
      */
     public function setExpireAt($expire_at)
     {
         $this->container['expire_at'] = $expire_at;
-
-        return $this;
-    }
-
-    /**
-     * Gets installment_amount
-     *
-     * @return float
-     */
-    public function getInstallmentAmount()
-    {
-        return $this->container['installment_amount'];
-    }
-
-    /**
-     * Sets installment_amount
-     *
-     * @param float $installment_amount installment_amount
-     *
-     * @return $this
-     */
-    public function setInstallmentAmount($installment_amount)
-    {
-        $this->container['installment_amount'] = $installment_amount;
-
-        return $this;
-    }
-
-    /**
-     * Gets installment_type
-     *
-     * @return string
-     */
-    public function getInstallmentType()
-    {
-        return $this->container['installment_type'];
-    }
-
-    /**
-     * Sets installment_type
-     *
-     * @param string $installment_type installment_type
-     *
-     * @return $this
-     */
-    public function setInstallmentType($installment_type)
-    {
-        $this->container['installment_type'] = $installment_type;
-
-        return $this;
-    }
-
-    /**
-     * Gets installments
-     *
-     * @return int[]
-     */
-    public function getInstallments()
-    {
-        return $this->container['installments'];
-    }
-
-    /**
-     * Sets installments
-     *
-     * @param int[] $installments installments
-     *
-     * @return $this
-     */
-    public function setInstallments($installments)
-    {
-        $this->container['installments'] = $installments;
 
         return $this;
     }

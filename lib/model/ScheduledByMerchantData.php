@@ -27,6 +27,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
+        'contract_number' => 'string',
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
         'filing' => '\Cardpay\model\RecurringResponseFiling',
@@ -45,6 +46,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'amount' => null,
+        'contract_number' => null,
         'currency' => null,
         'dynamic_descriptor' => null,
         'filing' => null,
@@ -84,6 +86,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'amount' => 'amount',
+        'contract_number' => 'contract_number',
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
         'filing' => 'filing',
@@ -102,6 +105,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'amount' => 'setAmount',
+        'contract_number' => 'setContractNumber',
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'filing' => 'setFiling',
@@ -120,6 +124,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'amount' => 'getAmount',
+        'contract_number' => 'getContractNumber',
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'filing' => 'getFiling',
@@ -213,6 +218,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['contract_number'] = isset($data['contract_number']) ? $data['contract_number'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
@@ -316,6 +322,30 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
     public function setAmount($amount)
     {
         $this->container['amount'] = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets contract_number
+     *
+     * @return string
+     */
+    public function getContractNumber()
+    {
+        return $this->container['contract_number'];
+    }
+
+    /**
+     * Sets contract_number
+     *
+     * @param string $contract_number Contract number between customer and merchant. Required for Mexican merchants for scheduled payments.
+     *
+     * @return $this
+     */
+    public function setContractNumber($contract_number)
+    {
+        $this->container['contract_number'] = $contract_number;
 
         return $this;
     }

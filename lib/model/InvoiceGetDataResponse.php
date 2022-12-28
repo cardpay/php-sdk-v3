@@ -30,9 +30,6 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'currency' => 'string',
         'expire_at' => '\DateTime',
         'id' => 'string',
-        'installment_amount' => 'float',
-        'installment_type' => 'string',
-        'installments' => 'int',
         'status' => 'string'
     ];
 
@@ -46,9 +43,6 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'currency' => null,
         'expire_at' => 'date-time',
         'id' => null,
-        'installment_amount' => null,
-        'installment_type' => null,
-        'installments' => 'int32',
         'status' => null
     ];
 
@@ -83,9 +77,6 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'currency' => 'currency',
         'expire_at' => 'expire_at',
         'id' => 'id',
-        'installment_amount' => 'installment_amount',
-        'installment_type' => 'installment_type',
-        'installments' => 'installments',
         'status' => 'status'
     ];
 
@@ -99,9 +90,6 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'currency' => 'setCurrency',
         'expire_at' => 'setExpireAt',
         'id' => 'setId',
-        'installment_amount' => 'setInstallmentAmount',
-        'installment_type' => 'setInstallmentType',
-        'installments' => 'setInstallments',
         'status' => 'setStatus'
     ];
 
@@ -115,9 +103,6 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'currency' => 'getCurrency',
         'expire_at' => 'getExpireAt',
         'id' => 'getId',
-        'installment_amount' => 'getInstallmentAmount',
-        'installment_type' => 'getInstallmentType',
-        'installments' => 'getInstallments',
         'status' => 'getStatus'
     ];
 
@@ -185,9 +170,6 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['expire_at'] = isset($data['expire_at']) ? $data['expire_at'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['installment_amount'] = isset($data['installment_amount']) ? $data['installment_amount'] : null;
-        $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
-        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
     }
 
@@ -237,7 +219,7 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
     /**
      * Sets amount
      *
-     * @param float $amount amount
+     * @param float $amount The total invoice amount in selected currency with dot as a decimal separator
      *
      * @return $this
      */
@@ -261,7 +243,7 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
     /**
      * Sets currency
      *
-     * @param string $currency currency
+     * @param string $currency ISO 4217 currency code
      *
      * @return $this
      */
@@ -285,7 +267,7 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
     /**
      * Sets expire_at
      *
-     * @param \DateTime $expire_at expire_at
+     * @param \DateTime $expire_at Date of invoice expiring. Invoice cannot be used after this date.
      *
      * @return $this
      */
@@ -309,85 +291,13 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id id
+     * @param string $id Identifier of created invoice.
      *
      * @return $this
      */
     public function setId($id)
     {
         $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets installment_amount
-     *
-     * @return float
-     */
-    public function getInstallmentAmount()
-    {
-        return $this->container['installment_amount'];
-    }
-
-    /**
-     * Sets installment_amount
-     *
-     * @param float $installment_amount installment_amount
-     *
-     * @return $this
-     */
-    public function setInstallmentAmount($installment_amount)
-    {
-        $this->container['installment_amount'] = $installment_amount;
-
-        return $this;
-    }
-
-    /**
-     * Gets installment_type
-     *
-     * @return string
-     */
-    public function getInstallmentType()
-    {
-        return $this->container['installment_type'];
-    }
-
-    /**
-     * Sets installment_type
-     *
-     * @param string $installment_type installment_type
-     *
-     * @return $this
-     */
-    public function setInstallmentType($installment_type)
-    {
-        $this->container['installment_type'] = $installment_type;
-
-        return $this;
-    }
-
-    /**
-     * Gets installments
-     *
-     * @return int
-     */
-    public function getInstallments()
-    {
-        return $this->container['installments'];
-    }
-
-    /**
-     * Sets installments
-     *
-     * @param int $installments installments
-     *
-     * @return $this
-     */
-    public function setInstallments($installments)
-    {
-        $this->container['installments'] = $installments;
 
         return $this;
     }
@@ -405,7 +315,7 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
     /**
      * Sets status
      *
-     * @param string $status status
+     * @param string $status Status of invoice.
      *
      * @return $this
      */

@@ -186,7 +186,7 @@ class InvoiceCreationDataResponse implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id id
+     * @param string $id Identifier of invoice
      *
      * @return $this
      */

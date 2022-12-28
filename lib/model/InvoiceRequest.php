@@ -30,7 +30,6 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         'customer' => '\Cardpay\model\Customer',
         'invoice_data' => '\Cardpay\model\InvoiceDataRequest',
         'merchant_order' => '\Cardpay\model\MerchantOrder',
-        'payment_methods' => 'string[]',
         'return_urls' => '\Cardpay\model\ReturnUrls'
     ];
 
@@ -44,7 +43,6 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         'customer' => null,
         'invoice_data' => null,
         'merchant_order' => null,
-        'payment_methods' => null,
         'return_urls' => null
     ];
 
@@ -79,7 +77,6 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         'customer' => 'customer',
         'invoice_data' => 'invoice_data',
         'merchant_order' => 'merchant_order',
-        'payment_methods' => 'payment_methods',
         'return_urls' => 'return_urls'
     ];
 
@@ -93,7 +90,6 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         'customer' => 'setCustomer',
         'invoice_data' => 'setInvoiceData',
         'merchant_order' => 'setMerchantOrder',
-        'payment_methods' => 'setPaymentMethods',
         'return_urls' => 'setReturnUrls'
     ];
 
@@ -107,7 +103,6 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         'customer' => 'getCustomer',
         'invoice_data' => 'getInvoiceData',
         'merchant_order' => 'getMerchantOrder',
-        'payment_methods' => 'getPaymentMethods',
         'return_urls' => 'getReturnUrls'
     ];
 
@@ -175,7 +170,6 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
         $this->container['invoice_data'] = isset($data['invoice_data']) ? $data['invoice_data'] : null;
         $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
-        $this->container['payment_methods'] = isset($data['payment_methods']) ? $data['payment_methods'] : null;
         $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
     }
 
@@ -249,7 +243,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Sets customer
      *
-     * @param \Cardpay\model\Customer $customer customer
+     * @param \Cardpay\model\Customer $customer Customer data
      *
      * @return $this
      */
@@ -273,7 +267,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Sets invoice_data
      *
-     * @param \Cardpay\model\InvoiceDataRequest $invoice_data invoice_data
+     * @param \Cardpay\model\InvoiceDataRequest $invoice_data Invoice data
      *
      * @return $this
      */
@@ -297,37 +291,13 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Sets merchant_order
      *
-     * @param \Cardpay\model\MerchantOrder $merchant_order merchant_order
+     * @param \Cardpay\model\MerchantOrder $merchant_order Merchant order data
      *
      * @return $this
      */
     public function setMerchantOrder($merchant_order)
     {
         $this->container['merchant_order'] = $merchant_order;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_methods
-     *
-     * @return string[]
-     */
-    public function getPaymentMethods()
-    {
-        return $this->container['payment_methods'];
-    }
-
-    /**
-     * Sets payment_methods
-     *
-     * @param string[] $payment_methods payment_methods
-     *
-     * @return $this
-     */
-    public function setPaymentMethods($payment_methods)
-    {
-        $this->container['payment_methods'] = $payment_methods;
 
         return $this;
     }
@@ -345,7 +315,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Sets return_urls
      *
-     * @param \Cardpay\model\ReturnUrls $return_urls return_urls
+     * @param \Cardpay\model\ReturnUrls $return_urls Return URLs are the URLs where customer returns by pressing “Back to the shop” or “Cancel” button in Payment Page mode
      *
      * @return $this
      */

@@ -26,7 +26,6 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'contract_number' => 'string',
         'email' => 'string',
         'home_phone' => 'string',
         'id' => 'string',
@@ -45,7 +44,6 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'contract_number' => null,
         'email' => null,
         'home_phone' => null,
         'id' => null,
@@ -85,7 +83,6 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'contract_number' => 'contract_number',
         'email' => 'email',
         'home_phone' => 'home_phone',
         'id' => 'id',
@@ -104,7 +101,6 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'contract_number' => 'setContractNumber',
         'email' => 'setEmail',
         'home_phone' => 'setHomePhone',
         'id' => 'setId',
@@ -123,7 +119,6 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'contract_number' => 'getContractNumber',
         'email' => 'getEmail',
         'home_phone' => 'getHomePhone',
         'id' => 'getId',
@@ -215,7 +210,6 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['contract_number'] = isset($data['contract_number']) ? $data['contract_number'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
         $this->container['home_phone'] = isset($data['home_phone']) ? $data['home_phone'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
@@ -313,30 +307,6 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
-
-    /**
-     * Gets contract_number
-     *
-     * @return string
-     */
-    public function getContractNumber()
-    {
-        return $this->container['contract_number'];
-    }
-
-    /**
-     * Sets contract_number
-     *
-     * @param string $contract_number Contract number between customer and merchant. Required for Mexican merchants for scheduled payments.
-     *
-     * @return $this
-     */
-    public function setContractNumber($contract_number)
-    {
-        $this->container['contract_number'] = $contract_number;
-
-        return $this;
-    }
 
     /**
      * Gets email

@@ -26,8 +26,8 @@ class Customer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'phone' => 'string',
-        'email' => 'string'
+        'email' => 'string',
+        'phone' => 'string'
     ];
 
     /**
@@ -36,8 +36,8 @@ class Customer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'phone' => null,
-        'email' => null
+        'email' => null,
+        'phone' => null
     ];
 
     /**
@@ -67,8 +67,8 @@ class Customer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'phone' => 'phone',
-        'email' => 'email'
+        'email' => 'email',
+        'phone' => 'phone'
     ];
 
     /**
@@ -77,8 +77,8 @@ class Customer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'phone' => 'setPhone',
-        'email' => 'setEmail'
+        'email' => 'setEmail',
+        'phone' => 'setPhone'
     ];
 
     /**
@@ -87,8 +87,8 @@ class Customer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'phone' => 'getPhone',
-        'email' => 'getEmail'
+        'email' => 'getEmail',
+        'phone' => 'getPhone'
     ];
 
     /**
@@ -151,8 +151,8 @@ class Customer implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
+        $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
     }
 
     /**
@@ -164,20 +164,20 @@ class Customer implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 18)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 18.";
-        }
-
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 8)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 8.";
-        }
-
         if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 256)) {
             $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 256.";
         }
 
         if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 3)) {
             $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 3.";
+        }
+
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 18)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 18.";
+        }
+
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 8)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 8.";
         }
 
         return $invalidProperties;
@@ -196,37 +196,6 @@ class Customer implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->container['phone'];
-    }
-
-    /**
-     * Sets phone
-     *
-     * @param string $phone phone
-     *
-     * @return $this
-     */
-    public function setPhone($phone)
-    {
-        if (!is_null($phone) && (mb_strlen($phone) > 18)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling Customer., must be smaller than or equal to 18.');
-        }
-        if (!is_null($phone) && (mb_strlen($phone) < 8)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling Customer., must be bigger than or equal to 8.');
-        }
-
-        $this->container['phone'] = $phone;
-
-        return $this;
-    }
-
-    /**
      * Gets email
      *
      * @return string
@@ -239,7 +208,7 @@ class Customer implements ModelInterface, ArrayAccess
     /**
      * Sets email
      *
-     * @param string $email email
+     * @param string $email Email address of the customer
      *
      * @return $this
      */
@@ -253,6 +222,37 @@ class Customer implements ModelInterface, ArrayAccess
         }
 
         $this->container['email'] = $email;
+
+        return $this;
+    }
+
+    /**
+     * Gets phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->container['phone'];
+    }
+
+    /**
+     * Sets phone
+     *
+     * @param string $phone Customer phone number
+     *
+     * @return $this
+     */
+    public function setPhone($phone)
+    {
+        if (!is_null($phone) && (mb_strlen($phone) > 18)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling Customer., must be smaller than or equal to 18.');
+        }
+        if (!is_null($phone) && (mb_strlen($phone) < 8)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling Customer., must be bigger than or equal to 8.');
+        }
+
+        $this->container['phone'] = $phone;
 
         return $this;
     }
