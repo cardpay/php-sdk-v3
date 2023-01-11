@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MobileTokenRequest implements ModelInterface, ArrayAccess
+class InvoiceGetResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MobileTokenRequest';
+    protected static $swaggerModelName = 'InvoiceGetResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,7 +26,10 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'request' => '\Cardpay\model\Request'
+        'customer' => '\Cardpay\model\Customer',
+        'invoice_data' => '\Cardpay\model\InvoiceGetDataResponse',
+        'invoice_url' => 'string',
+        'merchant_order' => '\Cardpay\model\MerchantOrder'
     ];
 
     /**
@@ -35,7 +38,10 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'request' => null
+        'customer' => null,
+        'invoice_data' => null,
+        'invoice_url' => null,
+        'merchant_order' => null
     ];
 
     /**
@@ -65,7 +71,10 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'request' => 'request'
+        'customer' => 'customer',
+        'invoice_data' => 'invoice_data',
+        'invoice_url' => 'invoice_url',
+        'merchant_order' => 'merchant_order'
     ];
 
     /**
@@ -74,7 +83,10 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'request' => 'setRequest'
+        'customer' => 'setCustomer',
+        'invoice_data' => 'setInvoiceData',
+        'invoice_url' => 'setInvoiceUrl',
+        'merchant_order' => 'setMerchantOrder'
     ];
 
     /**
@@ -83,7 +95,10 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'request' => 'getRequest'
+        'customer' => 'getCustomer',
+        'invoice_data' => 'getInvoiceData',
+        'invoice_url' => 'getInvoiceUrl',
+        'merchant_order' => 'getMerchantOrder'
     ];
 
     /**
@@ -146,7 +161,10 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
+        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
+        $this->container['invoice_data'] = isset($data['invoice_data']) ? $data['invoice_data'] : null;
+        $this->container['invoice_url'] = isset($data['invoice_url']) ? $data['invoice_url'] : null;
+        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
     }
 
     /**
@@ -158,8 +176,14 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['request'] === null) {
-            $invalidProperties[] = "'request' can't be null";
+        if ($this->container['customer'] === null) {
+            $invalidProperties[] = "'customer' can't be null";
+        }
+        if ($this->container['invoice_data'] === null) {
+            $invalidProperties[] = "'invoice_data' can't be null";
+        }
+        if ($this->container['merchant_order'] === null) {
+            $invalidProperties[] = "'merchant_order' can't be null";
         }
         return $invalidProperties;
     }
@@ -177,25 +201,97 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets request
+     * Gets customer
      *
-     * @return \Cardpay\model\Request
+     * @return \Cardpay\model\Customer
      */
-    public function getRequest()
+    public function getCustomer()
     {
-        return $this->container['request'];
+        return $this->container['customer'];
     }
 
     /**
-     * Sets request
+     * Sets customer
      *
-     * @param \Cardpay\model\Request $request Request
+     * @param \Cardpay\model\Customer $customer Customer data
      *
      * @return $this
      */
-    public function setRequest($request)
+    public function setCustomer($customer)
     {
-        $this->container['request'] = $request;
+        $this->container['customer'] = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Gets invoice_data
+     *
+     * @return \Cardpay\model\InvoiceGetDataResponse
+     */
+    public function getInvoiceData()
+    {
+        return $this->container['invoice_data'];
+    }
+
+    /**
+     * Sets invoice_data
+     *
+     * @param \Cardpay\model\InvoiceGetDataResponse $invoice_data Invoice data
+     *
+     * @return $this
+     */
+    public function setInvoiceData($invoice_data)
+    {
+        $this->container['invoice_data'] = $invoice_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets invoice_url
+     *
+     * @return string
+     */
+    public function getInvoiceUrl()
+    {
+        return $this->container['invoice_url'];
+    }
+
+    /**
+     * Sets invoice_url
+     *
+     * @param string $invoice_url Invoice URL
+     *
+     * @return $this
+     */
+    public function setInvoiceUrl($invoice_url)
+    {
+        $this->container['invoice_url'] = $invoice_url;
+
+        return $this;
+    }
+
+    /**
+     * Gets merchant_order
+     *
+     * @return \Cardpay\model\MerchantOrder
+     */
+    public function getMerchantOrder()
+    {
+        return $this->container['merchant_order'];
+    }
+
+    /**
+     * Sets merchant_order
+     *
+     * @param \Cardpay\model\MerchantOrder $merchant_order Merchant order data
+     *
+     * @return $this
+     */
+    public function setMerchantOrder($merchant_order)
+    {
+        $this->container['merchant_order'] = $merchant_order;
 
         return $this;
     }
@@ -206,7 +302,7 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -218,7 +314,7 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -231,7 +327,7 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -247,7 +343,7 @@ class MobileTokenRequest implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

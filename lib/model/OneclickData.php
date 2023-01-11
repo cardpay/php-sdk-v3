@@ -27,6 +27,7 @@ class OneclickData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
+        'contract_number' => 'string',
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
         'filing' => '\Cardpay\model\RecurringRequestFiling',
@@ -34,6 +35,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         'initiator' => 'string',
         'note' => 'string',
         'preauth' => 'bool',
+        'sca_exemption' => 'string',
+        'three_ds_challenge_indicator' => 'string',
         'trans_type' => 'string'
     ];
 
@@ -44,6 +47,7 @@ class OneclickData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'amount' => null,
+        'contract_number' => null,
         'currency' => null,
         'dynamic_descriptor' => null,
         'filing' => null,
@@ -51,6 +55,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         'initiator' => null,
         'note' => null,
         'preauth' => null,
+        'sca_exemption' => null,
+        'three_ds_challenge_indicator' => null,
         'trans_type' => null
     ];
 
@@ -82,6 +88,7 @@ class OneclickData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'amount' => 'amount',
+        'contract_number' => 'contract_number',
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
         'filing' => 'filing',
@@ -89,6 +96,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         'initiator' => 'initiator',
         'note' => 'note',
         'preauth' => 'preauth',
+        'sca_exemption' => 'sca_exemption',
+        'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
         'trans_type' => 'trans_type'
     ];
 
@@ -99,6 +108,7 @@ class OneclickData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'amount' => 'setAmount',
+        'contract_number' => 'setContractNumber',
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'filing' => 'setFiling',
@@ -106,6 +116,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         'initiator' => 'setInitiator',
         'note' => 'setNote',
         'preauth' => 'setPreauth',
+        'sca_exemption' => 'setScaExemption',
+        'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
         'trans_type' => 'setTransType'
     ];
 
@@ -116,6 +128,7 @@ class OneclickData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'amount' => 'getAmount',
+        'contract_number' => 'getContractNumber',
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'filing' => 'getFiling',
@@ -123,6 +136,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         'initiator' => 'getInitiator',
         'note' => 'getNote',
         'preauth' => 'getPreauth',
+        'sca_exemption' => 'getScaExemption',
+        'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
         'trans_type' => 'getTransType'
     ];
 
@@ -208,6 +223,7 @@ class OneclickData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['contract_number'] = isset($data['contract_number']) ? $data['contract_number'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
@@ -215,6 +231,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
+        $this->container['sca_exemption'] = isset($data['sca_exemption']) ? $data['sca_exemption'] : null;
+        $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
@@ -253,6 +271,14 @@ class OneclickData implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
         }
 
+        if (!is_null($this->container['sca_exemption']) && !preg_match("/LOW_VALUE/", $this->container['sca_exemption'])) {
+            $invalidProperties[] = "invalid value for 'sca_exemption', must be conform to the pattern /LOW_VALUE/.";
+        }
+
+        if (!is_null($this->container['three_ds_challenge_indicator']) && !preg_match("/01|04/", $this->container['three_ds_challenge_indicator'])) {
+            $invalidProperties[] = "invalid value for 'three_ds_challenge_indicator', must be conform to the pattern /01|04/.";
+        }
+
         $allowedValues = $this->getTransTypeAllowableValues();
         if (!is_null($this->container['trans_type']) && !in_array($this->container['trans_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -289,13 +315,37 @@ class OneclickData implements ModelInterface, ArrayAccess
     /**
      * Sets amount
      *
-     * @param float $amount The total transaction amount in selected currency with dot as a decimal separator, must be less than 100 millions
+     * @param float $amount The total transaction amount in selected currency with dot as a decimal separator, must be less than 10 billion
      *
      * @return $this
      */
     public function setAmount($amount)
     {
         $this->container['amount'] = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets contract_number
+     *
+     * @return string
+     */
+    public function getContractNumber()
+    {
+        return $this->container['contract_number'];
+    }
+
+    /**
+     * Sets contract_number
+     *
+     * @param string $contract_number Contract number between customer and merchant. Required for Mexican merchants for scheduled payments.
+     *
+     * @return $this
+     */
+    public function setContractNumber($contract_number)
+    {
+        $this->container['contract_number'] = $contract_number;
 
         return $this;
     }
@@ -488,6 +538,64 @@ class OneclickData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets sca_exemption
+     *
+     * @return string
+     */
+    public function getScaExemption()
+    {
+        return $this->container['sca_exemption'];
+    }
+
+    /**
+     * Sets sca_exemption
+     *
+     * @param string $sca_exemption Indicates the exemption type that you want to request for the transaction. Possible value: LOW_VALUE
+     *
+     * @return $this
+     */
+    public function setScaExemption($sca_exemption)
+    {
+
+        if (!is_null($sca_exemption) && (!preg_match("/LOW_VALUE/", $sca_exemption))) {
+            throw new \InvalidArgumentException("invalid value for $sca_exemption when calling OneclickData., must conform to the pattern /LOW_VALUE/.");
+        }
+
+        $this->container['sca_exemption'] = $sca_exemption;
+
+        return $this;
+    }
+
+    /**
+     * Gets three_ds_challenge_indicator
+     *
+     * @return string
+     */
+    public function getThreeDsChallengeIndicator()
+    {
+        return $this->container['three_ds_challenge_indicator'];
+    }
+
+    /**
+     * Sets three_ds_challenge_indicator
+     *
+     * @param string $three_ds_challenge_indicator three_ds_challenge_indicator
+     *
+     * @return $this
+     */
+    public function setThreeDsChallengeIndicator($three_ds_challenge_indicator)
+    {
+
+        if (!is_null($three_ds_challenge_indicator) && (!preg_match("/01|04/", $three_ds_challenge_indicator))) {
+            throw new \InvalidArgumentException("invalid value for $three_ds_challenge_indicator when calling OneclickData., must conform to the pattern /01|04/.");
+        }
+
+        $this->container['three_ds_challenge_indicator'] = $three_ds_challenge_indicator;
+
+        return $this;
+    }
+
+    /**
      * Gets trans_type
      *
      * @return string
@@ -526,7 +634,7 @@ class OneclickData implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -538,7 +646,7 @@ class OneclickData implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -551,7 +659,7 @@ class OneclickData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -567,7 +675,7 @@ class OneclickData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

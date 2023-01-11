@@ -125,7 +125,7 @@ class RecurringScheduledUtils
     {
         $orderDescription = 'Order description (scheduled subscription)';
         $customerId = time();
-        $customerEmail = substr(sha1(rand()), 0, 20) . '@' . Config::$emailsDomain;
+        $customerEmail = substr(sha1(mt_rand()), 0, 20) . '@' . Config::$emailsDomain;
 
         $isGatewayMode = ($this->terminalCode == Config::$gatewayTerminalCode || $this->terminalCode == Config::$gatewayPostponedTerminalCode);
 
@@ -221,11 +221,10 @@ class RecurringScheduledUtils
 
             /** @var RecurringResponse */
             return $data[0];
-
-        } else {
-            // payment page mode
-            return $redirectURL;
         }
+
+        // payment page mode
+        return $redirectURL;
     }
 
     /**
@@ -251,9 +250,7 @@ class RecurringScheduledUtils
             'subscription_data' => $subscriptionData
         ]);
 
-        $subscriptionUpdateResponse = $this->recurringsApi->updateSubscription($subscriptionId, $subscriptionUpdateRequest);
-
-        return $subscriptionUpdateResponse;
+        return $this->recurringsApi->updateSubscription($subscriptionId, $subscriptionUpdateRequest);
     }
 
     /**

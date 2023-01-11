@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MobileCardAccountResponse implements ModelInterface, ArrayAccess
+class InvoiceCreationResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MobileCardAccountResponse';
+    protected static $swaggerModelName = 'InvoiceCreationResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,12 +26,8 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'acct_type' => 'string',
-        'expiration' => 'string',
-        'holder' => 'string',
-        'issuing_country_code' => 'string',
-        'masked_pan' => 'string',
-        'token' => 'string'
+        'invoice_data' => '\Cardpay\model\InvoiceCreationDataResponse',
+        'invoice_url' => 'string'
     ];
 
     /**
@@ -40,12 +36,8 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'acct_type' => null,
-        'expiration' => null,
-        'holder' => null,
-        'issuing_country_code' => null,
-        'masked_pan' => null,
-        'token' => null
+        'invoice_data' => null,
+        'invoice_url' => null
     ];
 
     /**
@@ -75,12 +67,8 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'acct_type' => 'acct_type',
-        'expiration' => 'expiration',
-        'holder' => 'holder',
-        'issuing_country_code' => 'issuingCountryCode',
-        'masked_pan' => 'maskedPan',
-        'token' => 'token'
+        'invoice_data' => 'invoice_data',
+        'invoice_url' => 'invoice_url'
     ];
 
     /**
@@ -89,12 +77,8 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'acct_type' => 'setAcctType',
-        'expiration' => 'setExpiration',
-        'holder' => 'setHolder',
-        'issuing_country_code' => 'setIssuingCountryCode',
-        'masked_pan' => 'setMaskedPan',
-        'token' => 'setToken'
+        'invoice_data' => 'setInvoiceData',
+        'invoice_url' => 'setInvoiceUrl'
     ];
 
     /**
@@ -103,12 +87,8 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'acct_type' => 'getAcctType',
-        'expiration' => 'getExpiration',
-        'holder' => 'getHolder',
-        'issuing_country_code' => 'getIssuingCountryCode',
-        'masked_pan' => 'getMaskedPan',
-        'token' => 'getToken'
+        'invoice_data' => 'getInvoiceData',
+        'invoice_url' => 'getInvoiceUrl'
     ];
 
     /**
@@ -171,12 +151,8 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['acct_type'] = isset($data['acct_type']) ? $data['acct_type'] : null;
-        $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
-        $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
-        $this->container['issuing_country_code'] = isset($data['issuing_country_code']) ? $data['issuing_country_code'] : null;
-        $this->container['masked_pan'] = isset($data['masked_pan']) ? $data['masked_pan'] : null;
-        $this->container['token'] = isset($data['token']) ? $data['token'] : null;
+        $this->container['invoice_data'] = isset($data['invoice_data']) ? $data['invoice_data'] : null;
+        $this->container['invoice_url'] = isset($data['invoice_url']) ? $data['invoice_url'] : null;
     }
 
     /**
@@ -204,145 +180,49 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets acct_type
+     * Gets invoice_data
      *
-     * @return string
+     * @return \Cardpay\model\InvoiceCreationDataResponse
      */
-    public function getAcctType()
+    public function getInvoiceData()
     {
-        return $this->container['acct_type'];
+        return $this->container['invoice_data'];
     }
 
     /**
-     * Sets acct_type
+     * Sets invoice_data
      *
-     * @param string $acct_type acct_type
+     * @param \Cardpay\model\InvoiceCreationDataResponse $invoice_data Structure of invoice data
      *
      * @return $this
      */
-    public function setAcctType($acct_type)
+    public function setInvoiceData($invoice_data)
     {
-        $this->container['acct_type'] = $acct_type;
+        $this->container['invoice_data'] = $invoice_data;
 
         return $this;
     }
 
     /**
-     * Gets expiration
+     * Gets invoice_url
      *
      * @return string
      */
-    public function getExpiration()
+    public function getInvoiceUrl()
     {
-        return $this->container['expiration'];
+        return $this->container['invoice_url'];
     }
 
     /**
-     * Sets expiration
+     * Sets invoice_url
      *
-     * @param string $expiration Customer’s card expiration date. Format: `mm/yyyy`
+     * @param string $invoice_url Invoice URL
      *
      * @return $this
      */
-    public function setExpiration($expiration)
+    public function setInvoiceUrl($invoice_url)
     {
-        $this->container['expiration'] = $expiration;
-
-        return $this;
-    }
-
-    /**
-     * Gets holder
-     *
-     * @return string
-     */
-    public function getHolder()
-    {
-        return $this->container['holder'];
-    }
-
-    /**
-     * Sets holder
-     *
-     * @param string $holder Customer's cardholder name. Any valid cardholder name. Not present by default, ask CardPay manager to enable it if needed.
-     *
-     * @return $this
-     */
-    public function setHolder($holder)
-    {
-        $this->container['holder'] = $holder;
-
-        return $this;
-    }
-
-    /**
-     * Gets issuing_country_code
-     *
-     * @return string
-     */
-    public function getIssuingCountryCode()
-    {
-        return $this->container['issuing_country_code'];
-    }
-
-    /**
-     * Sets issuing_country_code
-     *
-     * @param string $issuing_country_code Country code of issuing card country
-     *
-     * @return $this
-     */
-    public function setIssuingCountryCode($issuing_country_code)
-    {
-        $this->container['issuing_country_code'] = $issuing_country_code;
-
-        return $this;
-    }
-
-    /**
-     * Gets masked_pan
-     *
-     * @return string
-     */
-    public function getMaskedPan()
-    {
-        return $this->container['masked_pan'];
-    }
-
-    /**
-     * Sets masked_pan
-     *
-     * @param string $masked_pan Masked PAN (shows first 6 digits and 4 last digits)
-     *
-     * @return $this
-     */
-    public function setMaskedPan($masked_pan)
-    {
-        $this->container['masked_pan'] = $masked_pan;
-
-        return $this;
-    }
-
-    /**
-     * Gets token
-     *
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->container['token'];
-    }
-
-    /**
-     * Sets token
-     *
-     * @param string $token Generated card token value. Token can be returned only for successful transactions (not for declined transactions). For payment: PaymentResponsePaymentData, for recurring: RecurringResponseRecurringData.
-     *
-     * @return $this
-     */
-    public function setToken($token)
-    {
-        $this->container['token'] = $token;
+        $this->container['invoice_url'] = $invoice_url;
 
         return $this;
     }
@@ -353,7 +233,7 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -365,7 +245,7 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -378,7 +258,7 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -394,7 +274,7 @@ class MobileCardAccountResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

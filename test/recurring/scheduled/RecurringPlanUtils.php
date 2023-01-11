@@ -47,10 +47,10 @@ class RecurringPlanUtils
      */
     public function createPlan($terminalCode, $password, $retries = 0)
     {
-        $planeName = substr(sha1(rand()), 0, 20);
+        $planeName = substr(sha1(mt_rand()), 0, 20);
         $period = RecurringPlanRequestPlanData::PERIOD_WEEK;
-        $interval = rand(1, 52);
-        $orderAmount = rand(Constants::MIN_PAYMENT_AMOUNT, Constants::MAX_PAYMENT_AMOUNT);
+        $interval = mt_rand($retries + 1, $retries + 50);
+        $orderAmount = mt_rand(Constants::MIN_PAYMENT_AMOUNT, Constants::MAX_PAYMENT_AMOUNT);
         $orderCurrency = Config::$terminalCurrency;
 
         if (null == $this->config) {
@@ -88,9 +88,8 @@ class RecurringPlanUtils
         if (null == $this->recurringsApi) {
             $this->recurringsApi = new RecurringsApi(Config::$cardpayApiUrl, $this->client, $this->config, $this->headerSelector);
         }
-        $recurringPlanResponse = $this->recurringsApi->createPlan($recurringPlanRequest);
 
-        return $recurringPlanResponse;
+        return $this->recurringsApi->createPlan($recurringPlanRequest);
     }
 
     /**

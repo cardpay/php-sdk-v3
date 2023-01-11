@@ -27,7 +27,9 @@ class RefundResponseCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'email' => 'string',
-        'id' => 'string'
+        'id' => 'string',
+        'ip_country' => 'string',
+        'user_agent' => 'string'
     ];
 
     /**
@@ -37,7 +39,9 @@ class RefundResponseCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'email' => null,
-        'id' => null
+        'id' => null,
+        'ip_country' => null,
+        'user_agent' => null
     ];
 
     /**
@@ -68,7 +72,9 @@ class RefundResponseCustomer implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'email' => 'email',
-        'id' => 'id'
+        'id' => 'id',
+        'ip_country' => 'ip_country',
+        'user_agent' => 'user_agent'
     ];
 
     /**
@@ -78,7 +84,9 @@ class RefundResponseCustomer implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'email' => 'setEmail',
-        'id' => 'setId'
+        'id' => 'setId',
+        'ip_country' => 'setIpCountry',
+        'user_agent' => 'setUserAgent'
     ];
 
     /**
@@ -88,7 +96,9 @@ class RefundResponseCustomer implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'email' => 'getEmail',
-        'id' => 'getId'
+        'id' => 'getId',
+        'ip_country' => 'getIpCountry',
+        'user_agent' => 'getUserAgent'
     ];
 
     /**
@@ -153,6 +163,8 @@ class RefundResponseCustomer implements ModelInterface, ArrayAccess
     {
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['ip_country'] = isset($data['ip_country']) ? $data['ip_country'] : null;
+        $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
     }
 
     /**
@@ -226,6 +238,54 @@ class RefundResponseCustomer implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
+    /**
+     * Gets ip_country
+     *
+     * @return string
+     */
+    public function getIpCountry()
+    {
+        return $this->container['ip_country'];
+    }
+
+    /**
+     * Sets ip_country
+     *
+     * @param string $ip_country Customer country by IP
+     *
+     * @return $this
+     */
+    public function setIpCountry($ip_country)
+    {
+        $this->container['ip_country'] = $ip_country;
+
+        return $this;
+    }
+
+    /**
+     * Gets user_agent
+     *
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->container['user_agent'];
+    }
+
+    /**
+     * Sets user_agent
+     *
+     * @param string $user_agent User agent
+     *
+     * @return $this
+     */
+    public function setUserAgent($user_agent)
+    {
+        $this->container['user_agent'] = $user_agent;
+
+        return $this;
+    }
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -233,7 +293,7 @@ class RefundResponseCustomer implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -245,7 +305,7 @@ class RefundResponseCustomer implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -258,7 +318,7 @@ class RefundResponseCustomer implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -274,7 +334,7 @@ class RefundResponseCustomer implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

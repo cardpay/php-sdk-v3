@@ -32,8 +32,13 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'string',
         'encrypted_data' => 'string',
         'generate_token' => 'bool',
+        'installment_amount' => 'float',
+        'installment_type' => 'string',
+        'installments' => 'string',
         'note' => 'string',
         'preauth' => 'bool',
+        'sca_exemption' => 'string',
+        'three_ds_challenge_indicator' => 'string',
         'trans_type' => 'string'
     ];
 
@@ -49,8 +54,13 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => null,
         'encrypted_data' => null,
         'generate_token' => null,
+        'installment_amount' => null,
+        'installment_type' => null,
+        'installments' => null,
         'note' => null,
         'preauth' => null,
+        'sca_exemption' => null,
+        'three_ds_challenge_indicator' => null,
         'trans_type' => null
     ];
 
@@ -87,8 +97,13 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'dynamic_descriptor',
         'encrypted_data' => 'encrypted_data',
         'generate_token' => 'generate_token',
+        'installment_amount' => 'installment_amount',
+        'installment_type' => 'installment_type',
+        'installments' => 'installments',
         'note' => 'note',
         'preauth' => 'preauth',
+        'sca_exemption' => 'sca_exemption',
+        'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
         'trans_type' => 'trans_type'
     ];
 
@@ -104,8 +119,13 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'encrypted_data' => 'setEncryptedData',
         'generate_token' => 'setGenerateToken',
+        'installment_amount' => 'setInstallmentAmount',
+        'installment_type' => 'setInstallmentType',
+        'installments' => 'setInstallments',
         'note' => 'setNote',
         'preauth' => 'setPreauth',
+        'sca_exemption' => 'setScaExemption',
+        'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
         'trans_type' => 'setTransType'
     ];
 
@@ -121,8 +141,13 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'encrypted_data' => 'getEncryptedData',
         'generate_token' => 'getGenerateToken',
+        'installment_amount' => 'getInstallmentAmount',
+        'installment_type' => 'getInstallmentType',
+        'installments' => 'getInstallments',
         'note' => 'getNote',
         'preauth' => 'getPreauth',
+        'sca_exemption' => 'getScaExemption',
+        'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
         'trans_type' => 'getTransType'
     ];
 
@@ -213,8 +238,13 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['encrypted_data'] = isset($data['encrypted_data']) ? $data['encrypted_data'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
+        $this->container['installment_amount'] = isset($data['installment_amount']) ? $data['installment_amount'] : null;
+        $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
+        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
+        $this->container['sca_exemption'] = isset($data['sca_exemption']) ? $data['sca_exemption'] : null;
+        $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
@@ -249,12 +279,24 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be bigger than or equal to 0.";
         }
 
+        if (!is_null($this->container['installment_type']) && !preg_match("/IF|MF_HOLD/", $this->container['installment_type'])) {
+            $invalidProperties[] = "invalid value for 'installment_type', must be conform to the pattern /IF|MF_HOLD/.";
+        }
+
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) > 100)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be smaller than or equal to 100.";
         }
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['sca_exemption']) && !preg_match("/LOW_VALUE/", $this->container['sca_exemption'])) {
+            $invalidProperties[] = "invalid value for 'sca_exemption', must be conform to the pattern /LOW_VALUE/.";
+        }
+
+        if (!is_null($this->container['three_ds_challenge_indicator']) && !preg_match("/01|04/", $this->container['three_ds_challenge_indicator'])) {
+            $invalidProperties[] = "invalid value for 'three_ds_challenge_indicator', must be conform to the pattern /01|04/.";
         }
 
         $allowedValues = $this->getTransTypeAllowableValues();
@@ -439,6 +481,83 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets installment_amount
+     *
+     * @return float
+     */
+    public function getInstallmentAmount()
+    {
+        return $this->container['installment_amount'];
+    }
+
+    /**
+     * Sets installment_amount
+     *
+     * @param float $installment_amount Amount of 1 installment payment, should be less or equal to total amount of subscription, can have dot as a decimal separator. Mandatory for Payment Page Mode only.
+     *
+     * @return $this
+     */
+    public function setInstallmentAmount($installment_amount)
+    {
+        $this->container['installment_amount'] = $installment_amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets installment_type
+     *
+     * @return string
+     */
+    public function getInstallmentType()
+    {
+        return $this->container['installment_type'];
+    }
+
+    /**
+     * Sets installment_type
+     *
+     * @param string $installment_type Installment type, 2 possible values: `IF` - issuer financed `MF_HOLD' - merchant financed. For installment subscription with hold rest amount.
+     *
+     * @return $this
+     */
+    public function setInstallmentType($installment_type)
+    {
+
+        if (!is_null($installment_type) && (!preg_match("/IF|MF_HOLD/", $installment_type))) {
+            throw new \InvalidArgumentException("invalid value for $installment_type when calling PaymentRequestPaymentData., must conform to the pattern /IF|MF_HOLD/.");
+        }
+
+        $this->container['installment_type'] = $installment_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets installments
+     *
+     * @return string
+     */
+    public function getInstallments()
+    {
+        return $this->container['installments'];
+    }
+
+    /**
+     * Sets installments
+     *
+     * @param string $installments Number of total installment payments, to be charged per defined interval. For installment subscription with installment_type = `MF_HOLD` can be 1-12. For installment subscription with installment_type = `IF` can be 1-99.
+     *
+     * @return $this
+     */
+    public function setInstallments($installments)
+    {
+        $this->container['installments'] = $installments;
+
+        return $this;
+    }
+
+    /**
      * Gets note
      *
      * @return string
@@ -494,6 +613,64 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets sca_exemption
+     *
+     * @return string
+     */
+    public function getScaExemption()
+    {
+        return $this->container['sca_exemption'];
+    }
+
+    /**
+     * Sets sca_exemption
+     *
+     * @param string $sca_exemption Indicates the exemption type that you want to request for the transaction. Possible value: LOW_VALUE
+     *
+     * @return $this
+     */
+    public function setScaExemption($sca_exemption)
+    {
+
+        if (!is_null($sca_exemption) && (!preg_match("/LOW_VALUE/", $sca_exemption))) {
+            throw new \InvalidArgumentException("invalid value for $sca_exemption when calling PaymentRequestPaymentData., must conform to the pattern /LOW_VALUE/.");
+        }
+
+        $this->container['sca_exemption'] = $sca_exemption;
+
+        return $this;
+    }
+
+    /**
+     * Gets three_ds_challenge_indicator
+     *
+     * @return string
+     */
+    public function getThreeDsChallengeIndicator()
+    {
+        return $this->container['three_ds_challenge_indicator'];
+    }
+
+    /**
+     * Sets three_ds_challenge_indicator
+     *
+     * @param string $three_ds_challenge_indicator three_ds_challenge_indicator
+     *
+     * @return $this
+     */
+    public function setThreeDsChallengeIndicator($three_ds_challenge_indicator)
+    {
+
+        if (!is_null($three_ds_challenge_indicator) && (!preg_match("/01|04/", $three_ds_challenge_indicator))) {
+            throw new \InvalidArgumentException("invalid value for $three_ds_challenge_indicator when calling PaymentRequestPaymentData., must conform to the pattern /01|04/.");
+        }
+
+        $this->container['three_ds_challenge_indicator'] = $three_ds_challenge_indicator;
+
+        return $this;
+    }
+
+    /**
      * Gets trans_type
      *
      * @return string
@@ -532,7 +709,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -544,7 +721,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -557,7 +734,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -573,7 +750,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class CardBindingData implements ModelInterface, ArrayAccess
+class SupportedPaymentMethod implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class CardBindingData implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'CardBindingData';
+    protected static $swaggerModelName = 'SupportedPaymentMethod';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,7 +26,8 @@ class CardBindingData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'currency' => 'string'
+        'logo' => 'string',
+        'name' => 'string'
     ];
 
     /**
@@ -35,7 +36,8 @@ class CardBindingData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'currency' => null
+        'logo' => null,
+        'name' => null
     ];
 
     /**
@@ -65,7 +67,8 @@ class CardBindingData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'currency' => 'currency'
+        'logo' => 'logo',
+        'name' => 'name'
     ];
 
     /**
@@ -74,7 +77,8 @@ class CardBindingData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'currency' => 'setCurrency'
+        'logo' => 'setLogo',
+        'name' => 'setName'
     ];
 
     /**
@@ -83,7 +87,8 @@ class CardBindingData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'currency' => 'getCurrency'
+        'logo' => 'getLogo',
+        'name' => 'getName'
     ];
 
     /**
@@ -146,7 +151,8 @@ class CardBindingData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
+        $this->container['logo'] = isset($data['logo']) ? $data['logo'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
     }
 
     /**
@@ -174,25 +180,49 @@ class CardBindingData implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets currency
+     * Gets logo
      *
      * @return string
      */
-    public function getCurrency()
+    public function getLogo()
     {
-        return $this->container['currency'];
+        return $this->container['logo'];
     }
 
     /**
-     * Sets currency
+     * Sets logo
      *
-     * @param string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
+     * @param string $logo Url to Payment Method logo
      *
      * @return $this
      */
-    public function setCurrency($currency)
+    public function setLogo($logo)
     {
-        $this->container['currency'] = $currency;
+        $this->container['logo'] = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param string $name Name of Payment Method
+     *
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->container['name'] = $name;
 
         return $this;
     }
@@ -203,7 +233,7 @@ class CardBindingData implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -215,7 +245,7 @@ class CardBindingData implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -228,7 +258,7 @@ class CardBindingData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -244,7 +274,7 @@ class CardBindingData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

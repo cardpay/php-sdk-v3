@@ -26,7 +26,9 @@ class ScheduledData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'contract_number' => 'string',
         'dynamic_descriptor' => 'string',
+        'encrypted_data' => 'string',
         'generate_token' => 'bool',
         'initial_amount' => 'float',
         'initiator' => 'string',
@@ -34,6 +36,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'plan' => '\Cardpay\model\Plan',
         'scheduled_type' => 'string',
         'subscription_start' => '\DateTime',
+        'three_ds_challenge_indicator' => 'string',
         'trans_type' => 'string'
     ];
 
@@ -43,7 +46,9 @@ class ScheduledData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'contract_number' => null,
         'dynamic_descriptor' => null,
+        'encrypted_data' => null,
         'generate_token' => null,
         'initial_amount' => null,
         'initiator' => null,
@@ -51,6 +56,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'plan' => null,
         'scheduled_type' => null,
         'subscription_start' => 'date-time',
+        'three_ds_challenge_indicator' => null,
         'trans_type' => null
     ];
 
@@ -81,7 +87,9 @@ class ScheduledData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'contract_number' => 'contract_number',
         'dynamic_descriptor' => 'dynamic_descriptor',
+        'encrypted_data' => 'encrypted_data',
         'generate_token' => 'generate_token',
         'initial_amount' => 'initial_amount',
         'initiator' => 'initiator',
@@ -89,6 +97,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'plan' => 'plan',
         'scheduled_type' => 'scheduled_type',
         'subscription_start' => 'subscription_start',
+        'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
         'trans_type' => 'trans_type'
     ];
 
@@ -98,7 +107,9 @@ class ScheduledData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'contract_number' => 'setContractNumber',
         'dynamic_descriptor' => 'setDynamicDescriptor',
+        'encrypted_data' => 'setEncryptedData',
         'generate_token' => 'setGenerateToken',
         'initial_amount' => 'setInitialAmount',
         'initiator' => 'setInitiator',
@@ -106,6 +117,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'plan' => 'setPlan',
         'scheduled_type' => 'setScheduledType',
         'subscription_start' => 'setSubscriptionStart',
+        'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
         'trans_type' => 'setTransType'
     ];
 
@@ -115,7 +127,9 @@ class ScheduledData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'contract_number' => 'getContractNumber',
         'dynamic_descriptor' => 'getDynamicDescriptor',
+        'encrypted_data' => 'getEncryptedData',
         'generate_token' => 'getGenerateToken',
         'initial_amount' => 'getInitialAmount',
         'initiator' => 'getInitiator',
@@ -123,6 +137,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'plan' => 'getPlan',
         'scheduled_type' => 'getScheduledType',
         'subscription_start' => 'getSubscriptionStart',
+        'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
         'trans_type' => 'getTransType'
     ];
 
@@ -207,7 +222,9 @@ class ScheduledData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['contract_number'] = isset($data['contract_number']) ? $data['contract_number'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
+        $this->container['encrypted_data'] = isset($data['encrypted_data']) ? $data['encrypted_data'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
         $this->container['initial_amount'] = isset($data['initial_amount']) ? $data['initial_amount'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
@@ -215,6 +232,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
         $this->container['scheduled_type'] = isset($data['scheduled_type']) ? $data['scheduled_type'] : null;
         $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
+        $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
@@ -235,6 +253,14 @@ class ScheduledData implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be bigger than or equal to 0.";
         }
 
+        if (!is_null($this->container['encrypted_data']) && (mb_strlen($this->container['encrypted_data']) > 10000)) {
+            $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be smaller than or equal to 10000.";
+        }
+
+        if (!is_null($this->container['encrypted_data']) && (mb_strlen($this->container['encrypted_data']) < 0)) {
+            $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be bigger than or equal to 0.";
+        }
+
         if ($this->container['initiator'] === null) {
             $invalidProperties[] = "'initiator' can't be null";
         }
@@ -252,6 +278,10 @@ class ScheduledData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['scheduled_type']) && !preg_match("/SA/", $this->container['scheduled_type'])) {
             $invalidProperties[] = "invalid value for 'scheduled_type', must be conform to the pattern /SA/.";
+        }
+
+        if (!is_null($this->container['three_ds_challenge_indicator']) && !preg_match("/01|04/", $this->container['three_ds_challenge_indicator'])) {
+            $invalidProperties[] = "invalid value for 'three_ds_challenge_indicator', must be conform to the pattern /01|04/.";
         }
 
         $allowedValues = $this->getTransTypeAllowableValues();
@@ -276,6 +306,30 @@ class ScheduledData implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets contract_number
+     *
+     * @return string
+     */
+    public function getContractNumber()
+    {
+        return $this->container['contract_number'];
+    }
+
+    /**
+     * Sets contract_number
+     *
+     * @param string $contract_number Contract number between customer and merchant. Required for Mexican merchants for scheduled payments.
+     *
+     * @return $this
+     */
+    public function setContractNumber($contract_number)
+    {
+        $this->container['contract_number'] = $contract_number;
+
+        return $this;
+    }
 
     /**
      * Gets dynamic_descriptor
@@ -304,6 +358,37 @@ class ScheduledData implements ModelInterface, ArrayAccess
         }
 
         $this->container['dynamic_descriptor'] = $dynamic_descriptor;
+
+        return $this;
+    }
+
+    /**
+     * Gets encrypted_data
+     *
+     * @return string
+     */
+    public function getEncryptedData()
+    {
+        return $this->container['encrypted_data'];
+    }
+
+    /**
+     * Sets encrypted_data
+     *
+     * @param string $encrypted_data The encrypted payment credentials encoded in base64. *(for APPLEPAY payment method only)*
+     *
+     * @return $this
+     */
+    public function setEncryptedData($encrypted_data)
+    {
+        if (!is_null($encrypted_data) && (mb_strlen($encrypted_data) > 10000)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_data when calling ScheduledData., must be smaller than or equal to 10000.');
+        }
+        if (!is_null($encrypted_data) && (mb_strlen($encrypted_data) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_data when calling ScheduledData., must be bigger than or equal to 0.');
+        }
+
+        $this->container['encrypted_data'] = $encrypted_data;
 
         return $this;
     }
@@ -494,6 +579,35 @@ class ScheduledData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets three_ds_challenge_indicator
+     *
+     * @return string
+     */
+    public function getThreeDsChallengeIndicator()
+    {
+        return $this->container['three_ds_challenge_indicator'];
+    }
+
+    /**
+     * Sets three_ds_challenge_indicator
+     *
+     * @param string $three_ds_challenge_indicator three_ds_challenge_indicator
+     *
+     * @return $this
+     */
+    public function setThreeDsChallengeIndicator($three_ds_challenge_indicator)
+    {
+
+        if (!is_null($three_ds_challenge_indicator) && (!preg_match("/01|04/", $three_ds_challenge_indicator))) {
+            throw new \InvalidArgumentException("invalid value for $three_ds_challenge_indicator when calling ScheduledData., must conform to the pattern /01|04/.");
+        }
+
+        $this->container['three_ds_challenge_indicator'] = $three_ds_challenge_indicator;
+
+        return $this;
+    }
+
+    /**
      * Gets trans_type
      *
      * @return string
@@ -532,7 +646,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -544,7 +658,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -557,7 +671,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -573,7 +687,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

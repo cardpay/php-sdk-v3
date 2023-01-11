@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MobileVerificationRequest implements ModelInterface, ArrayAccess
+class ReportsResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MobileVerificationRequest';
+    protected static $swaggerModelName = 'ReportsResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,11 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'nonce' => 'string',
-        'jws_result' => 'string'
+        'download_url' => 'string',
+        'hash_sum' => 'string',
+        'reports' => '\Cardpay\model\Report[]',
+        'sample_id' => 'string',
+        'size' => 'int'
     ];
 
     /**
@@ -36,8 +39,11 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'nonce' => null,
-        'jws_result' => null
+        'download_url' => null,
+        'hash_sum' => null,
+        'reports' => null,
+        'sample_id' => 'uuid',
+        'size' => 'int64'
     ];
 
     /**
@@ -67,8 +73,11 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'nonce' => 'nonce',
-        'jws_result' => 'jwsResult'
+        'download_url' => 'download_url',
+        'hash_sum' => 'hash_sum',
+        'reports' => 'reports',
+        'sample_id' => 'sample_id',
+        'size' => 'size'
     ];
 
     /**
@@ -77,8 +86,11 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'nonce' => 'setNonce',
-        'jws_result' => 'setJwsResult'
+        'download_url' => 'setDownloadUrl',
+        'hash_sum' => 'setHashSum',
+        'reports' => 'setReports',
+        'sample_id' => 'setSampleId',
+        'size' => 'setSize'
     ];
 
     /**
@@ -87,8 +99,11 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'nonce' => 'getNonce',
-        'jws_result' => 'getJwsResult'
+        'download_url' => 'getDownloadUrl',
+        'hash_sum' => 'getHashSum',
+        'reports' => 'getReports',
+        'sample_id' => 'getSampleId',
+        'size' => 'getSize'
     ];
 
     /**
@@ -151,8 +166,11 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['nonce'] = isset($data['nonce']) ? $data['nonce'] : null;
-        $this->container['jws_result'] = isset($data['jws_result']) ? $data['jws_result'] : null;
+        $this->container['download_url'] = isset($data['download_url']) ? $data['download_url'] : null;
+        $this->container['hash_sum'] = isset($data['hash_sum']) ? $data['hash_sum'] : null;
+        $this->container['reports'] = isset($data['reports']) ? $data['reports'] : null;
+        $this->container['sample_id'] = isset($data['sample_id']) ? $data['sample_id'] : null;
+        $this->container['size'] = isset($data['size']) ? $data['size'] : null;
     }
 
     /**
@@ -180,49 +198,121 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets nonce
+     * Gets download_url
      *
      * @return string
      */
-    public function getNonce()
+    public function getDownloadUrl()
     {
-        return $this->container['nonce'];
+        return $this->container['download_url'];
     }
 
     /**
-     * Sets nonce
+     * Sets download_url
      *
-     * @param string $nonce Application's nonce
+     * @param string $download_url Link to file downloading. Link is available for 24 hours
      *
      * @return $this
      */
-    public function setNonce($nonce)
+    public function setDownloadUrl($download_url)
     {
-        $this->container['nonce'] = $nonce;
+        $this->container['download_url'] = $download_url;
 
         return $this;
     }
 
     /**
-     * Gets jws_result
+     * Gets hash_sum
      *
      * @return string
      */
-    public function getJwsResult()
+    public function getHashSum()
     {
-        return $this->container['jws_result'];
+        return $this->container['hash_sum'];
     }
 
     /**
-     * Sets jws_result
+     * Sets hash_sum
      *
-     * @param string $jws_result Application's JWS result. Format of a JWS is: <Base64url encoded header>.<Base64url encoded JSON data>.<Base64url encoded signature>
+     * @param string $hash_sum Hash sum of file (sha256)
      *
      * @return $this
      */
-    public function setJwsResult($jws_result)
+    public function setHashSum($hash_sum)
     {
-        $this->container['jws_result'] = $jws_result;
+        $this->container['hash_sum'] = $hash_sum;
+
+        return $this;
+    }
+
+    /**
+     * Gets reports
+     *
+     * @return \Cardpay\model\Report[]
+     */
+    public function getReports()
+    {
+        return $this->container['reports'];
+    }
+
+    /**
+     * Sets reports
+     *
+     * @param \Cardpay\model\Report[] $reports List of settlement reports
+     *
+     * @return $this
+     */
+    public function setReports($reports)
+    {
+        $this->container['reports'] = $reports;
+
+        return $this;
+    }
+
+    /**
+     * Gets sample_id
+     *
+     * @return string
+     */
+    public function getSampleId()
+    {
+        return $this->container['sample_id'];
+    }
+
+    /**
+     * Sets sample_id
+     *
+     * @param string $sample_id The identifier of reports' sample
+     *
+     * @return $this
+     */
+    public function setSampleId($sample_id)
+    {
+        $this->container['sample_id'] = $sample_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets size
+     *
+     * @return int
+     */
+    public function getSize()
+    {
+        return $this->container['size'];
+    }
+
+    /**
+     * Sets size
+     *
+     * @param int $size Size of file in bytes
+     *
+     * @return $this
+     */
+    public function setSize($size)
+    {
+        $this->container['size'] = $size;
 
         return $this;
     }
@@ -233,7 +323,7 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -245,7 +335,7 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -258,7 +348,7 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -274,7 +364,7 @@ class MobileVerificationRequest implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

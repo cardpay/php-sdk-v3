@@ -26,6 +26,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'description' => 'string',
         'id' => 'string'
     ];
 
@@ -35,6 +36,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'description' => null,
         'id' => null
     ];
 
@@ -65,6 +67,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'description' => 'description',
         'id' => 'id'
     ];
 
@@ -74,6 +77,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'description' => 'setDescription',
         'id' => 'setId'
     ];
 
@@ -83,6 +87,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'description' => 'getDescription',
         'id' => 'getId'
     ];
 
@@ -146,6 +151,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
 
@@ -185,6 +191,30 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
 
 
     /**
+     * Gets description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->container['description'];
+    }
+
+    /**
+     * Sets description
+     *
+     * @param string $description Description of product/service being sold
+     *
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->container['description'] = $description;
+
+        return $this;
+    }
+
+    /**
      * Gets id
      *
      * @return string
@@ -221,7 +251,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -233,7 +263,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -246,7 +276,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -262,7 +292,7 @@ class TransactionResponseMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

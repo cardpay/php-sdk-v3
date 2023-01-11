@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class ScheduleOption implements ModelInterface, ArrayAccess
+class InvoiceDataRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class ScheduleOption implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'ScheduleOption';
+    protected static $swaggerModelName = 'InvoiceDataRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -27,7 +27,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
-        'installments' => 'int'
+        'currency' => 'string',
+        'expire_at' => '\DateTime'
     ];
 
     /**
@@ -37,7 +38,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'amount' => null,
-        'installments' => 'int32'
+        'currency' => null,
+        'expire_at' => 'date-time'
     ];
 
     /**
@@ -68,7 +70,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'amount' => 'amount',
-        'installments' => 'installments'
+        'currency' => 'currency',
+        'expire_at' => 'expire_at'
     ];
 
     /**
@@ -78,7 +81,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'amount' => 'setAmount',
-        'installments' => 'setInstallments'
+        'currency' => 'setCurrency',
+        'expire_at' => 'setExpireAt'
     ];
 
     /**
@@ -88,7 +92,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'amount' => 'getAmount',
-        'installments' => 'getInstallments'
+        'currency' => 'getCurrency',
+        'expire_at' => 'getExpireAt'
     ];
 
     /**
@@ -152,7 +157,8 @@ class ScheduleOption implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
+        $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
+        $this->container['expire_at'] = isset($data['expire_at']) ? $data['expire_at'] : null;
     }
 
     /**
@@ -164,6 +170,12 @@ class ScheduleOption implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['amount'] === null) {
+            $invalidProperties[] = "'amount' can't be null";
+        }
+        if ($this->container['currency'] === null) {
+            $invalidProperties[] = "'currency' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -192,7 +204,7 @@ class ScheduleOption implements ModelInterface, ArrayAccess
     /**
      * Sets amount
      *
-     * @param float $amount Amount per one payment.
+     * @param float $amount The total invoice amount in selected currency with dot as a decimal separator, must be less than 10 billion
      *
      * @return $this
      */
@@ -204,25 +216,49 @@ class ScheduleOption implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets installments
+     * Gets currency
      *
-     * @return int
+     * @return string
      */
-    public function getInstallments()
+    public function getCurrency()
     {
-        return $this->container['installments'];
+        return $this->container['currency'];
     }
 
     /**
-     * Sets installments
+     * Sets currency
      *
-     * @param int $installments Number of payments, can be 3-12.
+     * @param string $currency ISO 4217 currency code
      *
      * @return $this
      */
-    public function setInstallments($installments)
+    public function setCurrency($currency)
     {
-        $this->container['installments'] = $installments;
+        $this->container['currency'] = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Gets expire_at
+     *
+     * @return \DateTime
+     */
+    public function getExpireAt()
+    {
+        return $this->container['expire_at'];
+    }
+
+    /**
+     * Sets expire_at
+     *
+     * @param \DateTime $expire_at Date of invoice expiring. Invoice cannot be used after this date.
+     *
+     * @return $this
+     */
+    public function setExpireAt($expire_at)
+    {
+        $this->container['expire_at'] = $expire_at;
 
         return $this;
     }
@@ -233,7 +269,7 @@ class ScheduleOption implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -245,7 +281,7 @@ class ScheduleOption implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -258,7 +294,7 @@ class ScheduleOption implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -274,7 +310,7 @@ class ScheduleOption implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

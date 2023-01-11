@@ -354,7 +354,7 @@ class PaymentsApi
     }
 
     /**
-     * Operation getAuthenticationData1
+     * Operation getAuthenticationData
      *
      * Get payment 3DS result information
      *
@@ -364,14 +364,14 @@ class PaymentsApi
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\AuthenticationDataResponse
      */
-    public function getAuthenticationData1($payment_id)
+    public function getAuthenticationData($payment_id)
     {
-        list($response) = $this->getAuthenticationData1WithHttpInfo($payment_id);
+        list($response) = $this->getAuthenticationDataWithHttpInfo($payment_id);
         return $response;
     }
 
     /**
-     * Operation getAuthenticationData1WithHttpInfo
+     * Operation getAuthenticationDataWithHttpInfo
      *
      * Get payment 3DS result information
      *
@@ -381,10 +381,10 @@ class PaymentsApi
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\AuthenticationDataResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getAuthenticationData1WithHttpInfo($payment_id)
+    public function getAuthenticationDataWithHttpInfo($payment_id)
     {
         $returnType = '\Cardpay\model\AuthenticationDataResponse';
-        $request = $this->getAuthenticationData1Request($payment_id);
+        $request = $this->getAuthenticationDataRequest($payment_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -478,7 +478,7 @@ class PaymentsApi
     }
 
     /**
-     * Operation getAuthenticationData1Async
+     * Operation getAuthenticationDataAsync
      *
      * Get payment 3DS result information
      *
@@ -487,9 +487,9 @@ class PaymentsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAuthenticationData1Async($payment_id)
+    public function getAuthenticationDataAsync($payment_id)
     {
-        return $this->getAuthenticationData1AsyncWithHttpInfo($payment_id)
+        return $this->getAuthenticationDataAsyncWithHttpInfo($payment_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -498,7 +498,7 @@ class PaymentsApi
     }
 
     /**
-     * Operation getAuthenticationData1AsyncWithHttpInfo
+     * Operation getAuthenticationDataAsyncWithHttpInfo
      *
      * Get payment 3DS result information
      *
@@ -507,10 +507,10 @@ class PaymentsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAuthenticationData1AsyncWithHttpInfo($payment_id)
+    public function getAuthenticationDataAsyncWithHttpInfo($payment_id)
     {
         $returnType = '\Cardpay\model\AuthenticationDataResponse';
-        $request = $this->getAuthenticationData1Request($payment_id);
+        $request = $this->getAuthenticationDataRequest($payment_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -550,19 +550,19 @@ class PaymentsApi
     }
 
     /**
-     * Create request for operation 'getAuthenticationData1'
+     * Create request for operation 'getAuthenticationData'
      *
      * @param  string $payment_id Payment ID (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getAuthenticationData1Request($payment_id)
+    protected function getAuthenticationDataRequest($payment_id)
     {
         // verify the required parameter 'payment_id' is set
         if ($payment_id === null || (is_array($payment_id) && count($payment_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $payment_id when calling getAuthenticationData1'
+                'Missing the required parameter $payment_id when calling getAuthenticationData'
             );
         }
 

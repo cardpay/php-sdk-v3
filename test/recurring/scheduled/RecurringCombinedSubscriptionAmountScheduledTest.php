@@ -20,7 +20,7 @@ class RecurringCombinedSubscriptionAmountScheduledTest extends BaseTestCase
         $planId = $recurringPlanResponse->getPlanData()->getId();
 
         // create scheduled subscription with combined subscription amount
-        $initialAmount = rand(1, Constants::MIN_PAYMENT_AMOUNT - 1);
+        $initialAmount = mt_rand(1, Constants::MIN_PAYMENT_AMOUNT - 1);
 
         $recurringScheduledUtils = new RecurringScheduledUtils(Config::$gatewayTerminalCode, Config::$gatewayPassword);
         $redirectUrl = $recurringScheduledUtils->createScheduledSubscriptionInGatewayMode(time(), $planId, null, $initialAmount);

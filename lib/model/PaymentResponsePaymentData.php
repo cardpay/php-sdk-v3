@@ -35,12 +35,15 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'string',
         'decline_reason' => 'string',
         'id' => 'string',
+        'installment_type' => 'string',
+        'installments' => 'string',
         'invalid_data' => 'string[]',
         'is_3d' => 'bool',
         'note' => 'string',
         'rrn' => 'string',
         'status' => 'string',
-        'trans_type' => 'string'
+        'trans_type' => 'string',
+        'type' => 'string'
     ];
 
     /**
@@ -58,12 +61,15 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => null,
         'decline_reason' => null,
         'id' => null,
+        'installment_type' => null,
+        'installments' => null,
         'invalid_data' => null,
         'is_3d' => null,
         'note' => null,
         'rrn' => null,
         'status' => null,
-        'trans_type' => null
+        'trans_type' => null,
+        'type' => null
     ];
 
     /**
@@ -102,12 +108,15 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'decline_code',
         'decline_reason' => 'decline_reason',
         'id' => 'id',
+        'installment_type' => 'installment_type',
+        'installments' => 'installments',
         'invalid_data' => 'invalid_data',
         'is_3d' => 'is_3d',
         'note' => 'note',
         'rrn' => 'rrn',
         'status' => 'status',
-        'trans_type' => 'trans_type'
+        'trans_type' => 'trans_type',
+        'type' => 'type'
     ];
 
     /**
@@ -125,12 +134,15 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'setDeclineCode',
         'decline_reason' => 'setDeclineReason',
         'id' => 'setId',
+        'installment_type' => 'setInstallmentType',
+        'installments' => 'setInstallments',
         'invalid_data' => 'setInvalidData',
         'is_3d' => 'setIs3d',
         'note' => 'setNote',
         'rrn' => 'setRrn',
         'status' => 'setStatus',
-        'trans_type' => 'setTransType'
+        'trans_type' => 'setTransType',
+        'type' => 'setType'
     ];
 
     /**
@@ -148,12 +160,15 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'getDeclineCode',
         'decline_reason' => 'getDeclineReason',
         'id' => 'getId',
+        'installment_type' => 'getInstallmentType',
+        'installments' => 'getInstallments',
         'invalid_data' => 'getInvalidData',
         'is_3d' => 'getIs3d',
         'note' => 'getNote',
         'rrn' => 'getRrn',
         'status' => 'getStatus',
-        'trans_type' => 'getTransType'
+        'trans_type' => 'getTransType',
+        'type' => 'getType'
     ];
 
     /**
@@ -279,12 +294,15 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         $this->container['decline_code'] = isset($data['decline_code']) ? $data['decline_code'] : null;
         $this->container['decline_reason'] = isset($data['decline_reason']) ? $data['decline_reason'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
+        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
         $this->container['invalid_data'] = isset($data['invalid_data']) ? $data['invalid_data'] : null;
         $this->container['is_3d'] = isset($data['is_3d']) ? $data['is_3d'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['rrn'] = isset($data['rrn']) ? $data['rrn'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
+        $this->container['type'] = isset($data['type']) ? $data['type'] : null;
     }
 
     /**
@@ -544,6 +562,54 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets installment_type
+     *
+     * @return string
+     */
+    public function getInstallmentType()
+    {
+        return $this->container['installment_type'];
+    }
+
+    /**
+     * Sets installment_type
+     *
+     * @param string $installment_type Selected installment type
+     *
+     * @return $this
+     */
+    public function setInstallmentType($installment_type)
+    {
+        $this->container['installment_type'] = $installment_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets installments
+     *
+     * @return string
+     */
+    public function getInstallments()
+    {
+        return $this->container['installments'];
+    }
+
+    /**
+     * Sets installments
+     *
+     * @param string $installments Number of total installment payments, to be charged
+     *
+     * @return $this
+     */
+    public function setInstallments($installments)
+    {
+        $this->container['installments'] = $installments;
+
+        return $this;
+    }
+
+    /**
      * Gets invalid_data
      *
      * @return string[]
@@ -704,6 +770,30 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
+    /**
+     * Gets type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->container['type'];
+    }
+
+    /**
+     * Sets type
+     *
+     * @param string $type Payment type, can be PAYMENT, INSTALLMENT
+     *
+     * @return $this
+     */
+    public function setType($type)
+    {
+        $this->container['type'] = $type;
+
+        return $this;
+    }
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -711,7 +801,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -723,7 +813,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -736,7 +826,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -752,7 +842,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

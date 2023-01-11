@@ -27,6 +27,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
+        'contract_number' => 'string',
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
         'filing' => '\Cardpay\model\RecurringResponseFiling',
@@ -34,6 +35,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'initiator' => 'string',
         'note' => 'string',
         'scheduled_type' => 'string',
+        'three_ds_challenge_indicator' => 'string',
         'trans_type' => 'string'
     ];
 
@@ -44,6 +46,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'amount' => null,
+        'contract_number' => null,
         'currency' => null,
         'dynamic_descriptor' => null,
         'filing' => null,
@@ -51,6 +54,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'initiator' => null,
         'note' => null,
         'scheduled_type' => null,
+        'three_ds_challenge_indicator' => null,
         'trans_type' => null
     ];
 
@@ -82,6 +86,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'amount' => 'amount',
+        'contract_number' => 'contract_number',
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
         'filing' => 'filing',
@@ -89,6 +94,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'initiator' => 'initiator',
         'note' => 'note',
         'scheduled_type' => 'scheduled_type',
+        'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
         'trans_type' => 'trans_type'
     ];
 
@@ -99,6 +105,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'amount' => 'setAmount',
+        'contract_number' => 'setContractNumber',
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'filing' => 'setFiling',
@@ -106,6 +113,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'initiator' => 'setInitiator',
         'note' => 'setNote',
         'scheduled_type' => 'setScheduledType',
+        'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
         'trans_type' => 'setTransType'
     ];
 
@@ -116,6 +124,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'amount' => 'getAmount',
+        'contract_number' => 'getContractNumber',
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'filing' => 'getFiling',
@@ -123,6 +132,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'initiator' => 'getInitiator',
         'note' => 'getNote',
         'scheduled_type' => 'getScheduledType',
+        'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
         'trans_type' => 'getTransType'
     ];
 
@@ -208,6 +218,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['contract_number'] = isset($data['contract_number']) ? $data['contract_number'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
@@ -215,6 +226,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['scheduled_type'] = isset($data['scheduled_type']) ? $data['scheduled_type'] : null;
+        $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
@@ -263,6 +275,10 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'scheduled_type', must be conform to the pattern /SM/.";
         }
 
+        if (!is_null($this->container['three_ds_challenge_indicator']) && !preg_match("/01|04/", $this->container['three_ds_challenge_indicator'])) {
+            $invalidProperties[] = "invalid value for 'three_ds_challenge_indicator', must be conform to the pattern /01|04/.";
+        }
+
         $allowedValues = $this->getTransTypeAllowableValues();
         if (!is_null($this->container['trans_type']) && !in_array($this->container['trans_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -306,6 +322,30 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
     public function setAmount($amount)
     {
         $this->container['amount'] = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets contract_number
+     *
+     * @return string
+     */
+    public function getContractNumber()
+    {
+        return $this->container['contract_number'];
+    }
+
+    /**
+     * Sets contract_number
+     *
+     * @param string $contract_number Contract number between customer and merchant. Required for Mexican merchants for scheduled payments.
+     *
+     * @return $this
+     */
+    public function setContractNumber($contract_number)
+    {
+        $this->container['contract_number'] = $contract_number;
 
         return $this;
     }
@@ -503,6 +543,35 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets three_ds_challenge_indicator
+     *
+     * @return string
+     */
+    public function getThreeDsChallengeIndicator()
+    {
+        return $this->container['three_ds_challenge_indicator'];
+    }
+
+    /**
+     * Sets three_ds_challenge_indicator
+     *
+     * @param string $three_ds_challenge_indicator three_ds_challenge_indicator
+     *
+     * @return $this
+     */
+    public function setThreeDsChallengeIndicator($three_ds_challenge_indicator)
+    {
+
+        if (!is_null($three_ds_challenge_indicator) && (!preg_match("/01|04/", $three_ds_challenge_indicator))) {
+            throw new \InvalidArgumentException("invalid value for $three_ds_challenge_indicator when calling ScheduledByMerchantData., must conform to the pattern /01|04/.");
+        }
+
+        $this->container['three_ds_challenge_indicator'] = $three_ds_challenge_indicator;
+
+        return $this;
+    }
+
+    /**
      * Gets trans_type
      *
      * @return string
@@ -541,7 +610,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -553,7 +622,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -566,7 +635,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -582,7 +651,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

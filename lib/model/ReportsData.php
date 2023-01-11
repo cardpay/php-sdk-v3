@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
+class ReportsData implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MobileMerchantOrderResponse';
+    protected static $swaggerModelName = 'ReportsData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,7 +26,9 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'string'
+        'end_date' => '\DateTime',
+        'report_type' => 'string[]',
+        'start_date' => '\DateTime'
     ];
 
     /**
@@ -35,7 +37,9 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => null
+        'end_date' => 'date',
+        'report_type' => null,
+        'start_date' => 'date'
     ];
 
     /**
@@ -65,7 +69,9 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id'
+        'end_date' => 'end_date',
+        'report_type' => 'report_type',
+        'start_date' => 'start_date'
     ];
 
     /**
@@ -74,7 +80,9 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId'
+        'end_date' => 'setEndDate',
+        'report_type' => 'setReportType',
+        'start_date' => 'setStartDate'
     ];
 
     /**
@@ -83,7 +91,9 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId'
+        'end_date' => 'getEndDate',
+        'report_type' => 'getReportType',
+        'start_date' => 'getStartDate'
     ];
 
     /**
@@ -146,7 +156,9 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['end_date'] = isset($data['end_date']) ? $data['end_date'] : null;
+        $this->container['report_type'] = isset($data['report_type']) ? $data['report_type'] : null;
+        $this->container['start_date'] = isset($data['start_date']) ? $data['start_date'] : null;
     }
 
     /**
@@ -158,6 +170,9 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['start_date'] === null) {
+            $invalidProperties[] = "'start_date' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -174,25 +189,73 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets id
+     * Gets end_date
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getId()
+    public function getEndDate()
     {
-        return $this->container['id'];
+        return $this->container['end_date'];
     }
 
     /**
-     * Sets id
+     * Sets end_date
      *
-     * @param string $id Order ID used by Merchant's shopping cart
+     * @param \DateTime $end_date End date of period on which the reports were generated. Period between dates is no more than 7 days.  The format is yyyy-MM-dd  If ‘end_date’ is skipped then default value is used: ‘start_date’ + 7 days
      *
      * @return $this
      */
-    public function setId($id)
+    public function setEndDate($end_date)
     {
-        $this->container['id'] = $id;
+        $this->container['end_date'] = $end_date;
+
+        return $this;
+    }
+
+    /**
+     * Gets report_type
+     *
+     * @return string[]
+     */
+    public function getReportType()
+    {
+        return $this->container['report_type'];
+    }
+
+    /**
+     * Sets report_type
+     *
+     * @param string[] $report_type Specific report type. Now are available: \"regular_settlement\", \"icpp_settlement\"
+     *
+     * @return $this
+     */
+    public function setReportType($report_type)
+    {
+        $this->container['report_type'] = $report_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets start_date
+     *
+     * @return \DateTime
+     */
+    public function getStartDate()
+    {
+        return $this->container['start_date'];
+    }
+
+    /**
+     * Sets start_date
+     *
+     * @param \DateTime $start_date Start date of period on which the reports were generated. The format is yyyy-MM-dd
+     *
+     * @return $this
+     */
+    public function setStartDate($start_date)
+    {
+        $this->container['start_date'] = $start_date;
 
         return $this;
     }
@@ -203,7 +266,7 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -215,7 +278,7 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -228,7 +291,7 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -244,7 +307,7 @@ class MobileMerchantOrderResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

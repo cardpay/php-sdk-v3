@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
+class ReportsRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MobilePaymentMerchantOrder';
+    protected static $swaggerModelName = 'ReportsRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,10 +26,9 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'description' => 'string',
-        'id' => 'string',
-        'items' => '\Cardpay\model\Item[]',
-        'shipping_address' => '\Cardpay\model\ShippingAddress'
+        'callback_url' => 'string',
+        'reports_data' => '\Cardpay\model\ReportsData',
+        'request' => '\Cardpay\model\Request'
     ];
 
     /**
@@ -38,10 +37,9 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'description' => null,
-        'id' => null,
-        'items' => null,
-        'shipping_address' => null
+        'callback_url' => null,
+        'reports_data' => null,
+        'request' => null
     ];
 
     /**
@@ -71,10 +69,9 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'description' => 'description',
-        'id' => 'id',
-        'items' => 'items',
-        'shipping_address' => 'shipping_address'
+        'callback_url' => 'callback_url',
+        'reports_data' => 'reports_data',
+        'request' => 'request'
     ];
 
     /**
@@ -83,10 +80,9 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'description' => 'setDescription',
-        'id' => 'setId',
-        'items' => 'setItems',
-        'shipping_address' => 'setShippingAddress'
+        'callback_url' => 'setCallbackUrl',
+        'reports_data' => 'setReportsData',
+        'request' => 'setRequest'
     ];
 
     /**
@@ -95,10 +91,9 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'description' => 'getDescription',
-        'id' => 'getId',
-        'items' => 'getItems',
-        'shipping_address' => 'getShippingAddress'
+        'callback_url' => 'getCallbackUrl',
+        'reports_data' => 'getReportsData',
+        'request' => 'getRequest'
     ];
 
     /**
@@ -161,10 +156,9 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['items'] = isset($data['items']) ? $data['items'] : null;
-        $this->container['shipping_address'] = isset($data['shipping_address']) ? $data['shipping_address'] : null;
+        $this->container['callback_url'] = isset($data['callback_url']) ? $data['callback_url'] : null;
+        $this->container['reports_data'] = isset($data['reports_data']) ? $data['reports_data'] : null;
+        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
     }
 
     /**
@@ -176,28 +170,20 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['description'] === null) {
-            $invalidProperties[] = "'description' can't be null";
-        }
-        if ((mb_strlen($this->container['description']) > 200)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 200.";
+        if (!is_null($this->container['callback_url']) && (mb_strlen($this->container['callback_url']) > 512)) {
+            $invalidProperties[] = "invalid value for 'callback_url', the character length must be smaller than or equal to 512.";
         }
 
-        if ((mb_strlen($this->container['description']) < 1)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be bigger than or equal to 1.";
+        if (!is_null($this->container['callback_url']) && (mb_strlen($this->container['callback_url']) < 0)) {
+            $invalidProperties[] = "invalid value for 'callback_url', the character length must be bigger than or equal to 0.";
         }
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
+        if ($this->container['reports_data'] === null) {
+            $invalidProperties[] = "'reports_data' can't be null";
         }
-        if ((mb_strlen($this->container['id']) > 50)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 50.";
+        if ($this->container['request'] === null) {
+            $invalidProperties[] = "'request' can't be null";
         }
-
-        if ((mb_strlen($this->container['id']) < 1)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
-        }
-
         return $invalidProperties;
     }
 
@@ -214,111 +200,80 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets description
+     * Gets callback_url
      *
      * @return string
      */
-    public function getDescription()
+    public function getCallbackUrl()
     {
-        return $this->container['description'];
+        return $this->container['callback_url'];
     }
 
     /**
-     * Sets description
+     * Sets callback_url
      *
-     * @param string $description Description of product/service being sold
+     * @param string $callback_url Url for sending resulted callback. If field is skipped then callback won't be sent.
      *
      * @return $this
      */
-    public function setDescription($description)
+    public function setCallbackUrl($callback_url)
     {
-        if ((mb_strlen($description) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling MobilePaymentMerchantOrder., must be smaller than or equal to 200.');
+        if (!is_null($callback_url) && (mb_strlen($callback_url) > 512)) {
+            throw new \InvalidArgumentException('invalid length for $callback_url when calling ReportsRequest., must be smaller than or equal to 512.');
         }
-        if ((mb_strlen($description) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling MobilePaymentMerchantOrder., must be bigger than or equal to 1.');
+        if (!is_null($callback_url) && (mb_strlen($callback_url) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $callback_url when calling ReportsRequest., must be bigger than or equal to 0.');
         }
 
-        $this->container['description'] = $description;
+        $this->container['callback_url'] = $callback_url;
 
         return $this;
     }
 
     /**
-     * Gets id
+     * Gets reports_data
      *
-     * @return string
+     * @return \Cardpay\model\ReportsData
      */
-    public function getId()
+    public function getReportsData()
     {
-        return $this->container['id'];
+        return $this->container['reports_data'];
     }
 
     /**
-     * Sets id
+     * Sets reports_data
      *
-     * @param string $id Merchant's ID of the order
+     * @param \Cardpay\model\ReportsData $reports_data ReportsData
      *
      * @return $this
      */
-    public function setId($id)
+    public function setReportsData($reports_data)
     {
-        if ((mb_strlen($id) > 50)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling MobilePaymentMerchantOrder., must be smaller than or equal to 50.');
-        }
-        if ((mb_strlen($id) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling MobilePaymentMerchantOrder., must be bigger than or equal to 1.');
-        }
-
-        $this->container['id'] = $id;
+        $this->container['reports_data'] = $reports_data;
 
         return $this;
     }
 
     /**
-     * Gets items
+     * Gets request
      *
-     * @return \Cardpay\model\Item[]
+     * @return \Cardpay\model\Request
      */
-    public function getItems()
+    public function getRequest()
     {
-        return $this->container['items'];
+        return $this->container['request'];
     }
 
     /**
-     * Sets items
+     * Sets request
      *
-     * @param \Cardpay\model\Item[] $items Array of items (in the shopping cart)
+     * @param \Cardpay\model\Request $request Request
      *
      * @return $this
      */
-    public function setItems($items)
+    public function setRequest($request)
     {
-        $this->container['items'] = $items;
-
-        return $this;
-    }
-
-    /**
-     * Gets shipping_address
-     *
-     * @return \Cardpay\model\ShippingAddress
-     */
-    public function getShippingAddress()
-    {
-        return $this->container['shipping_address'];
-    }
-
-    /**
-     * Sets shipping_address
-     *
-     * @param \Cardpay\model\ShippingAddress $shipping_address Shipping Address
-     *
-     * @return $this
-     */
-    public function setShippingAddress($shipping_address)
-    {
-        $this->container['shipping_address'] = $shipping_address;
+        $this->container['request'] = $request;
 
         return $this;
     }
@@ -329,7 +284,7 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -341,7 +296,7 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -354,7 +309,7 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -370,7 +325,7 @@ class MobilePaymentMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

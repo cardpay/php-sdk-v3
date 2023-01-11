@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MobileTokenResponse implements ModelInterface, ArrayAccess
+class CardInfoRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MobileTokenResponse';
+    protected static $swaggerModelName = 'CardInfoRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,7 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'expires' => 'string',
-        'mobile_token' => 'string'
+        'bin' => 'string'
     ];
 
     /**
@@ -36,8 +35,7 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'expires' => null,
-        'mobile_token' => null
+        'bin' => null
     ];
 
     /**
@@ -67,8 +65,7 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'expires' => 'expires',
-        'mobile_token' => 'mobile_token'
+        'bin' => 'bin'
     ];
 
     /**
@@ -77,8 +74,7 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'expires' => 'setExpires',
-        'mobile_token' => 'setMobileToken'
+        'bin' => 'setBin'
     ];
 
     /**
@@ -87,8 +83,7 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'expires' => 'getExpires',
-        'mobile_token' => 'getMobileToken'
+        'bin' => 'getBin'
     ];
 
     /**
@@ -151,8 +146,7 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['expires'] = isset($data['expires']) ? $data['expires'] : null;
-        $this->container['mobile_token'] = isset($data['mobile_token']) ? $data['mobile_token'] : null;
+        $this->container['bin'] = isset($data['bin']) ? $data['bin'] : null;
     }
 
     /**
@@ -163,6 +157,21 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['bin'] === null) {
+            $invalidProperties[] = "'bin' can't be null";
+        }
+        if ((mb_strlen($this->container['bin']) > 34)) {
+            $invalidProperties[] = "invalid value for 'bin', the character length must be smaller than or equal to 34.";
+        }
+
+        if ((mb_strlen($this->container['bin']) < 6)) {
+            $invalidProperties[] = "invalid value for 'bin', the character length must be bigger than or equal to 6.";
+        }
+
+        if (!preg_match("/\\d+/", $this->container['bin'])) {
+            $invalidProperties[] = "invalid value for 'bin', must be conform to the pattern /\\d+/.";
+        }
 
         return $invalidProperties;
     }
@@ -180,49 +189,35 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets expires
+     * Gets bin
      *
      * @return string
      */
-    public function getExpires()
+    public function getBin()
     {
-        return $this->container['expires'];
+        return $this->container['bin'];
     }
 
     /**
-     * Sets expires
+     * Sets bin
      *
-     * @param string $expires Date and time of mobile token expiration in ISO 8601 format, example of format - yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+     * @param string $bin Card BIN
      *
      * @return $this
      */
-    public function setExpires($expires)
+    public function setBin($bin)
     {
-        $this->container['expires'] = $expires;
+        if ((mb_strlen($bin) > 34)) {
+            throw new \InvalidArgumentException('invalid length for $bin when calling CardInfoRequest., must be smaller than or equal to 34.');
+        }
+        if ((mb_strlen($bin) < 6)) {
+            throw new \InvalidArgumentException('invalid length for $bin when calling CardInfoRequest., must be bigger than or equal to 6.');
+        }
+        if ((!preg_match("/\\d+/", $bin))) {
+            throw new \InvalidArgumentException("invalid value for $bin when calling CardInfoRequest., must conform to the pattern /\\d+/.");
+        }
 
-        return $this;
-    }
-
-    /**
-     * Gets mobile_token
-     *
-     * @return string
-     */
-    public function getMobileToken()
-    {
-        return $this->container['mobile_token'];
-    }
-
-    /**
-     * Sets mobile_token
-     *
-     * @param string $mobile_token Unique identifier, max 128 symbols
-     *
-     * @return $this
-     */
-    public function setMobileToken($mobile_token)
-    {
-        $this->container['mobile_token'] = $mobile_token;
+        $this->container['bin'] = $bin;
 
         return $this;
     }
@@ -233,7 +228,7 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -245,7 +240,7 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -258,7 +253,7 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -274,7 +269,7 @@ class MobileTokenResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

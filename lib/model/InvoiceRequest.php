@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
+class InvoiceRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MobilePaymentFullResponse';
+    protected static $swaggerModelName = 'InvoiceRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,11 +26,11 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'payment_method' => 'string',
-        'merchant_order' => '\Cardpay\model\MobileMerchantOrderResponse',
-        'payment_data' => '\Cardpay\model\MobilePaymentDataResponse',
-        'card_account' => '\Cardpay\model\MobileCardAccountResponse',
-        'customer' => '\Cardpay\model\MobileCustomerResponse'
+        'request' => '\Cardpay\model\Request',
+        'customer' => '\Cardpay\model\Customer',
+        'invoice_data' => '\Cardpay\model\InvoiceDataRequest',
+        'merchant_order' => '\Cardpay\model\MerchantOrder',
+        'return_urls' => '\Cardpay\model\ReturnUrls'
     ];
 
     /**
@@ -39,11 +39,11 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'payment_method' => null,
+        'request' => null,
+        'customer' => null,
+        'invoice_data' => null,
         'merchant_order' => null,
-        'payment_data' => null,
-        'card_account' => null,
-        'customer' => null
+        'return_urls' => null
     ];
 
     /**
@@ -73,11 +73,11 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'payment_method' => 'payment_method',
+        'request' => 'request',
+        'customer' => 'customer',
+        'invoice_data' => 'invoice_data',
         'merchant_order' => 'merchant_order',
-        'payment_data' => 'payment_data',
-        'card_account' => 'card_account',
-        'customer' => 'customer'
+        'return_urls' => 'return_urls'
     ];
 
     /**
@@ -86,11 +86,11 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'payment_method' => 'setPaymentMethod',
+        'request' => 'setRequest',
+        'customer' => 'setCustomer',
+        'invoice_data' => 'setInvoiceData',
         'merchant_order' => 'setMerchantOrder',
-        'payment_data' => 'setPaymentData',
-        'card_account' => 'setCardAccount',
-        'customer' => 'setCustomer'
+        'return_urls' => 'setReturnUrls'
     ];
 
     /**
@@ -99,11 +99,11 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'payment_method' => 'getPaymentMethod',
+        'request' => 'getRequest',
+        'customer' => 'getCustomer',
+        'invoice_data' => 'getInvoiceData',
         'merchant_order' => 'getMerchantOrder',
-        'payment_data' => 'getPaymentData',
-        'card_account' => 'getCardAccount',
-        'customer' => 'getCustomer'
+        'return_urls' => 'getReturnUrls'
     ];
 
     /**
@@ -166,11 +166,11 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
-        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
-        $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
-        $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
+        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
         $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
+        $this->container['invoice_data'] = isset($data['invoice_data']) ? $data['invoice_data'] : null;
+        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
+        $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
     }
 
     /**
@@ -182,6 +182,15 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['request'] === null) {
+            $invalidProperties[] = "'request' can't be null";
+        }
+        if ($this->container['invoice_data'] === null) {
+            $invalidProperties[] = "'invoice_data' can't be null";
+        }
+        if ($this->container['merchant_order'] === null) {
+            $invalidProperties[] = "'merchant_order' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -198,25 +207,73 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets payment_method
+     * Gets request
      *
-     * @return string
+     * @return \Cardpay\model\Request
      */
-    public function getPaymentMethod()
+    public function getRequest()
     {
-        return $this->container['payment_method'];
+        return $this->container['request'];
     }
 
     /**
-     * Sets payment_method
+     * Sets request
      *
-     * @param string $payment_method Used payment method type name from payment methods list
+     * @param \Cardpay\model\Request $request Request
      *
      * @return $this
      */
-    public function setPaymentMethod($payment_method)
+    public function setRequest($request)
     {
-        $this->container['payment_method'] = $payment_method;
+        $this->container['request'] = $request;
+
+        return $this;
+    }
+
+    /**
+     * Gets customer
+     *
+     * @return \Cardpay\model\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->container['customer'];
+    }
+
+    /**
+     * Sets customer
+     *
+     * @param \Cardpay\model\Customer $customer Customer data
+     *
+     * @return $this
+     */
+    public function setCustomer($customer)
+    {
+        $this->container['customer'] = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Gets invoice_data
+     *
+     * @return \Cardpay\model\InvoiceDataRequest
+     */
+    public function getInvoiceData()
+    {
+        return $this->container['invoice_data'];
+    }
+
+    /**
+     * Sets invoice_data
+     *
+     * @param \Cardpay\model\InvoiceDataRequest $invoice_data Invoice data
+     *
+     * @return $this
+     */
+    public function setInvoiceData($invoice_data)
+    {
+        $this->container['invoice_data'] = $invoice_data;
 
         return $this;
     }
@@ -224,7 +281,7 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
     /**
      * Gets merchant_order
      *
-     * @return \Cardpay\model\MobileMerchantOrderResponse
+     * @return \Cardpay\model\MerchantOrder
      */
     public function getMerchantOrder()
     {
@@ -234,7 +291,7 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
     /**
      * Sets merchant_order
      *
-     * @param \Cardpay\model\MobileMerchantOrderResponse $merchant_order Merchant order data
+     * @param \Cardpay\model\MerchantOrder $merchant_order Merchant order data
      *
      * @return $this
      */
@@ -246,73 +303,25 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets payment_data
+     * Gets return_urls
      *
-     * @return \Cardpay\model\MobilePaymentDataResponse
+     * @return \Cardpay\model\ReturnUrls
      */
-    public function getPaymentData()
+    public function getReturnUrls()
     {
-        return $this->container['payment_data'];
+        return $this->container['return_urls'];
     }
 
     /**
-     * Sets payment_data
+     * Sets return_urls
      *
-     * @param \Cardpay\model\MobilePaymentDataResponse $payment_data Payment data
+     * @param \Cardpay\model\ReturnUrls $return_urls Return URLs are the URLs where customer returns by pressing “Back to the shop” or “Cancel” button in Payment Page mode
      *
      * @return $this
      */
-    public function setPaymentData($payment_data)
+    public function setReturnUrls($return_urls)
     {
-        $this->container['payment_data'] = $payment_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets card_account
-     *
-     * @return \Cardpay\model\MobileCardAccountResponse
-     */
-    public function getCardAccount()
-    {
-        return $this->container['card_account'];
-    }
-
-    /**
-     * Sets card_account
-     *
-     * @param \Cardpay\model\MobileCardAccountResponse $card_account Bank card data *(for BANKCARD payment method only)*
-     *
-     * @return $this
-     */
-    public function setCardAccount($card_account)
-    {
-        $this->container['card_account'] = $card_account;
-
-        return $this;
-    }
-
-    /**
-     * Gets customer
-     *
-     * @return \Cardpay\model\MobileCustomerResponse
-     */
-    public function getCustomer()
-    {
-        return $this->container['customer'];
-    }
-
-    /**
-     * Sets customer
-     *
-     * @param \Cardpay\model\MobileCustomerResponse $customer Customer data
-     *
-     * @return $this
-     */
-    public function setCustomer($customer)
-    {
-        $this->container['customer'] = $customer;
+        $this->container['return_urls'] = $return_urls;
 
         return $this;
     }
@@ -323,7 +332,7 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -335,7 +344,7 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -348,7 +357,7 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -364,7 +373,7 @@ class MobilePaymentFullResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

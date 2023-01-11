@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MobileCustomerResponse implements ModelInterface, ArrayAccess
+class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MobileCustomerResponse';
+    protected static $swaggerModelName = 'InvoiceGetDataResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,14 +26,11 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'email' => 'string',
-        'full_name' => 'string',
-        'home_phone' => 'string',
+        'amount' => 'float',
+        'currency' => 'string',
+        'expire_at' => '\DateTime',
         'id' => 'string',
-        'ip' => 'string',
-        'locale' => 'string',
-        'phone' => 'string',
-        'work_phone' => 'string'
+        'status' => 'string'
     ];
 
     /**
@@ -42,14 +39,11 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'email' => null,
-        'full_name' => null,
-        'home_phone' => null,
+        'amount' => null,
+        'currency' => null,
+        'expire_at' => 'date-time',
         'id' => null,
-        'ip' => null,
-        'locale' => null,
-        'phone' => null,
-        'work_phone' => null
+        'status' => null
     ];
 
     /**
@@ -79,14 +73,11 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'email' => 'email',
-        'full_name' => 'fullName',
-        'home_phone' => 'homePhone',
+        'amount' => 'amount',
+        'currency' => 'currency',
+        'expire_at' => 'expire_at',
         'id' => 'id',
-        'ip' => 'ip',
-        'locale' => 'locale',
-        'phone' => 'phone',
-        'work_phone' => 'workPhone'
+        'status' => 'status'
     ];
 
     /**
@@ -95,14 +86,11 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'email' => 'setEmail',
-        'full_name' => 'setFullName',
-        'home_phone' => 'setHomePhone',
+        'amount' => 'setAmount',
+        'currency' => 'setCurrency',
+        'expire_at' => 'setExpireAt',
         'id' => 'setId',
-        'ip' => 'setIp',
-        'locale' => 'setLocale',
-        'phone' => 'setPhone',
-        'work_phone' => 'setWorkPhone'
+        'status' => 'setStatus'
     ];
 
     /**
@@ -111,14 +99,11 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'email' => 'getEmail',
-        'full_name' => 'getFullName',
-        'home_phone' => 'getHomePhone',
+        'amount' => 'getAmount',
+        'currency' => 'getCurrency',
+        'expire_at' => 'getExpireAt',
         'id' => 'getId',
-        'ip' => 'getIp',
-        'locale' => 'getLocale',
-        'phone' => 'getPhone',
-        'work_phone' => 'getWorkPhone'
+        'status' => 'getStatus'
     ];
 
     /**
@@ -181,14 +166,11 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['email'] = isset($data['email']) ? $data['email'] : null;
-        $this->container['full_name'] = isset($data['full_name']) ? $data['full_name'] : null;
-        $this->container['home_phone'] = isset($data['home_phone']) ? $data['home_phone'] : null;
+        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
+        $this->container['expire_at'] = isset($data['expire_at']) ? $data['expire_at'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['ip'] = isset($data['ip']) ? $data['ip'] : null;
-        $this->container['locale'] = isset($data['locale']) ? $data['locale'] : null;
-        $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
-        $this->container['work_phone'] = isset($data['work_phone']) ? $data['work_phone'] : null;
+        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
     }
 
     /**
@@ -200,6 +182,15 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if ($this->container['amount'] === null) {
+            $invalidProperties[] = "'amount' can't be null";
+        }
+        if ($this->container['currency'] === null) {
+            $invalidProperties[] = "'currency' can't be null";
+        }
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -216,73 +207,73 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets email
+     * Gets amount
      *
-     * @return string
+     * @return float
      */
-    public function getEmail()
+    public function getAmount()
     {
-        return $this->container['email'];
+        return $this->container['amount'];
     }
 
     /**
-     * Sets email
+     * Sets amount
      *
-     * @param string $email Email address of the customer (mandatory by default for 'Latin America', 'NETELLER', 'DIRECTBANKINGNGA', 'AQRCODE', 'AIRTEL', 'MPESA', 'MTN', 'UGANDAMOBILE', 'VODAFONE', 'TIGO' payment methods only)). Can be defined as optional by CardPay manager.
+     * @param float $amount The total invoice amount in selected currency with dot as a decimal separator
      *
      * @return $this
      */
-    public function setEmail($email)
+    public function setAmount($amount)
     {
-        $this->container['email'] = $email;
+        $this->container['amount'] = $amount;
 
         return $this;
     }
 
     /**
-     * Gets full_name
+     * Gets currency
      *
      * @return string
      */
-    public function getFullName()
+    public function getCurrency()
     {
-        return $this->container['full_name'];
+        return $this->container['currency'];
     }
 
     /**
-     * Sets full_name
+     * Sets currency
      *
-     * @param string $full_name Customer's full name
+     * @param string $currency ISO 4217 currency code
      *
      * @return $this
      */
-    public function setFullName($full_name)
+    public function setCurrency($currency)
     {
-        $this->container['full_name'] = $full_name;
+        $this->container['currency'] = $currency;
 
         return $this;
     }
 
     /**
-     * Gets home_phone
+     * Gets expire_at
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getHomePhone()
+    public function getExpireAt()
     {
-        return $this->container['home_phone'];
+        return $this->container['expire_at'];
     }
 
     /**
-     * Sets home_phone
+     * Sets expire_at
      *
-     * @param string $home_phone The home phone number provided by the Cardholder. Required (if available), unless market or regional mandate restricts sending this information. Characters Format: string (10-18 symbols) country code + Subscriber number. Refer to ITU-E.164 for additional information on format and length.
+     * @param \DateTime $expire_at Date of invoice expiring. Invoice cannot be used after this date.
      *
      * @return $this
      */
-    public function setHomePhone($home_phone)
+    public function setExpireAt($expire_at)
     {
-        $this->container['home_phone'] = $home_phone;
+        $this->container['expire_at'] = $expire_at;
 
         return $this;
     }
@@ -300,7 +291,7 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id Customer's ID in the merchant's system
+     * @param string $id Identifier of created invoice.
      *
      * @return $this
      */
@@ -312,97 +303,25 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets ip
+     * Gets status
      *
      * @return string
      */
-    public function getIp()
+    public function getStatus()
     {
-        return $this->container['ip'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets ip
+     * Sets status
      *
-     * @param string $ip IP address of customer
+     * @param string $status Status of invoice.
      *
      * @return $this
      */
-    public function setIp($ip)
+    public function setStatus($status)
     {
-        $this->container['ip'] = $ip;
-
-        return $this;
-    }
-
-    /**
-     * Gets locale
-     *
-     * @return string
-     */
-    public function getLocale()
-    {
-        return $this->container['locale'];
-    }
-
-    /**
-     * Sets locale
-     *
-     * @param string $locale Preferred locale for the payment page ([ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language code). The default locale will be applied if the selected locale is not supported. Supported locales are: `ru`, `en`, `zh`, `ja`
-     *
-     * @return $this
-     */
-    public function setLocale($locale)
-    {
-        $this->container['locale'] = $locale;
-
-        return $this;
-    }
-
-    /**
-     * Gets phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->container['phone'];
-    }
-
-    /**
-     * Sets phone
-     *
-     * @param string $phone Customer's phone number. Mandatory for DIRECTBANKINGNGA payment method. For other payment methods: optional by default, can be defined as mandatory by CardPay manager.
-     *
-     * @return $this
-     */
-    public function setPhone($phone)
-    {
-        $this->container['phone'] = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Gets work_phone
-     *
-     * @return string
-     */
-    public function getWorkPhone()
-    {
-        return $this->container['work_phone'];
-    }
-
-    /**
-     * Sets work_phone
-     *
-     * @param string $work_phone The work phone number provided by the Cardholder. Required (if available) unless market or regional mandate restricts sending this information. Characters Format: string (10-18 symbols) country code + Subscriber number. Refer to ITU-E.164 for additional information on format and length.
-     *
-     * @return $this
-     */
-    public function setWorkPhone($work_phone)
-    {
-        $this->container['work_phone'] = $work_phone;
+        $this->container['status'] = $status;
 
         return $this;
     }
@@ -413,7 +332,7 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -425,7 +344,7 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -438,7 +357,7 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -454,7 +373,7 @@ class MobileCustomerResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

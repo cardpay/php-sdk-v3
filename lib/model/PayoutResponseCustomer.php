@@ -28,7 +28,9 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'email' => 'string',
         'id' => 'string',
-        'phone' => 'string'
+        'ip_country' => 'string',
+        'phone' => 'string',
+        'user_agent' => 'string'
     ];
 
     /**
@@ -39,7 +41,9 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'email' => null,
         'id' => null,
-        'phone' => null
+        'ip_country' => null,
+        'phone' => null,
+        'user_agent' => null
     ];
 
     /**
@@ -71,7 +75,9 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'email' => 'email',
         'id' => 'id',
-        'phone' => 'phone'
+        'ip_country' => 'ip_country',
+        'phone' => 'phone',
+        'user_agent' => 'user_agent'
     ];
 
     /**
@@ -82,7 +88,9 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
     protected static $setters = [
         'email' => 'setEmail',
         'id' => 'setId',
-        'phone' => 'setPhone'
+        'ip_country' => 'setIpCountry',
+        'phone' => 'setPhone',
+        'user_agent' => 'setUserAgent'
     ];
 
     /**
@@ -93,7 +101,9 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
     protected static $getters = [
         'email' => 'getEmail',
         'id' => 'getId',
-        'phone' => 'getPhone'
+        'ip_country' => 'getIpCountry',
+        'phone' => 'getPhone',
+        'user_agent' => 'getUserAgent'
     ];
 
     /**
@@ -158,7 +168,9 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
     {
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['ip_country'] = isset($data['ip_country']) ? $data['ip_country'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
+        $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
     }
 
     /**
@@ -234,6 +246,30 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets ip_country
+     *
+     * @return string
+     */
+    public function getIpCountry()
+    {
+        return $this->container['ip_country'];
+    }
+
+    /**
+     * Sets ip_country
+     *
+     * @param string $ip_country Customer country by IP
+     *
+     * @return $this
+     */
+    public function setIpCountry($ip_country)
+    {
+        $this->container['ip_country'] = $ip_country;
+
+        return $this;
+    }
+
+    /**
      * Gets phone
      *
      * @return string
@@ -256,6 +292,30 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
+    /**
+     * Gets user_agent
+     *
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->container['user_agent'];
+    }
+
+    /**
+     * Sets user_agent
+     *
+     * @param string $user_agent User agent
+     *
+     * @return $this
+     */
+    public function setUserAgent($user_agent)
+    {
+        $this->container['user_agent'] = $user_agent;
+
+        return $this;
+    }
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -263,7 +323,7 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -275,7 +335,7 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -288,7 +348,7 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -304,7 +364,7 @@ class PayoutResponseCustomer implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

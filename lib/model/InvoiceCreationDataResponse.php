@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class CardBindingResponse implements ModelInterface, ArrayAccess
+class InvoiceCreationDataResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'CardBindingResponse';
+    protected static $swaggerModelName = 'InvoiceCreationDataResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,7 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'recurring_data' => '\Cardpay\model\CardBindingRecurringDataResponse',
-        'redirect_url' => 'string'
+        'id' => 'string'
     ];
 
     /**
@@ -36,8 +35,7 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'recurring_data' => null,
-        'redirect_url' => null
+        'id' => null
     ];
 
     /**
@@ -67,8 +65,7 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'recurring_data' => 'recurring_data',
-        'redirect_url' => 'redirect_url'
+        'id' => 'id'
     ];
 
     /**
@@ -77,8 +74,7 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'recurring_data' => 'setRecurringData',
-        'redirect_url' => 'setRedirectUrl'
+        'id' => 'setId'
     ];
 
     /**
@@ -87,8 +83,7 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'recurring_data' => 'getRecurringData',
-        'redirect_url' => 'getRedirectUrl'
+        'id' => 'getId'
     ];
 
     /**
@@ -151,8 +146,7 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
-        $this->container['redirect_url'] = isset($data['redirect_url']) ? $data['redirect_url'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
 
     /**
@@ -180,49 +174,25 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets recurring_data
-     *
-     * @return \Cardpay\model\CardBindingRecurringDataResponse
-     */
-    public function getRecurringData()
-    {
-        return $this->container['recurring_data'];
-    }
-
-    /**
-     * Sets recurring_data
-     *
-     * @param \Cardpay\model\CardBindingRecurringDataResponse $recurring_data Recurring data
-     *
-     * @return $this
-     */
-    public function setRecurringData($recurring_data)
-    {
-        $this->container['recurring_data'] = $recurring_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets redirect_url
+     * Gets id
      *
      * @return string
      */
-    public function getRedirectUrl()
+    public function getId()
     {
-        return $this->container['redirect_url'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets redirect_url
+     * Sets id
      *
-     * @param string $redirect_url URL Customer should be redirected to
+     * @param string $id Identifier of invoice
      *
      * @return $this
      */
-    public function setRedirectUrl($redirect_url)
+    public function setId($id)
     {
-        $this->container['redirect_url'] = $redirect_url;
+        $this->container['id'] = $id;
 
         return $this;
     }
@@ -233,7 +203,7 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -245,7 +215,7 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -258,7 +228,7 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -274,7 +244,7 @@ class CardBindingResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

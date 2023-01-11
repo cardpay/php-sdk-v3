@@ -27,8 +27,11 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'acct_type' => 'string',
+        'card_brand' => 'string',
+        'card_type' => 'string',
         'expiration' => 'string',
         'holder' => 'string',
+        'issuer' => 'string',
         'issuing_country_code' => 'string',
         'masked_pan' => 'string',
         'token' => 'string'
@@ -41,8 +44,11 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'acct_type' => null,
+        'card_brand' => null,
+        'card_type' => null,
         'expiration' => null,
         'holder' => null,
+        'issuer' => null,
         'issuing_country_code' => null,
         'masked_pan' => null,
         'token' => null
@@ -76,8 +82,11 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'acct_type' => 'acct_type',
+        'card_brand' => 'card_brand',
+        'card_type' => 'card_type',
         'expiration' => 'expiration',
         'holder' => 'holder',
+        'issuer' => 'issuer',
         'issuing_country_code' => 'issuing_country_code',
         'masked_pan' => 'masked_pan',
         'token' => 'token'
@@ -90,8 +99,11 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'acct_type' => 'setAcctType',
+        'card_brand' => 'setCardBrand',
+        'card_type' => 'setCardType',
         'expiration' => 'setExpiration',
         'holder' => 'setHolder',
+        'issuer' => 'setIssuer',
         'issuing_country_code' => 'setIssuingCountryCode',
         'masked_pan' => 'setMaskedPan',
         'token' => 'setToken'
@@ -104,8 +116,11 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'acct_type' => 'getAcctType',
+        'card_brand' => 'getCardBrand',
+        'card_type' => 'getCardType',
         'expiration' => 'getExpiration',
         'holder' => 'getHolder',
+        'issuer' => 'getIssuer',
         'issuing_country_code' => 'getIssuingCountryCode',
         'masked_pan' => 'getMaskedPan',
         'token' => 'getToken'
@@ -155,6 +170,11 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
     const ACCT_TYPE__01 = '01';
     const ACCT_TYPE__02 = '02';
     const ACCT_TYPE__03 = '03';
+    const CARD_TYPE_DEBIT = 'DEBIT';
+    const CARD_TYPE_CREDIT = 'CREDIT';
+    const CARD_TYPE_PREPAID = 'PREPAID';
+    const CARD_TYPE_OTHER = 'OTHER';
+    const CARD_TYPE_UNKNOWN = 'UNKNOWN';
     
 
     
@@ -169,6 +189,22 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
             self::ACCT_TYPE__01,
             self::ACCT_TYPE__02,
             self::ACCT_TYPE__03,
+        ];
+    }
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getCardTypeAllowableValues()
+    {
+        return [
+            self::CARD_TYPE_DEBIT,
+            self::CARD_TYPE_CREDIT,
+            self::CARD_TYPE_PREPAID,
+            self::CARD_TYPE_OTHER,
+            self::CARD_TYPE_UNKNOWN,
         ];
     }
     
@@ -189,8 +225,11 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['acct_type'] = isset($data['acct_type']) ? $data['acct_type'] : null;
+        $this->container['card_brand'] = isset($data['card_brand']) ? $data['card_brand'] : null;
+        $this->container['card_type'] = isset($data['card_type']) ? $data['card_type'] : null;
         $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
         $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
+        $this->container['issuer'] = isset($data['issuer']) ? $data['issuer'] : null;
         $this->container['issuing_country_code'] = isset($data['issuing_country_code']) ? $data['issuing_country_code'] : null;
         $this->container['masked_pan'] = isset($data['masked_pan']) ? $data['masked_pan'] : null;
         $this->container['token'] = isset($data['token']) ? $data['token'] : null;
@@ -209,6 +248,14 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
         if (!is_null($this->container['acct_type']) && !in_array($this->container['acct_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
                 "invalid value for 'acct_type', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
+        }
+
+        $allowedValues = $this->getCardTypeAllowableValues();
+        if (!is_null($this->container['card_type']) && !in_array($this->container['card_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'card_type', must be one of '%s'",
                 implode("', '", $allowedValues)
             );
         }
@@ -262,6 +309,63 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets card_brand
+     *
+     * @return string
+     */
+    public function getCardBrand()
+    {
+        return $this->container['card_brand'];
+    }
+
+    /**
+     * Sets card_brand
+     *
+     * @param string $card_brand Card brand
+     *
+     * @return $this
+     */
+    public function setCardBrand($card_brand)
+    {
+        $this->container['card_brand'] = $card_brand;
+
+        return $this;
+    }
+
+    /**
+     * Gets card_type
+     *
+     * @return string
+     */
+    public function getCardType()
+    {
+        return $this->container['card_type'];
+    }
+
+    /**
+     * Sets card_type
+     *
+     * @param string $card_type Card type
+     *
+     * @return $this
+     */
+    public function setCardType($card_type)
+    {
+        $allowedValues = $this->getCardTypeAllowableValues();
+        if (!is_null($card_type) && !in_array($card_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'card_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['card_type'] = $card_type;
+
+        return $this;
+    }
+
+    /**
      * Gets expiration
      *
      * @return string
@@ -305,6 +409,30 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
     public function setHolder($holder)
     {
         $this->container['holder'] = $holder;
+
+        return $this;
+    }
+
+    /**
+     * Gets issuer
+     *
+     * @return string
+     */
+    public function getIssuer()
+    {
+        return $this->container['issuer'];
+    }
+
+    /**
+     * Sets issuer
+     *
+     * @param string $issuer Card issuer
+     *
+     * @return $this
+     */
+    public function setIssuer($issuer)
+    {
+        $this->container['issuer'] = $issuer;
 
         return $this;
     }
@@ -387,7 +515,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -399,7 +527,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -412,7 +540,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -428,7 +556,7 @@ class PaymentResponseCardAccount implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
+class Customer implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MobilePaymentMethodListResponse';
+    protected static $swaggerModelName = 'Customer';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,7 +26,8 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'payment_methods' => '\Cardpay\model\MobilePaymentMethodDataResponse[]'
+        'email' => 'string',
+        'phone' => 'string'
     ];
 
     /**
@@ -35,7 +36,8 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'payment_methods' => null
+        'email' => null,
+        'phone' => null
     ];
 
     /**
@@ -65,7 +67,8 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'payment_methods' => 'payment_methods'
+        'email' => 'email',
+        'phone' => 'phone'
     ];
 
     /**
@@ -74,7 +77,8 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'payment_methods' => 'setPaymentMethods'
+        'email' => 'setEmail',
+        'phone' => 'setPhone'
     ];
 
     /**
@@ -83,7 +87,8 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'payment_methods' => 'getPaymentMethods'
+        'email' => 'getEmail',
+        'phone' => 'getPhone'
     ];
 
     /**
@@ -146,7 +151,8 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['payment_methods'] = isset($data['payment_methods']) ? $data['payment_methods'] : null;
+        $this->container['email'] = isset($data['email']) ? $data['email'] : null;
+        $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
     }
 
     /**
@@ -157,6 +163,22 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 256)) {
+            $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 256.";
+        }
+
+        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 3)) {
+            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 3.";
+        }
+
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 18)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 18.";
+        }
+
+        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 8)) {
+            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 8.";
+        }
 
         return $invalidProperties;
     }
@@ -174,25 +196,63 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets payment_methods
+     * Gets email
      *
-     * @return \Cardpay\model\MobilePaymentMethodDataResponse[]
+     * @return string
      */
-    public function getPaymentMethods()
+    public function getEmail()
     {
-        return $this->container['payment_methods'];
+        return $this->container['email'];
     }
 
     /**
-     * Sets payment_methods
+     * Sets email
      *
-     * @param \Cardpay\model\MobilePaymentMethodDataResponse[] $payment_methods Mobile payment data
+     * @param string $email Email address of the customer
      *
      * @return $this
      */
-    public function setPaymentMethods($payment_methods)
+    public function setEmail($email)
     {
-        $this->container['payment_methods'] = $payment_methods;
+        if (!is_null($email) && (mb_strlen($email) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $email when calling Customer., must be smaller than or equal to 256.');
+        }
+        if (!is_null($email) && (mb_strlen($email) < 3)) {
+            throw new \InvalidArgumentException('invalid length for $email when calling Customer., must be bigger than or equal to 3.');
+        }
+
+        $this->container['email'] = $email;
+
+        return $this;
+    }
+
+    /**
+     * Gets phone
+     *
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->container['phone'];
+    }
+
+    /**
+     * Sets phone
+     *
+     * @param string $phone Customer phone number
+     *
+     * @return $this
+     */
+    public function setPhone($phone)
+    {
+        if (!is_null($phone) && (mb_strlen($phone) > 18)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling Customer., must be smaller than or equal to 18.');
+        }
+        if (!is_null($phone) && (mb_strlen($phone) < 8)) {
+            throw new \InvalidArgumentException('invalid length for $phone when calling Customer., must be bigger than or equal to 8.');
+        }
+
+        $this->container['phone'] = $phone;
 
         return $this;
     }
@@ -203,7 +263,7 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -215,7 +275,7 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -228,7 +288,7 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -244,7 +304,7 @@ class MobilePaymentMethodListResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

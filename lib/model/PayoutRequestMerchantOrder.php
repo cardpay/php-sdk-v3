@@ -26,6 +26,7 @@ class PayoutRequestMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'cryptocurrency_indicator' => 'bool',
         'description' => 'string',
         'id' => 'string'
     ];
@@ -36,6 +37,7 @@ class PayoutRequestMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'cryptocurrency_indicator' => null,
         'description' => null,
         'id' => null
     ];
@@ -67,6 +69,7 @@ class PayoutRequestMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'cryptocurrency_indicator' => 'cryptocurrency_indicator',
         'description' => 'description',
         'id' => 'id'
     ];
@@ -77,6 +80,7 @@ class PayoutRequestMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'cryptocurrency_indicator' => 'setCryptocurrencyIndicator',
         'description' => 'setDescription',
         'id' => 'setId'
     ];
@@ -87,6 +91,7 @@ class PayoutRequestMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'cryptocurrency_indicator' => 'getCryptocurrencyIndicator',
         'description' => 'getDescription',
         'id' => 'getId'
     ];
@@ -151,6 +156,7 @@ class PayoutRequestMerchantOrder implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['cryptocurrency_indicator'] = isset($data['cryptocurrency_indicator']) ? $data['cryptocurrency_indicator'] : null;
         $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
@@ -189,6 +195,30 @@ class PayoutRequestMerchantOrder implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets cryptocurrency_indicator
+     *
+     * @return bool
+     */
+    public function getCryptocurrencyIndicator()
+    {
+        return $this->container['cryptocurrency_indicator'];
+    }
+
+    /**
+     * Sets cryptocurrency_indicator
+     *
+     * @param bool $cryptocurrency_indicator Indicator should be added if there will be cryptocurrency in transaction
+     *
+     * @return $this
+     */
+    public function setCryptocurrencyIndicator($cryptocurrency_indicator)
+    {
+        $this->container['cryptocurrency_indicator'] = $cryptocurrency_indicator;
+
+        return $this;
+    }
 
     /**
      * Gets description
@@ -251,7 +281,7 @@ class PayoutRequestMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -263,7 +293,7 @@ class PayoutRequestMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -276,7 +306,7 @@ class PayoutRequestMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -292,7 +322,7 @@ class PayoutRequestMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

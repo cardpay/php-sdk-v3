@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
+class MerchantOrder implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'RecurringRequestMerchantOrder';
+    protected static $swaggerModelName = 'MerchantOrder';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,11 +26,8 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'cryptocurrency_indicator' => 'bool',
-        'description' => 'string',
         'id' => 'string',
-        'items' => '\Cardpay\model\Item[]',
-        'shipping_address' => '\Cardpay\model\ShippingAddress'
+        'items' => '\Cardpay\model\Item[]'
     ];
 
     /**
@@ -39,11 +36,8 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'cryptocurrency_indicator' => null,
-        'description' => null,
         'id' => null,
-        'items' => null,
-        'shipping_address' => null
+        'items' => null
     ];
 
     /**
@@ -73,11 +67,8 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'cryptocurrency_indicator' => 'cryptocurrency_indicator',
-        'description' => 'description',
         'id' => 'id',
-        'items' => 'items',
-        'shipping_address' => 'shipping_address'
+        'items' => 'items'
     ];
 
     /**
@@ -86,11 +77,8 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'cryptocurrency_indicator' => 'setCryptocurrencyIndicator',
-        'description' => 'setDescription',
         'id' => 'setId',
-        'items' => 'setItems',
-        'shipping_address' => 'setShippingAddress'
+        'items' => 'setItems'
     ];
 
     /**
@@ -99,11 +87,8 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'cryptocurrency_indicator' => 'getCryptocurrencyIndicator',
-        'description' => 'getDescription',
         'id' => 'getId',
-        'items' => 'getItems',
-        'shipping_address' => 'getShippingAddress'
+        'items' => 'getItems'
     ];
 
     /**
@@ -166,11 +151,8 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['cryptocurrency_indicator'] = isset($data['cryptocurrency_indicator']) ? $data['cryptocurrency_indicator'] : null;
-        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['items'] = isset($data['items']) ? $data['items'] : null;
-        $this->container['shipping_address'] = isset($data['shipping_address']) ? $data['shipping_address'] : null;
     }
 
     /**
@@ -181,17 +163,6 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        if ($this->container['description'] === null) {
-            $invalidProperties[] = "'description' can't be null";
-        }
-        if ((mb_strlen($this->container['description']) > 200)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be smaller than or equal to 200.";
-        }
-
-        if ((mb_strlen($this->container['description']) < 1)) {
-            $invalidProperties[] = "invalid value for 'description', the character length must be bigger than or equal to 1.";
-        }
 
         if ($this->container['id'] === null) {
             $invalidProperties[] = "'id' can't be null";
@@ -204,6 +175,9 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
         }
 
+        if ($this->container['items'] === null) {
+            $invalidProperties[] = "'items' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -220,61 +194,6 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets cryptocurrency_indicator
-     *
-     * @return bool
-     */
-    public function getCryptocurrencyIndicator()
-    {
-        return $this->container['cryptocurrency_indicator'];
-    }
-
-    /**
-     * Sets cryptocurrency_indicator
-     *
-     * @param bool $cryptocurrency_indicator Indicator should be added if there will be cryptocurrency purchase in transaction
-     *
-     * @return $this
-     */
-    public function setCryptocurrencyIndicator($cryptocurrency_indicator)
-    {
-        $this->container['cryptocurrency_indicator'] = $cryptocurrency_indicator;
-
-        return $this;
-    }
-
-    /**
-     * Gets description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->container['description'];
-    }
-
-    /**
-     * Sets description
-     *
-     * @param string $description Description of product/service being sold
-     *
-     * @return $this
-     */
-    public function setDescription($description)
-    {
-        if ((mb_strlen($description) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling RecurringRequestMerchantOrder., must be smaller than or equal to 200.');
-        }
-        if ((mb_strlen($description) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $description when calling RecurringRequestMerchantOrder., must be bigger than or equal to 1.');
-        }
-
-        $this->container['description'] = $description;
-
-        return $this;
-    }
-
-    /**
      * Gets id
      *
      * @return string
@@ -287,17 +206,17 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id Order ID used by Merchant's shopping cart
+     * @param string $id Order ID used by the merchant’s shopping cart
      *
      * @return $this
      */
     public function setId($id)
     {
         if ((mb_strlen($id) > 50)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling RecurringRequestMerchantOrder., must be smaller than or equal to 50.');
+            throw new \InvalidArgumentException('invalid length for $id when calling MerchantOrder., must be smaller than or equal to 50.');
         }
         if ((mb_strlen($id) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling RecurringRequestMerchantOrder., must be bigger than or equal to 1.');
+            throw new \InvalidArgumentException('invalid length for $id when calling MerchantOrder., must be bigger than or equal to 1.');
         }
 
         $this->container['id'] = $id;
@@ -328,30 +247,6 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
 
         return $this;
     }
-
-    /**
-     * Gets shipping_address
-     *
-     * @return \Cardpay\model\ShippingAddress
-     */
-    public function getShippingAddress()
-    {
-        return $this->container['shipping_address'];
-    }
-
-    /**
-     * Sets shipping_address
-     *
-     * @param \Cardpay\model\ShippingAddress $shipping_address Shipping Address
-     *
-     * @return $this
-     */
-    public function setShippingAddress($shipping_address)
-    {
-        $this->container['shipping_address'] = $shipping_address;
-
-        return $this;
-    }
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -359,7 +254,7 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -371,7 +266,7 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -384,7 +279,7 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -400,7 +295,7 @@ class RecurringRequestMerchantOrder implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

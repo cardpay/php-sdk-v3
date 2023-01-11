@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
+class PixAccountDetailsResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'ScheduleOptionsResponse';
+    protected static $swaggerModelName = 'PixAccountDetailsResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,9 +26,7 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'currency' => 'string',
-        'options' => '\Cardpay\model\ScheduleOption[]',
-        'total_amount' => 'float'
+        'ewallet_account' => '\Cardpay\model\EwalletAccount'
     ];
 
     /**
@@ -37,9 +35,7 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'currency' => null,
-        'options' => null,
-        'total_amount' => null
+        'ewallet_account' => null
     ];
 
     /**
@@ -69,9 +65,7 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'currency' => 'currency',
-        'options' => 'options',
-        'total_amount' => 'total_amount'
+        'ewallet_account' => 'ewallet_account'
     ];
 
     /**
@@ -80,9 +74,7 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'currency' => 'setCurrency',
-        'options' => 'setOptions',
-        'total_amount' => 'setTotalAmount'
+        'ewallet_account' => 'setEwalletAccount'
     ];
 
     /**
@@ -91,9 +83,7 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'currency' => 'getCurrency',
-        'options' => 'getOptions',
-        'total_amount' => 'getTotalAmount'
+        'ewallet_account' => 'getEwalletAccount'
     ];
 
     /**
@@ -156,9 +146,7 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
-        $this->container['options'] = isset($data['options']) ? $data['options'] : null;
-        $this->container['total_amount'] = isset($data['total_amount']) ? $data['total_amount'] : null;
+        $this->container['ewallet_account'] = isset($data['ewallet_account']) ? $data['ewallet_account'] : null;
     }
 
     /**
@@ -186,73 +174,25 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets currency
+     * Gets ewallet_account
      *
-     * @return string
+     * @return \Cardpay\model\EwalletAccount
      */
-    public function getCurrency()
+    public function getEwalletAccount()
     {
-        return $this->container['currency'];
+        return $this->container['ewallet_account'];
     }
 
     /**
-     * Sets currency
+     * Sets ewallet_account
      *
-     * @param string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
+     * @param \Cardpay\model\EwalletAccount $ewallet_account An object containing customer account details
      *
      * @return $this
      */
-    public function setCurrency($currency)
+    public function setEwalletAccount($ewallet_account)
     {
-        $this->container['currency'] = $currency;
-
-        return $this;
-    }
-
-    /**
-     * Gets options
-     *
-     * @return \Cardpay\model\ScheduleOption[]
-     */
-    public function getOptions()
-    {
-        return $this->container['options'];
-    }
-
-    /**
-     * Sets options
-     *
-     * @param \Cardpay\model\ScheduleOption[] $options Array of the calculated options data.
-     *
-     * @return $this
-     */
-    public function setOptions($options)
-    {
-        $this->container['options'] = $options;
-
-        return $this;
-    }
-
-    /**
-     * Gets total_amount
-     *
-     * @return float
-     */
-    public function getTotalAmount()
-    {
-        return $this->container['total_amount'];
-    }
-
-    /**
-     * Sets total_amount
-     *
-     * @param float $total_amount Total amount of subscription to be calculated to options; can have dot as a decimal separator.
-     *
-     * @return $this
-     */
-    public function setTotalAmount($total_amount)
-    {
-        $this->container['total_amount'] = $total_amount;
+        $this->container['ewallet_account'] = $ewallet_account;
 
         return $this;
     }
@@ -263,7 +203,7 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -275,7 +215,7 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -288,7 +228,7 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -304,7 +244,7 @@ class ScheduleOptionsResponse implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

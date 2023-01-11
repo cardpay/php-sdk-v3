@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class CardBindingRequest implements ModelInterface, ArrayAccess
+class CardInfoResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'CardBindingRequest';
+    protected static $swaggerModelName = 'CardInfoResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,12 +26,11 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'request' => '\Cardpay\model\Request',
-        'card_account' => '\Cardpay\model\CardBindingCardAccount',
-        'customer' => '\Cardpay\model\RecurringCustomer',
-        'merchant_order' => '\Cardpay\model\CardBindingMerchantOrder',
-        'recurring_data' => '\Cardpay\model\CardBindingData',
-        'return_urls' => '\Cardpay\model\ReturnUrls'
+        'bin' => 'string',
+        'card_brand' => 'string',
+        'card_issuer' => 'string',
+        'card_type' => 'string',
+        'country' => 'string'
     ];
 
     /**
@@ -40,12 +39,11 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'request' => null,
-        'card_account' => null,
-        'customer' => null,
-        'merchant_order' => null,
-        'recurring_data' => null,
-        'return_urls' => null
+        'bin' => null,
+        'card_brand' => null,
+        'card_issuer' => null,
+        'card_type' => null,
+        'country' => null
     ];
 
     /**
@@ -75,12 +73,11 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'request' => 'request',
-        'card_account' => 'card_account',
-        'customer' => 'customer',
-        'merchant_order' => 'merchant_order',
-        'recurring_data' => 'recurring_data',
-        'return_urls' => 'return_urls'
+        'bin' => 'bin',
+        'card_brand' => 'card_brand',
+        'card_issuer' => 'card_issuer',
+        'card_type' => 'card_type',
+        'country' => 'country'
     ];
 
     /**
@@ -89,12 +86,11 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'request' => 'setRequest',
-        'card_account' => 'setCardAccount',
-        'customer' => 'setCustomer',
-        'merchant_order' => 'setMerchantOrder',
-        'recurring_data' => 'setRecurringData',
-        'return_urls' => 'setReturnUrls'
+        'bin' => 'setBin',
+        'card_brand' => 'setCardBrand',
+        'card_issuer' => 'setCardIssuer',
+        'card_type' => 'setCardType',
+        'country' => 'setCountry'
     ];
 
     /**
@@ -103,12 +99,11 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'request' => 'getRequest',
-        'card_account' => 'getCardAccount',
-        'customer' => 'getCustomer',
-        'merchant_order' => 'getMerchantOrder',
-        'recurring_data' => 'getRecurringData',
-        'return_urls' => 'getReturnUrls'
+        'bin' => 'getBin',
+        'card_brand' => 'getCardBrand',
+        'card_issuer' => 'getCardIssuer',
+        'card_type' => 'getCardType',
+        'country' => 'getCountry'
     ];
 
     /**
@@ -171,12 +166,11 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
-        $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
-        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
-        $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
-        $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
+        $this->container['bin'] = isset($data['bin']) ? $data['bin'] : null;
+        $this->container['card_brand'] = isset($data['card_brand']) ? $data['card_brand'] : null;
+        $this->container['card_issuer'] = isset($data['card_issuer']) ? $data['card_issuer'] : null;
+        $this->container['card_type'] = isset($data['card_type']) ? $data['card_type'] : null;
+        $this->container['country'] = isset($data['country']) ? $data['country'] : null;
     }
 
     /**
@@ -188,12 +182,6 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['request'] === null) {
-            $invalidProperties[] = "'request' can't be null";
-        }
-        if ($this->container['card_account'] === null) {
-            $invalidProperties[] = "'card_account' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -210,145 +198,121 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets request
+     * Gets bin
      *
-     * @return \Cardpay\model\Request
+     * @return string
      */
-    public function getRequest()
+    public function getBin()
     {
-        return $this->container['request'];
+        return $this->container['bin'];
     }
 
     /**
-     * Sets request
+     * Sets bin
      *
-     * @param \Cardpay\model\Request $request Request
+     * @param string $bin Card BIN
      *
      * @return $this
      */
-    public function setRequest($request)
+    public function setBin($bin)
     {
-        $this->container['request'] = $request;
+        $this->container['bin'] = $bin;
 
         return $this;
     }
 
     /**
-     * Gets card_account
+     * Gets card_brand
      *
-     * @return \Cardpay\model\CardBindingCardAccount
+     * @return string
      */
-    public function getCardAccount()
+    public function getCardBrand()
     {
-        return $this->container['card_account'];
+        return $this->container['card_brand'];
     }
 
     /**
-     * Sets card_account
+     * Sets card_brand
      *
-     * @param \Cardpay\model\CardBindingCardAccount $card_account Information about card
+     * @param string $card_brand Card brand
      *
      * @return $this
      */
-    public function setCardAccount($card_account)
+    public function setCardBrand($card_brand)
     {
-        $this->container['card_account'] = $card_account;
+        $this->container['card_brand'] = $card_brand;
 
         return $this;
     }
 
     /**
-     * Gets customer
+     * Gets card_issuer
      *
-     * @return \Cardpay\model\RecurringCustomer
+     * @return string
      */
-    public function getCustomer()
+    public function getCardIssuer()
     {
-        return $this->container['customer'];
+        return $this->container['card_issuer'];
     }
 
     /**
-     * Sets customer
+     * Sets card_issuer
      *
-     * @param \Cardpay\model\RecurringCustomer $customer Customer data
+     * @param string $card_issuer Card issuer name
      *
      * @return $this
      */
-    public function setCustomer($customer)
+    public function setCardIssuer($card_issuer)
     {
-        $this->container['customer'] = $customer;
+        $this->container['card_issuer'] = $card_issuer;
 
         return $this;
     }
 
     /**
-     * Gets merchant_order
+     * Gets card_type
      *
-     * @return \Cardpay\model\CardBindingMerchantOrder
+     * @return string
      */
-    public function getMerchantOrder()
+    public function getCardType()
     {
-        return $this->container['merchant_order'];
+        return $this->container['card_type'];
     }
 
     /**
-     * Sets merchant_order
+     * Sets card_type
      *
-     * @param \Cardpay\model\CardBindingMerchantOrder $merchant_order Merchant order data
+     * @param string $card_type Card type
      *
      * @return $this
      */
-    public function setMerchantOrder($merchant_order)
+    public function setCardType($card_type)
     {
-        $this->container['merchant_order'] = $merchant_order;
+        $this->container['card_type'] = $card_type;
 
         return $this;
     }
 
     /**
-     * Gets recurring_data
+     * Gets country
      *
-     * @return \Cardpay\model\CardBindingData
+     * @return string
      */
-    public function getRecurringData()
+    public function getCountry()
     {
-        return $this->container['recurring_data'];
+        return $this->container['country'];
     }
 
     /**
-     * Sets recurring_data
+     * Sets country
      *
-     * @param \Cardpay\model\CardBindingData $recurring_data Data of recurring payment
+     * @param string $country Country code in [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) alpha-2 code format
      *
      * @return $this
      */
-    public function setRecurringData($recurring_data)
+    public function setCountry($country)
     {
-        $this->container['recurring_data'] = $recurring_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets return_urls
-     *
-     * @return \Cardpay\model\ReturnUrls
-     */
-    public function getReturnUrls()
-    {
-        return $this->container['return_urls'];
-    }
-
-    /**
-     * Sets return_urls
-     *
-     * @param \Cardpay\model\ReturnUrls $return_urls Merchant Return URLs
-     *
-     * @return $this
-     */
-    public function setReturnUrls($return_urls)
-    {
-        $this->container['return_urls'] = $return_urls;
+        $this->container['country'] = $country;
 
         return $this;
     }
@@ -359,7 +323,7 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -371,7 +335,7 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -384,7 +348,7 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -400,7 +364,7 @@ class CardBindingRequest implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }

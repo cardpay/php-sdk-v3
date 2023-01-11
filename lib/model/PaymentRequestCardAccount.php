@@ -28,6 +28,8 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'billing_address' => '\Cardpay\model\BillingAddress',
         'card' => '\Cardpay\model\PaymentRequestCard',
+        'encrypted_card_data' => 'string',
+        'recipient_info' => 'string',
         'token' => 'string'
     ];
 
@@ -39,6 +41,8 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'billing_address' => null,
         'card' => null,
+        'encrypted_card_data' => null,
+        'recipient_info' => null,
         'token' => null
     ];
 
@@ -71,6 +75,8 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'billing_address' => 'billing_address',
         'card' => 'card',
+        'encrypted_card_data' => 'encrypted_card_data',
+        'recipient_info' => 'recipient_info',
         'token' => 'token'
     ];
 
@@ -82,6 +88,8 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $setters = [
         'billing_address' => 'setBillingAddress',
         'card' => 'setCard',
+        'encrypted_card_data' => 'setEncryptedCardData',
+        'recipient_info' => 'setRecipientInfo',
         'token' => 'setToken'
     ];
 
@@ -93,6 +101,8 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     protected static $getters = [
         'billing_address' => 'getBillingAddress',
         'card' => 'getCard',
+        'encrypted_card_data' => 'getEncryptedCardData',
+        'recipient_info' => 'getRecipientInfo',
         'token' => 'getToken'
     ];
 
@@ -158,6 +168,8 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     {
         $this->container['billing_address'] = isset($data['billing_address']) ? $data['billing_address'] : null;
         $this->container['card'] = isset($data['card']) ? $data['card'] : null;
+        $this->container['encrypted_card_data'] = isset($data['encrypted_card_data']) ? $data['encrypted_card_data'] : null;
+        $this->container['recipient_info'] = isset($data['recipient_info']) ? $data['recipient_info'] : null;
         $this->container['token'] = isset($data['token']) ? $data['token'] : null;
     }
 
@@ -169,6 +181,22 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['encrypted_card_data']) && (mb_strlen($this->container['encrypted_card_data']) > 1000)) {
+            $invalidProperties[] = "invalid value for 'encrypted_card_data', the character length must be smaller than or equal to 1000.";
+        }
+
+        if (!is_null($this->container['encrypted_card_data']) && (mb_strlen($this->container['encrypted_card_data']) < 0)) {
+            $invalidProperties[] = "invalid value for 'encrypted_card_data', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['recipient_info']) && (mb_strlen($this->container['recipient_info']) > 500)) {
+            $invalidProperties[] = "invalid value for 'recipient_info', the character length must be smaller than or equal to 500.";
+        }
+
+        if (!is_null($this->container['recipient_info']) && (mb_strlen($this->container['recipient_info']) < 0)) {
+            $invalidProperties[] = "invalid value for 'recipient_info', the character length must be bigger than or equal to 0.";
+        }
 
         if (!is_null($this->container['token']) && (mb_strlen($this->container['token']) > 36)) {
             $invalidProperties[] = "invalid value for 'token', the character length must be smaller than or equal to 36.";
@@ -242,6 +270,68 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets encrypted_card_data
+     *
+     * @return string
+     */
+    public function getEncryptedCardData()
+    {
+        return $this->container['encrypted_card_data'];
+    }
+
+    /**
+     * Sets encrypted_card_data
+     *
+     * @param string $encrypted_card_data Encrypted card data. The field includes: pan, security_code, expiration. Only for Gateway mode.
+     *
+     * @return $this
+     */
+    public function setEncryptedCardData($encrypted_card_data)
+    {
+        if (!is_null($encrypted_card_data) && (mb_strlen($encrypted_card_data) > 1000)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_card_data when calling PaymentRequestCardAccount., must be smaller than or equal to 1000.');
+        }
+        if (!is_null($encrypted_card_data) && (mb_strlen($encrypted_card_data) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_card_data when calling PaymentRequestCardAccount., must be bigger than or equal to 0.');
+        }
+
+        $this->container['encrypted_card_data'] = $encrypted_card_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets recipient_info
+     *
+     * @return string
+     */
+    public function getRecipientInfo()
+    {
+        return $this->container['recipient_info'];
+    }
+
+    /**
+     * Sets recipient_info
+     *
+     * @param string $recipient_info Recipient full name. Property `recipient_info` may be required by Bank. In most cases it's Cardholder's name, contact Unlimint manager for requirements. Mandatory only for money transfer operation.
+     *
+     * @return $this
+     */
+    public function setRecipientInfo($recipient_info)
+    {
+        if (!is_null($recipient_info) && (mb_strlen($recipient_info) > 500)) {
+            throw new \InvalidArgumentException('invalid length for $recipient_info when calling PaymentRequestCardAccount., must be smaller than or equal to 500.');
+        }
+        if (!is_null($recipient_info) && (mb_strlen($recipient_info) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $recipient_info when calling PaymentRequestCardAccount., must be bigger than or equal to 0.');
+        }
+
+        $this->container['recipient_info'] = $recipient_info;
+
+        return $this;
+    }
+
+    /**
      * Gets token
      *
      * @return string
@@ -278,7 +368,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->container[$offset]);
     }
@@ -290,7 +380,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -303,7 +393,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -319,7 +409,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->container[$offset]);
     }
