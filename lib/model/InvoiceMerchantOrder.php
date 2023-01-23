@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MerchantOrder implements ModelInterface, ArrayAccess
+class InvoiceMerchantOrder implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MerchantOrder implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MerchantOrder';
+    protected static $swaggerModelName = 'InvoiceMerchantOrder';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -27,7 +27,7 @@ class MerchantOrder implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'id' => 'string',
-        'items' => '\Cardpay\model\Item[]'
+        'items' => '\Cardpay\model\InvoiceItem[]'
     ];
 
     /**
@@ -213,10 +213,10 @@ class MerchantOrder implements ModelInterface, ArrayAccess
     public function setId($id)
     {
         if ((mb_strlen($id) > 50)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling MerchantOrder., must be smaller than or equal to 50.');
+            throw new \InvalidArgumentException('invalid length for $id when calling InvoiceMerchantOrder., must be smaller than or equal to 50.');
         }
         if ((mb_strlen($id) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling MerchantOrder., must be bigger than or equal to 1.');
+            throw new \InvalidArgumentException('invalid length for $id when calling InvoiceMerchantOrder., must be bigger than or equal to 1.');
         }
 
         $this->container['id'] = $id;
@@ -227,7 +227,7 @@ class MerchantOrder implements ModelInterface, ArrayAccess
     /**
      * Gets items
      *
-     * @return \Cardpay\model\Item[]
+     * @return \Cardpay\model\InvoiceItem[]
      */
     public function getItems()
     {
@@ -237,7 +237,7 @@ class MerchantOrder implements ModelInterface, ArrayAccess
     /**
      * Sets items
      *
-     * @param \Cardpay\model\Item[] $items Array of items (in the shopping cart)
+     * @param \Cardpay\model\InvoiceItem[] $items Array of items (in the shopping cart)
      *
      * @return $this
      */

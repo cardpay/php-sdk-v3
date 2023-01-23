@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class InvoiceRequest implements ModelInterface, ArrayAccess
+class InvoiceItem implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'InvoiceRequest';
+    protected static $swaggerModelName = 'InvoiceItem';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,11 +26,9 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'request' => '\Cardpay\model\Request',
-        'customer' => '\Cardpay\model\InvoiceCustomer',
-        'invoice_data' => '\Cardpay\model\InvoiceDataRequest',
-        'merchant_order' => '\Cardpay\model\InvoiceMerchantOrder',
-        'return_urls' => '\Cardpay\model\ReturnUrls'
+        'count' => 'int',
+        'name' => 'string',
+        'price' => 'float'
     ];
 
     /**
@@ -39,11 +37,9 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'request' => null,
-        'customer' => null,
-        'invoice_data' => null,
-        'merchant_order' => null,
-        'return_urls' => null
+        'count' => 'int32',
+        'name' => null,
+        'price' => null
     ];
 
     /**
@@ -73,11 +69,9 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'request' => 'request',
-        'customer' => 'customer',
-        'invoice_data' => 'invoice_data',
-        'merchant_order' => 'merchant_order',
-        'return_urls' => 'return_urls'
+        'count' => 'count',
+        'name' => 'name',
+        'price' => 'price'
     ];
 
     /**
@@ -86,11 +80,9 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'request' => 'setRequest',
-        'customer' => 'setCustomer',
-        'invoice_data' => 'setInvoiceData',
-        'merchant_order' => 'setMerchantOrder',
-        'return_urls' => 'setReturnUrls'
+        'count' => 'setCount',
+        'name' => 'setName',
+        'price' => 'setPrice'
     ];
 
     /**
@@ -99,11 +91,9 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'request' => 'getRequest',
-        'customer' => 'getCustomer',
-        'invoice_data' => 'getInvoiceData',
-        'merchant_order' => 'getMerchantOrder',
-        'return_urls' => 'getReturnUrls'
+        'count' => 'getCount',
+        'name' => 'getName',
+        'price' => 'getPrice'
     ];
 
     /**
@@ -166,11 +156,9 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
-        $this->container['invoice_data'] = isset($data['invoice_data']) ? $data['invoice_data'] : null;
-        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
-        $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
+        $this->container['count'] = isset($data['count']) ? $data['count'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
+        $this->container['price'] = isset($data['price']) ? $data['price'] : null;
     }
 
     /**
@@ -182,14 +170,26 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['request'] === null) {
-            $invalidProperties[] = "'request' can't be null";
+        if ($this->container['count'] === null) {
+            $invalidProperties[] = "'count' can't be null";
         }
-        if ($this->container['invoice_data'] === null) {
-            $invalidProperties[] = "'invoice_data' can't be null";
+        if (($this->container['count'] < 1)) {
+            $invalidProperties[] = "invalid value for 'count', must be bigger than or equal to 1.";
         }
-        if ($this->container['merchant_order'] === null) {
-            $invalidProperties[] = "'merchant_order' can't be null";
+
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ((mb_strlen($this->container['name']) > 50)) {
+            $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 50.";
+        }
+
+        if ((mb_strlen($this->container['name']) < 1)) {
+            $invalidProperties[] = "invalid value for 'name', the character length must be bigger than or equal to 1.";
+        }
+
+        if ($this->container['price'] === null) {
+            $invalidProperties[] = "'price' can't be null";
         }
         return $invalidProperties;
     }
@@ -207,121 +207,85 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets request
+     * Gets count
      *
-     * @return \Cardpay\model\Request
+     * @return int
      */
-    public function getRequest()
+    public function getCount()
     {
-        return $this->container['request'];
+        return $this->container['count'];
     }
 
     /**
-     * Sets request
+     * Sets count
      *
-     * @param \Cardpay\model\Request $request Request
+     * @param int $count The count of product / service, provided to the customer. Any positive number
      *
      * @return $this
      */
-    public function setRequest($request)
+    public function setCount($count)
     {
-        $this->container['request'] = $request;
+
+        if (($count < 1)) {
+            throw new \InvalidArgumentException('invalid value for $count when calling InvoiceItem., must be bigger than or equal to 1.');
+        }
+
+        $this->container['count'] = $count;
 
         return $this;
     }
 
     /**
-     * Gets customer
+     * Gets name
      *
-     * @return \Cardpay\model\InvoiceCustomer
+     * @return string
      */
-    public function getCustomer()
+    public function getName()
     {
-        return $this->container['customer'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets customer
+     * Sets name
      *
-     * @param \Cardpay\model\InvoiceCustomer $customer Customer data
+     * @param string $name The name of product / service, provided to the customer
      *
      * @return $this
      */
-    public function setCustomer($customer)
+    public function setName($name)
     {
-        $this->container['customer'] = $customer;
+        if ((mb_strlen($name) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $name when calling InvoiceItem., must be smaller than or equal to 50.');
+        }
+        if ((mb_strlen($name) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $name when calling InvoiceItem., must be bigger than or equal to 1.');
+        }
+
+        $this->container['name'] = $name;
 
         return $this;
     }
 
     /**
-     * Gets invoice_data
+     * Gets price
      *
-     * @return \Cardpay\model\InvoiceDataRequest
+     * @return float
      */
-    public function getInvoiceData()
+    public function getPrice()
     {
-        return $this->container['invoice_data'];
+        return $this->container['price'];
     }
 
     /**
-     * Sets invoice_data
+     * Sets price
      *
-     * @param \Cardpay\model\InvoiceDataRequest $invoice_data Invoice data
+     * @param float $price Price of product / service with dot as a decimal separator, must be less than a 1000000 (one million, NOT inclusive)  For currencies with 0 digits after digital separator (like VND, IDR and others) - limit is 200000000 (200 million, NOT inclusive)
      *
      * @return $this
      */
-    public function setInvoiceData($invoice_data)
+    public function setPrice($price)
     {
-        $this->container['invoice_data'] = $invoice_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets merchant_order
-     *
-     * @return \Cardpay\model\InvoiceMerchantOrder
-     */
-    public function getMerchantOrder()
-    {
-        return $this->container['merchant_order'];
-    }
-
-    /**
-     * Sets merchant_order
-     *
-     * @param \Cardpay\model\InvoiceMerchantOrder $merchant_order Merchant order data
-     *
-     * @return $this
-     */
-    public function setMerchantOrder($merchant_order)
-    {
-        $this->container['merchant_order'] = $merchant_order;
-
-        return $this;
-    }
-
-    /**
-     * Gets return_urls
-     *
-     * @return \Cardpay\model\ReturnUrls
-     */
-    public function getReturnUrls()
-    {
-        return $this->container['return_urls'];
-    }
-
-    /**
-     * Sets return_urls
-     *
-     * @param \Cardpay\model\ReturnUrls $return_urls Return URLs are the URLs where customer returns by pressing “Back to the shop” or “Cancel” button in Payment Page mode
-     *
-     * @return $this
-     */
-    public function setReturnUrls($return_urls)
-    {
-        $this->container['return_urls'] = $return_urls;
+        $this->container['price'] = $price;
 
         return $this;
     }

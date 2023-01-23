@@ -26,10 +26,10 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'customer' => '\Cardpay\model\Customer',
+        'customer' => '\Cardpay\model\InvoiceCustomer',
         'invoice_data' => '\Cardpay\model\InvoiceGetDataResponse',
         'invoice_url' => 'string',
-        'merchant_order' => '\Cardpay\model\MerchantOrder'
+        'merchant_order' => '\Cardpay\model\InvoiceMerchantOrder'
     ];
 
     /**
@@ -203,7 +203,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
     /**
      * Gets customer
      *
-     * @return \Cardpay\model\Customer
+     * @return \Cardpay\model\InvoiceCustomer
      */
     public function getCustomer()
     {
@@ -213,7 +213,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets customer
      *
-     * @param \Cardpay\model\Customer $customer Customer data
+     * @param \Cardpay\model\InvoiceCustomer $customer Customer data
      *
      * @return $this
      */
@@ -275,7 +275,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
     /**
      * Gets merchant_order
      *
-     * @return \Cardpay\model\MerchantOrder
+     * @return \Cardpay\model\InvoiceMerchantOrder
      */
     public function getMerchantOrder()
     {
@@ -285,7 +285,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
     /**
      * Sets merchant_order
      *
-     * @param \Cardpay\model\MerchantOrder $merchant_order Merchant order data
+     * @param \Cardpay\model\InvoiceMerchantOrder $merchant_order Merchant order data
      *
      * @return $this
      */

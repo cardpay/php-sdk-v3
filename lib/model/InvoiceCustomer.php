@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class Customer implements ModelInterface, ArrayAccess
+class InvoiceCustomer implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class Customer implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'Customer';
+    protected static $swaggerModelName = 'InvoiceCustomer';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -215,10 +215,10 @@ class Customer implements ModelInterface, ArrayAccess
     public function setEmail($email)
     {
         if (!is_null($email) && (mb_strlen($email) > 256)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling Customer., must be smaller than or equal to 256.');
+            throw new \InvalidArgumentException('invalid length for $email when calling InvoiceCustomer., must be smaller than or equal to 256.');
         }
         if (!is_null($email) && (mb_strlen($email) < 3)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling Customer., must be bigger than or equal to 3.');
+            throw new \InvalidArgumentException('invalid length for $email when calling InvoiceCustomer., must be bigger than or equal to 3.');
         }
 
         $this->container['email'] = $email;
@@ -246,10 +246,10 @@ class Customer implements ModelInterface, ArrayAccess
     public function setPhone($phone)
     {
         if (!is_null($phone) && (mb_strlen($phone) > 18)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling Customer., must be smaller than or equal to 18.');
+            throw new \InvalidArgumentException('invalid length for $phone when calling InvoiceCustomer., must be smaller than or equal to 18.');
         }
         if (!is_null($phone) && (mb_strlen($phone) < 8)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling Customer., must be bigger than or equal to 8.');
+            throw new \InvalidArgumentException('invalid length for $phone when calling InvoiceCustomer., must be bigger than or equal to 8.');
         }
 
         $this->container['phone'] = $phone;
