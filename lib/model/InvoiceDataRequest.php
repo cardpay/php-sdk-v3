@@ -252,7 +252,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     /**
      * Sets expire_at
      *
-     * @param \DateTime $expire_at Date of invoice expiring. Invoice cannot be used after this date.
+     * @param \DateTime $expire_at Date and time of invoice expiring. Invoice cannot be used after this date and time.
      *
      * @return $this
      */

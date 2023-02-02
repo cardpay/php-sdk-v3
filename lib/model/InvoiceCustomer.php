@@ -164,22 +164,6 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 256)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 256.";
-        }
-
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 3)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 3.";
-        }
-
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 18)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 18.";
-        }
-
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 8)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 8.";
-        }
-
         return $invalidProperties;
     }
 
@@ -214,13 +198,6 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
      */
     public function setEmail($email)
     {
-        if (!is_null($email) && (mb_strlen($email) > 256)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling InvoiceCustomer., must be smaller than or equal to 256.');
-        }
-        if (!is_null($email) && (mb_strlen($email) < 3)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling InvoiceCustomer., must be bigger than or equal to 3.');
-        }
-
         $this->container['email'] = $email;
 
         return $this;
@@ -245,13 +222,6 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
      */
     public function setPhone($phone)
     {
-        if (!is_null($phone) && (mb_strlen($phone) > 18)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling InvoiceCustomer., must be smaller than or equal to 18.');
-        }
-        if (!is_null($phone) && (mb_strlen($phone) < 8)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling InvoiceCustomer., must be bigger than or equal to 8.');
-        }
-
         $this->container['phone'] = $phone;
 
         return $this;
