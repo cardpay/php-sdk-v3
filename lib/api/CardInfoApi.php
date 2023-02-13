@@ -68,7 +68,7 @@ class CardInfoApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Cardpay\model\CardInfoResponse
+     * @return \Cardpay\model\CardInfoResponse[]
      */
     public function cardInfo($card_info_request)
     {
@@ -85,11 +85,11 @@ class CardInfoApi
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Cardpay\model\CardInfoResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Cardpay\model\CardInfoResponse[], HTTP status code, HTTP response headers (array of strings)
      */
     public function cardInfoWithHttpInfo($card_info_request)
     {
-        $returnType = '\Cardpay\model\CardInfoResponse';
+        $returnType = '\Cardpay\model\CardInfoResponse[]';
         $request = $this->cardInfoRequest($card_info_request);
 
         try {
@@ -141,7 +141,7 @@ class CardInfoApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\CardInfoResponse',
+                        '\Cardpay\model\CardInfoResponse[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -215,7 +215,7 @@ class CardInfoApi
      */
     public function cardInfoAsyncWithHttpInfo($card_info_request)
     {
-        $returnType = '\Cardpay\model\CardInfoResponse';
+        $returnType = '\Cardpay\model\CardInfoResponse[]';
         $request = $this->cardInfoRequest($card_info_request);
 
         return $this->client
