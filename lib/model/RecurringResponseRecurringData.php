@@ -26,7 +26,6 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'action_code' => 'string',
         'amount' => 'float',
         'arn' => 'string',
         'auth_code' => 'string',
@@ -34,6 +33,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'currency' => 'string',
         'decline_code' => 'string',
         'decline_reason' => 'string',
+        'extended_decline_reason' => 'string',
         'filing' => '\Cardpay\model\RecurringResponseFiling',
         'id' => 'string',
         'initiator' => 'string',
@@ -57,7 +57,6 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'action_code' => null,
         'amount' => null,
         'arn' => null,
         'auth_code' => null,
@@ -65,6 +64,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'currency' => null,
         'decline_code' => null,
         'decline_reason' => null,
+        'extended_decline_reason' => null,
         'filing' => null,
         'id' => null,
         'initiator' => null,
@@ -109,7 +109,6 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'action_code' => 'action_code',
         'amount' => 'amount',
         'arn' => 'arn',
         'auth_code' => 'auth_code',
@@ -117,6 +116,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'currency' => 'currency',
         'decline_code' => 'decline_code',
         'decline_reason' => 'decline_reason',
+        'extended_decline_reason' => 'extended_decline_reason',
         'filing' => 'filing',
         'id' => 'id',
         'initiator' => 'initiator',
@@ -140,7 +140,6 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'action_code' => 'setActionCode',
         'amount' => 'setAmount',
         'arn' => 'setArn',
         'auth_code' => 'setAuthCode',
@@ -148,6 +147,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'currency' => 'setCurrency',
         'decline_code' => 'setDeclineCode',
         'decline_reason' => 'setDeclineReason',
+        'extended_decline_reason' => 'setExtendedDeclineReason',
         'filing' => 'setFiling',
         'id' => 'setId',
         'initiator' => 'setInitiator',
@@ -171,7 +171,6 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'action_code' => 'getActionCode',
         'amount' => 'getAmount',
         'arn' => 'getArn',
         'auth_code' => 'getAuthCode',
@@ -179,6 +178,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'currency' => 'getCurrency',
         'decline_code' => 'getDeclineCode',
         'decline_reason' => 'getDeclineReason',
+        'extended_decline_reason' => 'getExtendedDeclineReason',
         'filing' => 'getFiling',
         'id' => 'getId',
         'initiator' => 'getInitiator',
@@ -342,7 +342,6 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['action_code'] = isset($data['action_code']) ? $data['action_code'] : null;
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
         $this->container['arn'] = isset($data['arn']) ? $data['arn'] : null;
         $this->container['auth_code'] = isset($data['auth_code']) ? $data['auth_code'] : null;
@@ -350,6 +349,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['decline_code'] = isset($data['decline_code']) ? $data['decline_code'] : null;
         $this->container['decline_reason'] = isset($data['decline_reason']) ? $data['decline_reason'] : null;
+        $this->container['extended_decline_reason'] = isset($data['extended_decline_reason']) ? $data['extended_decline_reason'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
@@ -422,30 +422,6 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
-
-    /**
-     * Gets action_code
-     *
-     * @return string
-     */
-    public function getActionCode()
-    {
-        return $this->container['action_code'];
-    }
-
-    /**
-     * Sets action_code
-     *
-     * @param string $action_code Action code (only in decline case)
-     *
-     * @return $this
-     */
-    public function setActionCode($action_code)
-    {
-        $this->container['action_code'] = $action_code;
-
-        return $this;
-    }
 
     /**
      * Gets amount
@@ -611,6 +587,30 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     public function setDeclineReason($decline_reason)
     {
         $this->container['decline_reason'] = $decline_reason;
+
+        return $this;
+    }
+
+    /**
+     * Gets extended_decline_reason
+     *
+     * @return string
+     */
+    public function getExtendedDeclineReason()
+    {
+        return $this->container['extended_decline_reason'];
+    }
+
+    /**
+     * Sets extended_decline_reason
+     *
+     * @param string $extended_decline_reason Original decline reason. Can be presented in responses if original network response code is presented and option is enabled for Merchant. Not presented by default, ask Unlimint manager to enable it if needed.
+     *
+     * @return $this
+     */
+    public function setExtendedDeclineReason($extended_decline_reason)
+    {
+        $this->container['extended_decline_reason'] = $extended_decline_reason;
 
         return $this;
     }
