@@ -28,7 +28,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
         'customer' => '\Cardpay\model\InvoiceCustomer',
-        'invoice_data' => '\Cardpay\model\InvoiceDataRequest',
+        'invoice_data' => '\Cardpay\model\InvoiceData',
         'merchant_order' => '\Cardpay\model\InvoiceMerchantOrder',
         'return_urls' => '\Cardpay\model\ReturnUrls'
     ];
@@ -257,7 +257,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Gets invoice_data
      *
-     * @return \Cardpay\model\InvoiceDataRequest
+     * @return \Cardpay\model\InvoiceData
      */
     public function getInvoiceData()
     {
@@ -267,7 +267,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Sets invoice_data
      *
-     * @param \Cardpay\model\InvoiceDataRequest $invoice_data Invoice data
+     * @param \Cardpay\model\InvoiceData $invoice_data Invoice data
      *
      * @return $this
      */
@@ -315,7 +315,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Sets return_urls
      *
-     * @param \Cardpay\model\ReturnUrls $return_urls Return URLs are the URLs where customer returns by pressing “Back to the shop” or “Cancel” button in Payment Page mode
+     * @param \Cardpay\model\ReturnUrls $return_urls Return URLs are the URLs where customer returns by pressing 'Back to the shop' or 'Cancel' button in Payment Page mode
      *
      * @return $this
      */

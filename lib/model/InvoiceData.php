@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class InvoiceDataRequest implements ModelInterface, ArrayAccess
+class InvoiceData implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'InvoiceDataRequest';
+    protected static $swaggerModelName = 'InvoiceData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -28,7 +28,9 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'amount' => 'float',
         'currency' => 'string',
-        'expire_at' => '\DateTime'
+        'expire_at' => '\DateTime',
+        'installment_type' => 'string',
+        'installments' => 'int[]'
     ];
 
     /**
@@ -39,7 +41,9 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'amount' => null,
         'currency' => null,
-        'expire_at' => 'date-time'
+        'expire_at' => 'date-time',
+        'installment_type' => null,
+        'installments' => 'int32'
     ];
 
     /**
@@ -71,7 +75,9 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'amount' => 'amount',
         'currency' => 'currency',
-        'expire_at' => 'expire_at'
+        'expire_at' => 'expire_at',
+        'installment_type' => 'installment_type',
+        'installments' => 'installments'
     ];
 
     /**
@@ -82,7 +88,9 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     protected static $setters = [
         'amount' => 'setAmount',
         'currency' => 'setCurrency',
-        'expire_at' => 'setExpireAt'
+        'expire_at' => 'setExpireAt',
+        'installment_type' => 'setInstallmentType',
+        'installments' => 'setInstallments'
     ];
 
     /**
@@ -93,7 +101,9 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     protected static $getters = [
         'amount' => 'getAmount',
         'currency' => 'getCurrency',
-        'expire_at' => 'getExpireAt'
+        'expire_at' => 'getExpireAt',
+        'installment_type' => 'getInstallmentType',
+        'installments' => 'getInstallments'
     ];
 
     /**
@@ -159,6 +169,8 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['expire_at'] = isset($data['expire_at']) ? $data['expire_at'] : null;
+        $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
+        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
     }
 
     /**
@@ -228,7 +240,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     /**
      * Sets currency
      *
-     * @param string $currency ISO 4217 currency code
+     * @param string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
      *
      * @return $this
      */
@@ -259,6 +271,54 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     public function setExpireAt($expire_at)
     {
         $this->container['expire_at'] = $expire_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets installment_type
+     *
+     * @return string
+     */
+    public function getInstallmentType()
+    {
+        return $this->container['installment_type'];
+    }
+
+    /**
+     * Sets installment_type
+     *
+     * @param string $installment_type Installment type
+     *
+     * @return $this
+     */
+    public function setInstallmentType($installment_type)
+    {
+        $this->container['installment_type'] = $installment_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets installments
+     *
+     * @return int[]
+     */
+    public function getInstallments()
+    {
+        return $this->container['installments'];
+    }
+
+    /**
+     * Sets installments
+     *
+     * @param int[] $installments Number of installments. It depends on country.
+     *
+     * @return $this
+     */
+    public function setInstallments($installments)
+    {
+        $this->container['installments'] = $installments;
 
         return $this;
     }
