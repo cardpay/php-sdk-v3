@@ -41,6 +41,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'installment_type' => 'string',
         'invalid_data' => 'string[]',
         'is_3d' => 'bool',
+        'network_trans_id' => 'string',
         'note' => 'string',
         'payments' => 'string',
         'rrn' => 'string',
@@ -72,6 +73,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'installment_type' => null,
         'invalid_data' => null,
         'is_3d' => null,
+        'network_trans_id' => null,
         'note' => null,
         'payments' => null,
         'rrn' => null,
@@ -124,6 +126,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'installment_type' => 'installment_type',
         'invalid_data' => 'invalid_data',
         'is_3d' => 'is_3d',
+        'network_trans_id' => 'network_trans_id',
         'note' => 'note',
         'payments' => 'payments',
         'rrn' => 'rrn',
@@ -155,6 +158,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'installment_type' => 'setInstallmentType',
         'invalid_data' => 'setInvalidData',
         'is_3d' => 'setIs3d',
+        'network_trans_id' => 'setNetworkTransId',
         'note' => 'setNote',
         'payments' => 'setPayments',
         'rrn' => 'setRrn',
@@ -186,6 +190,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'installment_type' => 'getInstallmentType',
         'invalid_data' => 'getInvalidData',
         'is_3d' => 'getIs3d',
+        'network_trans_id' => 'getNetworkTransId',
         'note' => 'getNote',
         'payments' => 'getPayments',
         'rrn' => 'getRrn',
@@ -357,6 +362,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
         $this->container['invalid_data'] = isset($data['invalid_data']) ? $data['invalid_data'] : null;
         $this->container['is_3d'] = isset($data['is_3d']) ? $data['is_3d'] : null;
+        $this->container['network_trans_id'] = isset($data['network_trans_id']) ? $data['network_trans_id'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['payments'] = isset($data['payments']) ? $data['payments'] : null;
         $this->container['rrn'] = isset($data['rrn']) ? $data['rrn'] : null;
@@ -779,6 +785,30 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     public function setIs3d($is_3d)
     {
         $this->container['is_3d'] = $is_3d;
+
+        return $this;
+    }
+
+    /**
+     * Gets network_trans_id
+     *
+     * @return string
+     */
+    public function getNetworkTransId()
+    {
+        return $this->container['network_trans_id'];
+    }
+
+    /**
+     * Sets network_trans_id
+     *
+     * @param string $network_trans_id Network Reference Number of original transaction
+     *
+     * @return $this
+     */
+    public function setNetworkTransId($network_trans_id)
+    {
+        $this->container['network_trans_id'] = $network_trans_id;
 
         return $this;
     }

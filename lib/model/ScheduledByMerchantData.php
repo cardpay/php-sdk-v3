@@ -33,6 +33,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'filing' => '\Cardpay\model\RecurringResponseFiling',
         'generate_token' => 'bool',
         'initiator' => 'string',
+        'network_trans_id' => 'string',
         'note' => 'string',
         'scheduled_type' => 'string',
         'three_ds_challenge_indicator' => 'string',
@@ -52,6 +53,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'filing' => null,
         'generate_token' => null,
         'initiator' => null,
+        'network_trans_id' => null,
         'note' => null,
         'scheduled_type' => null,
         'three_ds_challenge_indicator' => null,
@@ -92,6 +94,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'filing' => 'filing',
         'generate_token' => 'generate_token',
         'initiator' => 'initiator',
+        'network_trans_id' => 'network_trans_id',
         'note' => 'note',
         'scheduled_type' => 'scheduled_type',
         'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
@@ -111,6 +114,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'filing' => 'setFiling',
         'generate_token' => 'setGenerateToken',
         'initiator' => 'setInitiator',
+        'network_trans_id' => 'setNetworkTransId',
         'note' => 'setNote',
         'scheduled_type' => 'setScheduledType',
         'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
@@ -130,6 +134,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         'filing' => 'getFiling',
         'generate_token' => 'getGenerateToken',
         'initiator' => 'getInitiator',
+        'network_trans_id' => 'getNetworkTransId',
         'note' => 'getNote',
         'scheduled_type' => 'getScheduledType',
         'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
@@ -224,6 +229,7 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
+        $this->container['network_trans_id'] = isset($data['network_trans_id']) ? $data['network_trans_id'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['scheduled_type'] = isset($data['scheduled_type']) ? $data['scheduled_type'] : null;
         $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
@@ -478,6 +484,30 @@ class ScheduledByMerchantData implements ModelInterface, ArrayAccess
         }
 
         $this->container['initiator'] = $initiator;
+
+        return $this;
+    }
+
+    /**
+     * Gets network_trans_id
+     *
+     * @return string
+     */
+    public function getNetworkTransId()
+    {
+        return $this->container['network_trans_id'];
+    }
+
+    /**
+     * Sets network_trans_id
+     *
+     * @param string $network_trans_id Network Reference Number of original transaction
+     *
+     * @return $this
+     */
+    public function setNetworkTransId($network_trans_id)
+    {
+        $this->container['network_trans_id'] = $network_trans_id;
 
         return $this;
     }
