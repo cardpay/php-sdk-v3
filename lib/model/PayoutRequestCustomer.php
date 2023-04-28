@@ -26,6 +26,7 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'birth_date' => 'string',
         'document_type' => 'string',
         'email' => 'string',
         'first_name' => 'string',
@@ -44,6 +45,7 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'birth_date' => null,
         'document_type' => null,
         'email' => null,
         'first_name' => null,
@@ -83,6 +85,7 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'birth_date' => 'birth_date',
         'document_type' => 'document_type',
         'email' => 'email',
         'first_name' => 'first_name',
@@ -101,6 +104,7 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'birth_date' => 'setBirthDate',
         'document_type' => 'setDocumentType',
         'email' => 'setEmail',
         'first_name' => 'setFirstName',
@@ -119,6 +123,7 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'birth_date' => 'getBirthDate',
         'document_type' => 'getDocumentType',
         'email' => 'getEmail',
         'first_name' => 'getFirstName',
@@ -191,6 +196,7 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['birth_date'] = isset($data['birth_date']) ? $data['birth_date'] : null;
         $this->container['document_type'] = isset($data['document_type']) ? $data['document_type'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
         $this->container['first_name'] = isset($data['first_name']) ? $data['first_name'] : null;
@@ -286,6 +292,30 @@ class PayoutRequestCustomer implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets birth_date
+     *
+     * @return string
+     */
+    public function getBirthDate()
+    {
+        return $this->container['birth_date'];
+    }
+
+    /**
+     * Sets birth_date
+     *
+     * @param string $birth_date Customer birth date
+     *
+     * @return $this
+     */
+    public function setBirthDate($birth_date)
+    {
+        $this->container['birth_date'] = $birth_date;
+
+        return $this;
+    }
 
     /**
      * Gets document_type
