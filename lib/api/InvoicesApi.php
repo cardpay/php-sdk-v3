@@ -17,7 +17,7 @@ use Cardpay\Configuration;
 use Cardpay\HeaderSelector;
 use Cardpay\ObjectSerializer;
 
-class InvoiceRestControllerApi
+class InvoicesApi
 {
     /**
      * @var ClientInterface
@@ -60,9 +60,9 @@ class InvoiceRestControllerApi
     }
 
     /**
-     * Operation createInvoiceUsingPOST
+     * Operation createInvoice
      *
-     * createInvoice
+     * Create invoice
      *
      * @param  \Cardpay\model\InvoiceRequest $invoice_request invoiceRequest (required)
      *
@@ -70,16 +70,16 @@ class InvoiceRestControllerApi
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\InvoiceCreationResponse
      */
-    public function createInvoiceUsingPOST($invoice_request)
+    public function createInvoice($invoice_request)
     {
-        list($response) = $this->createInvoiceUsingPOSTWithHttpInfo($invoice_request);
+        list($response) = $this->createInvoiceWithHttpInfo($invoice_request);
         return $response;
     }
 
     /**
-     * Operation createInvoiceUsingPOSTWithHttpInfo
+     * Operation createInvoiceWithHttpInfo
      *
-     * createInvoice
+     * Create invoice
      *
      * @param  \Cardpay\model\InvoiceRequest $invoice_request invoiceRequest (required)
      *
@@ -87,10 +87,10 @@ class InvoiceRestControllerApi
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\InvoiceCreationResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createInvoiceUsingPOSTWithHttpInfo($invoice_request)
+    public function createInvoiceWithHttpInfo($invoice_request)
     {
         $returnType = '\Cardpay\model\InvoiceCreationResponse';
-        $request = $this->createInvoiceUsingPOSTRequest($invoice_request);
+        $request = $this->createInvoiceRequest($invoice_request);
 
         try {
             $options = $this->createHttpClientOption();
@@ -146,24 +146,56 @@ class InvoiceRestControllerApi
                     );
                     $e->setResponseObject($data);
                     break;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\BadRequestError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\AuthenticationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\OAuthError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
             }
             throw $e;
         }
     }
 
     /**
-     * Operation createInvoiceUsingPOSTAsync
+     * Operation createInvoiceAsync
      *
-     * createInvoice
+     * Create invoice
      *
      * @param  \Cardpay\model\InvoiceRequest $invoice_request invoiceRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createInvoiceUsingPOSTAsync($invoice_request)
+    public function createInvoiceAsync($invoice_request)
     {
-        return $this->createInvoiceUsingPOSTAsyncWithHttpInfo($invoice_request)
+        return $this->createInvoiceAsyncWithHttpInfo($invoice_request)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -172,19 +204,19 @@ class InvoiceRestControllerApi
     }
 
     /**
-     * Operation createInvoiceUsingPOSTAsyncWithHttpInfo
+     * Operation createInvoiceAsyncWithHttpInfo
      *
-     * createInvoice
+     * Create invoice
      *
      * @param  \Cardpay\model\InvoiceRequest $invoice_request invoiceRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createInvoiceUsingPOSTAsyncWithHttpInfo($invoice_request)
+    public function createInvoiceAsyncWithHttpInfo($invoice_request)
     {
         $returnType = '\Cardpay\model\InvoiceCreationResponse';
-        $request = $this->createInvoiceUsingPOSTRequest($invoice_request);
+        $request = $this->createInvoiceRequest($invoice_request);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -224,19 +256,19 @@ class InvoiceRestControllerApi
     }
 
     /**
-     * Create request for operation 'createInvoiceUsingPOST'
+     * Create request for operation 'createInvoice'
      *
      * @param  \Cardpay\model\InvoiceRequest $invoice_request invoiceRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function createInvoiceUsingPOSTRequest($invoice_request)
+    protected function createInvoiceRequest($invoice_request)
     {
         // verify the required parameter 'invoice_request' is set
         if ($invoice_request === null || (is_array($invoice_request) && count($invoice_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $invoice_request when calling createInvoiceUsingPOST'
+                'Missing the required parameter $invoice_request when calling createInvoice'
             );
         }
 
@@ -257,11 +289,11 @@ class InvoiceRestControllerApi
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['*/*']
+                ['application/json']
             );
         } else {
             $headers = $this->headerSelector->selectHeaders(
-                ['*/*'],
+                ['application/json'],
                 ['application/json']
             );
         }
@@ -322,37 +354,37 @@ class InvoiceRestControllerApi
     }
 
     /**
-     * Operation getInvoiceInfoUsingGET
+     * Operation getInvoice
      *
-     * getInvoiceInfo
+     * Get invoice information
      *
-     * @param  string $invoice_id invoiceId (required)
+     * @param  string $invoice_id Invoice ID (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\InvoiceGetResponse
      */
-    public function getInvoiceInfoUsingGET($invoice_id)
+    public function getInvoice($invoice_id)
     {
-        list($response) = $this->getInvoiceInfoUsingGETWithHttpInfo($invoice_id);
+        list($response) = $this->getInvoiceWithHttpInfo($invoice_id);
         return $response;
     }
 
     /**
-     * Operation getInvoiceInfoUsingGETWithHttpInfo
+     * Operation getInvoiceWithHttpInfo
      *
-     * getInvoiceInfo
+     * Get invoice information
      *
-     * @param  string $invoice_id invoiceId (required)
+     * @param  string $invoice_id Invoice ID (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\InvoiceGetResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getInvoiceInfoUsingGETWithHttpInfo($invoice_id)
+    public function getInvoiceWithHttpInfo($invoice_id)
     {
         $returnType = '\Cardpay\model\InvoiceGetResponse';
-        $request = $this->getInvoiceInfoUsingGETRequest($invoice_id);
+        $request = $this->getInvoiceRequest($invoice_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -408,24 +440,56 @@ class InvoiceRestControllerApi
                     );
                     $e->setResponseObject($data);
                     break;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\AuthenticationError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\OAuthError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\NotFoundError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
+                case 500:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Cardpay\model\ApiError',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
             }
             throw $e;
         }
     }
 
     /**
-     * Operation getInvoiceInfoUsingGETAsync
+     * Operation getInvoiceAsync
      *
-     * getInvoiceInfo
+     * Get invoice information
      *
-     * @param  string $invoice_id invoiceId (required)
+     * @param  string $invoice_id Invoice ID (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getInvoiceInfoUsingGETAsync($invoice_id)
+    public function getInvoiceAsync($invoice_id)
     {
-        return $this->getInvoiceInfoUsingGETAsyncWithHttpInfo($invoice_id)
+        return $this->getInvoiceAsyncWithHttpInfo($invoice_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -434,19 +498,19 @@ class InvoiceRestControllerApi
     }
 
     /**
-     * Operation getInvoiceInfoUsingGETAsyncWithHttpInfo
+     * Operation getInvoiceAsyncWithHttpInfo
      *
-     * getInvoiceInfo
+     * Get invoice information
      *
-     * @param  string $invoice_id invoiceId (required)
+     * @param  string $invoice_id Invoice ID (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getInvoiceInfoUsingGETAsyncWithHttpInfo($invoice_id)
+    public function getInvoiceAsyncWithHttpInfo($invoice_id)
     {
         $returnType = '\Cardpay\model\InvoiceGetResponse';
-        $request = $this->getInvoiceInfoUsingGETRequest($invoice_id);
+        $request = $this->getInvoiceRequest($invoice_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -486,19 +550,19 @@ class InvoiceRestControllerApi
     }
 
     /**
-     * Create request for operation 'getInvoiceInfoUsingGET'
+     * Create request for operation 'getInvoice'
      *
-     * @param  string $invoice_id invoiceId (required)
+     * @param  string $invoice_id Invoice ID (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function getInvoiceInfoUsingGETRequest($invoice_id)
+    protected function getInvoiceRequest($invoice_id)
     {
         // verify the required parameter 'invoice_id' is set
         if ($invoice_id === null || (is_array($invoice_id) && count($invoice_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $invoice_id when calling getInvoiceInfoUsingGET'
+                'Missing the required parameter $invoice_id when calling getInvoice'
             );
         }
 
@@ -524,11 +588,11 @@ class InvoiceRestControllerApi
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
-                ['*/*']
+                ['application/json']
             );
         } else {
             $headers = $this->headerSelector->selectHeaders(
-                ['*/*'],
+                ['application/json'],
                 []
             );
         }

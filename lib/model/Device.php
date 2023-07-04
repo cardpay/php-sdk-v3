@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class InvoiceDataRequest implements ModelInterface, ArrayAccess
+class Device implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'InvoiceDataRequest';
+    protected static $swaggerModelName = 'Device';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,9 +26,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'amount' => 'float',
-        'currency' => 'string',
-        'expire_at' => '\DateTime'
+        'fingerprint' => 'string'
     ];
 
     /**
@@ -37,9 +35,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'amount' => null,
-        'currency' => null,
-        'expire_at' => 'date-time'
+        'fingerprint' => null
     ];
 
     /**
@@ -69,9 +65,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'amount' => 'amount',
-        'currency' => 'currency',
-        'expire_at' => 'expire_at'
+        'fingerprint' => 'fingerprint'
     ];
 
     /**
@@ -80,9 +74,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'amount' => 'setAmount',
-        'currency' => 'setCurrency',
-        'expire_at' => 'setExpireAt'
+        'fingerprint' => 'setFingerprint'
     ];
 
     /**
@@ -91,9 +83,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'amount' => 'getAmount',
-        'currency' => 'getCurrency',
-        'expire_at' => 'getExpireAt'
+        'fingerprint' => 'getFingerprint'
     ];
 
     /**
@@ -156,9 +146,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
-        $this->container['expire_at'] = isset($data['expire_at']) ? $data['expire_at'] : null;
+        $this->container['fingerprint'] = isset($data['fingerprint']) ? $data['fingerprint'] : null;
     }
 
     /**
@@ -170,12 +158,6 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['amount'] === null) {
-            $invalidProperties[] = "'amount' can't be null";
-        }
-        if ($this->container['currency'] === null) {
-            $invalidProperties[] = "'currency' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -192,73 +174,25 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets amount
-     *
-     * @return float
-     */
-    public function getAmount()
-    {
-        return $this->container['amount'];
-    }
-
-    /**
-     * Sets amount
-     *
-     * @param float $amount The total invoice amount in selected currency with dot as a decimal separator, must be less than 10 billion
-     *
-     * @return $this
-     */
-    public function setAmount($amount)
-    {
-        $this->container['amount'] = $amount;
-
-        return $this;
-    }
-
-    /**
-     * Gets currency
+     * Gets fingerprint
      *
      * @return string
      */
-    public function getCurrency()
+    public function getFingerprint()
     {
-        return $this->container['currency'];
+        return $this->container['fingerprint'];
     }
 
     /**
-     * Sets currency
+     * Sets fingerprint
      *
-     * @param string $currency ISO 4217 currency code
+     * @param string $fingerprint Customer's device fingerprint
      *
      * @return $this
      */
-    public function setCurrency($currency)
+    public function setFingerprint($fingerprint)
     {
-        $this->container['currency'] = $currency;
-
-        return $this;
-    }
-
-    /**
-     * Gets expire_at
-     *
-     * @return \DateTime
-     */
-    public function getExpireAt()
-    {
-        return $this->container['expire_at'];
-    }
-
-    /**
-     * Sets expire_at
-     *
-     * @param \DateTime $expire_at Date of invoice expiring. Invoice cannot be used after this date.
-     *
-     * @return $this
-     */
-    public function setExpireAt($expire_at)
-    {
-        $this->container['expire_at'] = $expire_at;
+        $this->container['fingerprint'] = $fingerprint;
 
         return $this;
     }
@@ -269,7 +203,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -281,7 +215,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
      *
      * @return mixed
      */
-    public function offsetGet($offset): mixed
+    public function offsetGet($offset)
     {
         return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
@@ -294,7 +228,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -310,7 +244,7 @@ class InvoiceDataRequest implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

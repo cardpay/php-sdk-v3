@@ -27,6 +27,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'birth_date' => '\DateTime',
+        'device' => '\Cardpay\model\Device',
         'document_type' => 'string',
         'email' => 'string',
         'first_name' => 'string',
@@ -48,6 +49,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'birth_date' => 'date-time',
+        'device' => null,
         'document_type' => null,
         'email' => null,
         'first_name' => null,
@@ -90,6 +92,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'birth_date' => 'birth_date',
+        'device' => 'device',
         'document_type' => 'document_type',
         'email' => 'email',
         'first_name' => 'first_name',
@@ -111,6 +114,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'birth_date' => 'setBirthDate',
+        'device' => 'setDevice',
         'document_type' => 'setDocumentType',
         'email' => 'setEmail',
         'first_name' => 'setFirstName',
@@ -132,6 +136,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'birth_date' => 'getBirthDate',
+        'device' => 'getDevice',
         'document_type' => 'getDocumentType',
         'email' => 'getEmail',
         'first_name' => 'getFirstName',
@@ -207,6 +212,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['birth_date'] = isset($data['birth_date']) ? $data['birth_date'] : null;
+        $this->container['device'] = isset($data['device']) ? $data['device'] : null;
         $this->container['document_type'] = isset($data['document_type']) ? $data['document_type'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
         $this->container['first_name'] = isset($data['first_name']) ? $data['first_name'] : null;
@@ -337,6 +343,30 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     public function setBirthDate($birth_date)
     {
         $this->container['birth_date'] = $birth_date;
+
+        return $this;
+    }
+
+    /**
+     * Gets device
+     *
+     * @return \Cardpay\model\Device
+     */
+    public function getDevice()
+    {
+        return $this->container['device'];
+    }
+
+    /**
+     * Sets device
+     *
+     * @param \Cardpay\model\Device $device Customer's device information
+     *
+     * @return $this
+     */
+    public function setDevice($device)
+    {
+        $this->container['device'] = $device;
 
         return $this;
     }

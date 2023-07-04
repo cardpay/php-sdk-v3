@@ -26,7 +26,13 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'card' => '\Cardpay\model\PayoutResponseCard',
+        'card_brand' => 'string',
+        'card_type' => 'string',
+        'expiration' => 'string',
+        'holder' => 'string',
+        'issuer' => 'string',
+        'issuing_country_code' => 'string',
+        'masked_pan' => 'string',
         'token' => 'string'
     ];
 
@@ -36,7 +42,13 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'card' => null,
+        'card_brand' => null,
+        'card_type' => null,
+        'expiration' => null,
+        'holder' => null,
+        'issuer' => null,
+        'issuing_country_code' => null,
+        'masked_pan' => null,
         'token' => null
     ];
 
@@ -67,7 +79,13 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'card' => 'card',
+        'card_brand' => 'card_brand',
+        'card_type' => 'card_type',
+        'expiration' => 'expiration',
+        'holder' => 'holder',
+        'issuer' => 'issuer',
+        'issuing_country_code' => 'issuing_country_code',
+        'masked_pan' => 'masked_pan',
         'token' => 'token'
     ];
 
@@ -77,7 +95,13 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'card' => 'setCard',
+        'card_brand' => 'setCardBrand',
+        'card_type' => 'setCardType',
+        'expiration' => 'setExpiration',
+        'holder' => 'setHolder',
+        'issuer' => 'setIssuer',
+        'issuing_country_code' => 'setIssuingCountryCode',
+        'masked_pan' => 'setMaskedPan',
         'token' => 'setToken'
     ];
 
@@ -87,7 +111,13 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'card' => 'getCard',
+        'card_brand' => 'getCardBrand',
+        'card_type' => 'getCardType',
+        'expiration' => 'getExpiration',
+        'holder' => 'getHolder',
+        'issuer' => 'getIssuer',
+        'issuing_country_code' => 'getIssuingCountryCode',
+        'masked_pan' => 'getMaskedPan',
         'token' => 'getToken'
     ];
 
@@ -132,8 +162,29 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const CARD_TYPE_DEBIT = 'DEBIT';
+    const CARD_TYPE_CREDIT = 'CREDIT';
+    const CARD_TYPE_PREPAID = 'PREPAID';
+    const CARD_TYPE_OTHER = 'OTHER';
+    const CARD_TYPE_UNKNOWN = 'UNKNOWN';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getCardTypeAllowableValues()
+    {
+        return [
+            self::CARD_TYPE_DEBIT,
+            self::CARD_TYPE_CREDIT,
+            self::CARD_TYPE_PREPAID,
+            self::CARD_TYPE_OTHER,
+            self::CARD_TYPE_UNKNOWN,
+        ];
+    }
     
 
     /**
@@ -151,7 +202,13 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['card'] = isset($data['card']) ? $data['card'] : null;
+        $this->container['card_brand'] = isset($data['card_brand']) ? $data['card_brand'] : null;
+        $this->container['card_type'] = isset($data['card_type']) ? $data['card_type'] : null;
+        $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
+        $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
+        $this->container['issuer'] = isset($data['issuer']) ? $data['issuer'] : null;
+        $this->container['issuing_country_code'] = isset($data['issuing_country_code']) ? $data['issuing_country_code'] : null;
+        $this->container['masked_pan'] = isset($data['masked_pan']) ? $data['masked_pan'] : null;
         $this->container['token'] = isset($data['token']) ? $data['token'] : null;
     }
 
@@ -163,6 +220,14 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        $allowedValues = $this->getCardTypeAllowableValues();
+        if (!is_null($this->container['card_type']) && !in_array($this->container['card_type'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'card_type', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
+        }
 
         return $invalidProperties;
     }
@@ -180,25 +245,178 @@ class PayoutResponseCardAccount implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets card
+     * Gets card_brand
      *
-     * @return \Cardpay\model\PayoutResponseCard
+     * @return string
      */
-    public function getCard()
+    public function getCardBrand()
     {
-        return $this->container['card'];
+        return $this->container['card_brand'];
     }
 
     /**
-     * Sets card
+     * Sets card_brand
      *
-     * @param \Cardpay\model\PayoutResponseCard $card Bank card data
+     * @param string $card_brand Card brand
      *
      * @return $this
      */
-    public function setCard($card)
+    public function setCardBrand($card_brand)
     {
-        $this->container['card'] = $card;
+        $this->container['card_brand'] = $card_brand;
+
+        return $this;
+    }
+
+    /**
+     * Gets card_type
+     *
+     * @return string
+     */
+    public function getCardType()
+    {
+        return $this->container['card_type'];
+    }
+
+    /**
+     * Sets card_type
+     *
+     * @param string $card_type Card type
+     *
+     * @return $this
+     */
+    public function setCardType($card_type)
+    {
+        $allowedValues = $this->getCardTypeAllowableValues();
+        if (!is_null($card_type) && !in_array($card_type, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'card_type', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['card_type'] = $card_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets expiration
+     *
+     * @return string
+     */
+    public function getExpiration()
+    {
+        return $this->container['expiration'];
+    }
+
+    /**
+     * Sets expiration
+     *
+     * @param string $expiration Customer’s card expiration date. Format: `mm/yyyy`
+     *
+     * @return $this
+     */
+    public function setExpiration($expiration)
+    {
+        $this->container['expiration'] = $expiration;
+
+        return $this;
+    }
+
+    /**
+     * Gets holder
+     *
+     * @return string
+     */
+    public function getHolder()
+    {
+        return $this->container['holder'];
+    }
+
+    /**
+     * Sets holder
+     *
+     * @param string $holder Customer's cardholder name. Any valid cardholder name. Not present by default, ask CardPay manager to enable it if needed.
+     *
+     * @return $this
+     */
+    public function setHolder($holder)
+    {
+        $this->container['holder'] = $holder;
+
+        return $this;
+    }
+
+    /**
+     * Gets issuer
+     *
+     * @return string
+     */
+    public function getIssuer()
+    {
+        return $this->container['issuer'];
+    }
+
+    /**
+     * Sets issuer
+     *
+     * @param string $issuer Card issuer
+     *
+     * @return $this
+     */
+    public function setIssuer($issuer)
+    {
+        $this->container['issuer'] = $issuer;
+
+        return $this;
+    }
+
+    /**
+     * Gets issuing_country_code
+     *
+     * @return string
+     */
+    public function getIssuingCountryCode()
+    {
+        return $this->container['issuing_country_code'];
+    }
+
+    /**
+     * Sets issuing_country_code
+     *
+     * @param string $issuing_country_code Country code of issuing card country
+     *
+     * @return $this
+     */
+    public function setIssuingCountryCode($issuing_country_code)
+    {
+        $this->container['issuing_country_code'] = $issuing_country_code;
+
+        return $this;
+    }
+
+    /**
+     * Gets masked_pan
+     *
+     * @return string
+     */
+    public function getMaskedPan()
+    {
+        return $this->container['masked_pan'];
+    }
+
+    /**
+     * Sets masked_pan
+     *
+     * @param string $masked_pan Masked PAN (shows first 6 digits and 4 last digits of the PAN)
+     *
+     * @return $this
+     */
+    public function setMaskedPan($masked_pan)
+    {
+        $this->container['masked_pan'] = $masked_pan;
 
         return $this;
     }

@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class InvoiceGetResponse implements ModelInterface, ArrayAccess
+class InvoiceItem implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'InvoiceGetResponse';
+    protected static $swaggerModelName = 'InvoiceItem';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,10 +26,9 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'customer' => '\Cardpay\model\InvoiceCustomer',
-        'invoice_data' => '\Cardpay\model\InvoiceGetDataResponse',
-        'invoice_url' => 'string',
-        'merchant_order' => '\Cardpay\model\InvoiceMerchantOrder'
+        'count' => 'int',
+        'name' => 'string',
+        'price' => 'float'
     ];
 
     /**
@@ -38,10 +37,9 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'customer' => null,
-        'invoice_data' => null,
-        'invoice_url' => null,
-        'merchant_order' => null
+        'count' => 'int32',
+        'name' => null,
+        'price' => null
     ];
 
     /**
@@ -71,10 +69,9 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'customer' => 'customer',
-        'invoice_data' => 'invoice_data',
-        'invoice_url' => 'invoice_url',
-        'merchant_order' => 'merchant_order'
+        'count' => 'count',
+        'name' => 'name',
+        'price' => 'price'
     ];
 
     /**
@@ -83,10 +80,9 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'customer' => 'setCustomer',
-        'invoice_data' => 'setInvoiceData',
-        'invoice_url' => 'setInvoiceUrl',
-        'merchant_order' => 'setMerchantOrder'
+        'count' => 'setCount',
+        'name' => 'setName',
+        'price' => 'setPrice'
     ];
 
     /**
@@ -95,10 +91,9 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'customer' => 'getCustomer',
-        'invoice_data' => 'getInvoiceData',
-        'invoice_url' => 'getInvoiceUrl',
-        'merchant_order' => 'getMerchantOrder'
+        'count' => 'getCount',
+        'name' => 'getName',
+        'price' => 'getPrice'
     ];
 
     /**
@@ -161,10 +156,9 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
-        $this->container['invoice_data'] = isset($data['invoice_data']) ? $data['invoice_data'] : null;
-        $this->container['invoice_url'] = isset($data['invoice_url']) ? $data['invoice_url'] : null;
-        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
+        $this->container['count'] = isset($data['count']) ? $data['count'] : null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
+        $this->container['price'] = isset($data['price']) ? $data['price'] : null;
     }
 
     /**
@@ -176,14 +170,26 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['customer'] === null) {
-            $invalidProperties[] = "'customer' can't be null";
+        if ($this->container['count'] === null) {
+            $invalidProperties[] = "'count' can't be null";
         }
-        if ($this->container['invoice_data'] === null) {
-            $invalidProperties[] = "'invoice_data' can't be null";
+        if (($this->container['count'] < 1)) {
+            $invalidProperties[] = "invalid value for 'count', must be bigger than or equal to 1.";
         }
-        if ($this->container['merchant_order'] === null) {
-            $invalidProperties[] = "'merchant_order' can't be null";
+
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ((mb_strlen($this->container['name']) > 50)) {
+            $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 50.";
+        }
+
+        if ((mb_strlen($this->container['name']) < 1)) {
+            $invalidProperties[] = "invalid value for 'name', the character length must be bigger than or equal to 1.";
+        }
+
+        if ($this->container['price'] === null) {
+            $invalidProperties[] = "'price' can't be null";
         }
         return $invalidProperties;
     }
@@ -201,97 +207,85 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets customer
+     * Gets count
      *
-     * @return \Cardpay\model\InvoiceCustomer
+     * @return int
      */
-    public function getCustomer()
+    public function getCount()
     {
-        return $this->container['customer'];
+        return $this->container['count'];
     }
 
     /**
-     * Sets customer
+     * Sets count
      *
-     * @param \Cardpay\model\InvoiceCustomer $customer Customer data
+     * @param int $count The count of product / service, provided to the customer. Any positive number
      *
      * @return $this
      */
-    public function setCustomer($customer)
+    public function setCount($count)
     {
-        $this->container['customer'] = $customer;
+
+        if (($count < 1)) {
+            throw new \InvalidArgumentException('invalid value for $count when calling InvoiceItem., must be bigger than or equal to 1.');
+        }
+
+        $this->container['count'] = $count;
 
         return $this;
     }
 
     /**
-     * Gets invoice_data
-     *
-     * @return \Cardpay\model\InvoiceGetDataResponse
-     */
-    public function getInvoiceData()
-    {
-        return $this->container['invoice_data'];
-    }
-
-    /**
-     * Sets invoice_data
-     *
-     * @param \Cardpay\model\InvoiceGetDataResponse $invoice_data Invoice data
-     *
-     * @return $this
-     */
-    public function setInvoiceData($invoice_data)
-    {
-        $this->container['invoice_data'] = $invoice_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets invoice_url
+     * Gets name
      *
      * @return string
      */
-    public function getInvoiceUrl()
+    public function getName()
     {
-        return $this->container['invoice_url'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets invoice_url
+     * Sets name
      *
-     * @param string $invoice_url Invoice URL
+     * @param string $name The name of product / service, provided to the customer
      *
      * @return $this
      */
-    public function setInvoiceUrl($invoice_url)
+    public function setName($name)
     {
-        $this->container['invoice_url'] = $invoice_url;
+        if ((mb_strlen($name) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $name when calling InvoiceItem., must be smaller than or equal to 50.');
+        }
+        if ((mb_strlen($name) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $name when calling InvoiceItem., must be bigger than or equal to 1.');
+        }
+
+        $this->container['name'] = $name;
 
         return $this;
     }
 
     /**
-     * Gets merchant_order
+     * Gets price
      *
-     * @return \Cardpay\model\InvoiceMerchantOrder
+     * @return float
      */
-    public function getMerchantOrder()
+    public function getPrice()
     {
-        return $this->container['merchant_order'];
+        return $this->container['price'];
     }
 
     /**
-     * Sets merchant_order
+     * Sets price
      *
-     * @param \Cardpay\model\InvoiceMerchantOrder $merchant_order Merchant order data
+     * @param float $price Price of product / service with dot as a decimal separator, must be less than a 1000000 (one million, NOT inclusive)  For currencies with 0 digits after digital separator (like VND, IDR and others) - limit is 200000000 (200 million, NOT inclusive)
      *
      * @return $this
      */
-    public function setMerchantOrder($merchant_order)
+    public function setPrice($price)
     {
-        $this->container['merchant_order'] = $merchant_order;
+        $this->container['price'] = $price;
 
         return $this;
     }

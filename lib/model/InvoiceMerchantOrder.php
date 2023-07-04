@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class RefundResponseCard implements ModelInterface, ArrayAccess
+class InvoiceMerchantOrder implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class RefundResponseCard implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'RefundResponseCard';
+    protected static $swaggerModelName = 'InvoiceMerchantOrder';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,11 +26,8 @@ class RefundResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'card_brand' => 'string',
-        'card_type' => 'string',
-        'issuer' => 'string',
-        'issuing_country_code' => 'string',
-        'masked_pan' => 'string'
+        'id' => 'string',
+        'items' => '\Cardpay\model\InvoiceItem[]'
     ];
 
     /**
@@ -39,11 +36,8 @@ class RefundResponseCard implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'card_brand' => null,
-        'card_type' => null,
-        'issuer' => null,
-        'issuing_country_code' => null,
-        'masked_pan' => null
+        'id' => null,
+        'items' => null
     ];
 
     /**
@@ -73,11 +67,8 @@ class RefundResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'card_brand' => 'card_brand',
-        'card_type' => 'card_type',
-        'issuer' => 'issuer',
-        'issuing_country_code' => 'issuing_country_code',
-        'masked_pan' => 'masked_pan'
+        'id' => 'id',
+        'items' => 'items'
     ];
 
     /**
@@ -86,11 +77,8 @@ class RefundResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'card_brand' => 'setCardBrand',
-        'card_type' => 'setCardType',
-        'issuer' => 'setIssuer',
-        'issuing_country_code' => 'setIssuingCountryCode',
-        'masked_pan' => 'setMaskedPan'
+        'id' => 'setId',
+        'items' => 'setItems'
     ];
 
     /**
@@ -99,11 +87,8 @@ class RefundResponseCard implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'card_brand' => 'getCardBrand',
-        'card_type' => 'getCardType',
-        'issuer' => 'getIssuer',
-        'issuing_country_code' => 'getIssuingCountryCode',
-        'masked_pan' => 'getMaskedPan'
+        'id' => 'getId',
+        'items' => 'getItems'
     ];
 
     /**
@@ -147,29 +132,8 @@ class RefundResponseCard implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const CARD_TYPE_DEBIT = 'DEBIT';
-    const CARD_TYPE_CREDIT = 'CREDIT';
-    const CARD_TYPE_PREPAID = 'PREPAID';
-    const CARD_TYPE_OTHER = 'OTHER';
-    const CARD_TYPE_UNKNOWN = 'UNKNOWN';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getCardTypeAllowableValues()
-    {
-        return [
-            self::CARD_TYPE_DEBIT,
-            self::CARD_TYPE_CREDIT,
-            self::CARD_TYPE_PREPAID,
-            self::CARD_TYPE_OTHER,
-            self::CARD_TYPE_UNKNOWN,
-        ];
-    }
     
 
     /**
@@ -187,11 +151,8 @@ class RefundResponseCard implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['card_brand'] = isset($data['card_brand']) ? $data['card_brand'] : null;
-        $this->container['card_type'] = isset($data['card_type']) ? $data['card_type'] : null;
-        $this->container['issuer'] = isset($data['issuer']) ? $data['issuer'] : null;
-        $this->container['issuing_country_code'] = isset($data['issuing_country_code']) ? $data['issuing_country_code'] : null;
-        $this->container['masked_pan'] = isset($data['masked_pan']) ? $data['masked_pan'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['items'] = isset($data['items']) ? $data['items'] : null;
     }
 
     /**
@@ -203,14 +164,20 @@ class RefundResponseCard implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        $allowedValues = $this->getCardTypeAllowableValues();
-        if (!is_null($this->container['card_type']) && !in_array($this->container['card_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'card_type', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ((mb_strlen($this->container['id']) > 50)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 50.";
         }
 
+        if ((mb_strlen($this->container['id']) < 1)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
+        }
+
+        if ($this->container['items'] === null) {
+            $invalidProperties[] = "'items' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -227,130 +194,56 @@ class RefundResponseCard implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets card_brand
+     * Gets id
      *
      * @return string
      */
-    public function getCardBrand()
+    public function getId()
     {
-        return $this->container['card_brand'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets card_brand
+     * Sets id
      *
-     * @param string $card_brand Card brand
+     * @param string $id Order ID used by the merchant’s shopping cart
      *
      * @return $this
      */
-    public function setCardBrand($card_brand)
+    public function setId($id)
     {
-        $this->container['card_brand'] = $card_brand;
-
-        return $this;
-    }
-
-    /**
-     * Gets card_type
-     *
-     * @return string
-     */
-    public function getCardType()
-    {
-        return $this->container['card_type'];
-    }
-
-    /**
-     * Sets card_type
-     *
-     * @param string $card_type Card type
-     *
-     * @return $this
-     */
-    public function setCardType($card_type)
-    {
-        $allowedValues = $this->getCardTypeAllowableValues();
-        if (!is_null($card_type) && !in_array($card_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'card_type', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
+        if ((mb_strlen($id) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling InvoiceMerchantOrder., must be smaller than or equal to 50.');
         }
-        $this->container['card_type'] = $card_type;
+        if ((mb_strlen($id) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling InvoiceMerchantOrder., must be bigger than or equal to 1.');
+        }
+
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets issuer
+     * Gets items
      *
-     * @return string
+     * @return \Cardpay\model\InvoiceItem[]
      */
-    public function getIssuer()
+    public function getItems()
     {
-        return $this->container['issuer'];
+        return $this->container['items'];
     }
 
     /**
-     * Sets issuer
+     * Sets items
      *
-     * @param string $issuer Card issuer
+     * @param \Cardpay\model\InvoiceItem[] $items Array of items (in the shopping cart)
      *
      * @return $this
      */
-    public function setIssuer($issuer)
+    public function setItems($items)
     {
-        $this->container['issuer'] = $issuer;
-
-        return $this;
-    }
-
-    /**
-     * Gets issuing_country_code
-     *
-     * @return string
-     */
-    public function getIssuingCountryCode()
-    {
-        return $this->container['issuing_country_code'];
-    }
-
-    /**
-     * Sets issuing_country_code
-     *
-     * @param string $issuing_country_code Country code of issuing card country
-     *
-     * @return $this
-     */
-    public function setIssuingCountryCode($issuing_country_code)
-    {
-        $this->container['issuing_country_code'] = $issuing_country_code;
-
-        return $this;
-    }
-
-    /**
-     * Gets masked_pan
-     *
-     * @return string
-     */
-    public function getMaskedPan()
-    {
-        return $this->container['masked_pan'];
-    }
-
-    /**
-     * Sets masked_pan
-     *
-     * @param string $masked_pan Masked PAN (shows first 6 digits and 4 last digits)
-     *
-     * @return $this
-     */
-    public function setMaskedPan($masked_pan)
-    {
-        $this->container['masked_pan'] = $masked_pan;
+        $this->container['items'] = $items;
 
         return $this;
     }

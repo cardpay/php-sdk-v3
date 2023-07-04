@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class MerchantOrder implements ModelInterface, ArrayAccess
+class InvoiceCustomer implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class MerchantOrder implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'MerchantOrder';
+    protected static $swaggerModelName = 'InvoiceCustomer';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,8 @@ class MerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'string',
-        'items' => '\Cardpay\model\Item[]'
+        'email' => 'string',
+        'phone' => 'string'
     ];
 
     /**
@@ -36,8 +36,8 @@ class MerchantOrder implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => null,
-        'items' => null
+        'email' => null,
+        'phone' => null
     ];
 
     /**
@@ -67,8 +67,8 @@ class MerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'items' => 'items'
+        'email' => 'email',
+        'phone' => 'phone'
     ];
 
     /**
@@ -77,8 +77,8 @@ class MerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'items' => 'setItems'
+        'email' => 'setEmail',
+        'phone' => 'setPhone'
     ];
 
     /**
@@ -87,8 +87,8 @@ class MerchantOrder implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'items' => 'getItems'
+        'email' => 'getEmail',
+        'phone' => 'getPhone'
     ];
 
     /**
@@ -151,8 +151,8 @@ class MerchantOrder implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['items'] = isset($data['items']) ? $data['items'] : null;
+        $this->container['email'] = isset($data['email']) ? $data['email'] : null;
+        $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
     }
 
     /**
@@ -164,20 +164,6 @@ class MerchantOrder implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ((mb_strlen($this->container['id']) > 50)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 50.";
-        }
-
-        if ((mb_strlen($this->container['id']) < 1)) {
-            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 1.";
-        }
-
-        if ($this->container['items'] === null) {
-            $invalidProperties[] = "'items' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -194,56 +180,49 @@ class MerchantOrder implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets id
+     * Gets email
      *
      * @return string
      */
-    public function getId()
+    public function getEmail()
     {
-        return $this->container['id'];
+        return $this->container['email'];
     }
 
     /**
-     * Sets id
+     * Sets email
      *
-     * @param string $id Order ID used by the merchant’s shopping cart
+     * @param string $email Email address of the customer
      *
      * @return $this
      */
-    public function setId($id)
+    public function setEmail($email)
     {
-        if ((mb_strlen($id) > 50)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling MerchantOrder., must be smaller than or equal to 50.');
-        }
-        if ((mb_strlen($id) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $id when calling MerchantOrder., must be bigger than or equal to 1.');
-        }
-
-        $this->container['id'] = $id;
+        $this->container['email'] = $email;
 
         return $this;
     }
 
     /**
-     * Gets items
+     * Gets phone
      *
-     * @return \Cardpay\model\Item[]
+     * @return string
      */
-    public function getItems()
+    public function getPhone()
     {
-        return $this->container['items'];
+        return $this->container['phone'];
     }
 
     /**
-     * Sets items
+     * Sets phone
      *
-     * @param \Cardpay\model\Item[] $items Array of items (in the shopping cart)
+     * @param string $phone Customer phone number
      *
      * @return $this
      */
-    public function setItems($items)
+    public function setPhone($phone)
     {
-        $this->container['items'] = $items;
+        $this->container['phone'] = $phone;
 
         return $this;
     }

@@ -27,9 +27,9 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
-        'customer' => '\Cardpay\model\Customer',
-        'invoice_data' => '\Cardpay\model\InvoiceDataRequest',
-        'merchant_order' => '\Cardpay\model\MerchantOrder',
+        'customer' => '\Cardpay\model\InvoiceCustomer',
+        'invoice_data' => '\Cardpay\model\InvoiceData',
+        'merchant_order' => '\Cardpay\model\InvoiceMerchantOrder',
         'return_urls' => '\Cardpay\model\ReturnUrls'
     ];
 
@@ -233,7 +233,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Gets customer
      *
-     * @return \Cardpay\model\Customer
+     * @return \Cardpay\model\InvoiceCustomer
      */
     public function getCustomer()
     {
@@ -243,7 +243,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Sets customer
      *
-     * @param \Cardpay\model\Customer $customer Customer data
+     * @param \Cardpay\model\InvoiceCustomer $customer Customer data
      *
      * @return $this
      */
@@ -257,7 +257,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Gets invoice_data
      *
-     * @return \Cardpay\model\InvoiceDataRequest
+     * @return \Cardpay\model\InvoiceData
      */
     public function getInvoiceData()
     {
@@ -267,7 +267,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Sets invoice_data
      *
-     * @param \Cardpay\model\InvoiceDataRequest $invoice_data Invoice data
+     * @param \Cardpay\model\InvoiceData $invoice_data Invoice data
      *
      * @return $this
      */
@@ -281,7 +281,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Gets merchant_order
      *
-     * @return \Cardpay\model\MerchantOrder
+     * @return \Cardpay\model\InvoiceMerchantOrder
      */
     public function getMerchantOrder()
     {
@@ -291,7 +291,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Sets merchant_order
      *
-     * @param \Cardpay\model\MerchantOrder $merchant_order Merchant order data
+     * @param \Cardpay\model\InvoiceMerchantOrder $merchant_order Merchant order data
      *
      * @return $this
      */
@@ -315,7 +315,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     /**
      * Sets return_urls
      *
-     * @param \Cardpay\model\ReturnUrls $return_urls Return URLs are the URLs where customer returns by pressing “Back to the shop” or “Cancel” button in Payment Page mode
+     * @param \Cardpay\model\ReturnUrls $return_urls Return URLs are the URLs where customer returns by pressing 'Back to the shop' or 'Cancel' button in Payment Page mode
      *
      * @return $this
      */

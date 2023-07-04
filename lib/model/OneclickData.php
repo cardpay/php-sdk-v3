@@ -33,6 +33,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         'filing' => '\Cardpay\model\RecurringRequestFiling',
         'generate_token' => 'bool',
         'initiator' => 'string',
+        'network_trans_id' => 'string',
         'note' => 'string',
         'preauth' => 'bool',
         'sca_exemption' => 'string',
@@ -53,6 +54,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         'filing' => null,
         'generate_token' => null,
         'initiator' => null,
+        'network_trans_id' => null,
         'note' => null,
         'preauth' => null,
         'sca_exemption' => null,
@@ -94,6 +96,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         'filing' => 'filing',
         'generate_token' => 'generate_token',
         'initiator' => 'initiator',
+        'network_trans_id' => 'network_trans_id',
         'note' => 'note',
         'preauth' => 'preauth',
         'sca_exemption' => 'sca_exemption',
@@ -114,6 +117,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         'filing' => 'setFiling',
         'generate_token' => 'setGenerateToken',
         'initiator' => 'setInitiator',
+        'network_trans_id' => 'setNetworkTransId',
         'note' => 'setNote',
         'preauth' => 'setPreauth',
         'sca_exemption' => 'setScaExemption',
@@ -134,6 +138,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         'filing' => 'getFiling',
         'generate_token' => 'getGenerateToken',
         'initiator' => 'getInitiator',
+        'network_trans_id' => 'getNetworkTransId',
         'note' => 'getNote',
         'preauth' => 'getPreauth',
         'sca_exemption' => 'getScaExemption',
@@ -229,6 +234,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
+        $this->container['network_trans_id'] = isset($data['network_trans_id']) ? $data['network_trans_id'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
         $this->container['sca_exemption'] = isset($data['sca_exemption']) ? $data['sca_exemption'] : null;
@@ -478,6 +484,30 @@ class OneclickData implements ModelInterface, ArrayAccess
         }
 
         $this->container['initiator'] = $initiator;
+
+        return $this;
+    }
+
+    /**
+     * Gets network_trans_id
+     *
+     * @return string
+     */
+    public function getNetworkTransId()
+    {
+        return $this->container['network_trans_id'];
+    }
+
+    /**
+     * Sets network_trans_id
+     *
+     * @param string $network_trans_id Network Reference Number of original transaction
+     *
+     * @return $this
+     */
+    public function setNetworkTransId($network_trans_id)
+    {
+        $this->container['network_trans_id'] = $network_trans_id;
 
         return $this;
     }

@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class Customer implements ModelInterface, ArrayAccess
+class InvoiceData implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class Customer implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'Customer';
+    protected static $swaggerModelName = 'InvoiceData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,8 +26,11 @@ class Customer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'email' => 'string',
-        'phone' => 'string'
+        'amount' => 'float',
+        'currency' => 'string',
+        'expire_at' => '\DateTime',
+        'installment_type' => 'string',
+        'installments' => 'int[]'
     ];
 
     /**
@@ -36,8 +39,11 @@ class Customer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'email' => null,
-        'phone' => null
+        'amount' => null,
+        'currency' => null,
+        'expire_at' => 'date-time',
+        'installment_type' => null,
+        'installments' => 'int32'
     ];
 
     /**
@@ -67,8 +73,11 @@ class Customer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'email' => 'email',
-        'phone' => 'phone'
+        'amount' => 'amount',
+        'currency' => 'currency',
+        'expire_at' => 'expire_at',
+        'installment_type' => 'installment_type',
+        'installments' => 'installments'
     ];
 
     /**
@@ -77,8 +86,11 @@ class Customer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'email' => 'setEmail',
-        'phone' => 'setPhone'
+        'amount' => 'setAmount',
+        'currency' => 'setCurrency',
+        'expire_at' => 'setExpireAt',
+        'installment_type' => 'setInstallmentType',
+        'installments' => 'setInstallments'
     ];
 
     /**
@@ -87,8 +99,11 @@ class Customer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'email' => 'getEmail',
-        'phone' => 'getPhone'
+        'amount' => 'getAmount',
+        'currency' => 'getCurrency',
+        'expire_at' => 'getExpireAt',
+        'installment_type' => 'getInstallmentType',
+        'installments' => 'getInstallments'
     ];
 
     /**
@@ -151,8 +166,11 @@ class Customer implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['email'] = isset($data['email']) ? $data['email'] : null;
-        $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
+        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
+        $this->container['expire_at'] = isset($data['expire_at']) ? $data['expire_at'] : null;
+        $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
+        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
     }
 
     /**
@@ -164,22 +182,12 @@ class Customer implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 256)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 256.";
+        if ($this->container['amount'] === null) {
+            $invalidProperties[] = "'amount' can't be null";
         }
-
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 3)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 3.";
+        if ($this->container['currency'] === null) {
+            $invalidProperties[] = "'currency' can't be null";
         }
-
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 18)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 18.";
-        }
-
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 8)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 8.";
-        }
-
         return $invalidProperties;
     }
 
@@ -196,63 +204,121 @@ class Customer implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets email
+     * Gets amount
      *
-     * @return string
+     * @return float
      */
-    public function getEmail()
+    public function getAmount()
     {
-        return $this->container['email'];
+        return $this->container['amount'];
     }
 
     /**
-     * Sets email
+     * Sets amount
      *
-     * @param string $email Email address of the customer
+     * @param float $amount The total invoice amount in selected currency with dot as a decimal separator, must be less than 10 billion
      *
      * @return $this
      */
-    public function setEmail($email)
+    public function setAmount($amount)
     {
-        if (!is_null($email) && (mb_strlen($email) > 256)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling Customer., must be smaller than or equal to 256.');
-        }
-        if (!is_null($email) && (mb_strlen($email) < 3)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling Customer., must be bigger than or equal to 3.');
-        }
-
-        $this->container['email'] = $email;
+        $this->container['amount'] = $amount;
 
         return $this;
     }
 
     /**
-     * Gets phone
+     * Gets currency
      *
      * @return string
      */
-    public function getPhone()
+    public function getCurrency()
     {
-        return $this->container['phone'];
+        return $this->container['currency'];
     }
 
     /**
-     * Sets phone
+     * Sets currency
      *
-     * @param string $phone Customer phone number
+     * @param string $currency [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code
      *
      * @return $this
      */
-    public function setPhone($phone)
+    public function setCurrency($currency)
     {
-        if (!is_null($phone) && (mb_strlen($phone) > 18)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling Customer., must be smaller than or equal to 18.');
-        }
-        if (!is_null($phone) && (mb_strlen($phone) < 8)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling Customer., must be bigger than or equal to 8.');
-        }
+        $this->container['currency'] = $currency;
 
-        $this->container['phone'] = $phone;
+        return $this;
+    }
+
+    /**
+     * Gets expire_at
+     *
+     * @return \DateTime
+     */
+    public function getExpireAt()
+    {
+        return $this->container['expire_at'];
+    }
+
+    /**
+     * Sets expire_at
+     *
+     * @param \DateTime $expire_at Date and time of invoice expiring. Invoice cannot be used after this date and time.
+     *
+     * @return $this
+     */
+    public function setExpireAt($expire_at)
+    {
+        $this->container['expire_at'] = $expire_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets installment_type
+     *
+     * @return string
+     */
+    public function getInstallmentType()
+    {
+        return $this->container['installment_type'];
+    }
+
+    /**
+     * Sets installment_type
+     *
+     * @param string $installment_type Installment type
+     *
+     * @return $this
+     */
+    public function setInstallmentType($installment_type)
+    {
+        $this->container['installment_type'] = $installment_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets installments
+     *
+     * @return int[]
+     */
+    public function getInstallments()
+    {
+        return $this->container['installments'];
+    }
+
+    /**
+     * Sets installments
+     *
+     * @param int[] $installments Number of installments. It depends on country.
+     *
+     * @return $this
+     */
+    public function setInstallments($installments)
+    {
+        $this->container['installments'] = $installments;
 
         return $this;
     }
