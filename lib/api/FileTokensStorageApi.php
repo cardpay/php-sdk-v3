@@ -26,8 +26,6 @@ class FileTokensStorageApi implements TokensStorageApi
     {
         $this->validateInputParams($terminalCode);
 
-        $this->terminalCode = $terminalCode;
-
         $configuration = new Configuration($host);
         $tempFolderPath = $configuration->getTempFolderPath();
 
