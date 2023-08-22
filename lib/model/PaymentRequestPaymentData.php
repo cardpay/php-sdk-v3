@@ -34,7 +34,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'generate_token' => 'bool',
         'installment_amount' => 'float',
         'installment_type' => 'string',
-        'installments' => 'string',
+        'installments' => 'int[]',
         'note' => 'string',
         'preauth' => 'bool',
         'sca_exemption' => 'string',
@@ -56,7 +56,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'generate_token' => null,
         'installment_amount' => null,
         'installment_type' => null,
-        'installments' => null,
+        'installments' => 'int32',
         'note' => null,
         'preauth' => null,
         'sca_exemption' => null,
@@ -536,7 +536,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     /**
      * Gets installments
      *
-     * @return string
+     * @return int[]
      */
     public function getInstallments()
     {
@@ -546,7 +546,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     /**
      * Sets installments
      *
-     * @param string $installments Number of total installment payments, to be charged per defined interval. For installment subscription with installment_type = `MF_HOLD` can be 1-12. For installment subscription with installment_type = `IF` can be 1-99.
+     * @param int[] $installments Number of total installment payments, to be charged per defined interval. For installment subscription with installment_type = `MF_HOLD` can be 1-12. For installment subscription with installment_type = `IF` can be 1-99.
      *
      * @return $this
      */

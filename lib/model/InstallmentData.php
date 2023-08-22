@@ -34,7 +34,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'installment_amount' => 'float',
         'installment_type' => 'string',
         'note' => 'string',
-        'payments' => 'int',
+        'payments' => 'int[]',
         'preauth' => 'bool',
         'three_ds_challenge_indicator' => 'string',
         'trans_type' => 'string'
@@ -521,7 +521,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Gets payments
      *
-     * @return int
+     * @return int[]
      */
     public function getPayments()
     {
@@ -531,7 +531,7 @@ class InstallmentData implements ModelInterface, ArrayAccess
     /**
      * Sets payments
      *
-     * @param int $payments Number of total payments, to be charged per defined interval. For installment subscription with installment_type = `MF_HOLD` can be 2-12. For Mexican installment subscription (installment_type = `IF`) should be 1-99.
+     * @param int[] $payments Number of total payments, to be charged per defined interval. For installment subscription with installment_type = `MF_HOLD` can be 2-12. For Mexican installment subscription (installment_type = `IF`) should be 1-99.
      *
      * @return $this
      */
