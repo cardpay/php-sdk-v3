@@ -1,10 +1,10 @@
-# PHP SDK for Unlimint API v3
-The Unlimint API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
+# PHP SDK for Unlimit API v3
+The Unlimit API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
 - PHP SDK version: 3.54.1
 
-For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
+For more information, please visit [https://integration.unlimit.com](https://integration.unlimit.com)
 
 ## Requirements
 
@@ -51,7 +51,7 @@ SDK will automatically use the proxy if the `HTTPS_PROXY` or `HTTP_PROXY` enviro
 **Important:** please note that current implementation is using temporary files storage (see [FileTokensStorageApi](lib/api/FileTokensStorageApi.php)), to save, read and delete (if needed) the API tokens.
 You may implement another tokens storage (session, database, Memcached, Redis, etc) by implementing [TokensStorageApi](lib/api/TokensStorageApi.php) interface.
 
-In order to obtain the API tokens please use [AuthApiClient](lib/api/AuthApiClient.php). It requires API terminal code and password, provided by Unlimint.
+In order to obtain the API tokens please use [AuthApiClient](lib/api/AuthApiClient.php). It requires API terminal code and password, provided by Unlimit.
 
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
@@ -263,4 +263,4 @@ composer install
 
 ## Author
 
-support@unlimint.com
+support@unlimit.com
