@@ -430,7 +430,7 @@ class AuthenticationData implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id Unlimint's payment id
+     * @param string $id Unlimit's payment id
      *
      * @return $this
      */
