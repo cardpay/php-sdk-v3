@@ -313,7 +313,7 @@ class PaymentRequestCardAccount implements ModelInterface, ArrayAccess
     /**
      * Sets recipient_info
      *
-     * @param string $recipient_info Recipient full name. Property `recipient_info` may be required by Bank. In most cases it's Cardholder's name, contact Unlimint manager for requirements. Mandatory only for money transfer operation.
+     * @param string $recipient_info Recipient full name. Property `recipient_info` may be required by Bank. In most cases it's Cardholder's name, contact Unlimit manager for requirements. Mandatory only for money transfer operation.
      *
      * @return $this
      */

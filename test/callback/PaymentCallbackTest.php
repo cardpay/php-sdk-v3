@@ -29,7 +29,7 @@ class PaymentCallbackTest extends BaseTestCase
             $status = $callbackJSON['payment_data']['status'];
 
             // change order status accordingly
-            // see 'TransactionStatus' definition, in API v3 documentation: https://integration.unlimit.com/#TransactionStatus
+            // see 'TransactionStatus' definition, in API v3 documentation: https://integration.cardpay.com/#TransactionStatus
             switch ($status) {
                 case PaymentResponsePaymentData::STATUS_COMPLETED:
                     // ...

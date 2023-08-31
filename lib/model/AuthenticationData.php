@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP SDK for Unlimit API v3. All rights reserved.
+ * PHP SDK for Unlimint API v3. All rights reserved.
  */
 
 namespace Cardpay\model;
