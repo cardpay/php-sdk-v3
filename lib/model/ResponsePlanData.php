@@ -34,7 +34,9 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'interval' => 'int',
         'currency' => 'string',
         'amount' => 'float',
-        'retries' => 'int'
+        'retries' => 'int',
+        'pricing_model' => 'string',
+        'quantity' => '\Cardpay\model\PlanQuantity[]'
     ];
 
     /**
@@ -51,7 +53,9 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'interval' => 'int32',
         'currency' => null,
         'amount' => null,
-        'retries' => 'int32'
+        'retries' => 'int32',
+        'pricing_model' => null,
+        'quantity' => null
     ];
 
     /**
@@ -89,7 +93,9 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'interval' => 'interval',
         'currency' => 'currency',
         'amount' => 'amount',
-        'retries' => 'retries'
+        'retries' => 'retries',
+        'pricing_model' => 'pricing_model',
+        'quantity' => 'quantity'
     ];
 
     /**
@@ -106,7 +112,9 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'interval' => 'setInterval',
         'currency' => 'setCurrency',
         'amount' => 'setAmount',
-        'retries' => 'setRetries'
+        'retries' => 'setRetries',
+        'pricing_model' => 'setPricingModel',
+        'quantity' => 'setQuantity'
     ];
 
     /**
@@ -123,7 +131,9 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'interval' => 'getInterval',
         'currency' => 'getCurrency',
         'amount' => 'getAmount',
-        'retries' => 'getRetries'
+        'retries' => 'getRetries',
+        'pricing_model' => 'getPricingModel',
+        'quantity' => 'getQuantity'
     ];
 
     /**
@@ -231,6 +241,8 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
         $this->container['retries'] = isset($data['retries']) ? $data['retries'] : null;
+        $this->container['pricing_model'] = isset($data['pricing_model']) ? $data['pricing_model'] : null;
+        $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
     }
 
     /**
@@ -503,6 +515,54 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
     public function setRetries($retries)
     {
         $this->container['retries'] = $retries;
+
+        return $this;
+    }
+
+    /**
+     * Gets pricing_model
+     *
+     * @return string
+     */
+    public function getPricingModel()
+    {
+        return $this->container['pricing_model'];
+    }
+
+    /**
+     * Sets pricing_model
+     *
+     * @param string $pricing_model Parameter regulates the price calculation pricing_model depending on the number of units. Possible values: `FIXED` `TIERED` `VOLUME`
+     *
+     * @return $this
+     */
+    public function setPricingModel($pricing_model)
+    {
+        $this->container['pricing_model'] = $pricing_model;
+
+        return $this;
+    }
+
+    /**
+     * Gets quantity
+     *
+     * @return \Cardpay\model\PlanQuantity[]
+     */
+    public function getQuantity()
+    {
+        return $this->container['quantity'];
+    }
+
+    /**
+     * Sets quantity
+     *
+     * @param \Cardpay\model\PlanQuantity[] $quantity Array with units params
+     *
+     * @return $this
+     */
+    public function setQuantity($quantity)
+    {
+        $this->container['quantity'] = $quantity;
 
         return $this;
     }

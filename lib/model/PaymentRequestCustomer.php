@@ -27,6 +27,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'birth_date' => '\DateTime',
+        'browser_info' => '\Cardpay\model\BrowserInfo',
         'device' => '\Cardpay\model\Device',
         'document_type' => 'string',
         'email' => 'string',
@@ -39,6 +40,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'living_address' => '\Cardpay\model\PaymentRequestLivingAddress',
         'locale' => 'string',
         'phone' => 'string',
+        'user_agent' => 'string',
         'work_phone' => 'string'
     ];
 
@@ -49,6 +51,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'birth_date' => 'date-time',
+        'browser_info' => null,
         'device' => null,
         'document_type' => null,
         'email' => null,
@@ -61,6 +64,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'living_address' => null,
         'locale' => null,
         'phone' => null,
+        'user_agent' => null,
         'work_phone' => null
     ];
 
@@ -92,6 +96,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'birth_date' => 'birth_date',
+        'browser_info' => 'browser_info',
         'device' => 'device',
         'document_type' => 'document_type',
         'email' => 'email',
@@ -104,6 +109,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'living_address' => 'living_address',
         'locale' => 'locale',
         'phone' => 'phone',
+        'user_agent' => 'user_agent',
         'work_phone' => 'work_phone'
     ];
 
@@ -114,6 +120,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'birth_date' => 'setBirthDate',
+        'browser_info' => 'setBrowserInfo',
         'device' => 'setDevice',
         'document_type' => 'setDocumentType',
         'email' => 'setEmail',
@@ -126,6 +133,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'living_address' => 'setLivingAddress',
         'locale' => 'setLocale',
         'phone' => 'setPhone',
+        'user_agent' => 'setUserAgent',
         'work_phone' => 'setWorkPhone'
     ];
 
@@ -136,6 +144,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'birth_date' => 'getBirthDate',
+        'browser_info' => 'getBrowserInfo',
         'device' => 'getDevice',
         'document_type' => 'getDocumentType',
         'email' => 'getEmail',
@@ -148,6 +157,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         'living_address' => 'getLivingAddress',
         'locale' => 'getLocale',
         'phone' => 'getPhone',
+        'user_agent' => 'getUserAgent',
         'work_phone' => 'getWorkPhone'
     ];
 
@@ -212,6 +222,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['birth_date'] = isset($data['birth_date']) ? $data['birth_date'] : null;
+        $this->container['browser_info'] = isset($data['browser_info']) ? $data['browser_info'] : null;
         $this->container['device'] = isset($data['device']) ? $data['device'] : null;
         $this->container['document_type'] = isset($data['document_type']) ? $data['document_type'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
@@ -224,6 +235,7 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         $this->container['living_address'] = isset($data['living_address']) ? $data['living_address'] : null;
         $this->container['locale'] = isset($data['locale']) ? $data['locale'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
+        $this->container['user_agent'] = isset($data['user_agent']) ? $data['user_agent'] : null;
         $this->container['work_phone'] = isset($data['work_phone']) ? $data['work_phone'] : null;
     }
 
@@ -235,14 +247,6 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) > 256)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be smaller than or equal to 256.";
-        }
-
-        if (!is_null($this->container['email']) && (mb_strlen($this->container['email']) < 3)) {
-            $invalidProperties[] = "invalid value for 'email', the character length must be bigger than or equal to 3.";
-        }
 
         if (!is_null($this->container['first_name']) && (mb_strlen($this->container['first_name']) > 256)) {
             $invalidProperties[] = "invalid value for 'first_name', the character length must be smaller than or equal to 256.";
@@ -300,6 +304,14 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 8.";
         }
 
+        if (!is_null($this->container['user_agent']) && (mb_strlen($this->container['user_agent']) > 2048)) {
+            $invalidProperties[] = "invalid value for 'user_agent', the character length must be smaller than or equal to 2048.";
+        }
+
+        if (!is_null($this->container['user_agent']) && (mb_strlen($this->container['user_agent']) < 0)) {
+            $invalidProperties[] = "invalid value for 'user_agent', the character length must be bigger than or equal to 0.";
+        }
+
         if (!is_null($this->container['work_phone']) && (mb_strlen($this->container['work_phone']) > 18)) {
             $invalidProperties[] = "invalid value for 'work_phone', the character length must be smaller than or equal to 18.";
         }
@@ -343,6 +355,30 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
     public function setBirthDate($birth_date)
     {
         $this->container['birth_date'] = $birth_date;
+
+        return $this;
+    }
+
+    /**
+     * Gets browser_info
+     *
+     * @return \Cardpay\model\BrowserInfo
+     */
+    public function getBrowserInfo()
+    {
+        return $this->container['browser_info'];
+    }
+
+    /**
+     * Sets browser_info
+     *
+     * @param \Cardpay\model\BrowserInfo $browser_info Browser info
+     *
+     * @return $this
+     */
+    public function setBrowserInfo($browser_info)
+    {
+        $this->container['browser_info'] = $browser_info;
 
         return $this;
     }
@@ -414,13 +450,6 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function setEmail($email)
     {
-        if (!is_null($email) && (mb_strlen($email) > 256)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling PaymentRequestCustomer., must be smaller than or equal to 256.');
-        }
-        if (!is_null($email) && (mb_strlen($email) < 3)) {
-            throw new \InvalidArgumentException('invalid length for $email when calling PaymentRequestCustomer., must be bigger than or equal to 3.');
-        }
-
         $this->container['email'] = $email;
 
         return $this;
@@ -687,6 +716,37 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
         }
 
         $this->container['phone'] = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Gets user_agent
+     *
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->container['user_agent'];
+    }
+
+    /**
+     * Sets user_agent
+     *
+     * @param string $user_agent User agent
+     *
+     * @return $this
+     */
+    public function setUserAgent($user_agent)
+    {
+        if (!is_null($user_agent) && (mb_strlen($user_agent) > 2048)) {
+            throw new \InvalidArgumentException('invalid length for $user_agent when calling PaymentRequestCustomer., must be smaller than or equal to 2048.');
+        }
+        if (!is_null($user_agent) && (mb_strlen($user_agent) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $user_agent when calling PaymentRequestCustomer., must be bigger than or equal to 0.');
+        }
+
+        $this->container['user_agent'] = $user_agent;
 
         return $this;
     }

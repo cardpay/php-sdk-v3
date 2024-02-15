@@ -28,7 +28,8 @@ class PaymentUpdateRequest implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
         'operation' => 'string',
-        'payment_data' => '\Cardpay\model\PaymentUpdateTransactionData'
+        'payment_data' => '\Cardpay\model\PaymentUpdateTransactionData',
+        'transaction_data' => '\Cardpay\model\PaymentUpdateTransactionData'
     ];
 
     /**
@@ -39,7 +40,8 @@ class PaymentUpdateRequest implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'request' => null,
         'operation' => null,
-        'payment_data' => null
+        'payment_data' => null,
+        'transaction_data' => null
     ];
 
     /**
@@ -71,7 +73,8 @@ class PaymentUpdateRequest implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'request' => 'request',
         'operation' => 'operation',
-        'payment_data' => 'payment_data'
+        'payment_data' => 'payment_data',
+        'transaction_data' => 'transaction_data'
     ];
 
     /**
@@ -82,7 +85,8 @@ class PaymentUpdateRequest implements ModelInterface, ArrayAccess
     protected static $setters = [
         'request' => 'setRequest',
         'operation' => 'setOperation',
-        'payment_data' => 'setPaymentData'
+        'payment_data' => 'setPaymentData',
+        'transaction_data' => 'setTransactionData'
     ];
 
     /**
@@ -93,7 +97,8 @@ class PaymentUpdateRequest implements ModelInterface, ArrayAccess
     protected static $getters = [
         'request' => 'getRequest',
         'operation' => 'getOperation',
-        'payment_data' => 'getPaymentData'
+        'payment_data' => 'getPaymentData',
+        'transaction_data' => 'getTransactionData'
     ];
 
     /**
@@ -140,6 +145,7 @@ class PaymentUpdateRequest implements ModelInterface, ArrayAccess
     const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
     const OPERATION_CONFIRM_3_DS = 'CONFIRM_3DS';
     const OPERATION_EXECUTE = 'EXECUTE';
+    const OPERATION_INCREMENT = 'INCREMENT';
     
 
     
@@ -154,6 +160,7 @@ class PaymentUpdateRequest implements ModelInterface, ArrayAccess
             self::OPERATION_CHANGE_STATUS,
             self::OPERATION_CONFIRM_3_DS,
             self::OPERATION_EXECUTE,
+            self::OPERATION_INCREMENT,
         ];
     }
     
@@ -176,6 +183,7 @@ class PaymentUpdateRequest implements ModelInterface, ArrayAccess
         $this->container['request'] = isset($data['request']) ? $data['request'] : null;
         $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
         $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
+        $this->container['transaction_data'] = isset($data['transaction_data']) ? $data['transaction_data'] : null;
     }
 
     /**
@@ -286,13 +294,37 @@ class PaymentUpdateRequest implements ModelInterface, ArrayAccess
     /**
      * Sets payment_data
      *
-     * @param \Cardpay\model\PaymentUpdateTransactionData $payment_data Transaction data
+     * @param \Cardpay\model\PaymentUpdateTransactionData $payment_data Payment data
      *
      * @return $this
      */
     public function setPaymentData($payment_data)
     {
         $this->container['payment_data'] = $payment_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets transaction_data
+     *
+     * @return \Cardpay\model\PaymentUpdateTransactionData
+     */
+    public function getTransactionData()
+    {
+        return $this->container['transaction_data'];
+    }
+
+    /**
+     * Sets transaction_data
+     *
+     * @param \Cardpay\model\PaymentUpdateTransactionData $transaction_data transaction_data
+     *
+     * @return $this
+     */
+    public function setTransactionData($transaction_data)
+    {
+        $this->container['transaction_data'] = $transaction_data;
 
         return $this;
     }

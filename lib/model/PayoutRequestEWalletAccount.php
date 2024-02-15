@@ -296,7 +296,7 @@ class PayoutRequestEWalletAccount implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id For QIWI: Customer phone number (from 1 to 15 digits) For WEBMONEY: Customer account number For NETELLER: Customer email For 'Latin America': Customer personal identification number For YANDEXMONEY: Customer wallet number, 11 to 16 digits, begins with `410` For AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE and TIGO: phone number linked to Customer's mobile money account. Phone prefix is **required**: AIRTEL - 233 (GHS), 256 (UGX); MTN - 233 (GHS), 256 (UGX); TIGO, VODAFONE - 233; UGANDAMOBILE - 256; MPESA - 254 For DIRECTBANKINGNGA: bank account number For PAYPAL: Customer email, phone or PayPal account number *(mandatory for QIWI, PAYPAL, WEBMONEY, NETELLER, 'Latin America', YANDEXMONEY, AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO and DIRECTBANKINGNGA methods only)*
+     * @param string $id For QIWI: Customer phone number (from 1 to 15 digits) For WEBMONEY: Customer account number For NETELLER: Customer email For 'Latin America': Customer personal identification number For AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE and TIGO: phone number linked to Customer's mobile money account. Phone prefix is **required**: AIRTEL - 233 (GHS), 256 (UGX); MTN - 233 (GHS), 256 (UGX); TIGO, VODAFONE - 233; UGANDAMOBILE - 256; MPESA - 254 For DIRECTBANKINGNGA: bank account number For PAYPAL: Customer email, phone or PayPal account number *(mandatory for QIWI, PAYPAL, WEBMONEY, NETELLER, 'Latin America', AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO and DIRECTBANKINGNGA methods only)*
      *
      * @return $this
      */

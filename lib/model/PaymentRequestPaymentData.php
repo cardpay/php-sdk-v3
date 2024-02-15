@@ -27,15 +27,16 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
-        'authentication_request' => 'bool',
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
         'encrypted_data' => 'string',
         'generate_token' => 'bool',
+        'hold_period' => 'int',
         'installment_amount' => 'float',
         'installment_type' => 'string',
         'installments' => 'int[]',
         'note' => 'string',
+        'postauth_status' => 'string',
         'preauth' => 'bool',
         'sca_exemption' => 'string',
         'three_ds_challenge_indicator' => 'string',
@@ -49,15 +50,16 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'amount' => null,
-        'authentication_request' => null,
         'currency' => null,
         'dynamic_descriptor' => null,
         'encrypted_data' => null,
         'generate_token' => null,
+        'hold_period' => 'int32',
         'installment_amount' => null,
         'installment_type' => null,
         'installments' => 'int32',
         'note' => null,
+        'postauth_status' => null,
         'preauth' => null,
         'sca_exemption' => null,
         'three_ds_challenge_indicator' => null,
@@ -92,15 +94,16 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'amount' => 'amount',
-        'authentication_request' => 'authentication_request',
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
         'encrypted_data' => 'encrypted_data',
         'generate_token' => 'generate_token',
+        'hold_period' => 'hold_period',
         'installment_amount' => 'installment_amount',
         'installment_type' => 'installment_type',
         'installments' => 'installments',
         'note' => 'note',
+        'postauth_status' => 'postauth_status',
         'preauth' => 'preauth',
         'sca_exemption' => 'sca_exemption',
         'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
@@ -114,15 +117,16 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'amount' => 'setAmount',
-        'authentication_request' => 'setAuthenticationRequest',
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'encrypted_data' => 'setEncryptedData',
         'generate_token' => 'setGenerateToken',
+        'hold_period' => 'setHoldPeriod',
         'installment_amount' => 'setInstallmentAmount',
         'installment_type' => 'setInstallmentType',
         'installments' => 'setInstallments',
         'note' => 'setNote',
+        'postauth_status' => 'setPostauthStatus',
         'preauth' => 'setPreauth',
         'sca_exemption' => 'setScaExemption',
         'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
@@ -136,15 +140,16 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'amount' => 'getAmount',
-        'authentication_request' => 'getAuthenticationRequest',
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'encrypted_data' => 'getEncryptedData',
         'generate_token' => 'getGenerateToken',
+        'hold_period' => 'getHoldPeriod',
         'installment_amount' => 'getInstallmentAmount',
         'installment_type' => 'getInstallmentType',
         'installments' => 'getInstallments',
         'note' => 'getNote',
+        'postauth_status' => 'getPostauthStatus',
         'preauth' => 'getPreauth',
         'sca_exemption' => 'getScaExemption',
         'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
@@ -192,6 +197,8 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const POSTAUTH_STATUS_REVERSE = 'REVERSE';
+    const POSTAUTH_STATUS_COMPLETE = 'COMPLETE';
     const TRANS_TYPE__01 = '01';
     const TRANS_TYPE__03 = '03';
     const TRANS_TYPE__10 = '10';
@@ -199,6 +206,19 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     const TRANS_TYPE__28 = '28';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getPostauthStatusAllowableValues()
+    {
+        return [
+            self::POSTAUTH_STATUS_REVERSE,
+            self::POSTAUTH_STATUS_COMPLETE,
+        ];
+    }
     
     /**
      * Gets allowable values of the enum
@@ -233,15 +253,16 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['authentication_request'] = isset($data['authentication_request']) ? $data['authentication_request'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['encrypted_data'] = isset($data['encrypted_data']) ? $data['encrypted_data'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
+        $this->container['hold_period'] = isset($data['hold_period']) ? $data['hold_period'] : null;
         $this->container['installment_amount'] = isset($data['installment_amount']) ? $data['installment_amount'] : null;
         $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
         $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
+        $this->container['postauth_status'] = isset($data['postauth_status']) ? $data['postauth_status'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
         $this->container['sca_exemption'] = isset($data['sca_exemption']) ? $data['sca_exemption'] : null;
         $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
@@ -279,6 +300,14 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be bigger than or equal to 0.";
         }
 
+        if (!is_null($this->container['hold_period']) && ($this->container['hold_period'] > 168)) {
+            $invalidProperties[] = "invalid value for 'hold_period', must be smaller than or equal to 168.";
+        }
+
+        if (!is_null($this->container['hold_period']) && ($this->container['hold_period'] < 1)) {
+            $invalidProperties[] = "invalid value for 'hold_period', must be bigger than or equal to 1.";
+        }
+
         if (!is_null($this->container['installment_type']) && !preg_match("/IF|MF_HOLD/", $this->container['installment_type'])) {
             $invalidProperties[] = "invalid value for 'installment_type', must be conform to the pattern /IF|MF_HOLD/.";
         }
@@ -289,6 +318,14 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
+        }
+
+        $allowedValues = $this->getPostauthStatusAllowableValues();
+        if (!is_null($this->container['postauth_status']) && !in_array($this->container['postauth_status'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'postauth_status', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
         }
 
         if (!is_null($this->container['sca_exemption']) && !preg_match("/LOW_VALUE/", $this->container['sca_exemption'])) {
@@ -342,30 +379,6 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     public function setAmount($amount)
     {
         $this->container['amount'] = $amount;
-
-        return $this;
-    }
-
-    /**
-     * Gets authentication_request
-     *
-     * @return bool
-     */
-    public function getAuthenticationRequest()
-    {
-        return $this->container['authentication_request'];
-    }
-
-    /**
-     * Sets authentication_request
-     *
-     * @param bool $authentication_request If set to `true`, amount must not be presented in request, no payment will be made, only cardholder authentication will be performed. Also can be used to generate token. *(for BANKCARD payment method only)*
-     *
-     * @return $this
-     */
-    public function setAuthenticationRequest($authentication_request)
-    {
-        $this->container['authentication_request'] = $authentication_request;
 
         return $this;
     }
@@ -481,6 +494,38 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets hold_period
+     *
+     * @return int
+     */
+    public function getHoldPeriod()
+    {
+        return $this->container['hold_period'];
+    }
+
+    /**
+     * Sets hold_period
+     *
+     * @param int $hold_period The delay between the authorisation and scheduled auto-capture or auto-void, specified in hours. The minimum hold period is 1 hour, maximum hold period is 7 days (168 hours).
+     *
+     * @return $this
+     */
+    public function setHoldPeriod($hold_period)
+    {
+
+        if (!is_null($hold_period) && ($hold_period > 168)) {
+            throw new \InvalidArgumentException('invalid value for $hold_period when calling PaymentRequestPaymentData., must be smaller than or equal to 168.');
+        }
+        if (!is_null($hold_period) && ($hold_period < 1)) {
+            throw new \InvalidArgumentException('invalid value for $hold_period when calling PaymentRequestPaymentData., must be bigger than or equal to 1.');
+        }
+
+        $this->container['hold_period'] = $hold_period;
+
+        return $this;
+    }
+
+    /**
      * Gets installment_amount
      *
      * @return float
@@ -584,6 +629,39 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         }
 
         $this->container['note'] = $note;
+
+        return $this;
+    }
+
+    /**
+     * Gets postauth_status
+     *
+     * @return string
+     */
+    public function getPostauthStatus()
+    {
+        return $this->container['postauth_status'];
+    }
+
+    /**
+     * Sets postauth_status
+     *
+     * @param string $postauth_status The value contains payment status after hold period if payment has not been completed. Possible values: COMPLETE, REVERSE
+     *
+     * @return $this
+     */
+    public function setPostauthStatus($postauth_status)
+    {
+        $allowedValues = $this->getPostauthStatusAllowableValues();
+        if (!is_null($postauth_status) && !in_array($postauth_status, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'postauth_status', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['postauth_status'] = $postauth_status;
 
         return $this;
     }

@@ -27,10 +27,13 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
+        'contract_number' => 'string',
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
+        'encrypted_data' => 'string',
         'filing' => '\Cardpay\model\RecurringRequestFiling',
         'generate_token' => 'bool',
+        'initial_amount' => 'float',
         'initiator' => 'string',
         'interval' => 'int',
         'note' => 'string',
@@ -39,7 +42,9 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
         'plan' => '\Cardpay\model\Plan',
         'preauth' => 'bool',
         'retries' => 'int',
-        'subscription_start' => '\DateTime'
+        'scheduled_type' => 'string',
+        'subscription_start' => '\DateTime',
+        'trans_type' => 'string'
     ];
 
     /**
@@ -49,10 +54,13 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'amount' => null,
+        'contract_number' => null,
         'currency' => null,
         'dynamic_descriptor' => null,
+        'encrypted_data' => null,
         'filing' => null,
         'generate_token' => null,
+        'initial_amount' => null,
         'initiator' => null,
         'interval' => 'int32',
         'note' => null,
@@ -61,7 +69,9 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
         'plan' => null,
         'preauth' => null,
         'retries' => 'int32',
-        'subscription_start' => 'date-time'
+        'scheduled_type' => null,
+        'subscription_start' => 'date-time',
+        'trans_type' => null
     ];
 
     /**
@@ -92,10 +102,13 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'amount' => 'amount',
+        'contract_number' => 'contract_number',
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
+        'encrypted_data' => 'encrypted_data',
         'filing' => 'filing',
         'generate_token' => 'generate_token',
+        'initial_amount' => 'initial_amount',
         'initiator' => 'initiator',
         'interval' => 'interval',
         'note' => 'note',
@@ -104,7 +117,9 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
         'plan' => 'plan',
         'preauth' => 'preauth',
         'retries' => 'retries',
-        'subscription_start' => 'subscription_start'
+        'scheduled_type' => 'scheduled_type',
+        'subscription_start' => 'subscription_start',
+        'trans_type' => 'trans_type'
     ];
 
     /**
@@ -114,10 +129,13 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'amount' => 'setAmount',
+        'contract_number' => 'setContractNumber',
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
+        'encrypted_data' => 'setEncryptedData',
         'filing' => 'setFiling',
         'generate_token' => 'setGenerateToken',
+        'initial_amount' => 'setInitialAmount',
         'initiator' => 'setInitiator',
         'interval' => 'setInterval',
         'note' => 'setNote',
@@ -126,7 +144,9 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
         'plan' => 'setPlan',
         'preauth' => 'setPreauth',
         'retries' => 'setRetries',
-        'subscription_start' => 'setSubscriptionStart'
+        'scheduled_type' => 'setScheduledType',
+        'subscription_start' => 'setSubscriptionStart',
+        'trans_type' => 'setTransType'
     ];
 
     /**
@@ -136,10 +156,13 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'amount' => 'getAmount',
+        'contract_number' => 'getContractNumber',
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
+        'encrypted_data' => 'getEncryptedData',
         'filing' => 'getFiling',
         'generate_token' => 'getGenerateToken',
+        'initial_amount' => 'getInitialAmount',
         'initiator' => 'getInitiator',
         'interval' => 'getInterval',
         'note' => 'getNote',
@@ -148,7 +171,9 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
         'plan' => 'getPlan',
         'preauth' => 'getPreauth',
         'retries' => 'getRetries',
-        'subscription_start' => 'getSubscriptionStart'
+        'scheduled_type' => 'getScheduledType',
+        'subscription_start' => 'getSubscriptionStart',
+        'trans_type' => 'getTransType'
     ];
 
     /**
@@ -233,10 +258,13 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['contract_number'] = isset($data['contract_number']) ? $data['contract_number'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
+        $this->container['encrypted_data'] = isset($data['encrypted_data']) ? $data['encrypted_data'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
+        $this->container['initial_amount'] = isset($data['initial_amount']) ? $data['initial_amount'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['interval'] = isset($data['interval']) ? $data['interval'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
@@ -245,7 +273,9 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
         $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
         $this->container['retries'] = isset($data['retries']) ? $data['retries'] : null;
+        $this->container['scheduled_type'] = isset($data['scheduled_type']) ? $data['scheduled_type'] : null;
         $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
+        $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
     /**
@@ -263,6 +293,14 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['dynamic_descriptor']) && (mb_strlen($this->container['dynamic_descriptor']) < 0)) {
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['encrypted_data']) && (mb_strlen($this->container['encrypted_data']) > 10000)) {
+            $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be smaller than or equal to 10000.";
+        }
+
+        if (!is_null($this->container['encrypted_data']) && (mb_strlen($this->container['encrypted_data']) < 0)) {
+            $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be bigger than or equal to 0.";
         }
 
         if (!is_null($this->container['initiator']) && !preg_match("/mit|cit/", $this->container['initiator'])) {
@@ -305,6 +343,10 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'retries', must be bigger than or equal to 1.";
         }
 
+        if (!is_null($this->container['scheduled_type']) && !preg_match("/SA|SM/", $this->container['scheduled_type'])) {
+            $invalidProperties[] = "invalid value for 'scheduled_type', must be conform to the pattern /SA|SM/.";
+        }
+
         return $invalidProperties;
     }
 
@@ -340,6 +382,30 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     public function setAmount($amount)
     {
         $this->container['amount'] = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets contract_number
+     *
+     * @return string
+     */
+    public function getContractNumber()
+    {
+        return $this->container['contract_number'];
+    }
+
+    /**
+     * Sets contract_number
+     *
+     * @param string $contract_number Contract number between customer and merchant. Required for Mexican merchants for scheduled payments.
+     *
+     * @return $this
+     */
+    public function setContractNumber($contract_number)
+    {
+        $this->container['contract_number'] = $contract_number;
 
         return $this;
     }
@@ -400,6 +466,37 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets encrypted_data
+     *
+     * @return string
+     */
+    public function getEncryptedData()
+    {
+        return $this->container['encrypted_data'];
+    }
+
+    /**
+     * Sets encrypted_data
+     *
+     * @param string $encrypted_data The encrypted payment credentials encoded in Base64
+     *
+     * @return $this
+     */
+    public function setEncryptedData($encrypted_data)
+    {
+        if (!is_null($encrypted_data) && (mb_strlen($encrypted_data) > 10000)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_data when calling RecurringRequestRecurringData., must be smaller than or equal to 10000.');
+        }
+        if (!is_null($encrypted_data) && (mb_strlen($encrypted_data) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_data when calling RecurringRequestRecurringData., must be bigger than or equal to 0.');
+        }
+
+        $this->container['encrypted_data'] = $encrypted_data;
+
+        return $this;
+    }
+
+    /**
      * Gets filing
      *
      * @return \Cardpay\model\RecurringRequestFiling
@@ -443,6 +540,30 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     public function setGenerateToken($generate_token)
     {
         $this->container['generate_token'] = $generate_token;
+
+        return $this;
+    }
+
+    /**
+     * Gets initial_amount
+     *
+     * @return float
+     */
+    public function getInitialAmount()
+    {
+        return $this->container['initial_amount'];
+    }
+
+    /**
+     * Sets initial_amount
+     *
+     * @param float $initial_amount The amount charged for the initial period from the creation of the transaction to the start date of the subscription ('subscription_start'). It is indicated by the merchant in case of a discount or extra charge. It pays once during subscription.
+     *
+     * @return $this
+     */
+    public function setInitialAmount($initial_amount)
+    {
+        $this->container['initial_amount'] = $initial_amount;
 
         return $this;
     }
@@ -682,6 +803,35 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets scheduled_type
+     *
+     * @return string
+     */
+    public function getScheduledType()
+    {
+        return $this->container['scheduled_type'];
+    }
+
+    /**
+     * Sets scheduled_type
+     *
+     * @param string $scheduled_type Scheduled payment type attribute. For scheduled payments by merchant value should be `SM` - scheduled by merchant
+     *
+     * @return $this
+     */
+    public function setScheduledType($scheduled_type)
+    {
+
+        if (!is_null($scheduled_type) && (!preg_match("/SA|SM/", $scheduled_type))) {
+            throw new \InvalidArgumentException("invalid value for $scheduled_type when calling RecurringRequestRecurringData., must conform to the pattern /SA|SM/.");
+        }
+
+        $this->container['scheduled_type'] = $scheduled_type;
+
+        return $this;
+    }
+
+    /**
      * Gets subscription_start
      *
      * @return \DateTime
@@ -701,6 +851,30 @@ class RecurringRequestRecurringData implements ModelInterface, ArrayAccess
     public function setSubscriptionStart($subscription_start)
     {
         $this->container['subscription_start'] = $subscription_start;
+
+        return $this;
+    }
+
+    /**
+     * Gets trans_type
+     *
+     * @return string
+     */
+    public function getTransType()
+    {
+        return $this->container['trans_type'];
+    }
+
+    /**
+     * Sets trans_type
+     *
+     * @param string $trans_type Identifies the type of transaction being authenticated
+     *
+     * @return $this
+     */
+    public function setTransType($trans_type)
+    {
+        $this->container['trans_type'] = $trans_type;
 
         return $this;
     }

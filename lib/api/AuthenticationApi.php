@@ -17,7 +17,7 @@ use Cardpay\Configuration;
 use Cardpay\HeaderSelector;
 use Cardpay\ObjectSerializer;
 
-class PixAccountDetailsApi
+class AuthenticationApi
 {
     /**
      * @var ClientInterface
@@ -60,37 +60,37 @@ class PixAccountDetailsApi
     }
 
     /**
-     * Operation accountDetails
+     * Operation createAuthentication
      *
-     * Get pix account details
+     * Create authentication
      *
-     * @param  \Cardpay\model\PixAccountDetailsRequest $details_request detailsRequest (required)
+     * @param  \Cardpay\model\AuthenticationDataRequest $authentication_data_request authenticationDataRequest (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return \Cardpay\model\PixAccountDetailsResponse
+     * @return \Cardpay\model\AuthenticationCreateResponse
      */
-    public function accountDetails($details_request)
+    public function createAuthentication($authentication_data_request)
     {
-        list($response) = $this->accountDetailsWithHttpInfo($details_request);
+        list($response) = $this->createAuthenticationWithHttpInfo($authentication_data_request);
         return $response;
     }
 
     /**
-     * Operation accountDetailsWithHttpInfo
+     * Operation createAuthenticationWithHttpInfo
      *
-     * Get pix account details
+     * Create authentication
      *
-     * @param  \Cardpay\model\PixAccountDetailsRequest $details_request detailsRequest (required)
+     * @param  \Cardpay\model\AuthenticationDataRequest $authentication_data_request authenticationDataRequest (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of \Cardpay\model\PixAccountDetailsResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Cardpay\model\AuthenticationCreateResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function accountDetailsWithHttpInfo($details_request)
+    public function createAuthenticationWithHttpInfo($authentication_data_request)
     {
-        $returnType = '\Cardpay\model\PixAccountDetailsResponse';
-        $request = $this->accountDetailsRequest($details_request);
+        $returnType = '\Cardpay\model\AuthenticationCreateResponse';
+        $request = $this->createAuthenticationRequest($authentication_data_request);
 
         try {
             $options = $this->createHttpClientOption();
@@ -141,7 +141,7 @@ class PixAccountDetailsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\PixAccountDetailsResponse',
+                        '\Cardpay\model\AuthenticationCreateResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -170,15 +170,15 @@ class PixAccountDetailsApi
                     );
                     $e->setResponseObject($data);
                     break;
-                case 500:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
                     break;
-                case 502:
+                case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Cardpay\model\ApiError',
@@ -192,18 +192,18 @@ class PixAccountDetailsApi
     }
 
     /**
-     * Operation accountDetailsAsync
+     * Operation createAuthenticationAsync
      *
-     * Get pix account details
+     * Create authentication
      *
-     * @param  \Cardpay\model\PixAccountDetailsRequest $details_request detailsRequest (required)
+     * @param  \Cardpay\model\AuthenticationDataRequest $authentication_data_request authenticationDataRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function accountDetailsAsync($details_request)
+    public function createAuthenticationAsync($authentication_data_request)
     {
-        return $this->accountDetailsAsyncWithHttpInfo($details_request)
+        return $this->createAuthenticationAsyncWithHttpInfo($authentication_data_request)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -212,19 +212,19 @@ class PixAccountDetailsApi
     }
 
     /**
-     * Operation accountDetailsAsyncWithHttpInfo
+     * Operation createAuthenticationAsyncWithHttpInfo
      *
-     * Get pix account details
+     * Create authentication
      *
-     * @param  \Cardpay\model\PixAccountDetailsRequest $details_request detailsRequest (required)
+     * @param  \Cardpay\model\AuthenticationDataRequest $authentication_data_request authenticationDataRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function accountDetailsAsyncWithHttpInfo($details_request)
+    public function createAuthenticationAsyncWithHttpInfo($authentication_data_request)
     {
-        $returnType = '\Cardpay\model\PixAccountDetailsResponse';
-        $request = $this->accountDetailsRequest($details_request);
+        $returnType = '\Cardpay\model\AuthenticationCreateResponse';
+        $request = $this->createAuthenticationRequest($authentication_data_request);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -264,23 +264,23 @@ class PixAccountDetailsApi
     }
 
     /**
-     * Create request for operation 'accountDetails'
+     * Create request for operation 'createAuthentication'
      *
-     * @param  \Cardpay\model\PixAccountDetailsRequest $details_request detailsRequest (required)
+     * @param  \Cardpay\model\AuthenticationDataRequest $authentication_data_request authenticationDataRequest (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function accountDetailsRequest($details_request)
+    protected function createAuthenticationRequest($authentication_data_request)
     {
-        // verify the required parameter 'details_request' is set
-        if ($details_request === null || (is_array($details_request) && count($details_request) === 0)) {
+        // verify the required parameter 'authentication_data_request' is set
+        if ($authentication_data_request === null || (is_array($authentication_data_request) && count($authentication_data_request) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $details_request when calling accountDetails'
+                'Missing the required parameter $authentication_data_request when calling createAuthentication'
             );
         }
 
-        $resourcePath = '/api/account_details/pix';
+        $resourcePath = '/api/authentication';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -291,8 +291,8 @@ class PixAccountDetailsApi
 
         // body params
         $_tempBody = null;
-        if (isset($details_request)) {
-            $_tempBody = $details_request;
+        if (isset($authentication_data_request)) {
+            $_tempBody = $authentication_data_request;
         }
 
         if ($multipart) {
@@ -362,39 +362,37 @@ class PixAccountDetailsApi
     }
 
     /**
-     * Operation banks
+     * Operation getAuthentication
      *
-     * Get adapter banks list
+     * Get authentication information
      *
-     * @param  string $currency currency (required)
-     * @param  string $method method (required)
+     * @param  string $auth_id Authentication ID (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return object
+     * @return \Cardpay\model\AuthenticationDataResponse
      */
-    public function banks($currency, $method)
+    public function getAuthentication($auth_id)
     {
-        list($response) = $this->banksWithHttpInfo($currency, $method);
+        list($response) = $this->getAuthenticationWithHttpInfo($auth_id);
         return $response;
     }
 
     /**
-     * Operation banksWithHttpInfo
+     * Operation getAuthenticationWithHttpInfo
      *
-     * Get adapter banks list
+     * Get authentication information
      *
-     * @param  string $currency currency (required)
-     * @param  string $method method (required)
+     * @param  string $auth_id Authentication ID (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of object, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \Cardpay\model\AuthenticationDataResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function banksWithHttpInfo($currency, $method)
+    public function getAuthenticationWithHttpInfo($auth_id)
     {
-        $returnType = 'object';
-        $request = $this->banksRequest($currency, $method);
+        $returnType = '\Cardpay\model\AuthenticationDataResponse';
+        $request = $this->getAuthenticationRequest($auth_id);
 
         try {
             $options = $this->createHttpClientOption();
@@ -445,15 +443,7 @@ class PixAccountDetailsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'object',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    break;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\Cardpay\model\BadRequestError',
+                        '\Cardpay\model\AuthenticationDataResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -474,15 +464,15 @@ class PixAccountDetailsApi
                     );
                     $e->setResponseObject($data);
                     break;
-                case 500:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\Cardpay\model\ApiError',
+                        '\Cardpay\model\NotFoundError',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
                     break;
-                case 502:
+                case 500:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\Cardpay\model\ApiError',
@@ -496,19 +486,18 @@ class PixAccountDetailsApi
     }
 
     /**
-     * Operation banksAsync
+     * Operation getAuthenticationAsync
      *
-     * Get adapter banks list
+     * Get authentication information
      *
-     * @param  string $currency currency (required)
-     * @param  string $method method (required)
+     * @param  string $auth_id Authentication ID (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function banksAsync($currency, $method)
+    public function getAuthenticationAsync($auth_id)
     {
-        return $this->banksAsyncWithHttpInfo($currency, $method)
+        return $this->getAuthenticationAsyncWithHttpInfo($auth_id)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -517,20 +506,19 @@ class PixAccountDetailsApi
     }
 
     /**
-     * Operation banksAsyncWithHttpInfo
+     * Operation getAuthenticationAsyncWithHttpInfo
      *
-     * Get adapter banks list
+     * Get authentication information
      *
-     * @param  string $currency currency (required)
-     * @param  string $method method (required)
+     * @param  string $auth_id Authentication ID (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function banksAsyncWithHttpInfo($currency, $method)
+    public function getAuthenticationAsyncWithHttpInfo($auth_id)
     {
-        $returnType = 'object';
-        $request = $this->banksRequest($currency, $method);
+        $returnType = '\Cardpay\model\AuthenticationDataResponse';
+        $request = $this->getAuthenticationRequest($auth_id);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -570,30 +558,23 @@ class PixAccountDetailsApi
     }
 
     /**
-     * Create request for operation 'banks'
+     * Create request for operation 'getAuthentication'
      *
-     * @param  string $currency currency (required)
-     * @param  string $method method (required)
+     * @param  string $auth_id Authentication ID (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function banksRequest($currency, $method)
+    protected function getAuthenticationRequest($auth_id)
     {
-        // verify the required parameter 'currency' is set
-        if ($currency === null || (is_array($currency) && count($currency) === 0)) {
+        // verify the required parameter 'auth_id' is set
+        if ($auth_id === null || (is_array($auth_id) && count($auth_id) === 0)) {
             throw new \InvalidArgumentException(
-                'Missing the required parameter $currency when calling banks'
-            );
-        }
-        // verify the required parameter 'method' is set
-        if ($method === null || (is_array($method) && count($method) === 0)) {
-            throw new \InvalidArgumentException(
-                'Missing the required parameter $method when calling banks'
+                'Missing the required parameter $auth_id when calling getAuthentication'
             );
         }
 
-        $resourcePath = '/api/banks/{method}/{currency}';
+        $resourcePath = '/api/authentication/{authId}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -602,18 +583,10 @@ class PixAccountDetailsApi
 
 
         // path params
-        if ($currency !== null) {
+        if ($auth_id !== null) {
             $resourcePath = str_replace(
-                '{' . 'currency' . '}',
-                ObjectSerializer::toPathValue($currency),
-                $resourcePath
-            );
-        }
-        // path params
-        if ($method !== null) {
-            $resourcePath = str_replace(
-                '{' . 'method' . '}',
-                ObjectSerializer::toPathValue($method),
+                '{' . 'authId' . '}',
+                ObjectSerializer::toPathValue($auth_id),
                 $resourcePath
             );
         }

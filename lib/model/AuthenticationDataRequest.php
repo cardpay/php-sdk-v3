@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponse implements ModelInterface, ArrayAccess
+class AuthenticationDataRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponse';
+    protected static $swaggerModelName = 'AuthenticationDataRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,15 +26,13 @@ class PayoutResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'card_account' => '\Cardpay\model\PayoutResponseCardAccount',
-        'cryptocurrency_account' => '\Cardpay\model\PayoutResponseCryptocurrencyAccount',
-        'customer' => '\Cardpay\model\PayoutResponseCustomer',
-        'ewallet_account' => '\Cardpay\model\PayoutResponseEWalletAccount',
-        'payment_data' => '\Cardpay\model\PayoutPaymentData',
-        'payout_data' => '\Cardpay\model\PayoutResponsePayoutData',
-        'redirect_url' => 'string',
+        'request' => '\Cardpay\model\Request',
+        'authentication_data' => '\Cardpay\model\AuthDataRequest',
+        'card_account' => '\Cardpay\model\PaymentRequestCardAccount',
+        'customer' => '\Cardpay\model\PaymentRequestCustomer',
+        'merchant_order' => '\Cardpay\model\PaymentRequestMerchantOrder',
         'payment_method' => 'string',
-        'merchant_order' => '\Cardpay\model\TransactionResponseMerchantOrder'
+        'return_urls' => '\Cardpay\model\ReturnUrls'
     ];
 
     /**
@@ -43,15 +41,13 @@ class PayoutResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'request' => null,
+        'authentication_data' => null,
         'card_account' => null,
-        'cryptocurrency_account' => null,
         'customer' => null,
-        'ewallet_account' => null,
-        'payment_data' => null,
-        'payout_data' => null,
-        'redirect_url' => null,
+        'merchant_order' => null,
         'payment_method' => null,
-        'merchant_order' => null
+        'return_urls' => null
     ];
 
     /**
@@ -81,15 +77,13 @@ class PayoutResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'request' => 'request',
+        'authentication_data' => 'authentication_data',
         'card_account' => 'card_account',
-        'cryptocurrency_account' => 'cryptocurrency_account',
         'customer' => 'customer',
-        'ewallet_account' => 'ewallet_account',
-        'payment_data' => 'payment_data',
-        'payout_data' => 'payout_data',
-        'redirect_url' => 'redirect_url',
+        'merchant_order' => 'merchant_order',
         'payment_method' => 'payment_method',
-        'merchant_order' => 'merchant_order'
+        'return_urls' => 'return_urls'
     ];
 
     /**
@@ -98,15 +92,13 @@ class PayoutResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'request' => 'setRequest',
+        'authentication_data' => 'setAuthenticationData',
         'card_account' => 'setCardAccount',
-        'cryptocurrency_account' => 'setCryptocurrencyAccount',
         'customer' => 'setCustomer',
-        'ewallet_account' => 'setEwalletAccount',
-        'payment_data' => 'setPaymentData',
-        'payout_data' => 'setPayoutData',
-        'redirect_url' => 'setRedirectUrl',
+        'merchant_order' => 'setMerchantOrder',
         'payment_method' => 'setPaymentMethod',
-        'merchant_order' => 'setMerchantOrder'
+        'return_urls' => 'setReturnUrls'
     ];
 
     /**
@@ -115,15 +107,13 @@ class PayoutResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'request' => 'getRequest',
+        'authentication_data' => 'getAuthenticationData',
         'card_account' => 'getCardAccount',
-        'cryptocurrency_account' => 'getCryptocurrencyAccount',
         'customer' => 'getCustomer',
-        'ewallet_account' => 'getEwalletAccount',
-        'payment_data' => 'getPaymentData',
-        'payout_data' => 'getPayoutData',
-        'redirect_url' => 'getRedirectUrl',
+        'merchant_order' => 'getMerchantOrder',
         'payment_method' => 'getPaymentMethod',
-        'merchant_order' => 'getMerchantOrder'
+        'return_urls' => 'getReturnUrls'
     ];
 
     /**
@@ -186,15 +176,13 @@ class PayoutResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
+        $this->container['authentication_data'] = isset($data['authentication_data']) ? $data['authentication_data'] : null;
         $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
-        $this->container['cryptocurrency_account'] = isset($data['cryptocurrency_account']) ? $data['cryptocurrency_account'] : null;
         $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
-        $this->container['ewallet_account'] = isset($data['ewallet_account']) ? $data['ewallet_account'] : null;
-        $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
-        $this->container['payout_data'] = isset($data['payout_data']) ? $data['payout_data'] : null;
-        $this->container['redirect_url'] = isset($data['redirect_url']) ? $data['redirect_url'] : null;
-        $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
         $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
+        $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
+        $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
     }
 
     /**
@@ -206,9 +194,29 @@ class PayoutResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['payout_data'] === null) {
-            $invalidProperties[] = "'payout_data' can't be null";
+        if ($this->container['request'] === null) {
+            $invalidProperties[] = "'request' can't be null";
         }
+        if ($this->container['authentication_data'] === null) {
+            $invalidProperties[] = "'authentication_data' can't be null";
+        }
+        if ($this->container['card_account'] === null) {
+            $invalidProperties[] = "'card_account' can't be null";
+        }
+        if ($this->container['customer'] === null) {
+            $invalidProperties[] = "'customer' can't be null";
+        }
+        if ($this->container['merchant_order'] === null) {
+            $invalidProperties[] = "'merchant_order' can't be null";
+        }
+        if (!is_null($this->container['payment_method']) && (mb_strlen($this->container['payment_method']) > 50)) {
+            $invalidProperties[] = "invalid value for 'payment_method', the character length must be smaller than or equal to 50.";
+        }
+
+        if (!is_null($this->container['payment_method']) && (mb_strlen($this->container['payment_method']) < 0)) {
+            $invalidProperties[] = "invalid value for 'payment_method', the character length must be bigger than or equal to 0.";
+        }
+
         return $invalidProperties;
     }
 
@@ -225,9 +233,57 @@ class PayoutResponse implements ModelInterface, ArrayAccess
 
 
     /**
+     * Gets request
+     *
+     * @return \Cardpay\model\Request
+     */
+    public function getRequest()
+    {
+        return $this->container['request'];
+    }
+
+    /**
+     * Sets request
+     *
+     * @param \Cardpay\model\Request $request Request
+     *
+     * @return $this
+     */
+    public function setRequest($request)
+    {
+        $this->container['request'] = $request;
+
+        return $this;
+    }
+
+    /**
+     * Gets authentication_data
+     *
+     * @return \Cardpay\model\AuthDataRequest
+     */
+    public function getAuthenticationData()
+    {
+        return $this->container['authentication_data'];
+    }
+
+    /**
+     * Sets authentication_data
+     *
+     * @param \Cardpay\model\AuthDataRequest $authentication_data Authentication data
+     *
+     * @return $this
+     */
+    public function setAuthenticationData($authentication_data)
+    {
+        $this->container['authentication_data'] = $authentication_data;
+
+        return $this;
+    }
+
+    /**
      * Gets card_account
      *
-     * @return \Cardpay\model\PayoutResponseCardAccount
+     * @return \Cardpay\model\PaymentRequestCardAccount
      */
     public function getCardAccount()
     {
@@ -237,7 +293,7 @@ class PayoutResponse implements ModelInterface, ArrayAccess
     /**
      * Sets card_account
      *
-     * @param \Cardpay\model\PayoutResponseCardAccount $card_account Card account data *(for BANKCARD method only)*
+     * @param \Cardpay\model\PaymentRequestCardAccount $card_account Information about card *(for BANKCARD payment method only)*
      *
      * @return $this
      */
@@ -249,33 +305,9 @@ class PayoutResponse implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets cryptocurrency_account
-     *
-     * @return \Cardpay\model\PayoutResponseCryptocurrencyAccount
-     */
-    public function getCryptocurrencyAccount()
-    {
-        return $this->container['cryptocurrency_account'];
-    }
-
-    /**
-     * Sets cryptocurrency_account
-     *
-     * @param \Cardpay\model\PayoutResponseCryptocurrencyAccount $cryptocurrency_account Cryptocurrency account data *(for BITCOIN method only)*
-     *
-     * @return $this
-     */
-    public function setCryptocurrencyAccount($cryptocurrency_account)
-    {
-        $this->container['cryptocurrency_account'] = $cryptocurrency_account;
-
-        return $this;
-    }
-
-    /**
      * Gets customer
      *
-     * @return \Cardpay\model\PayoutResponseCustomer
+     * @return \Cardpay\model\PaymentRequestCustomer
      */
     public function getCustomer()
     {
@@ -285,7 +317,7 @@ class PayoutResponse implements ModelInterface, ArrayAccess
     /**
      * Sets customer
      *
-     * @param \Cardpay\model\PayoutResponseCustomer $customer Customer data
+     * @param \Cardpay\model\PaymentRequestCustomer $customer Customer data
      *
      * @return $this
      */
@@ -297,97 +329,25 @@ class PayoutResponse implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets ewallet_account
+     * Gets merchant_order
      *
-     * @return \Cardpay\model\PayoutResponseEWalletAccount
+     * @return \Cardpay\model\PaymentRequestMerchantOrder
      */
-    public function getEwalletAccount()
+    public function getMerchantOrder()
     {
-        return $this->container['ewallet_account'];
+        return $this->container['merchant_order'];
     }
 
     /**
-     * Sets ewallet_account
+     * Sets merchant_order
      *
-     * @param \Cardpay\model\PayoutResponseEWalletAccount $ewallet_account eWallet account data *(for payout methods only)*
+     * @param \Cardpay\model\PaymentRequestMerchantOrder $merchant_order Merchant order data
      *
      * @return $this
      */
-    public function setEwalletAccount($ewallet_account)
+    public function setMerchantOrder($merchant_order)
     {
-        $this->container['ewallet_account'] = $ewallet_account;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_data
-     *
-     * @return \Cardpay\model\PayoutPaymentData
-     */
-    public function getPaymentData()
-    {
-        return $this->container['payment_data'];
-    }
-
-    /**
-     * Sets payment_data
-     *
-     * @param \Cardpay\model\PayoutPaymentData $payment_data Payment data
-     *
-     * @return $this
-     */
-    public function setPaymentData($payment_data)
-    {
-        $this->container['payment_data'] = $payment_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets payout_data
-     *
-     * @return \Cardpay\model\PayoutResponsePayoutData
-     */
-    public function getPayoutData()
-    {
-        return $this->container['payout_data'];
-    }
-
-    /**
-     * Sets payout_data
-     *
-     * @param \Cardpay\model\PayoutResponsePayoutData $payout_data Payout data
-     *
-     * @return $this
-     */
-    public function setPayoutData($payout_data)
-    {
-        $this->container['payout_data'] = $payout_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets redirect_url
-     *
-     * @return string
-     */
-    public function getRedirectUrl()
-    {
-        return $this->container['redirect_url'];
-    }
-
-    /**
-     * Sets redirect_url
-     *
-     * @param string $redirect_url URL Customer should be redirected to
-     *
-     * @return $this
-     */
-    public function setRedirectUrl($redirect_url)
-    {
-        $this->container['redirect_url'] = $redirect_url;
+        $this->container['merchant_order'] = $merchant_order;
 
         return $this;
     }
@@ -411,31 +371,38 @@ class PayoutResponse implements ModelInterface, ArrayAccess
      */
     public function setPaymentMethod($payment_method)
     {
+        if (!is_null($payment_method) && (mb_strlen($payment_method) > 50)) {
+            throw new \InvalidArgumentException('invalid length for $payment_method when calling AuthenticationDataRequest., must be smaller than or equal to 50.');
+        }
+        if (!is_null($payment_method) && (mb_strlen($payment_method) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $payment_method when calling AuthenticationDataRequest., must be bigger than or equal to 0.');
+        }
+
         $this->container['payment_method'] = $payment_method;
 
         return $this;
     }
 
     /**
-     * Gets merchant_order
+     * Gets return_urls
      *
-     * @return \Cardpay\model\TransactionResponseMerchantOrder
+     * @return \Cardpay\model\ReturnUrls
      */
-    public function getMerchantOrder()
+    public function getReturnUrls()
     {
-        return $this->container['merchant_order'];
+        return $this->container['return_urls'];
     }
 
     /**
-     * Sets merchant_order
+     * Sets return_urls
      *
-     * @param \Cardpay\model\TransactionResponseMerchantOrder $merchant_order Merchant order data
+     * @param \Cardpay\model\ReturnUrls $return_urls Return URLs are the URLs where Customer returns by pressing 'Back to the shop' or 'Cancel' button in Payment page mode and redirected automatically in Gateway mode
      *
      * @return $this
      */
-    public function setMerchantOrder($merchant_order)
+    public function setReturnUrls($return_urls)
     {
-        $this->container['merchant_order'] = $merchant_order;
+        $this->container['return_urls'] = $return_urls;
 
         return $this;
     }

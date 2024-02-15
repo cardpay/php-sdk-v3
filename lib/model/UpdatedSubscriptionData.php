@@ -31,10 +31,13 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         'filing' => '\Cardpay\model\RecurringResponseFiling',
         'id' => 'string',
         'is_executed' => 'bool',
+        'next_payment_date' => '\DateTime',
+        'plan' => '\Cardpay\model\Plan',
         'recurring_data' => '\Cardpay\model\UpdatedSubscriptionRecurringData',
         'remaining_amount' => 'float',
         'status' => 'string',
         'status_to' => 'string',
+        'units' => 'int',
         'updated' => '\DateTime'
     ];
 
@@ -49,10 +52,13 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         'filing' => null,
         'id' => null,
         'is_executed' => null,
+        'next_payment_date' => 'date-time',
+        'plan' => null,
         'recurring_data' => null,
         'remaining_amount' => null,
         'status' => null,
         'status_to' => null,
+        'units' => 'int32',
         'updated' => 'date-time'
     ];
 
@@ -88,10 +94,13 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         'filing' => 'filing',
         'id' => 'id',
         'is_executed' => 'is_executed',
+        'next_payment_date' => 'next_payment_date',
+        'plan' => 'plan',
         'recurring_data' => 'recurring_data',
         'remaining_amount' => 'remaining_amount',
         'status' => 'status',
         'status_to' => 'status_to',
+        'units' => 'units',
         'updated' => 'updated'
     ];
 
@@ -106,10 +115,13 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         'filing' => 'setFiling',
         'id' => 'setId',
         'is_executed' => 'setIsExecuted',
+        'next_payment_date' => 'setNextPaymentDate',
+        'plan' => 'setPlan',
         'recurring_data' => 'setRecurringData',
         'remaining_amount' => 'setRemainingAmount',
         'status' => 'setStatus',
         'status_to' => 'setStatusTo',
+        'units' => 'setUnits',
         'updated' => 'setUpdated'
     ];
 
@@ -124,10 +136,13 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         'filing' => 'getFiling',
         'id' => 'getId',
         'is_executed' => 'getIsExecuted',
+        'next_payment_date' => 'getNextPaymentDate',
+        'plan' => 'getPlan',
         'recurring_data' => 'getRecurringData',
         'remaining_amount' => 'getRemainingAmount',
         'status' => 'getStatus',
         'status_to' => 'getStatusTo',
+        'units' => 'getUnits',
         'updated' => 'getUpdated'
     ];
 
@@ -250,10 +265,13 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['is_executed'] = isset($data['is_executed']) ? $data['is_executed'] : null;
+        $this->container['next_payment_date'] = isset($data['next_payment_date']) ? $data['next_payment_date'] : null;
+        $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
         $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
         $this->container['remaining_amount'] = isset($data['remaining_amount']) ? $data['remaining_amount'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['status_to'] = isset($data['status_to']) ? $data['status_to'] : null;
+        $this->container['units'] = isset($data['units']) ? $data['units'] : null;
         $this->container['updated'] = isset($data['updated']) ? $data['updated'] : null;
     }
 
@@ -418,6 +436,54 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets next_payment_date
+     *
+     * @return \DateTime
+     */
+    public function getNextPaymentDate()
+    {
+        return $this->container['next_payment_date'];
+    }
+
+    /**
+     * Sets next_payment_date
+     *
+     * @param \DateTime $next_payment_date next_payment_date
+     *
+     * @return $this
+     */
+    public function setNextPaymentDate($next_payment_date)
+    {
+        $this->container['next_payment_date'] = $next_payment_date;
+
+        return $this;
+    }
+
+    /**
+     * Gets plan
+     *
+     * @return \Cardpay\model\Plan
+     */
+    public function getPlan()
+    {
+        return $this->container['plan'];
+    }
+
+    /**
+     * Sets plan
+     *
+     * @param \Cardpay\model\Plan $plan Plan data
+     *
+     * @return $this
+     */
+    public function setPlan($plan)
+    {
+        $this->container['plan'] = $plan;
+
+        return $this;
+    }
+
+    /**
      * Gets recurring_data
      *
      * @return \Cardpay\model\UpdatedSubscriptionRecurringData
@@ -527,6 +593,30 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
             );
         }
         $this->container['status_to'] = $status_to;
+
+        return $this;
+    }
+
+    /**
+     * Gets units
+     *
+     * @return int
+     */
+    public function getUnits()
+    {
+        return $this->container['units'];
+    }
+
+    /**
+     * Sets units
+     *
+     * @param int $units New quantity of subscription units
+     *
+     * @return $this
+     */
+    public function setUnits($units)
+    {
+        $this->container['units'] = $units;
 
         return $this;
     }

@@ -27,7 +27,8 @@ class PayoutUpdateRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
-        'payout_data' => '\Cardpay\model\RequestUpdatedTransactionData'
+        'payout_data' => '\Cardpay\model\RequestUpdatedTransactionData',
+        'transaction_data' => '\Cardpay\model\RequestUpdatedTransactionData'
     ];
 
     /**
@@ -37,7 +38,8 @@ class PayoutUpdateRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'request' => null,
-        'payout_data' => null
+        'payout_data' => null,
+        'transaction_data' => null
     ];
 
     /**
@@ -68,7 +70,8 @@ class PayoutUpdateRequest implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'request' => 'request',
-        'payout_data' => 'payout_data'
+        'payout_data' => 'payout_data',
+        'transaction_data' => 'transaction_data'
     ];
 
     /**
@@ -78,7 +81,8 @@ class PayoutUpdateRequest implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'request' => 'setRequest',
-        'payout_data' => 'setPayoutData'
+        'payout_data' => 'setPayoutData',
+        'transaction_data' => 'setTransactionData'
     ];
 
     /**
@@ -88,7 +92,8 @@ class PayoutUpdateRequest implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'request' => 'getRequest',
-        'payout_data' => 'getPayoutData'
+        'payout_data' => 'getPayoutData',
+        'transaction_data' => 'getTransactionData'
     ];
 
     /**
@@ -153,6 +158,7 @@ class PayoutUpdateRequest implements ModelInterface, ArrayAccess
     {
         $this->container['request'] = isset($data['request']) ? $data['request'] : null;
         $this->container['payout_data'] = isset($data['payout_data']) ? $data['payout_data'] : null;
+        $this->container['transaction_data'] = isset($data['transaction_data']) ? $data['transaction_data'] : null;
     }
 
     /**
@@ -219,13 +225,37 @@ class PayoutUpdateRequest implements ModelInterface, ArrayAccess
     /**
      * Sets payout_data
      *
-     * @param \Cardpay\model\RequestUpdatedTransactionData $payout_data Transaction data
+     * @param \Cardpay\model\RequestUpdatedTransactionData $payout_data Payout data
      *
      * @return $this
      */
     public function setPayoutData($payout_data)
     {
         $this->container['payout_data'] = $payout_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets transaction_data
+     *
+     * @return \Cardpay\model\RequestUpdatedTransactionData
+     */
+    public function getTransactionData()
+    {
+        return $this->container['transaction_data'];
+    }
+
+    /**
+     * Sets transaction_data
+     *
+     * @param \Cardpay\model\RequestUpdatedTransactionData $transaction_data transaction_data
+     *
+     * @return $this
+     */
+    public function setTransactionData($transaction_data)
+    {
+        $this->container['transaction_data'] = $transaction_data;
 
         return $this;
     }

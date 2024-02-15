@@ -32,9 +32,11 @@ class OneclickData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'string',
         'filing' => '\Cardpay\model\RecurringRequestFiling',
         'generate_token' => 'bool',
+        'hold_period' => 'int',
         'initiator' => 'string',
         'network_trans_id' => 'string',
         'note' => 'string',
+        'postauth_status' => 'string',
         'preauth' => 'bool',
         'sca_exemption' => 'string',
         'three_ds_challenge_indicator' => 'string',
@@ -53,9 +55,11 @@ class OneclickData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => null,
         'filing' => null,
         'generate_token' => null,
+        'hold_period' => 'int32',
         'initiator' => null,
         'network_trans_id' => null,
         'note' => null,
+        'postauth_status' => null,
         'preauth' => null,
         'sca_exemption' => null,
         'three_ds_challenge_indicator' => null,
@@ -95,9 +99,11 @@ class OneclickData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'dynamic_descriptor',
         'filing' => 'filing',
         'generate_token' => 'generate_token',
+        'hold_period' => 'hold_period',
         'initiator' => 'initiator',
         'network_trans_id' => 'network_trans_id',
         'note' => 'note',
+        'postauth_status' => 'postauth_status',
         'preauth' => 'preauth',
         'sca_exemption' => 'sca_exemption',
         'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
@@ -116,9 +122,11 @@ class OneclickData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'filing' => 'setFiling',
         'generate_token' => 'setGenerateToken',
+        'hold_period' => 'setHoldPeriod',
         'initiator' => 'setInitiator',
         'network_trans_id' => 'setNetworkTransId',
         'note' => 'setNote',
+        'postauth_status' => 'setPostauthStatus',
         'preauth' => 'setPreauth',
         'sca_exemption' => 'setScaExemption',
         'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
@@ -137,9 +145,11 @@ class OneclickData implements ModelInterface, ArrayAccess
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'filing' => 'getFiling',
         'generate_token' => 'getGenerateToken',
+        'hold_period' => 'getHoldPeriod',
         'initiator' => 'getInitiator',
         'network_trans_id' => 'getNetworkTransId',
         'note' => 'getNote',
+        'postauth_status' => 'getPostauthStatus',
         'preauth' => 'getPreauth',
         'sca_exemption' => 'getScaExemption',
         'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
@@ -187,6 +197,8 @@ class OneclickData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const POSTAUTH_STATUS_REVERSE = 'REVERSE';
+    const POSTAUTH_STATUS_COMPLETE = 'COMPLETE';
     const TRANS_TYPE__01 = '01';
     const TRANS_TYPE__03 = '03';
     const TRANS_TYPE__10 = '10';
@@ -194,6 +206,19 @@ class OneclickData implements ModelInterface, ArrayAccess
     const TRANS_TYPE__28 = '28';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getPostauthStatusAllowableValues()
+    {
+        return [
+            self::POSTAUTH_STATUS_REVERSE,
+            self::POSTAUTH_STATUS_COMPLETE,
+        ];
+    }
     
     /**
      * Gets allowable values of the enum
@@ -233,9 +258,11 @@ class OneclickData implements ModelInterface, ArrayAccess
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
+        $this->container['hold_period'] = isset($data['hold_period']) ? $data['hold_period'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['network_trans_id'] = isset($data['network_trans_id']) ? $data['network_trans_id'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
+        $this->container['postauth_status'] = isset($data['postauth_status']) ? $data['postauth_status'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
         $this->container['sca_exemption'] = isset($data['sca_exemption']) ? $data['sca_exemption'] : null;
         $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
@@ -251,6 +278,14 @@ class OneclickData implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
+        if (!is_null($this->container['contract_number']) && (mb_strlen($this->container['contract_number']) > 20)) {
+            $invalidProperties[] = "invalid value for 'contract_number', the character length must be smaller than or equal to 20.";
+        }
+
+        if (!is_null($this->container['contract_number']) && (mb_strlen($this->container['contract_number']) < 0)) {
+            $invalidProperties[] = "invalid value for 'contract_number', the character length must be bigger than or equal to 0.";
+        }
+
         if ($this->container['currency'] === null) {
             $invalidProperties[] = "'currency' can't be null";
         }
@@ -260,6 +295,14 @@ class OneclickData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['dynamic_descriptor']) && (mb_strlen($this->container['dynamic_descriptor']) < 0)) {
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['hold_period']) && ($this->container['hold_period'] > 168)) {
+            $invalidProperties[] = "invalid value for 'hold_period', must be smaller than or equal to 168.";
+        }
+
+        if (!is_null($this->container['hold_period']) && ($this->container['hold_period'] < 1)) {
+            $invalidProperties[] = "invalid value for 'hold_period', must be bigger than or equal to 1.";
         }
 
         if ($this->container['initiator'] === null) {
@@ -275,6 +318,14 @@ class OneclickData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
+        }
+
+        $allowedValues = $this->getPostauthStatusAllowableValues();
+        if (!is_null($this->container['postauth_status']) && !in_array($this->container['postauth_status'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'postauth_status', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
         }
 
         if (!is_null($this->container['sca_exemption']) && !preg_match("/LOW_VALUE/", $this->container['sca_exemption'])) {
@@ -351,6 +402,13 @@ class OneclickData implements ModelInterface, ArrayAccess
      */
     public function setContractNumber($contract_number)
     {
+        if (!is_null($contract_number) && (mb_strlen($contract_number) > 20)) {
+            throw new \InvalidArgumentException('invalid length for $contract_number when calling OneclickData., must be smaller than or equal to 20.');
+        }
+        if (!is_null($contract_number) && (mb_strlen($contract_number) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $contract_number when calling OneclickData., must be bigger than or equal to 0.');
+        }
+
         $this->container['contract_number'] = $contract_number;
 
         return $this;
@@ -460,6 +518,38 @@ class OneclickData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets hold_period
+     *
+     * @return int
+     */
+    public function getHoldPeriod()
+    {
+        return $this->container['hold_period'];
+    }
+
+    /**
+     * Sets hold_period
+     *
+     * @param int $hold_period The delay between the authorisation and scheduled auto-capture or auto-void, specified in hours. The minimum hold period is 1 hour, maximum hold period is 7 days (168 hours).
+     *
+     * @return $this
+     */
+    public function setHoldPeriod($hold_period)
+    {
+
+        if (!is_null($hold_period) && ($hold_period > 168)) {
+            throw new \InvalidArgumentException('invalid value for $hold_period when calling OneclickData., must be smaller than or equal to 168.');
+        }
+        if (!is_null($hold_period) && ($hold_period < 1)) {
+            throw new \InvalidArgumentException('invalid value for $hold_period when calling OneclickData., must be bigger than or equal to 1.');
+        }
+
+        $this->container['hold_period'] = $hold_period;
+
+        return $this;
+    }
+
+    /**
      * Gets initiator
      *
      * @return string
@@ -539,6 +629,39 @@ class OneclickData implements ModelInterface, ArrayAccess
         }
 
         $this->container['note'] = $note;
+
+        return $this;
+    }
+
+    /**
+     * Gets postauth_status
+     *
+     * @return string
+     */
+    public function getPostauthStatus()
+    {
+        return $this->container['postauth_status'];
+    }
+
+    /**
+     * Sets postauth_status
+     *
+     * @param string $postauth_status The value contains payment status after hold period if payment has not been completed. Possible values: COMPLETE, REVERSE
+     *
+     * @return $this
+     */
+    public function setPostauthStatus($postauth_status)
+    {
+        $allowedValues = $this->getPostauthStatusAllowableValues();
+        if (!is_null($postauth_status) && !in_array($postauth_status, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'postauth_status', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['postauth_status'] = $postauth_status;
 
         return $this;
     }

@@ -34,15 +34,18 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
         'description' => 'string',
         'id' => 'string',
         'interval' => 'int',
+        'is_payment_date_shifted' => 'bool',
         'next_payment' => '\Cardpay\model\NextSubscriptionPayment',
         'payments_due' => 'int',
+        'pending_plan_update' => '\Cardpay\model\SubscriptionPendingPlanUpdate',
         'period' => 'string',
         'plan' => '\Cardpay\model\SubscriptionGetResponsePlan',
         'retries' => 'int',
         'status' => 'string',
         'status_reason' => 'string',
         'subscription_start' => '\DateTime',
-        'type' => 'string'
+        'type' => 'string',
+        'units' => 'int'
     ];
 
     /**
@@ -59,15 +62,18 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
         'description' => null,
         'id' => null,
         'interval' => 'int32',
+        'is_payment_date_shifted' => null,
         'next_payment' => null,
         'payments_due' => 'int32',
+        'pending_plan_update' => null,
         'period' => null,
         'plan' => null,
         'retries' => 'int32',
         'status' => null,
         'status_reason' => null,
         'subscription_start' => 'date-time',
-        'type' => null
+        'type' => null,
+        'units' => 'int32'
     ];
 
     /**
@@ -105,15 +111,18 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
         'description' => 'description',
         'id' => 'id',
         'interval' => 'interval',
+        'is_payment_date_shifted' => 'is_payment_date_shifted',
         'next_payment' => 'next_payment',
         'payments_due' => 'payments_due',
+        'pending_plan_update' => 'pending_plan_update',
         'period' => 'period',
         'plan' => 'plan',
         'retries' => 'retries',
         'status' => 'status',
         'status_reason' => 'status_reason',
         'subscription_start' => 'subscription_start',
-        'type' => 'type'
+        'type' => 'type',
+        'units' => 'units'
     ];
 
     /**
@@ -130,15 +139,18 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
         'description' => 'setDescription',
         'id' => 'setId',
         'interval' => 'setInterval',
+        'is_payment_date_shifted' => 'setIsPaymentDateShifted',
         'next_payment' => 'setNextPayment',
         'payments_due' => 'setPaymentsDue',
+        'pending_plan_update' => 'setPendingPlanUpdate',
         'period' => 'setPeriod',
         'plan' => 'setPlan',
         'retries' => 'setRetries',
         'status' => 'setStatus',
         'status_reason' => 'setStatusReason',
         'subscription_start' => 'setSubscriptionStart',
-        'type' => 'setType'
+        'type' => 'setType',
+        'units' => 'setUnits'
     ];
 
     /**
@@ -155,15 +167,18 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
         'description' => 'getDescription',
         'id' => 'getId',
         'interval' => 'getInterval',
+        'is_payment_date_shifted' => 'getIsPaymentDateShifted',
         'next_payment' => 'getNextPayment',
         'payments_due' => 'getPaymentsDue',
+        'pending_plan_update' => 'getPendingPlanUpdate',
         'period' => 'getPeriod',
         'plan' => 'getPlan',
         'retries' => 'getRetries',
         'status' => 'getStatus',
         'status_reason' => 'getStatusReason',
         'subscription_start' => 'getSubscriptionStart',
-        'type' => 'getType'
+        'type' => 'getType',
+        'units' => 'getUnits'
     ];
 
     /**
@@ -299,8 +314,10 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
         $this->container['description'] = isset($data['description']) ? $data['description'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['interval'] = isset($data['interval']) ? $data['interval'] : null;
+        $this->container['is_payment_date_shifted'] = isset($data['is_payment_date_shifted']) ? $data['is_payment_date_shifted'] : null;
         $this->container['next_payment'] = isset($data['next_payment']) ? $data['next_payment'] : null;
         $this->container['payments_due'] = isset($data['payments_due']) ? $data['payments_due'] : null;
+        $this->container['pending_plan_update'] = isset($data['pending_plan_update']) ? $data['pending_plan_update'] : null;
         $this->container['period'] = isset($data['period']) ? $data['period'] : null;
         $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
         $this->container['retries'] = isset($data['retries']) ? $data['retries'] : null;
@@ -308,6 +325,7 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
         $this->container['status_reason'] = isset($data['status_reason']) ? $data['status_reason'] : null;
         $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
         $this->container['type'] = isset($data['type']) ? $data['type'] : null;
+        $this->container['units'] = isset($data['units']) ? $data['units'] : null;
     }
 
     /**
@@ -551,6 +569,30 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets is_payment_date_shifted
+     *
+     * @return bool
+     */
+    public function getIsPaymentDateShifted()
+    {
+        return $this->container['is_payment_date_shifted'];
+    }
+
+    /**
+     * Sets is_payment_date_shifted
+     *
+     * @param bool $is_payment_date_shifted A sign of whether it is possible to change the subscription payment date, because it has already been changed before `true` - can't change `false` - can change
+     *
+     * @return $this
+     */
+    public function setIsPaymentDateShifted($is_payment_date_shifted)
+    {
+        $this->container['is_payment_date_shifted'] = $is_payment_date_shifted;
+
+        return $this;
+    }
+
+    /**
      * Gets next_payment
      *
      * @return \Cardpay\model\NextSubscriptionPayment
@@ -594,6 +636,30 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
     public function setPaymentsDue($payments_due)
     {
         $this->container['payments_due'] = $payments_due;
+
+        return $this;
+    }
+
+    /**
+     * Gets pending_plan_update
+     *
+     * @return \Cardpay\model\SubscriptionPendingPlanUpdate
+     */
+    public function getPendingPlanUpdate()
+    {
+        return $this->container['pending_plan_update'];
+    }
+
+    /**
+     * Sets pending_plan_update
+     *
+     * @param \Cardpay\model\SubscriptionPendingPlanUpdate $pending_plan_update Pending plan update data
+     *
+     * @return $this
+     */
+    public function setPendingPlanUpdate($pending_plan_update)
+    {
+        $this->container['pending_plan_update'] = $pending_plan_update;
 
         return $this;
     }
@@ -789,6 +855,30 @@ class SubscriptionGetResponse implements ModelInterface, ArrayAccess
             );
         }
         $this->container['type'] = $type;
+
+        return $this;
+    }
+
+    /**
+     * Gets units
+     *
+     * @return int
+     */
+    public function getUnits()
+    {
+        return $this->container['units'];
+    }
+
+    /**
+     * Sets units
+     *
+     * @param int $units Units quantity of the subscription, who can consume their service.
+     *
+     * @return $this
+     */
+    public function setUnits($units)
+    {
+        $this->container['units'] = $units;
 
         return $this;
     }

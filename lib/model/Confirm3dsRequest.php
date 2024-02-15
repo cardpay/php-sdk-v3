@@ -27,6 +27,7 @@ class Confirm3dsRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
+        'c_res' => 'string',
         'pa_res' => 'string'
     ];
 
@@ -37,6 +38,7 @@ class Confirm3dsRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'request' => null,
+        'c_res' => null,
         'pa_res' => null
     ];
 
@@ -68,6 +70,7 @@ class Confirm3dsRequest implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'request' => 'request',
+        'c_res' => 'CRes',
         'pa_res' => 'PaRes'
     ];
 
@@ -78,6 +81,7 @@ class Confirm3dsRequest implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'request' => 'setRequest',
+        'c_res' => 'setCRes',
         'pa_res' => 'setPaRes'
     ];
 
@@ -88,6 +92,7 @@ class Confirm3dsRequest implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'request' => 'getRequest',
+        'c_res' => 'getCRes',
         'pa_res' => 'getPaRes'
     ];
 
@@ -152,6 +157,7 @@ class Confirm3dsRequest implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['request'] = isset($data['request']) ? $data['request'] : null;
+        $this->container['c_res'] = isset($data['c_res']) ? $data['c_res'] : null;
         $this->container['pa_res'] = isset($data['pa_res']) ? $data['pa_res'] : null;
     }
 
@@ -166,9 +172,6 @@ class Confirm3dsRequest implements ModelInterface, ArrayAccess
 
         if ($this->container['request'] === null) {
             $invalidProperties[] = "'request' can't be null";
-        }
-        if ($this->container['pa_res'] === null) {
-            $invalidProperties[] = "'pa_res' can't be null";
         }
         return $invalidProperties;
     }
@@ -210,6 +213,30 @@ class Confirm3dsRequest implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets c_res
+     *
+     * @return string
+     */
+    public function getCRes()
+    {
+        return $this->container['c_res'];
+    }
+
+    /**
+     * Sets c_res
+     *
+     * @param string $c_res Bank authentication result, for 3-D Secure 2 *(for BANKCARD payment method only)*
+     *
+     * @return $this
+     */
+    public function setCRes($c_res)
+    {
+        $this->container['c_res'] = $c_res;
+
+        return $this;
+    }
+
+    /**
      * Gets pa_res
      *
      * @return string
@@ -222,7 +249,7 @@ class Confirm3dsRequest implements ModelInterface, ArrayAccess
     /**
      * Sets pa_res
      *
-     * @param string $pa_res Bank authentication result *(for BANKCARD payment method only)*
+     * @param string $pa_res Bank authentication result, for 3-D Secure 1 *(for BANKCARD payment method only)*
      *
      * @return $this
      */

@@ -30,6 +30,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         'customer' => '\Cardpay\model\InvoiceCustomer',
         'invoice_data' => '\Cardpay\model\InvoiceData',
         'merchant_order' => '\Cardpay\model\InvoiceMerchantOrder',
+        'recurring_data' => '\Cardpay\model\RecurringData',
         'return_urls' => '\Cardpay\model\ReturnUrls'
     ];
 
@@ -43,6 +44,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         'customer' => null,
         'invoice_data' => null,
         'merchant_order' => null,
+        'recurring_data' => null,
         'return_urls' => null
     ];
 
@@ -77,6 +79,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         'customer' => 'customer',
         'invoice_data' => 'invoice_data',
         'merchant_order' => 'merchant_order',
+        'recurring_data' => 'recurring_data',
         'return_urls' => 'return_urls'
     ];
 
@@ -90,6 +93,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         'customer' => 'setCustomer',
         'invoice_data' => 'setInvoiceData',
         'merchant_order' => 'setMerchantOrder',
+        'recurring_data' => 'setRecurringData',
         'return_urls' => 'setReturnUrls'
     ];
 
@@ -103,6 +107,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         'customer' => 'getCustomer',
         'invoice_data' => 'getInvoiceData',
         'merchant_order' => 'getMerchantOrder',
+        'recurring_data' => 'getRecurringData',
         'return_urls' => 'getReturnUrls'
     ];
 
@@ -170,6 +175,7 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
         $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
         $this->container['invoice_data'] = isset($data['invoice_data']) ? $data['invoice_data'] : null;
         $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
+        $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
         $this->container['return_urls'] = isset($data['return_urls']) ? $data['return_urls'] : null;
     }
 
@@ -298,6 +304,30 @@ class InvoiceRequest implements ModelInterface, ArrayAccess
     public function setMerchantOrder($merchant_order)
     {
         $this->container['merchant_order'] = $merchant_order;
+
+        return $this;
+    }
+
+    /**
+     * Gets recurring_data
+     *
+     * @return \Cardpay\model\RecurringData
+     */
+    public function getRecurringData()
+    {
+        return $this->container['recurring_data'];
+    }
+
+    /**
+     * Sets recurring_data
+     *
+     * @param \Cardpay\model\RecurringData $recurring_data Recurring data
+     *
+     * @return $this
+     */
+    public function setRecurringData($recurring_data)
+    {
+        $this->container['recurring_data'] = $recurring_data;
 
         return $this;
     }

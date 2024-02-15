@@ -139,6 +139,7 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
 
     const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
     const OPERATION_RENAME = 'RENAME';
+    const OPERATION_CHANGE_QUANTITY = 'CHANGE_QUANTITY';
     
 
     
@@ -152,6 +153,7 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
         return [
             self::OPERATION_CHANGE_STATUS,
             self::OPERATION_RENAME,
+            self::OPERATION_CHANGE_QUANTITY,
         ];
     }
     

@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
+class SubscriptionPendingPlanUpdate implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponseEWalletAccount';
+    protected static $swaggerModelName = 'SubscriptionPendingPlanUpdate';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,6 +26,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'date' => 'string',
         'id' => 'string'
     ];
 
@@ -35,6 +36,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'date' => null,
         'id' => null
     ];
 
@@ -65,6 +67,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'date' => 'date',
         'id' => 'id'
     ];
 
@@ -74,6 +77,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'date' => 'setDate',
         'id' => 'setId'
     ];
 
@@ -83,6 +87,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'date' => 'getDate',
         'id' => 'getId'
     ];
 
@@ -146,6 +151,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['date'] = isset($data['date']) ? $data['date'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
 
@@ -174,6 +180,30 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
 
 
     /**
+     * Gets date
+     *
+     * @return string
+     */
+    public function getDate()
+    {
+        return $this->container['date'];
+    }
+
+    /**
+     * Sets date
+     *
+     * @param string $date Plan change date
+     *
+     * @return $this
+     */
+    public function setDate($date)
+    {
+        $this->container['date'] = $date;
+
+        return $this;
+    }
+
+    /**
      * Gets id
      *
      * @return string
@@ -186,7 +216,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id For QIWI: Customer phone number (from 1 to 15 digits) For WEBMONEY: Customer account number For NETELLER: Customer email For 'Latin America': Customer personal identification number For DIRECTBANKINGNGA: bank account number For AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE and TIGO: Customer account number
+     * @param string $id Subscription plan id
      *
      * @return $this
      */

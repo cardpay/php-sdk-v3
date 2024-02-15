@@ -186,7 +186,7 @@ class RefundResponseEWalletAccount implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id For ALIPAY: Customer account number. For QIWI: Customer phone number (from 1 to 15 digits). For YANDEXMONEY: Customer wallet number, 11 to 16 digits, begins with `410`.
+     * @param string $id For QIWI: Customer phone number (from 1 to 15 digits).
      *
      * @return $this
      */

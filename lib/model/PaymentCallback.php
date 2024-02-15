@@ -324,7 +324,7 @@ class PaymentCallback implements ModelInterface, ArrayAccess
     /**
      * Sets ewallet_account
      *
-     * @param \Cardpay\model\TransactionResponseEWalletAccount $ewallet_account eWallet account data *(for ALIPAY, QIWI, WEBMONEY, NETELLER, YANDEXMONEY, DIRECTBANKINGNGA, AQRCODE, AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO and 'Latin America' payment methods only)*
+     * @param \Cardpay\model\TransactionResponseEWalletAccount $ewallet_account eWallet account data *(for QIWI, WEBMONEY, NETELLER, DIRECTBANKINGNGA, AQRCODE, AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE, TIGO and 'Latin America' payment methods only)*
      *
      * @return $this
      */

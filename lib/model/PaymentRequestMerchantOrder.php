@@ -28,6 +28,7 @@ class PaymentRequestMerchantOrder implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'cryptocurrency_indicator' => 'bool',
         'description' => 'string',
+        'expire_at' => '\DateTime',
         'flights' => '\Cardpay\model\Flights',
         'id' => 'string',
         'items' => '\Cardpay\model\Item[]',
@@ -42,6 +43,7 @@ class PaymentRequestMerchantOrder implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'cryptocurrency_indicator' => null,
         'description' => null,
+        'expire_at' => 'date-time',
         'flights' => null,
         'id' => null,
         'items' => null,
@@ -77,6 +79,7 @@ class PaymentRequestMerchantOrder implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'cryptocurrency_indicator' => 'cryptocurrency_indicator',
         'description' => 'description',
+        'expire_at' => 'expire_at',
         'flights' => 'flights',
         'id' => 'id',
         'items' => 'items',
@@ -91,6 +94,7 @@ class PaymentRequestMerchantOrder implements ModelInterface, ArrayAccess
     protected static $setters = [
         'cryptocurrency_indicator' => 'setCryptocurrencyIndicator',
         'description' => 'setDescription',
+        'expire_at' => 'setExpireAt',
         'flights' => 'setFlights',
         'id' => 'setId',
         'items' => 'setItems',
@@ -105,6 +109,7 @@ class PaymentRequestMerchantOrder implements ModelInterface, ArrayAccess
     protected static $getters = [
         'cryptocurrency_indicator' => 'getCryptocurrencyIndicator',
         'description' => 'getDescription',
+        'expire_at' => 'getExpireAt',
         'flights' => 'getFlights',
         'id' => 'getId',
         'items' => 'getItems',
@@ -173,6 +178,7 @@ class PaymentRequestMerchantOrder implements ModelInterface, ArrayAccess
     {
         $this->container['cryptocurrency_indicator'] = isset($data['cryptocurrency_indicator']) ? $data['cryptocurrency_indicator'] : null;
         $this->container['description'] = isset($data['description']) ? $data['description'] : null;
+        $this->container['expire_at'] = isset($data['expire_at']) ? $data['expire_at'] : null;
         $this->container['flights'] = isset($data['flights']) ? $data['flights'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['items'] = isset($data['items']) ? $data['items'] : null;
@@ -276,6 +282,30 @@ class PaymentRequestMerchantOrder implements ModelInterface, ArrayAccess
         }
 
         $this->container['description'] = $description;
+
+        return $this;
+    }
+
+    /**
+     * Gets expire_at
+     *
+     * @return \DateTime
+     */
+    public function getExpireAt()
+    {
+        return $this->container['expire_at'];
+    }
+
+    /**
+     * Sets expire_at
+     *
+     * @param \DateTime $expire_at Payment expiration date and time in ISO 8601 format (example of format - yyyy-MM-dd'T'HH:mm:ss'Z') Should be UTC time.  Not all payment methods support this options, contact the Unlimit manager for details.
+     *
+     * @return $this
+     */
+    public function setExpireAt($expire_at)
+    {
+        $this->container['expire_at'] = $expire_at;
 
         return $this;
     }

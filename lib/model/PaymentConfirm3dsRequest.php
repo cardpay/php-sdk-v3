@@ -29,6 +29,7 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
         'request' => '\Cardpay\model\Request',
         'operation' => 'string',
         'payment_data' => '\Cardpay\model\PaymentUpdateTransactionData',
+        'c_res' => 'string',
         'pa_res' => 'string'
     ];
 
@@ -41,6 +42,7 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
         'request' => null,
         'operation' => null,
         'payment_data' => null,
+        'c_res' => null,
         'pa_res' => null
     ];
 
@@ -74,6 +76,7 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
         'request' => 'request',
         'operation' => 'operation',
         'payment_data' => 'payment_data',
+        'c_res' => 'CRes',
         'pa_res' => 'PaRes'
     ];
 
@@ -86,6 +89,7 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
         'request' => 'setRequest',
         'operation' => 'setOperation',
         'payment_data' => 'setPaymentData',
+        'c_res' => 'setCRes',
         'pa_res' => 'setPaRes'
     ];
 
@@ -98,6 +102,7 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
         'request' => 'getRequest',
         'operation' => 'getOperation',
         'payment_data' => 'getPaymentData',
+        'c_res' => 'getCRes',
         'pa_res' => 'getPaRes'
     ];
 
@@ -145,6 +150,7 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
     const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
     const OPERATION_CONFIRM_3_DS = 'CONFIRM_3DS';
     const OPERATION_EXECUTE = 'EXECUTE';
+    const OPERATION_INCREMENT = 'INCREMENT';
     
 
     
@@ -159,6 +165,7 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
             self::OPERATION_CHANGE_STATUS,
             self::OPERATION_CONFIRM_3_DS,
             self::OPERATION_EXECUTE,
+            self::OPERATION_INCREMENT,
         ];
     }
     
@@ -181,6 +188,7 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
         $this->container['request'] = isset($data['request']) ? $data['request'] : null;
         $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
         $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
+        $this->container['c_res'] = isset($data['c_res']) ? $data['c_res'] : null;
         $this->container['pa_res'] = isset($data['pa_res']) ? $data['pa_res'] : null;
     }
 
@@ -207,9 +215,6 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
             );
         }
 
-        if ($this->container['pa_res'] === null) {
-            $invalidProperties[] = "'pa_res' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -307,6 +312,30 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets c_res
+     *
+     * @return string
+     */
+    public function getCRes()
+    {
+        return $this->container['c_res'];
+    }
+
+    /**
+     * Sets c_res
+     *
+     * @param string $c_res Bank authentication result, for 3-D Secure 2 *(for BANKCARD payment method only)*
+     *
+     * @return $this
+     */
+    public function setCRes($c_res)
+    {
+        $this->container['c_res'] = $c_res;
+
+        return $this;
+    }
+
+    /**
      * Gets pa_res
      *
      * @return string
@@ -319,7 +348,7 @@ class PaymentConfirm3dsRequest implements ModelInterface, ArrayAccess
     /**
      * Sets pa_res
      *
-     * @param string $pa_res Bank authentication result *(for BANKCARD payment method only)*
+     * @param string $pa_res Bank authentication result, for 3-D Secure 1 *(for BANKCARD payment method only)*
      *
      * @return $this
      */

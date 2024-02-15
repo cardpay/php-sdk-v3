@@ -31,6 +31,8 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         'interval' => 'int',
         'name' => 'string',
         'period' => 'string',
+        'pricing_model' => 'string',
+        'quantity' => '\Cardpay\model\PlanQuantity[]',
         'retries' => 'int'
     ];
 
@@ -45,6 +47,8 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         'interval' => 'int32',
         'name' => null,
         'period' => null,
+        'pricing_model' => null,
+        'quantity' => null,
         'retries' => 'int32'
     ];
 
@@ -80,6 +84,8 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         'interval' => 'interval',
         'name' => 'name',
         'period' => 'period',
+        'pricing_model' => 'pricing_model',
+        'quantity' => 'quantity',
         'retries' => 'retries'
     ];
 
@@ -94,6 +100,8 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         'interval' => 'setInterval',
         'name' => 'setName',
         'period' => 'setPeriod',
+        'pricing_model' => 'setPricingModel',
+        'quantity' => 'setQuantity',
         'retries' => 'setRetries'
     ];
 
@@ -108,6 +116,8 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         'interval' => 'getInterval',
         'name' => 'getName',
         'period' => 'getPeriod',
+        'pricing_model' => 'getPricingModel',
+        'quantity' => 'getQuantity',
         'retries' => 'getRetries'
     ];
 
@@ -197,6 +207,8 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         $this->container['interval'] = isset($data['interval']) ? $data['interval'] : null;
         $this->container['name'] = isset($data['name']) ? $data['name'] : null;
         $this->container['period'] = isset($data['period']) ? $data['period'] : null;
+        $this->container['pricing_model'] = isset($data['pricing_model']) ? $data['pricing_model'] : null;
+        $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
         $this->container['retries'] = isset($data['retries']) ? $data['retries'] : null;
     }
 
@@ -250,6 +262,10 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
                 "invalid value for 'period', must be one of '%s'",
                 implode("', '", $allowedValues)
             );
+        }
+
+        if (!is_null($this->container['pricing_model']) && !preg_match("/FIXED|TIERED|VOLUME/", $this->container['pricing_model'])) {
+            $invalidProperties[] = "invalid value for 'pricing_model', must be conform to the pattern /FIXED|TIERED|VOLUME/.";
         }
 
         if (!is_null($this->container['retries']) && ($this->container['retries'] > 15)) {
@@ -418,6 +434,59 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
             );
         }
         $this->container['period'] = $period;
+
+        return $this;
+    }
+
+    /**
+     * Gets pricing_model
+     *
+     * @return string
+     */
+    public function getPricingModel()
+    {
+        return $this->container['pricing_model'];
+    }
+
+    /**
+     * Sets pricing_model
+     *
+     * @param string $pricing_model Parameter regulates the price calculation pricing_model depending on the number of units Possible values: `FIXED` `TIERED` `VOLUME` By default - `FIXED`
+     *
+     * @return $this
+     */
+    public function setPricingModel($pricing_model)
+    {
+
+        if (!is_null($pricing_model) && (!preg_match("/FIXED|TIERED|VOLUME/", $pricing_model))) {
+            throw new \InvalidArgumentException("invalid value for $pricing_model when calling RecurringPlanRequestPlanData., must conform to the pattern /FIXED|TIERED|VOLUME/.");
+        }
+
+        $this->container['pricing_model'] = $pricing_model;
+
+        return $this;
+    }
+
+    /**
+     * Gets quantity
+     *
+     * @return \Cardpay\model\PlanQuantity[]
+     */
+    public function getQuantity()
+    {
+        return $this->container['quantity'];
+    }
+
+    /**
+     * Sets quantity
+     *
+     * @param \Cardpay\model\PlanQuantity[] $quantity Array with units quantity. Mandatory if `pricing_model` is `TIERED` or `VOLUME`
+     *
+     * @return $this
+     */
+    public function setQuantity($quantity)
+    {
+        $this->container['quantity'] = $quantity;
 
         return $this;
     }

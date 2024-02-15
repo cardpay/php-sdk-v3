@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
+class RecurringData implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'RecurringConfirm3dsRequest';
+    protected static $swaggerModelName = 'RecurringData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,11 +26,11 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'request' => '\Cardpay\model\Request',
-        'operation' => 'string',
-        'recurring_data' => '\Cardpay\model\PaymentUpdateTransactionData',
-        'c_res' => 'string',
-        'pa_res' => 'string'
+        'contract_number' => 'string',
+        'initial_amount' => 'float',
+        'plan' => '\Cardpay\model\Plan',
+        'subscription_start' => 'string',
+        'type' => 'string'
     ];
 
     /**
@@ -39,11 +39,11 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'request' => null,
-        'operation' => null,
-        'recurring_data' => null,
-        'c_res' => null,
-        'pa_res' => null
+        'contract_number' => null,
+        'initial_amount' => null,
+        'plan' => null,
+        'subscription_start' => null,
+        'type' => null
     ];
 
     /**
@@ -73,11 +73,11 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'request' => 'request',
-        'operation' => 'operation',
-        'recurring_data' => 'recurring_data',
-        'c_res' => 'CRes',
-        'pa_res' => 'PaRes'
+        'contract_number' => 'contract_number',
+        'initial_amount' => 'initial_amount',
+        'plan' => 'plan',
+        'subscription_start' => 'subscription_start',
+        'type' => 'type'
     ];
 
     /**
@@ -86,11 +86,11 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'request' => 'setRequest',
-        'operation' => 'setOperation',
-        'recurring_data' => 'setRecurringData',
-        'c_res' => 'setCRes',
-        'pa_res' => 'setPaRes'
+        'contract_number' => 'setContractNumber',
+        'initial_amount' => 'setInitialAmount',
+        'plan' => 'setPlan',
+        'subscription_start' => 'setSubscriptionStart',
+        'type' => 'setType'
     ];
 
     /**
@@ -99,11 +99,11 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'request' => 'getRequest',
-        'operation' => 'getOperation',
-        'recurring_data' => 'getRecurringData',
-        'c_res' => 'getCRes',
-        'pa_res' => 'getPaRes'
+        'contract_number' => 'getContractNumber',
+        'initial_amount' => 'getInitialAmount',
+        'plan' => 'getPlan',
+        'subscription_start' => 'getSubscriptionStart',
+        'type' => 'getType'
     ];
 
     /**
@@ -147,27 +147,8 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
-    const OPERATION_CONFIRM_3_DS = 'CONFIRM_3DS';
-    const OPERATION_EXECUTE = 'EXECUTE';
-    const OPERATION_INCREMENT = 'INCREMENT';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getOperationAllowableValues()
-    {
-        return [
-            self::OPERATION_CHANGE_STATUS,
-            self::OPERATION_CONFIRM_3_DS,
-            self::OPERATION_EXECUTE,
-            self::OPERATION_INCREMENT,
-        ];
-    }
     
 
     /**
@@ -185,11 +166,11 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
-        $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
-        $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
-        $this->container['c_res'] = isset($data['c_res']) ? $data['c_res'] : null;
-        $this->container['pa_res'] = isset($data['pa_res']) ? $data['pa_res'] : null;
+        $this->container['contract_number'] = isset($data['contract_number']) ? $data['contract_number'] : null;
+        $this->container['initial_amount'] = isset($data['initial_amount']) ? $data['initial_amount'] : null;
+        $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
+        $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
+        $this->container['type'] = isset($data['type']) ? $data['type'] : null;
     }
 
     /**
@@ -201,18 +182,12 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['request'] === null) {
-            $invalidProperties[] = "'request' can't be null";
+        if (!is_null($this->container['contract_number']) && (mb_strlen($this->container['contract_number']) > 20)) {
+            $invalidProperties[] = "invalid value for 'contract_number', the character length must be smaller than or equal to 20.";
         }
-        if ($this->container['operation'] === null) {
-            $invalidProperties[] = "'operation' can't be null";
-        }
-        $allowedValues = $this->getOperationAllowableValues();
-        if (!is_null($this->container['operation']) && !in_array($this->container['operation'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'operation', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
+
+        if (!is_null($this->container['contract_number']) && (mb_strlen($this->container['contract_number']) < 0)) {
+            $invalidProperties[] = "invalid value for 'contract_number', the character length must be bigger than or equal to 0.";
         }
 
         return $invalidProperties;
@@ -231,130 +206,128 @@ class RecurringConfirm3dsRequest implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets request
-     *
-     * @return \Cardpay\model\Request
-     */
-    public function getRequest()
-    {
-        return $this->container['request'];
-    }
-
-    /**
-     * Sets request
-     *
-     * @param \Cardpay\model\Request $request Request
-     *
-     * @return $this
-     */
-    public function setRequest($request)
-    {
-        $this->container['request'] = $request;
-
-        return $this;
-    }
-
-    /**
-     * Gets operation
+     * Gets contract_number
      *
      * @return string
      */
-    public function getOperation()
+    public function getContractNumber()
     {
-        return $this->container['operation'];
+        return $this->container['contract_number'];
     }
 
     /**
-     * Sets operation
+     * Sets contract_number
      *
-     * @param string $operation `CONFIRM_3DS` value
+     * @param string $contract_number Contract number between customer and merchant. Required for Mexican merchants
      *
      * @return $this
      */
-    public function setOperation($operation)
+    public function setContractNumber($contract_number)
     {
-        $allowedValues = $this->getOperationAllowableValues();
-        if (!in_array($operation, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'operation', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
+        if (!is_null($contract_number) && (mb_strlen($contract_number) > 20)) {
+            throw new \InvalidArgumentException('invalid length for $contract_number when calling RecurringData., must be smaller than or equal to 20.');
         }
-        $this->container['operation'] = $operation;
+        if (!is_null($contract_number) && (mb_strlen($contract_number) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $contract_number when calling RecurringData., must be bigger than or equal to 0.');
+        }
+
+        $this->container['contract_number'] = $contract_number;
 
         return $this;
     }
 
     /**
-     * Gets recurring_data
+     * Gets initial_amount
      *
-     * @return \Cardpay\model\PaymentUpdateTransactionData
+     * @return float
      */
-    public function getRecurringData()
+    public function getInitialAmount()
     {
-        return $this->container['recurring_data'];
+        return $this->container['initial_amount'];
     }
 
     /**
-     * Sets recurring_data
+     * Sets initial_amount
      *
-     * @param \Cardpay\model\PaymentUpdateTransactionData $recurring_data Recurring data
+     * @param float $initial_amount The amount of subscription initiated transaction in selected currency with dot as a decimal separator, must be less than 100 millions
      *
      * @return $this
      */
-    public function setRecurringData($recurring_data)
+    public function setInitialAmount($initial_amount)
     {
-        $this->container['recurring_data'] = $recurring_data;
+        $this->container['initial_amount'] = $initial_amount;
 
         return $this;
     }
 
     /**
-     * Gets c_res
+     * Gets plan
+     *
+     * @return \Cardpay\model\Plan
+     */
+    public function getPlan()
+    {
+        return $this->container['plan'];
+    }
+
+    /**
+     * Sets plan
+     *
+     * @param \Cardpay\model\Plan $plan Plan data
+     *
+     * @return $this
+     */
+    public function setPlan($plan)
+    {
+        $this->container['plan'] = $plan;
+
+        return $this;
+    }
+
+    /**
+     * Gets subscription_start
      *
      * @return string
      */
-    public function getCRes()
+    public function getSubscriptionStart()
     {
-        return $this->container['c_res'];
+        return $this->container['subscription_start'];
     }
 
     /**
-     * Sets c_res
+     * Sets subscription_start
      *
-     * @param string $c_res Bank authentication result, for 3-D Secure 2 *(for BANKCARD payment method only)*
+     * @param string $subscription_start The time in 'yyyy-MM-dd' format when subscription will actually become activated (grace period).Leave it empty to activate subscription at once without any grace period applied.
      *
      * @return $this
      */
-    public function setCRes($c_res)
+    public function setSubscriptionStart($subscription_start)
     {
-        $this->container['c_res'] = $c_res;
+        $this->container['subscription_start'] = $subscription_start;
 
         return $this;
     }
 
     /**
-     * Gets pa_res
+     * Gets type
      *
      * @return string
      */
-    public function getPaRes()
+    public function getType()
     {
-        return $this->container['pa_res'];
+        return $this->container['type'];
     }
 
     /**
-     * Sets pa_res
+     * Sets type
      *
-     * @param string $pa_res Bank authentication result, for 3-D Secure 1 *(for BANKCARD payment method only)*
+     * @param string $type Scheduled payment type attribute. Supported values are: `SM` - value for scheduled by merchant case `SA` - value for scheduled by acquirer case The default value is SA
      *
      * @return $this
      */
-    public function setPaRes($pa_res)
+    public function setType($type)
     {
-        $this->container['pa_res'] = $pa_res;
+        $this->container['type'] = $type;
 
         return $this;
     }

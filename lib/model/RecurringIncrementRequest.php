@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
+class RecurringIncrementRequest implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponseEWalletAccount';
+    protected static $swaggerModelName = 'RecurringIncrementRequest';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,7 +26,10 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'string'
+        'request' => '\Cardpay\model\Request',
+        'operation' => 'string',
+        'recurring_data' => '\Cardpay\model\PaymentUpdateTransactionData',
+        'transaction_data' => '\Cardpay\model\PaymentUpdateTransactionData'
     ];
 
     /**
@@ -35,7 +38,10 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => null
+        'request' => null,
+        'operation' => null,
+        'recurring_data' => null,
+        'transaction_data' => null
     ];
 
     /**
@@ -65,7 +71,10 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id'
+        'request' => 'request',
+        'operation' => 'operation',
+        'recurring_data' => 'recurring_data',
+        'transaction_data' => 'transaction_data'
     ];
 
     /**
@@ -74,7 +83,10 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId'
+        'request' => 'setRequest',
+        'operation' => 'setOperation',
+        'recurring_data' => 'setRecurringData',
+        'transaction_data' => 'setTransactionData'
     ];
 
     /**
@@ -83,7 +95,10 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId'
+        'request' => 'getRequest',
+        'operation' => 'getOperation',
+        'recurring_data' => 'getRecurringData',
+        'transaction_data' => 'getTransactionData'
     ];
 
     /**
@@ -127,8 +142,27 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
+    const OPERATION_CONFIRM_3_DS = 'CONFIRM_3DS';
+    const OPERATION_EXECUTE = 'EXECUTE';
+    const OPERATION_INCREMENT = 'INCREMENT';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getOperationAllowableValues()
+    {
+        return [
+            self::OPERATION_CHANGE_STATUS,
+            self::OPERATION_CONFIRM_3_DS,
+            self::OPERATION_EXECUTE,
+            self::OPERATION_INCREMENT,
+        ];
+    }
     
 
     /**
@@ -146,7 +180,10 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
+        $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
+        $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
+        $this->container['transaction_data'] = isset($data['transaction_data']) ? $data['transaction_data'] : null;
     }
 
     /**
@@ -157,6 +194,20 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['request'] === null) {
+            $invalidProperties[] = "'request' can't be null";
+        }
+        if ($this->container['operation'] === null) {
+            $invalidProperties[] = "'operation' can't be null";
+        }
+        $allowedValues = $this->getOperationAllowableValues();
+        if (!is_null($this->container['operation']) && !in_array($this->container['operation'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'operation', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
+        }
 
         return $invalidProperties;
     }
@@ -174,25 +225,106 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets id
+     * Gets request
      *
-     * @return string
+     * @return \Cardpay\model\Request
      */
-    public function getId()
+    public function getRequest()
     {
-        return $this->container['id'];
+        return $this->container['request'];
     }
 
     /**
-     * Sets id
+     * Sets request
      *
-     * @param string $id For QIWI: Customer phone number (from 1 to 15 digits) For WEBMONEY: Customer account number For NETELLER: Customer email For 'Latin America': Customer personal identification number For DIRECTBANKINGNGA: bank account number For AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE and TIGO: Customer account number
+     * @param \Cardpay\model\Request $request Request
      *
      * @return $this
      */
-    public function setId($id)
+    public function setRequest($request)
     {
-        $this->container['id'] = $id;
+        $this->container['request'] = $request;
+
+        return $this;
+    }
+
+    /**
+     * Gets operation
+     *
+     * @return string
+     */
+    public function getOperation()
+    {
+        return $this->container['operation'];
+    }
+
+    /**
+     * Sets operation
+     *
+     * @param string $operation `CHANGE_STATUS` value
+     *
+     * @return $this
+     */
+    public function setOperation($operation)
+    {
+        $allowedValues = $this->getOperationAllowableValues();
+        if (!in_array($operation, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'operation', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['operation'] = $operation;
+
+        return $this;
+    }
+
+    /**
+     * Gets recurring_data
+     *
+     * @return \Cardpay\model\PaymentUpdateTransactionData
+     */
+    public function getRecurringData()
+    {
+        return $this->container['recurring_data'];
+    }
+
+    /**
+     * Sets recurring_data
+     *
+     * @param \Cardpay\model\PaymentUpdateTransactionData $recurring_data Recurring data
+     *
+     * @return $this
+     */
+    public function setRecurringData($recurring_data)
+    {
+        $this->container['recurring_data'] = $recurring_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets transaction_data
+     *
+     * @return \Cardpay\model\PaymentUpdateTransactionData
+     */
+    public function getTransactionData()
+    {
+        return $this->container['transaction_data'];
+    }
+
+    /**
+     * Sets transaction_data
+     *
+     * @param \Cardpay\model\PaymentUpdateTransactionData $transaction_data transaction_data
+     *
+     * @return $this
+     */
+    public function setTransactionData($transaction_data)
+    {
+        $this->container['transaction_data'] = $transaction_data;
 
         return $this;
     }

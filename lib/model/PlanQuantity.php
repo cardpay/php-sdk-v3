@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
+class PlanQuantity implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponseEWalletAccount';
+    protected static $swaggerModelName = 'PlanQuantity';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,7 +26,9 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'string'
+        'ending_quantity' => 'int',
+        'price_per_unit' => 'float',
+        'starting_quantity' => 'int'
     ];
 
     /**
@@ -35,7 +37,9 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => null
+        'ending_quantity' => 'int32',
+        'price_per_unit' => null,
+        'starting_quantity' => 'int32'
     ];
 
     /**
@@ -65,7 +69,9 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id'
+        'ending_quantity' => 'ending_quantity',
+        'price_per_unit' => 'price_per_unit',
+        'starting_quantity' => 'starting_quantity'
     ];
 
     /**
@@ -74,7 +80,9 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId'
+        'ending_quantity' => 'setEndingQuantity',
+        'price_per_unit' => 'setPricePerUnit',
+        'starting_quantity' => 'setStartingQuantity'
     ];
 
     /**
@@ -83,7 +91,9 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId'
+        'ending_quantity' => 'getEndingQuantity',
+        'price_per_unit' => 'getPricePerUnit',
+        'starting_quantity' => 'getStartingQuantity'
     ];
 
     /**
@@ -146,7 +156,9 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['ending_quantity'] = isset($data['ending_quantity']) ? $data['ending_quantity'] : null;
+        $this->container['price_per_unit'] = isset($data['price_per_unit']) ? $data['price_per_unit'] : null;
+        $this->container['starting_quantity'] = isset($data['starting_quantity']) ? $data['starting_quantity'] : null;
     }
 
     /**
@@ -157,6 +169,18 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['ending_quantity']) && ($this->container['ending_quantity'] < 1)) {
+            $invalidProperties[] = "invalid value for 'ending_quantity', must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['price_per_unit']) && ($this->container['price_per_unit'] < 0)) {
+            $invalidProperties[] = "invalid value for 'price_per_unit', must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['starting_quantity']) && ($this->container['starting_quantity'] < 1)) {
+            $invalidProperties[] = "invalid value for 'starting_quantity', must be bigger than or equal to 1.";
+        }
 
         return $invalidProperties;
     }
@@ -174,25 +198,88 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets id
+     * Gets ending_quantity
      *
-     * @return string
+     * @return int
      */
-    public function getId()
+    public function getEndingQuantity()
     {
-        return $this->container['id'];
+        return $this->container['ending_quantity'];
     }
 
     /**
-     * Sets id
+     * Sets ending_quantity
      *
-     * @param string $id For QIWI: Customer phone number (from 1 to 15 digits) For WEBMONEY: Customer account number For NETELLER: Customer email For 'Latin America': Customer personal identification number For DIRECTBANKINGNGA: bank account number For AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE and TIGO: Customer account number
+     * @param int $ending_quantity Ending units quantity of the subscription. Mandatory if `pricing_model` is `TIERED` or `VOLUME`
      *
      * @return $this
      */
-    public function setId($id)
+    public function setEndingQuantity($ending_quantity)
     {
-        $this->container['id'] = $id;
+
+        if (!is_null($ending_quantity) && ($ending_quantity < 1)) {
+            throw new \InvalidArgumentException('invalid value for $ending_quantity when calling PlanQuantity., must be bigger than or equal to 1.');
+        }
+
+        $this->container['ending_quantity'] = $ending_quantity;
+
+        return $this;
+    }
+
+    /**
+     * Gets price_per_unit
+     *
+     * @return float
+     */
+    public function getPricePerUnit()
+    {
+        return $this->container['price_per_unit'];
+    }
+
+    /**
+     * Sets price_per_unit
+     *
+     * @param float $price_per_unit Price depending units quantity. Mandatory if `pricing_model` is `TIERED` or `VOLUME`
+     *
+     * @return $this
+     */
+    public function setPricePerUnit($price_per_unit)
+    {
+
+        if (!is_null($price_per_unit) && ($price_per_unit < 0)) {
+            throw new \InvalidArgumentException('invalid value for $price_per_unit when calling PlanQuantity., must be bigger than or equal to 0.');
+        }
+
+        $this->container['price_per_unit'] = $price_per_unit;
+
+        return $this;
+    }
+
+    /**
+     * Gets starting_quantity
+     *
+     * @return int
+     */
+    public function getStartingQuantity()
+    {
+        return $this->container['starting_quantity'];
+    }
+
+    /**
+     * Sets starting_quantity
+     *
+     * @param int $starting_quantity Starting units quantity of the subscription. Mandatory if `pricing_model` is `TIERED` or `VOLUME`
+     *
+     * @return $this
+     */
+    public function setStartingQuantity($starting_quantity)
+    {
+
+        if (!is_null($starting_quantity) && ($starting_quantity < 1)) {
+            throw new \InvalidArgumentException('invalid value for $starting_quantity when calling PlanQuantity., must be bigger than or equal to 1.');
+        }
+
+        $this->container['starting_quantity'] = $starting_quantity;
 
         return $this;
     }

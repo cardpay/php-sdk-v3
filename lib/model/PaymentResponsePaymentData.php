@@ -34,12 +34,14 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'string',
         'decline_reason' => 'string',
         'extended_decline_reason' => 'string',
+        'hold_period' => 'int',
         'id' => 'string',
         'installment_type' => 'string',
         'installments' => 'string',
         'invalid_data' => 'string[]',
         'is_3d' => 'bool',
         'note' => 'string',
+        'postauth_status' => 'string',
         'rrn' => 'string',
         'status' => 'string',
         'trans_type' => 'string',
@@ -60,12 +62,14 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => null,
         'decline_reason' => null,
         'extended_decline_reason' => null,
+        'hold_period' => 'int32',
         'id' => null,
         'installment_type' => null,
         'installments' => null,
         'invalid_data' => null,
         'is_3d' => null,
         'note' => null,
+        'postauth_status' => null,
         'rrn' => null,
         'status' => null,
         'trans_type' => null,
@@ -107,12 +111,14 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'decline_code',
         'decline_reason' => 'decline_reason',
         'extended_decline_reason' => 'extended_decline_reason',
+        'hold_period' => 'hold_period',
         'id' => 'id',
         'installment_type' => 'installment_type',
         'installments' => 'installments',
         'invalid_data' => 'invalid_data',
         'is_3d' => 'is_3d',
         'note' => 'note',
+        'postauth_status' => 'postauth_status',
         'rrn' => 'rrn',
         'status' => 'status',
         'trans_type' => 'trans_type',
@@ -133,12 +139,14 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'setDeclineCode',
         'decline_reason' => 'setDeclineReason',
         'extended_decline_reason' => 'setExtendedDeclineReason',
+        'hold_period' => 'setHoldPeriod',
         'id' => 'setId',
         'installment_type' => 'setInstallmentType',
         'installments' => 'setInstallments',
         'invalid_data' => 'setInvalidData',
         'is_3d' => 'setIs3d',
         'note' => 'setNote',
+        'postauth_status' => 'setPostauthStatus',
         'rrn' => 'setRrn',
         'status' => 'setStatus',
         'trans_type' => 'setTransType',
@@ -159,12 +167,14 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'decline_code' => 'getDeclineCode',
         'decline_reason' => 'getDeclineReason',
         'extended_decline_reason' => 'getExtendedDeclineReason',
+        'hold_period' => 'getHoldPeriod',
         'id' => 'getId',
         'installment_type' => 'getInstallmentType',
         'installments' => 'getInstallments',
         'invalid_data' => 'getInvalidData',
         'is_3d' => 'getIs3d',
         'note' => 'getNote',
+        'postauth_status' => 'getPostauthStatus',
         'rrn' => 'getRrn',
         'status' => 'getStatus',
         'trans_type' => 'getTransType',
@@ -293,12 +303,14 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         $this->container['decline_code'] = isset($data['decline_code']) ? $data['decline_code'] : null;
         $this->container['decline_reason'] = isset($data['decline_reason']) ? $data['decline_reason'] : null;
         $this->container['extended_decline_reason'] = isset($data['extended_decline_reason']) ? $data['extended_decline_reason'] : null;
+        $this->container['hold_period'] = isset($data['hold_period']) ? $data['hold_period'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
         $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
         $this->container['invalid_data'] = isset($data['invalid_data']) ? $data['invalid_data'] : null;
         $this->container['is_3d'] = isset($data['is_3d']) ? $data['is_3d'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
+        $this->container['postauth_status'] = isset($data['postauth_status']) ? $data['postauth_status'] : null;
         $this->container['rrn'] = isset($data['rrn']) ? $data['rrn'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
@@ -538,6 +550,30 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets hold_period
+     *
+     * @return int
+     */
+    public function getHoldPeriod()
+    {
+        return $this->container['hold_period'];
+    }
+
+    /**
+     * Sets hold_period
+     *
+     * @param int $hold_period The delay between the authorisation and scheduled auto-capture or auto-void, specified in hours. The minimum hold period is 1 hour, maximum hold period is 7 days (168 hours).
+     *
+     * @return $this
+     */
+    public function setHoldPeriod($hold_period)
+    {
+        $this->container['hold_period'] = $hold_period;
+
+        return $this;
+    }
+
+    /**
      * Gets id
      *
      * @return string
@@ -677,6 +713,30 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
     public function setNote($note)
     {
         $this->container['note'] = $note;
+
+        return $this;
+    }
+
+    /**
+     * Gets postauth_status
+     *
+     * @return string
+     */
+    public function getPostauthStatus()
+    {
+        return $this->container['postauth_status'];
+    }
+
+    /**
+     * Sets postauth_status
+     *
+     * @param string $postauth_status The value contains payment status after hold period if payment has not been completed. Possible values: COMPLETE, REVERSE
+     *
+     * @return $this
+     */
+    public function setPostauthStatus($postauth_status)
+    {
+        $this->container['postauth_status'] = $postauth_status;
 
         return $this;
     }

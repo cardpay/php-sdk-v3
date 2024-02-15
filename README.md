@@ -2,7 +2,7 @@
 The Unlimit API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 3.56.0
+- PHP SDK version: 3.64.18
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
@@ -89,13 +89,17 @@ composer install
 
  - [ApiError](lib/model/ApiError.php)
  - [ApiTokens](lib/model/ApiTokens.php)
+ - [AuthDataRequest](lib/model/AuthDataRequest.php)
+ - [AuthenticationCreateResponse](lib/model/AuthenticationCreateResponse.php)
  - [AuthenticationCustomer](lib/model/AuthenticationCustomer.php)
  - [AuthenticationData](lib/model/AuthenticationData.php)
+ - [AuthenticationDataRequest](lib/model/AuthenticationDataRequest.php)
  - [AuthenticationDataResponse](lib/model/AuthenticationDataResponse.php)
  - [AuthenticationError](lib/model/AuthenticationError.php)
  - [BadRequestError](lib/model/BadRequestError.php)
  - [BankCardPayoutData](lib/model/BankCardPayoutData.php)
  - [BillingAddress](lib/model/BillingAddress.php)
+ - [BrowserInfo](lib/model/BrowserInfo.php)
  - [CardInfoRequest](lib/model/CardInfoRequest.php)
  - [CardInfoResponse](lib/model/CardInfoResponse.php)
  - [ChangeSubscriptionStatusClaimResponse](lib/model/ChangeSubscriptionStatusClaimResponse.php)
@@ -184,12 +188,14 @@ composer install
  - [PixAccountDetailsResponse](lib/model/PixAccountDetailsResponse.php)
  - [Plan](lib/model/Plan.php)
  - [PlanDataList](lib/model/PlanDataList.php)
+ - [PlanQuantity](lib/model/PlanQuantity.php)
  - [PlanUpdateRequest](lib/model/PlanUpdateRequest.php)
  - [PlanUpdateRequestPlanData](lib/model/PlanUpdateRequestPlanData.php)
  - [PlanUpdateResponse](lib/model/PlanUpdateResponse.php)
  - [RecurringCallback](lib/model/RecurringCallback.php)
  - [RecurringCreationRequest](lib/model/RecurringCreationRequest.php)
  - [RecurringCustomer](lib/model/RecurringCustomer.php)
+ - [RecurringData](lib/model/RecurringData.php)
  - [RecurringFilterParameters](lib/model/RecurringFilterParameters.php)
  - [RecurringGatewayCreationResponse](lib/model/RecurringGatewayCreationResponse.php)
  - [RecurringGatewayResponseRecurringData](lib/model/RecurringGatewayResponseRecurringData.php)
@@ -241,6 +247,7 @@ composer install
  - [SubscriptionGetResponse](lib/model/SubscriptionGetResponse.php)
  - [SubscriptionGetResponsePlan](lib/model/SubscriptionGetResponsePlan.php)
  - [SubscriptionList](lib/model/SubscriptionList.php)
+ - [SubscriptionPendingPlanUpdate](lib/model/SubscriptionPendingPlanUpdate.php)
  - [SubscriptionUpdateRequest](lib/model/SubscriptionUpdateRequest.php)
  - [SubscriptionUpdateRequestSubscriptionData](lib/model/SubscriptionUpdateRequestSubscriptionData.php)
  - [SubscriptionUpdateResponse](lib/model/SubscriptionUpdateResponse.php)
@@ -257,9 +264,11 @@ composer install
  - [UpdatedSubscriptionRecurringData](lib/model/UpdatedSubscriptionRecurringData.php)
  - [PaymentConfirm3dsRequest](lib/model/PaymentConfirm3dsRequest.php)
  - [PaymentExecuteRequest](lib/model/PaymentExecuteRequest.php)
+ - [PaymentIncrementRequest](lib/model/PaymentIncrementRequest.php)
  - [PaymentUpdateRequest](lib/model/PaymentUpdateRequest.php)
  - [RecurringConfirm3dsRequest](lib/model/RecurringConfirm3dsRequest.php)
  - [RecurringExecuteRequest](lib/model/RecurringExecuteRequest.php)
+ - [RecurringIncrementRequest](lib/model/RecurringIncrementRequest.php)
  - [RecurringUpdateRequest](lib/model/RecurringUpdateRequest.php)
 
 

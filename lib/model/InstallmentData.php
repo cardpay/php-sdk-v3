@@ -30,11 +30,13 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
         'generate_token' => 'bool',
+        'hold_period' => 'int',
         'initiator' => 'string',
         'installment_amount' => 'float',
         'installment_type' => 'string',
         'note' => 'string',
         'payments' => 'int[]',
+        'postauth_status' => 'string',
         'preauth' => 'bool',
         'three_ds_challenge_indicator' => 'string',
         'trans_type' => 'string'
@@ -50,11 +52,13 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'currency' => null,
         'dynamic_descriptor' => null,
         'generate_token' => null,
+        'hold_period' => 'int32',
         'initiator' => null,
         'installment_amount' => null,
         'installment_type' => null,
         'note' => null,
         'payments' => 'int32',
+        'postauth_status' => null,
         'preauth' => null,
         'three_ds_challenge_indicator' => null,
         'trans_type' => null
@@ -91,11 +95,13 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
         'generate_token' => 'generate_token',
+        'hold_period' => 'hold_period',
         'initiator' => 'initiator',
         'installment_amount' => 'installment_amount',
         'installment_type' => 'installment_type',
         'note' => 'note',
         'payments' => 'payments',
+        'postauth_status' => 'postauth_status',
         'preauth' => 'preauth',
         'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
         'trans_type' => 'trans_type'
@@ -111,11 +117,13 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'generate_token' => 'setGenerateToken',
+        'hold_period' => 'setHoldPeriod',
         'initiator' => 'setInitiator',
         'installment_amount' => 'setInstallmentAmount',
         'installment_type' => 'setInstallmentType',
         'note' => 'setNote',
         'payments' => 'setPayments',
+        'postauth_status' => 'setPostauthStatus',
         'preauth' => 'setPreauth',
         'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
         'trans_type' => 'setTransType'
@@ -131,11 +139,13 @@ class InstallmentData implements ModelInterface, ArrayAccess
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'generate_token' => 'getGenerateToken',
+        'hold_period' => 'getHoldPeriod',
         'initiator' => 'getInitiator',
         'installment_amount' => 'getInstallmentAmount',
         'installment_type' => 'getInstallmentType',
         'note' => 'getNote',
         'payments' => 'getPayments',
+        'postauth_status' => 'getPostauthStatus',
         'preauth' => 'getPreauth',
         'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
         'trans_type' => 'getTransType'
@@ -182,6 +192,8 @@ class InstallmentData implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const POSTAUTH_STATUS_REVERSE = 'REVERSE';
+    const POSTAUTH_STATUS_COMPLETE = 'COMPLETE';
     const TRANS_TYPE__01 = '01';
     const TRANS_TYPE__03 = '03';
     const TRANS_TYPE__10 = '10';
@@ -189,6 +201,19 @@ class InstallmentData implements ModelInterface, ArrayAccess
     const TRANS_TYPE__28 = '28';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getPostauthStatusAllowableValues()
+    {
+        return [
+            self::POSTAUTH_STATUS_REVERSE,
+            self::POSTAUTH_STATUS_COMPLETE,
+        ];
+    }
     
     /**
      * Gets allowable values of the enum
@@ -226,11 +251,13 @@ class InstallmentData implements ModelInterface, ArrayAccess
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
+        $this->container['hold_period'] = isset($data['hold_period']) ? $data['hold_period'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['installment_amount'] = isset($data['installment_amount']) ? $data['installment_amount'] : null;
         $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['payments'] = isset($data['payments']) ? $data['payments'] : null;
+        $this->container['postauth_status'] = isset($data['postauth_status']) ? $data['postauth_status'] : null;
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
         $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
@@ -256,6 +283,14 @@ class InstallmentData implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be bigger than or equal to 0.";
         }
 
+        if (!is_null($this->container['hold_period']) && ($this->container['hold_period'] > 168)) {
+            $invalidProperties[] = "invalid value for 'hold_period', must be smaller than or equal to 168.";
+        }
+
+        if (!is_null($this->container['hold_period']) && ($this->container['hold_period'] < 1)) {
+            $invalidProperties[] = "invalid value for 'hold_period', must be bigger than or equal to 1.";
+        }
+
         if ($this->container['initiator'] === null) {
             $invalidProperties[] = "'initiator' can't be null";
         }
@@ -273,6 +308,14 @@ class InstallmentData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) < 0)) {
             $invalidProperties[] = "invalid value for 'note', the character length must be bigger than or equal to 0.";
+        }
+
+        $allowedValues = $this->getPostauthStatusAllowableValues();
+        if (!is_null($this->container['postauth_status']) && !in_array($this->container['postauth_status'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'postauth_status', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
         }
 
         if (!is_null($this->container['three_ds_challenge_indicator']) && !preg_match("/01|04/", $this->container['three_ds_challenge_indicator'])) {
@@ -401,6 +444,38 @@ class InstallmentData implements ModelInterface, ArrayAccess
     public function setGenerateToken($generate_token)
     {
         $this->container['generate_token'] = $generate_token;
+
+        return $this;
+    }
+
+    /**
+     * Gets hold_period
+     *
+     * @return int
+     */
+    public function getHoldPeriod()
+    {
+        return $this->container['hold_period'];
+    }
+
+    /**
+     * Sets hold_period
+     *
+     * @param int $hold_period The delay between the authorisation and scheduled auto-capture or auto-void, specified in hours. The minimum hold period is 1 hour, maximum hold period is 7 days (168 hours).
+     *
+     * @return $this
+     */
+    public function setHoldPeriod($hold_period)
+    {
+
+        if (!is_null($hold_period) && ($hold_period > 168)) {
+            throw new \InvalidArgumentException('invalid value for $hold_period when calling InstallmentData., must be smaller than or equal to 168.');
+        }
+        if (!is_null($hold_period) && ($hold_period < 1)) {
+            throw new \InvalidArgumentException('invalid value for $hold_period when calling InstallmentData., must be bigger than or equal to 1.');
+        }
+
+        $this->container['hold_period'] = $hold_period;
 
         return $this;
     }
@@ -538,6 +613,39 @@ class InstallmentData implements ModelInterface, ArrayAccess
     public function setPayments($payments)
     {
         $this->container['payments'] = $payments;
+
+        return $this;
+    }
+
+    /**
+     * Gets postauth_status
+     *
+     * @return string
+     */
+    public function getPostauthStatus()
+    {
+        return $this->container['postauth_status'];
+    }
+
+    /**
+     * Sets postauth_status
+     *
+     * @param string $postauth_status The value contains payment status after hold period if payment has not been completed. Possible values: COMPLETE, REVERSE
+     *
+     * @return $this
+     */
+    public function setPostauthStatus($postauth_status)
+    {
+        $allowedValues = $this->getPostauthStatusAllowableValues();
+        if (!is_null($postauth_status) && !in_array($postauth_status, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'postauth_status', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['postauth_status'] = $postauth_status;
 
         return $this;
     }

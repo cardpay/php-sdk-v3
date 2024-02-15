@@ -27,6 +27,7 @@ class PlanUpdateRequestPlanData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'name_to' => 'string',
+        'quantity' => '\Cardpay\model\PlanQuantity[]',
         'status_to' => 'string'
     ];
 
@@ -37,6 +38,7 @@ class PlanUpdateRequestPlanData implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'name_to' => null,
+        'quantity' => null,
         'status_to' => null
     ];
 
@@ -68,6 +70,7 @@ class PlanUpdateRequestPlanData implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'name_to' => 'name_to',
+        'quantity' => 'quantity',
         'status_to' => 'status_to'
     ];
 
@@ -78,6 +81,7 @@ class PlanUpdateRequestPlanData implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'name_to' => 'setNameTo',
+        'quantity' => 'setQuantity',
         'status_to' => 'setStatusTo'
     ];
 
@@ -88,6 +92,7 @@ class PlanUpdateRequestPlanData implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'name_to' => 'getNameTo',
+        'quantity' => 'getQuantity',
         'status_to' => 'getStatusTo'
     ];
 
@@ -167,6 +172,7 @@ class PlanUpdateRequestPlanData implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['name_to'] = isset($data['name_to']) ? $data['name_to'] : null;
+        $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
         $this->container['status_to'] = isset($data['status_to']) ? $data['status_to'] : null;
     }
 
@@ -237,6 +243,30 @@ class PlanUpdateRequestPlanData implements ModelInterface, ArrayAccess
         }
 
         $this->container['name_to'] = $name_to;
+
+        return $this;
+    }
+
+    /**
+     * Gets quantity
+     *
+     * @return \Cardpay\model\PlanQuantity[]
+     */
+    public function getQuantity()
+    {
+        return $this->container['quantity'];
+    }
+
+    /**
+     * Sets quantity
+     *
+     * @param \Cardpay\model\PlanQuantity[] $quantity Array with units params
+     *
+     * @return $this
+     */
+    public function setQuantity($quantity)
+    {
+        $this->container['quantity'] = $quantity;
 
         return $this;
     }

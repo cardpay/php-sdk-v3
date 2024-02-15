@@ -27,7 +27,8 @@ class RefundUpdateRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
-        'refund_data' => '\Cardpay\model\RequestUpdatedTransactionData'
+        'refund_data' => '\Cardpay\model\RequestUpdatedTransactionData',
+        'transaction_data' => '\Cardpay\model\RequestUpdatedTransactionData'
     ];
 
     /**
@@ -37,7 +38,8 @@ class RefundUpdateRequest implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'request' => null,
-        'refund_data' => null
+        'refund_data' => null,
+        'transaction_data' => null
     ];
 
     /**
@@ -68,7 +70,8 @@ class RefundUpdateRequest implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'request' => 'request',
-        'refund_data' => 'refund_data'
+        'refund_data' => 'refund_data',
+        'transaction_data' => 'transaction_data'
     ];
 
     /**
@@ -78,7 +81,8 @@ class RefundUpdateRequest implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'request' => 'setRequest',
-        'refund_data' => 'setRefundData'
+        'refund_data' => 'setRefundData',
+        'transaction_data' => 'setTransactionData'
     ];
 
     /**
@@ -88,7 +92,8 @@ class RefundUpdateRequest implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'request' => 'getRequest',
-        'refund_data' => 'getRefundData'
+        'refund_data' => 'getRefundData',
+        'transaction_data' => 'getTransactionData'
     ];
 
     /**
@@ -153,6 +158,7 @@ class RefundUpdateRequest implements ModelInterface, ArrayAccess
     {
         $this->container['request'] = isset($data['request']) ? $data['request'] : null;
         $this->container['refund_data'] = isset($data['refund_data']) ? $data['refund_data'] : null;
+        $this->container['transaction_data'] = isset($data['transaction_data']) ? $data['transaction_data'] : null;
     }
 
     /**
@@ -219,13 +225,37 @@ class RefundUpdateRequest implements ModelInterface, ArrayAccess
     /**
      * Sets refund_data
      *
-     * @param \Cardpay\model\RequestUpdatedTransactionData $refund_data Transaction data
+     * @param \Cardpay\model\RequestUpdatedTransactionData $refund_data Refund data
      *
      * @return $this
      */
     public function setRefundData($refund_data)
     {
         $this->container['refund_data'] = $refund_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets transaction_data
+     *
+     * @return \Cardpay\model\RequestUpdatedTransactionData
+     */
+    public function getTransactionData()
+    {
+        return $this->container['transaction_data'];
+    }
+
+    /**
+     * Sets transaction_data
+     *
+     * @param \Cardpay\model\RequestUpdatedTransactionData $transaction_data transaction_data
+     *
+     * @return $this
+     */
+    public function setTransactionData($transaction_data)
+    {
+        $this->container['transaction_data'] = $transaction_data;
 
         return $this;
     }

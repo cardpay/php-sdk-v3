@@ -30,6 +30,7 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'currency' => 'string',
         'expire_at' => '\DateTime',
         'id' => 'string',
+        'initial_amount' => 'float',
         'status' => 'string'
     ];
 
@@ -43,6 +44,7 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'currency' => null,
         'expire_at' => 'date-time',
         'id' => null,
+        'initial_amount' => null,
         'status' => null
     ];
 
@@ -77,6 +79,7 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'currency' => 'currency',
         'expire_at' => 'expire_at',
         'id' => 'id',
+        'initial_amount' => 'initial_amount',
         'status' => 'status'
     ];
 
@@ -90,6 +93,7 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'currency' => 'setCurrency',
         'expire_at' => 'setExpireAt',
         'id' => 'setId',
+        'initial_amount' => 'setInitialAmount',
         'status' => 'setStatus'
     ];
 
@@ -103,6 +107,7 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'currency' => 'getCurrency',
         'expire_at' => 'getExpireAt',
         'id' => 'getId',
+        'initial_amount' => 'getInitialAmount',
         'status' => 'getStatus'
     ];
 
@@ -170,6 +175,7 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['expire_at'] = isset($data['expire_at']) ? $data['expire_at'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['initial_amount'] = isset($data['initial_amount']) ? $data['initial_amount'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
     }
 
@@ -182,9 +188,6 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['amount'] === null) {
-            $invalidProperties[] = "'amount' can't be null";
-        }
         if ($this->container['currency'] === null) {
             $invalidProperties[] = "'currency' can't be null";
         }
@@ -298,6 +301,30 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
     public function setId($id)
     {
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets initial_amount
+     *
+     * @return float
+     */
+    public function getInitialAmount()
+    {
+        return $this->container['initial_amount'];
+    }
+
+    /**
+     * Sets initial_amount
+     *
+     * @param float $initial_amount The amount charged for the initial period from the creation of the transaction to the start date of the subscription
+     *
+     * @return $this
+     */
+    public function setInitialAmount($initial_amount)
+    {
+        $this->container['initial_amount'] = $initial_amount;
 
         return $this;
     }

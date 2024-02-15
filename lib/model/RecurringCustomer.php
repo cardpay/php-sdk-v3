@@ -26,6 +26,8 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'browser_info' => '\Cardpay\model\BrowserInfo',
+        'device' => '\Cardpay\model\Device',
         'email' => 'string',
         'home_phone' => 'string',
         'id' => 'string',
@@ -44,6 +46,8 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'browser_info' => null,
+        'device' => null,
         'email' => null,
         'home_phone' => null,
         'id' => null,
@@ -83,6 +87,8 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'browser_info' => 'browser_info',
+        'device' => 'device',
         'email' => 'email',
         'home_phone' => 'home_phone',
         'id' => 'id',
@@ -101,6 +107,8 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'browser_info' => 'setBrowserInfo',
+        'device' => 'setDevice',
         'email' => 'setEmail',
         'home_phone' => 'setHomePhone',
         'id' => 'setId',
@@ -119,6 +127,8 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'browser_info' => 'getBrowserInfo',
+        'device' => 'getDevice',
         'email' => 'getEmail',
         'home_phone' => 'getHomePhone',
         'id' => 'getId',
@@ -210,6 +220,8 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['browser_info'] = isset($data['browser_info']) ? $data['browser_info'] : null;
+        $this->container['device'] = isset($data['device']) ? $data['device'] : null;
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
         $this->container['home_phone'] = isset($data['home_phone']) ? $data['home_phone'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
@@ -285,6 +297,14 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 8.";
         }
 
+        if (!is_null($this->container['user_agent']) && (mb_strlen($this->container['user_agent']) > 2048)) {
+            $invalidProperties[] = "invalid value for 'user_agent', the character length must be smaller than or equal to 2048.";
+        }
+
+        if (!is_null($this->container['user_agent']) && (mb_strlen($this->container['user_agent']) < 0)) {
+            $invalidProperties[] = "invalid value for 'user_agent', the character length must be bigger than or equal to 0.";
+        }
+
         if (!is_null($this->container['work_phone']) && (mb_strlen($this->container['work_phone']) > 18)) {
             $invalidProperties[] = "invalid value for 'work_phone', the character length must be smaller than or equal to 18.";
         }
@@ -307,6 +327,54 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets browser_info
+     *
+     * @return \Cardpay\model\BrowserInfo
+     */
+    public function getBrowserInfo()
+    {
+        return $this->container['browser_info'];
+    }
+
+    /**
+     * Sets browser_info
+     *
+     * @param \Cardpay\model\BrowserInfo $browser_info Browser info
+     *
+     * @return $this
+     */
+    public function setBrowserInfo($browser_info)
+    {
+        $this->container['browser_info'] = $browser_info;
+
+        return $this;
+    }
+
+    /**
+     * Gets device
+     *
+     * @return \Cardpay\model\Device
+     */
+    public function getDevice()
+    {
+        return $this->container['device'];
+    }
+
+    /**
+     * Sets device
+     *
+     * @param \Cardpay\model\Device $device Customer's device information
+     *
+     * @return $this
+     */
+    public function setDevice($device)
+    {
+        $this->container['device'] = $device;
+
+        return $this;
+    }
 
     /**
      * Gets email
@@ -563,6 +631,13 @@ class RecurringCustomer implements ModelInterface, ArrayAccess
      */
     public function setUserAgent($user_agent)
     {
+        if (!is_null($user_agent) && (mb_strlen($user_agent) > 2048)) {
+            throw new \InvalidArgumentException('invalid length for $user_agent when calling RecurringCustomer., must be smaller than or equal to 2048.');
+        }
+        if (!is_null($user_agent) && (mb_strlen($user_agent) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $user_agent when calling RecurringCustomer., must be bigger than or equal to 0.');
+        }
+
         $this->container['user_agent'] = $user_agent;
 
         return $this;

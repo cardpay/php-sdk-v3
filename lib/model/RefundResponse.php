@@ -270,7 +270,7 @@ class RefundResponse implements ModelInterface, ArrayAccess
     /**
      * Sets ewallet_account
      *
-     * @param \Cardpay\model\TransactionResponseEWalletAccount $ewallet_account eWallet account data *(for ALIPAY and QIWI payment methods only)*
+     * @param \Cardpay\model\TransactionResponseEWalletAccount $ewallet_account eWallet account data *(for QIWI payment methods only)*
      *
      * @return $this
      */

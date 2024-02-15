@@ -140,6 +140,7 @@ class RecurringExecuteRequest implements ModelInterface, ArrayAccess
     const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
     const OPERATION_CONFIRM_3_DS = 'CONFIRM_3DS';
     const OPERATION_EXECUTE = 'EXECUTE';
+    const OPERATION_INCREMENT = 'INCREMENT';
     
 
     
@@ -154,6 +155,7 @@ class RecurringExecuteRequest implements ModelInterface, ArrayAccess
             self::OPERATION_CHANGE_STATUS,
             self::OPERATION_CONFIRM_3_DS,
             self::OPERATION_EXECUTE,
+            self::OPERATION_INCREMENT,
         ];
     }
     

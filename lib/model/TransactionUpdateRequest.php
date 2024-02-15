@@ -219,7 +219,7 @@ class TransactionUpdateRequest implements ModelInterface, ArrayAccess
     /**
      * Sets transaction_data
      *
-     * @param \Cardpay\model\RequestUpdatedTransactionData $transaction_data Transaction data
+     * @param \Cardpay\model\RequestUpdatedTransactionData $transaction_data transaction_data
      *
      * @return $this
      */

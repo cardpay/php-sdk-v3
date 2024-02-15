@@ -29,12 +29,14 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'amount' => 'float',
         'arn' => 'string',
         'auth_code' => 'string',
+        'begin' => 'bool',
         'created' => 'string',
         'currency' => 'string',
         'decline_code' => 'string',
         'decline_reason' => 'string',
         'extended_decline_reason' => 'string',
         'filing' => '\Cardpay\model\RecurringResponseFiling',
+        'hold_period' => 'int',
         'id' => 'string',
         'initiator' => 'string',
         'installment_amount' => 'float',
@@ -44,6 +46,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'network_trans_id' => 'string',
         'note' => 'string',
         'payments' => 'string',
+        'postauth_status' => 'string',
         'rrn' => 'string',
         'scheduled_type' => 'string',
         'status' => 'string',
@@ -61,12 +64,14 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'amount' => null,
         'arn' => null,
         'auth_code' => null,
+        'begin' => null,
         'created' => null,
         'currency' => null,
         'decline_code' => null,
         'decline_reason' => null,
         'extended_decline_reason' => null,
         'filing' => null,
+        'hold_period' => 'int32',
         'id' => null,
         'initiator' => null,
         'installment_amount' => null,
@@ -76,6 +81,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'network_trans_id' => null,
         'note' => null,
         'payments' => null,
+        'postauth_status' => null,
         'rrn' => null,
         'scheduled_type' => null,
         'status' => null,
@@ -114,12 +120,14 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'amount' => 'amount',
         'arn' => 'arn',
         'auth_code' => 'auth_code',
+        'begin' => 'begin',
         'created' => 'created',
         'currency' => 'currency',
         'decline_code' => 'decline_code',
         'decline_reason' => 'decline_reason',
         'extended_decline_reason' => 'extended_decline_reason',
         'filing' => 'filing',
+        'hold_period' => 'hold_period',
         'id' => 'id',
         'initiator' => 'initiator',
         'installment_amount' => 'installment_amount',
@@ -129,6 +137,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'network_trans_id' => 'network_trans_id',
         'note' => 'note',
         'payments' => 'payments',
+        'postauth_status' => 'postauth_status',
         'rrn' => 'rrn',
         'scheduled_type' => 'scheduled_type',
         'status' => 'status',
@@ -146,12 +155,14 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'amount' => 'setAmount',
         'arn' => 'setArn',
         'auth_code' => 'setAuthCode',
+        'begin' => 'setBegin',
         'created' => 'setCreated',
         'currency' => 'setCurrency',
         'decline_code' => 'setDeclineCode',
         'decline_reason' => 'setDeclineReason',
         'extended_decline_reason' => 'setExtendedDeclineReason',
         'filing' => 'setFiling',
+        'hold_period' => 'setHoldPeriod',
         'id' => 'setId',
         'initiator' => 'setInitiator',
         'installment_amount' => 'setInstallmentAmount',
@@ -161,6 +172,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'network_trans_id' => 'setNetworkTransId',
         'note' => 'setNote',
         'payments' => 'setPayments',
+        'postauth_status' => 'setPostauthStatus',
         'rrn' => 'setRrn',
         'scheduled_type' => 'setScheduledType',
         'status' => 'setStatus',
@@ -178,12 +190,14 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'amount' => 'getAmount',
         'arn' => 'getArn',
         'auth_code' => 'getAuthCode',
+        'begin' => 'getBegin',
         'created' => 'getCreated',
         'currency' => 'getCurrency',
         'decline_code' => 'getDeclineCode',
         'decline_reason' => 'getDeclineReason',
         'extended_decline_reason' => 'getExtendedDeclineReason',
         'filing' => 'getFiling',
+        'hold_period' => 'getHoldPeriod',
         'id' => 'getId',
         'initiator' => 'getInitiator',
         'installment_amount' => 'getInstallmentAmount',
@@ -193,6 +207,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         'network_trans_id' => 'getNetworkTransId',
         'note' => 'getNote',
         'payments' => 'getPayments',
+        'postauth_status' => 'getPostauthStatus',
         'rrn' => 'getRrn',
         'scheduled_type' => 'getScheduledType',
         'status' => 'getStatus',
@@ -350,12 +365,14 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
         $this->container['arn'] = isset($data['arn']) ? $data['arn'] : null;
         $this->container['auth_code'] = isset($data['auth_code']) ? $data['auth_code'] : null;
+        $this->container['begin'] = isset($data['begin']) ? $data['begin'] : null;
         $this->container['created'] = isset($data['created']) ? $data['created'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['decline_code'] = isset($data['decline_code']) ? $data['decline_code'] : null;
         $this->container['decline_reason'] = isset($data['decline_reason']) ? $data['decline_reason'] : null;
         $this->container['extended_decline_reason'] = isset($data['extended_decline_reason']) ? $data['extended_decline_reason'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
+        $this->container['hold_period'] = isset($data['hold_period']) ? $data['hold_period'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['initiator'] = isset($data['initiator']) ? $data['initiator'] : null;
         $this->container['installment_amount'] = isset($data['installment_amount']) ? $data['installment_amount'] : null;
@@ -365,6 +382,7 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
         $this->container['network_trans_id'] = isset($data['network_trans_id']) ? $data['network_trans_id'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['payments'] = isset($data['payments']) ? $data['payments'] : null;
+        $this->container['postauth_status'] = isset($data['postauth_status']) ? $data['postauth_status'] : null;
         $this->container['rrn'] = isset($data['rrn']) ? $data['rrn'] : null;
         $this->container['scheduled_type'] = isset($data['scheduled_type']) ? $data['scheduled_type'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
@@ -497,6 +515,30 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     public function setAuthCode($auth_code)
     {
         $this->container['auth_code'] = $auth_code;
+
+        return $this;
+    }
+
+    /**
+     * Gets begin
+     *
+     * @return bool
+     */
+    public function getBegin()
+    {
+        return $this->container['begin'];
+    }
+
+    /**
+     * Sets begin
+     *
+     * @param bool $begin Callback: show first/next recurring
+     *
+     * @return $this
+     */
+    public function setBegin($begin)
+    {
+        $this->container['begin'] = $begin;
 
         return $this;
     }
@@ -641,6 +683,30 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     public function setFiling($filing)
     {
         $this->container['filing'] = $filing;
+
+        return $this;
+    }
+
+    /**
+     * Gets hold_period
+     *
+     * @return int
+     */
+    public function getHoldPeriod()
+    {
+        return $this->container['hold_period'];
+    }
+
+    /**
+     * Sets hold_period
+     *
+     * @param int $hold_period The delay between the authorisation and scheduled auto-capture or auto-void, specified in hours. The minimum hold period is 1 hour, maximum hold period is 7 days (168 hours).
+     *
+     * @return $this
+     */
+    public function setHoldPeriod($hold_period)
+    {
+        $this->container['hold_period'] = $hold_period;
 
         return $this;
     }
@@ -857,6 +923,30 @@ class RecurringResponseRecurringData implements ModelInterface, ArrayAccess
     public function setPayments($payments)
     {
         $this->container['payments'] = $payments;
+
+        return $this;
+    }
+
+    /**
+     * Gets postauth_status
+     *
+     * @return string
+     */
+    public function getPostauthStatus()
+    {
+        return $this->container['postauth_status'];
+    }
+
+    /**
+     * Sets postauth_status
+     *
+     * @param string $postauth_status The value contains payment status after hold period if payment has not been completed. Possible values: COMPLETE, REVERSE
+     *
+     * @return $this
+     */
+    public function setPostauthStatus($postauth_status)
+    {
+        $this->container['postauth_status'] = $postauth_status;
 
         return $this;
     }

@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
+class AuthenticationCreateResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PayoutResponseEWalletAccount';
+    protected static $swaggerModelName = 'AuthenticationCreateResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,7 +26,8 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'id' => 'string'
+        'authentication_data' => '\Cardpay\model\AuthenticationData',
+        'redirect_url' => 'string'
     ];
 
     /**
@@ -35,7 +36,8 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'id' => null
+        'authentication_data' => null,
+        'redirect_url' => null
     ];
 
     /**
@@ -65,7 +67,8 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id'
+        'authentication_data' => 'authentication_data',
+        'redirect_url' => 'redirect_url'
     ];
 
     /**
@@ -74,7 +77,8 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId'
+        'authentication_data' => 'setAuthenticationData',
+        'redirect_url' => 'setRedirectUrl'
     ];
 
     /**
@@ -83,7 +87,8 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId'
+        'authentication_data' => 'getAuthenticationData',
+        'redirect_url' => 'getRedirectUrl'
     ];
 
     /**
@@ -146,7 +151,8 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['authentication_data'] = isset($data['authentication_data']) ? $data['authentication_data'] : null;
+        $this->container['redirect_url'] = isset($data['redirect_url']) ? $data['redirect_url'] : null;
     }
 
     /**
@@ -174,25 +180,49 @@ class PayoutResponseEWalletAccount implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets id
+     * Gets authentication_data
      *
-     * @return string
+     * @return \Cardpay\model\AuthenticationData
      */
-    public function getId()
+    public function getAuthenticationData()
     {
-        return $this->container['id'];
+        return $this->container['authentication_data'];
     }
 
     /**
-     * Sets id
+     * Sets authentication_data
      *
-     * @param string $id For QIWI: Customer phone number (from 1 to 15 digits) For WEBMONEY: Customer account number For NETELLER: Customer email For 'Latin America': Customer personal identification number For DIRECTBANKINGNGA: bank account number For AIRTEL, MPESA, MTN, UGANDAMOBILE, VODAFONE and TIGO: Customer account number
+     * @param \Cardpay\model\AuthenticationData $authentication_data Authentication data
      *
      * @return $this
      */
-    public function setId($id)
+    public function setAuthenticationData($authentication_data)
     {
-        $this->container['id'] = $id;
+        $this->container['authentication_data'] = $authentication_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets redirect_url
+     *
+     * @return string
+     */
+    public function getRedirectUrl()
+    {
+        return $this->container['redirect_url'];
+    }
+
+    /**
+     * Sets redirect_url
+     *
+     * @param string $redirect_url URL Customer should be redirected to
+     *
+     * @return $this
+     */
+    public function setRedirectUrl($redirect_url)
+    {
+        $this->container['redirect_url'] = $redirect_url;
 
         return $this;
     }

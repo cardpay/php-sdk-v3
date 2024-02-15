@@ -26,6 +26,7 @@ class Plan implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'change_date' => 'string',
         'id' => 'string'
     ];
 
@@ -35,6 +36,7 @@ class Plan implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'change_date' => null,
         'id' => null
     ];
 
@@ -65,6 +67,7 @@ class Plan implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'change_date' => 'change_date',
         'id' => 'id'
     ];
 
@@ -74,6 +77,7 @@ class Plan implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'change_date' => 'setChangeDate',
         'id' => 'setId'
     ];
 
@@ -83,6 +87,7 @@ class Plan implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'change_date' => 'getChangeDate',
         'id' => 'getId'
     ];
 
@@ -146,6 +151,7 @@ class Plan implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['change_date'] = isset($data['change_date']) ? $data['change_date'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
 
@@ -182,6 +188,30 @@ class Plan implements ModelInterface, ArrayAccess
 
 
     /**
+     * Gets change_date
+     *
+     * @return string
+     */
+    public function getChangeDate()
+    {
+        return $this->container['change_date'];
+    }
+
+    /**
+     * Sets change_date
+     *
+     * @param string $change_date Date when the subscription plan will be changed
+     *
+     * @return $this
+     */
+    public function setChangeDate($change_date)
+    {
+        $this->container['change_date'] = $change_date;
+
+        return $this;
+    }
+
+    /**
      * Gets id
      *
      * @return string
@@ -194,7 +224,7 @@ class Plan implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param string $id Plan ID
+     * @param string $id Subscription plan identificator
      *
      * @return $this
      */

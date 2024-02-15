@@ -37,7 +37,8 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'scheduled_type' => 'string',
         'subscription_start' => '\DateTime',
         'three_ds_challenge_indicator' => 'string',
-        'trans_type' => 'string'
+        'trans_type' => 'string',
+        'units' => 'int'
     ];
 
     /**
@@ -57,7 +58,8 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'scheduled_type' => null,
         'subscription_start' => 'date-time',
         'three_ds_challenge_indicator' => null,
-        'trans_type' => null
+        'trans_type' => null,
+        'units' => 'int32'
     ];
 
     /**
@@ -98,7 +100,8 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'scheduled_type' => 'scheduled_type',
         'subscription_start' => 'subscription_start',
         'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
-        'trans_type' => 'trans_type'
+        'trans_type' => 'trans_type',
+        'units' => 'units'
     ];
 
     /**
@@ -118,7 +121,8 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'scheduled_type' => 'setScheduledType',
         'subscription_start' => 'setSubscriptionStart',
         'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
-        'trans_type' => 'setTransType'
+        'trans_type' => 'setTransType',
+        'units' => 'setUnits'
     ];
 
     /**
@@ -138,7 +142,8 @@ class ScheduledData implements ModelInterface, ArrayAccess
         'scheduled_type' => 'getScheduledType',
         'subscription_start' => 'getSubscriptionStart',
         'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
-        'trans_type' => 'getTransType'
+        'trans_type' => 'getTransType',
+        'units' => 'getUnits'
     ];
 
     /**
@@ -234,6 +239,7 @@ class ScheduledData implements ModelInterface, ArrayAccess
         $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
         $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
+        $this->container['units'] = isset($data['units']) ? $data['units'] : null;
     }
 
     /**
@@ -244,6 +250,14 @@ class ScheduledData implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['contract_number']) && (mb_strlen($this->container['contract_number']) > 20)) {
+            $invalidProperties[] = "invalid value for 'contract_number', the character length must be smaller than or equal to 20.";
+        }
+
+        if (!is_null($this->container['contract_number']) && (mb_strlen($this->container['contract_number']) < 0)) {
+            $invalidProperties[] = "invalid value for 'contract_number', the character length must be bigger than or equal to 0.";
+        }
 
         if (!is_null($this->container['dynamic_descriptor']) && (mb_strlen($this->container['dynamic_descriptor']) > 25)) {
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be smaller than or equal to 25.";
@@ -292,6 +306,10 @@ class ScheduledData implements ModelInterface, ArrayAccess
             );
         }
 
+        if (!is_null($this->container['units']) && ($this->container['units'] < 1)) {
+            $invalidProperties[] = "invalid value for 'units', must be bigger than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -326,6 +344,13 @@ class ScheduledData implements ModelInterface, ArrayAccess
      */
     public function setContractNumber($contract_number)
     {
+        if (!is_null($contract_number) && (mb_strlen($contract_number) > 20)) {
+            throw new \InvalidArgumentException('invalid length for $contract_number when calling ScheduledData., must be smaller than or equal to 20.');
+        }
+        if (!is_null($contract_number) && (mb_strlen($contract_number) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $contract_number when calling ScheduledData., must be bigger than or equal to 0.');
+        }
+
         $this->container['contract_number'] = $contract_number;
 
         return $this;
@@ -636,6 +661,35 @@ class ScheduledData implements ModelInterface, ArrayAccess
             );
         }
         $this->container['trans_type'] = $trans_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets units
+     *
+     * @return int
+     */
+    public function getUnits()
+    {
+        return $this->container['units'];
+    }
+
+    /**
+     * Sets units
+     *
+     * @param int $units Units quantity of the subscription, who can consume their service.
+     *
+     * @return $this
+     */
+    public function setUnits($units)
+    {
+
+        if (!is_null($units) && ($units < 1)) {
+            throw new \InvalidArgumentException('invalid value for $units when calling ScheduledData., must be bigger than or equal to 1.');
+        }
+
+        $this->container['units'] = $units;
 
         return $this;
     }

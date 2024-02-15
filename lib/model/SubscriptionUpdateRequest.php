@@ -140,6 +140,9 @@ class SubscriptionUpdateRequest implements ModelInterface, ArrayAccess
     const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
     const OPERATION_REPAYMENT = 'REPAYMENT';
     const OPERATION_CHANGE_FILING = 'CHANGE_FILING';
+    const OPERATION_CHANGE_PLAN = 'CHANGE_PLAN';
+    const OPERATION_CHANGE_PAYMENT_DATE = 'CHANGE_PAYMENT_DATE';
+    const OPERATION_CHANGE_UNITS = 'CHANGE_UNITS';
     
 
     
@@ -154,6 +157,9 @@ class SubscriptionUpdateRequest implements ModelInterface, ArrayAccess
             self::OPERATION_CHANGE_STATUS,
             self::OPERATION_REPAYMENT,
             self::OPERATION_CHANGE_FILING,
+            self::OPERATION_CHANGE_PLAN,
+            self::OPERATION_CHANGE_PAYMENT_DATE,
+            self::OPERATION_CHANGE_UNITS,
         ];
     }
     

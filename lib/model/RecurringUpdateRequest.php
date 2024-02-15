@@ -28,7 +28,8 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'request' => '\Cardpay\model\Request',
         'operation' => 'string',
-        'recurring_data' => '\Cardpay\model\PaymentUpdateTransactionData'
+        'recurring_data' => '\Cardpay\model\PaymentUpdateTransactionData',
+        'transaction_data' => '\Cardpay\model\PaymentUpdateTransactionData'
     ];
 
     /**
@@ -39,7 +40,8 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'request' => null,
         'operation' => null,
-        'recurring_data' => null
+        'recurring_data' => null,
+        'transaction_data' => null
     ];
 
     /**
@@ -71,7 +73,8 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'request' => 'request',
         'operation' => 'operation',
-        'recurring_data' => 'recurring_data'
+        'recurring_data' => 'recurring_data',
+        'transaction_data' => 'transaction_data'
     ];
 
     /**
@@ -82,7 +85,8 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     protected static $setters = [
         'request' => 'setRequest',
         'operation' => 'setOperation',
-        'recurring_data' => 'setRecurringData'
+        'recurring_data' => 'setRecurringData',
+        'transaction_data' => 'setTransactionData'
     ];
 
     /**
@@ -93,7 +97,8 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     protected static $getters = [
         'request' => 'getRequest',
         'operation' => 'getOperation',
-        'recurring_data' => 'getRecurringData'
+        'recurring_data' => 'getRecurringData',
+        'transaction_data' => 'getTransactionData'
     ];
 
     /**
@@ -140,6 +145,7 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
     const OPERATION_CONFIRM_3_DS = 'CONFIRM_3DS';
     const OPERATION_EXECUTE = 'EXECUTE';
+    const OPERATION_INCREMENT = 'INCREMENT';
     
 
     
@@ -154,6 +160,7 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
             self::OPERATION_CHANGE_STATUS,
             self::OPERATION_CONFIRM_3_DS,
             self::OPERATION_EXECUTE,
+            self::OPERATION_INCREMENT,
         ];
     }
     
@@ -176,6 +183,7 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
         $this->container['request'] = isset($data['request']) ? $data['request'] : null;
         $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
         $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
+        $this->container['transaction_data'] = isset($data['transaction_data']) ? $data['transaction_data'] : null;
     }
 
     /**
@@ -286,13 +294,37 @@ class RecurringUpdateRequest implements ModelInterface, ArrayAccess
     /**
      * Sets recurring_data
      *
-     * @param \Cardpay\model\PaymentUpdateTransactionData $recurring_data Transaction data
+     * @param \Cardpay\model\PaymentUpdateTransactionData $recurring_data Recurring data
      *
      * @return $this
      */
     public function setRecurringData($recurring_data)
     {
         $this->container['recurring_data'] = $recurring_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets transaction_data
+     *
+     * @return \Cardpay\model\PaymentUpdateTransactionData
+     */
+    public function getTransactionData()
+    {
+        return $this->container['transaction_data'];
+    }
+
+    /**
+     * Sets transaction_data
+     *
+     * @param \Cardpay\model\PaymentUpdateTransactionData $transaction_data transaction_data
+     *
+     * @return $this
+     */
+    public function setTransactionData($transaction_data)
+    {
+        $this->container['transaction_data'] = $transaction_data;
 
         return $this;
     }

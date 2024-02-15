@@ -27,7 +27,10 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
       */
     protected static $swaggerTypes = [
         'amount' => 'float',
-        'status_to' => 'string'
+        'next_payment_date' => '\DateTime',
+        'plan' => '\Cardpay\model\Plan',
+        'status_to' => 'string',
+        'units' => 'int'
     ];
 
     /**
@@ -37,7 +40,10 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
       */
     protected static $swaggerFormats = [
         'amount' => null,
-        'status_to' => null
+        'next_payment_date' => 'date-time',
+        'plan' => null,
+        'status_to' => null,
+        'units' => 'int32'
     ];
 
     /**
@@ -68,7 +74,10 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
      */
     protected static $attributeMap = [
         'amount' => 'amount',
-        'status_to' => 'status_to'
+        'next_payment_date' => 'next_payment_date',
+        'plan' => 'plan',
+        'status_to' => 'status_to',
+        'units' => 'units'
     ];
 
     /**
@@ -78,7 +87,10 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
      */
     protected static $setters = [
         'amount' => 'setAmount',
-        'status_to' => 'setStatusTo'
+        'next_payment_date' => 'setNextPaymentDate',
+        'plan' => 'setPlan',
+        'status_to' => 'setStatusTo',
+        'units' => 'setUnits'
     ];
 
     /**
@@ -88,7 +100,10 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
      */
     protected static $getters = [
         'amount' => 'getAmount',
-        'status_to' => 'getStatusTo'
+        'next_payment_date' => 'getNextPaymentDate',
+        'plan' => 'getPlan',
+        'status_to' => 'getStatusTo',
+        'units' => 'getUnits'
     ];
 
     /**
@@ -179,7 +194,10 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
     public function __construct(array $data = null)
     {
         $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['next_payment_date'] = isset($data['next_payment_date']) ? $data['next_payment_date'] : null;
+        $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
         $this->container['status_to'] = isset($data['status_to']) ? $data['status_to'] : null;
+        $this->container['units'] = isset($data['units']) ? $data['units'] : null;
     }
 
     /**
@@ -239,6 +257,54 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
     }
 
     /**
+     * Gets next_payment_date
+     *
+     * @return \DateTime
+     */
+    public function getNextPaymentDate()
+    {
+        return $this->container['next_payment_date'];
+    }
+
+    /**
+     * Sets next_payment_date
+     *
+     * @param \DateTime $next_payment_date next_payment_date
+     *
+     * @return $this
+     */
+    public function setNextPaymentDate($next_payment_date)
+    {
+        $this->container['next_payment_date'] = $next_payment_date;
+
+        return $this;
+    }
+
+    /**
+     * Gets plan
+     *
+     * @return \Cardpay\model\Plan
+     */
+    public function getPlan()
+    {
+        return $this->container['plan'];
+    }
+
+    /**
+     * Sets plan
+     *
+     * @param \Cardpay\model\Plan $plan Plan data to which the subscription will be changed
+     *
+     * @return $this
+     */
+    public function setPlan($plan)
+    {
+        $this->container['plan'] = $plan;
+
+        return $this;
+    }
+
+    /**
      * Gets status_to
      *
      * @return string
@@ -267,6 +333,30 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
             );
         }
         $this->container['status_to'] = $status_to;
+
+        return $this;
+    }
+
+    /**
+     * Gets units
+     *
+     * @return int
+     */
+    public function getUnits()
+    {
+        return $this->container['units'];
+    }
+
+    /**
+     * Sets units
+     *
+     * @param int $units New quantity of subscription units
+     *
+     * @return $this
+     */
+    public function setUnits($units)
+    {
+        $this->container['units'] = $units;
 
         return $this;
     }

@@ -27,6 +27,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerTypes = [
         'email' => 'string',
+        'id' => 'string',
         'phone' => 'string'
     ];
 
@@ -37,6 +38,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
       */
     protected static $swaggerFormats = [
         'email' => null,
+        'id' => null,
         'phone' => null
     ];
 
@@ -68,6 +70,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
      */
     protected static $attributeMap = [
         'email' => 'email',
+        'id' => 'id',
         'phone' => 'phone'
     ];
 
@@ -78,6 +81,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
      */
     protected static $setters = [
         'email' => 'setEmail',
+        'id' => 'setId',
         'phone' => 'setPhone'
     ];
 
@@ -88,6 +92,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
      */
     protected static $getters = [
         'email' => 'getEmail',
+        'id' => 'getId',
         'phone' => 'getPhone'
     ];
 
@@ -152,6 +157,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
     }
 
@@ -163,6 +169,17 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ((mb_strlen($this->container['id']) > 256)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be smaller than or equal to 256.";
+        }
+
+        if ((mb_strlen($this->container['id']) < 0)) {
+            $invalidProperties[] = "invalid value for 'id', the character length must be bigger than or equal to 0.";
+        }
 
         return $invalidProperties;
     }
@@ -199,6 +216,37 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
     public function setEmail($email)
     {
         $this->container['email'] = $email;
+
+        return $this;
+    }
+
+    /**
+     * Gets id
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->container['id'];
+    }
+
+    /**
+     * Sets id
+     *
+     * @param string $id Customer's ID in Merchant's system
+     *
+     * @return $this
+     */
+    public function setId($id)
+    {
+        if ((mb_strlen($id) > 256)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling InvoiceCustomer., must be smaller than or equal to 256.');
+        }
+        if ((mb_strlen($id) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $id when calling InvoiceCustomer., must be bigger than or equal to 0.');
+        }
+
+        $this->container['id'] = $id;
 
         return $this;
     }
