@@ -36,6 +36,7 @@ class AuthDataRequest implements ModelInterface, ArrayAccess
         'note' => 'string',
         'recurring_data' => '\Cardpay\model\RecurringData',
         'sca_exemption' => 'string',
+        'three_ds_challenge_indicator' => 'string',
         'trans_type' => 'string',
         'type' => 'string'
     ];
@@ -56,6 +57,7 @@ class AuthDataRequest implements ModelInterface, ArrayAccess
         'note' => null,
         'recurring_data' => null,
         'sca_exemption' => null,
+        'three_ds_challenge_indicator' => null,
         'trans_type' => null,
         'type' => null
     ];
@@ -97,6 +99,7 @@ class AuthDataRequest implements ModelInterface, ArrayAccess
         'note' => 'note',
         'recurring_data' => 'recurring_data',
         'sca_exemption' => 'sca_exemption',
+        'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
         'trans_type' => 'trans_type',
         'type' => 'type'
     ];
@@ -117,6 +120,7 @@ class AuthDataRequest implements ModelInterface, ArrayAccess
         'note' => 'setNote',
         'recurring_data' => 'setRecurringData',
         'sca_exemption' => 'setScaExemption',
+        'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
         'trans_type' => 'setTransType',
         'type' => 'setType'
     ];
@@ -137,6 +141,7 @@ class AuthDataRequest implements ModelInterface, ArrayAccess
         'note' => 'getNote',
         'recurring_data' => 'getRecurringData',
         'sca_exemption' => 'getScaExemption',
+        'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
         'trans_type' => 'getTransType',
         'type' => 'getType'
     ];
@@ -228,6 +233,7 @@ class AuthDataRequest implements ModelInterface, ArrayAccess
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
         $this->container['sca_exemption'] = isset($data['sca_exemption']) ? $data['sca_exemption'] : null;
+        $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
         $this->container['type'] = isset($data['type']) ? $data['type'] : null;
     }
@@ -269,6 +275,10 @@ class AuthDataRequest implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['sca_exemption']) && !preg_match("/LOW_VALUE/", $this->container['sca_exemption'])) {
             $invalidProperties[] = "invalid value for 'sca_exemption', must be conform to the pattern /LOW_VALUE/.";
+        }
+
+        if (!is_null($this->container['three_ds_challenge_indicator']) && !preg_match("/01|04/", $this->container['three_ds_challenge_indicator'])) {
+            $invalidProperties[] = "invalid value for 'three_ds_challenge_indicator', must be conform to the pattern /01|04/.";
         }
 
         if (!is_null($this->container['trans_type']) && !preg_match("/01|03|10|11|28/", $this->container['trans_type'])) {
@@ -558,6 +568,35 @@ class AuthDataRequest implements ModelInterface, ArrayAccess
         }
 
         $this->container['sca_exemption'] = $sca_exemption;
+
+        return $this;
+    }
+
+    /**
+     * Gets three_ds_challenge_indicator
+     *
+     * @return string
+     */
+    public function getThreeDsChallengeIndicator()
+    {
+        return $this->container['three_ds_challenge_indicator'];
+    }
+
+    /**
+     * Sets three_ds_challenge_indicator
+     *
+     * @param string $three_ds_challenge_indicator three_ds_challenge_indicator
+     *
+     * @return $this
+     */
+    public function setThreeDsChallengeIndicator($three_ds_challenge_indicator)
+    {
+
+        if (!is_null($three_ds_challenge_indicator) && (!preg_match("/01|04/", $three_ds_challenge_indicator))) {
+            throw new \InvalidArgumentException("invalid value for $three_ds_challenge_indicator when calling AuthDataRequest., must conform to the pattern /01|04/.");
+        }
+
+        $this->container['three_ds_challenge_indicator'] = $three_ds_challenge_indicator;
 
         return $this;
     }

@@ -40,6 +40,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'preauth' => 'bool',
         'sca_exemption' => 'string',
         'three_ds_challenge_indicator' => 'string',
+        'three_ds_mode' => 'string',
         'trans_type' => 'string'
     ];
 
@@ -63,6 +64,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'preauth' => null,
         'sca_exemption' => null,
         'three_ds_challenge_indicator' => null,
+        'three_ds_mode' => null,
         'trans_type' => null
     ];
 
@@ -107,6 +109,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'preauth' => 'preauth',
         'sca_exemption' => 'sca_exemption',
         'three_ds_challenge_indicator' => 'three_ds_challenge_indicator',
+        'three_ds_mode' => 'three_ds_mode',
         'trans_type' => 'trans_type'
     ];
 
@@ -130,6 +133,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'preauth' => 'setPreauth',
         'sca_exemption' => 'setScaExemption',
         'three_ds_challenge_indicator' => 'setThreeDsChallengeIndicator',
+        'three_ds_mode' => 'setThreeDsMode',
         'trans_type' => 'setTransType'
     ];
 
@@ -153,6 +157,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         'preauth' => 'getPreauth',
         'sca_exemption' => 'getScaExemption',
         'three_ds_challenge_indicator' => 'getThreeDsChallengeIndicator',
+        'three_ds_mode' => 'getThreeDsMode',
         'trans_type' => 'getTransType'
     ];
 
@@ -266,6 +271,7 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         $this->container['preauth'] = isset($data['preauth']) ? $data['preauth'] : null;
         $this->container['sca_exemption'] = isset($data['sca_exemption']) ? $data['sca_exemption'] : null;
         $this->container['three_ds_challenge_indicator'] = isset($data['three_ds_challenge_indicator']) ? $data['three_ds_challenge_indicator'] : null;
+        $this->container['three_ds_mode'] = isset($data['three_ds_mode']) ? $data['three_ds_mode'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
     }
 
@@ -744,6 +750,30 @@ class PaymentRequestPaymentData implements ModelInterface, ArrayAccess
         }
 
         $this->container['three_ds_challenge_indicator'] = $three_ds_challenge_indicator;
+
+        return $this;
+    }
+
+    /**
+     * Gets three_ds_mode
+     *
+     * @return string
+     */
+    public function getThreeDsMode()
+    {
+        return $this->container['three_ds_mode'];
+    }
+
+    /**
+     * Sets three_ds_mode
+     *
+     * @param string $three_ds_mode Parameter 'three_ds_mode' indicates desire to conduct the transaction with full 3-D Secure, partial 3-D Secure, or without it, possible values: `01` - FULL 3-D Secure `02` - 3DS required but can be skipped `03` - NON 3-D Secure
+     *
+     * @return $this
+     */
+    public function setThreeDsMode($three_ds_mode)
+    {
+        $this->container['three_ds_mode'] = $three_ds_mode;
 
         return $this;
     }
