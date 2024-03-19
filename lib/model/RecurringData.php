@@ -26,6 +26,7 @@ class RecurringData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'begin' => 'bool',
         'contract_number' => 'string',
         'initial_amount' => 'float',
         'plan' => '\Cardpay\model\Plan',
@@ -39,6 +40,7 @@ class RecurringData implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'begin' => null,
         'contract_number' => null,
         'initial_amount' => null,
         'plan' => null,
@@ -73,6 +75,7 @@ class RecurringData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'begin' => 'begin',
         'contract_number' => 'contract_number',
         'initial_amount' => 'initial_amount',
         'plan' => 'plan',
@@ -86,6 +89,7 @@ class RecurringData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'begin' => 'setBegin',
         'contract_number' => 'setContractNumber',
         'initial_amount' => 'setInitialAmount',
         'plan' => 'setPlan',
@@ -99,6 +103,7 @@ class RecurringData implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'begin' => 'getBegin',
         'contract_number' => 'getContractNumber',
         'initial_amount' => 'getInitialAmount',
         'plan' => 'getPlan',
@@ -166,6 +171,7 @@ class RecurringData implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['begin'] = isset($data['begin']) ? $data['begin'] : null;
         $this->container['contract_number'] = isset($data['contract_number']) ? $data['contract_number'] : null;
         $this->container['initial_amount'] = isset($data['initial_amount']) ? $data['initial_amount'] : null;
         $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
@@ -204,6 +210,30 @@ class RecurringData implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets begin
+     *
+     * @return bool
+     */
+    public function getBegin()
+    {
+        return $this->container['begin'];
+    }
+
+    /**
+     * Sets begin
+     *
+     * @param bool $begin Is acceptable only for One-click type
+     *
+     * @return $this
+     */
+    public function setBegin($begin)
+    {
+        $this->container['begin'] = $begin;
+
+        return $this;
+    }
 
     /**
      * Gets contract_number

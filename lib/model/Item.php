@@ -318,7 +318,7 @@ class Item implements ModelInterface, ArrayAccess
     /**
      * Sets price
      *
-     * @param float $price Price of product / service with dot as a decimal separator, must be less than 200 million
+     * @param float $price Price of product / service with dot as a decimal separator, must be less than 10 billion
      *
      * @return $this
      */

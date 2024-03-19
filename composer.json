@@ -1,6 +1,6 @@
 {
     "name": "cardpay/php-sdk-v3",
-    "version": "3.65.14",
+    "version": "3.66.16",
     "description": "PHP SDK for Unlimit API v3",
     "keywords": [
         "unlimit",
