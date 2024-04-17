@@ -2,7 +2,7 @@
 The Unlimit API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 3.66.16
+- PHP SDK version: 3.68.8
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
