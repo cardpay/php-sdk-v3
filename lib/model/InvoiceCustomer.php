@@ -28,6 +28,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
     protected static $swaggerTypes = [
         'email' => 'string',
         'id' => 'string',
+        'locale' => 'string',
         'phone' => 'string'
     ];
 
@@ -39,6 +40,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
     protected static $swaggerFormats = [
         'email' => null,
         'id' => null,
+        'locale' => null,
         'phone' => null
     ];
 
@@ -71,6 +73,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
     protected static $attributeMap = [
         'email' => 'email',
         'id' => 'id',
+        'locale' => 'locale',
         'phone' => 'phone'
     ];
 
@@ -82,6 +85,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
     protected static $setters = [
         'email' => 'setEmail',
         'id' => 'setId',
+        'locale' => 'setLocale',
         'phone' => 'setPhone'
     ];
 
@@ -93,6 +97,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
     protected static $getters = [
         'email' => 'getEmail',
         'id' => 'getId',
+        'locale' => 'getLocale',
         'phone' => 'getPhone'
     ];
 
@@ -158,6 +163,7 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
     {
         $this->container['email'] = isset($data['email']) ? $data['email'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['locale'] = isset($data['locale']) ? $data['locale'] : null;
         $this->container['phone'] = isset($data['phone']) ? $data['phone'] : null;
     }
 
@@ -247,6 +253,30 @@ class InvoiceCustomer implements ModelInterface, ArrayAccess
         }
 
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets locale
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->container['locale'];
+    }
+
+    /**
+     * Sets locale
+     *
+     * @param string $locale Preferred locale for the payment page ([ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language code). The default locale (en or other locale if it's set as default in Merchant account) will be applied if the selected locale (received in request) is not supported. Supported locales are: `ar`, `az`, `bg`, `cs`, `de`, `el`, `en`, `es`, `fr`, `hu`, `hy`, `id`, `it`, `ja`, `ka`, `ko`, `ms`, `nl`, `pl`, `pt`, `ro`, `ru`, `sr`, `sv`, `th`, `tr`, `uk`, `vi`, `zh`
+     *
+     * @return $this
+     */
+    public function setLocale($locale)
+    {
+        $this->container['locale'] = $locale;
 
         return $this;
     }
