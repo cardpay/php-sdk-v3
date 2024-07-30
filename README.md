@@ -2,7 +2,7 @@
 The Unlimit API uses HTTP verbs and a RESTful endpoint structure. Request and response payloads are formatted as JSON.
 
 - API version: 3.0
-- PHP SDK version: 3.73.6
+- PHP SDK version: 3.80.7
 
 For more information, please visit [https://integration.cardpay.com](https://integration.cardpay.com)
 
@@ -87,6 +87,7 @@ composer install
 
 ## Documentation for models
 
+ - [AccountDetailsRequest](lib/model/AccountDetailsRequest.php)
  - [ApiError](lib/model/ApiError.php)
  - [ApiTokens](lib/model/ApiTokens.php)
  - [AuthDataRequest](lib/model/AuthDataRequest.php)
@@ -96,6 +97,8 @@ composer install
  - [AuthenticationDataRequest](lib/model/AuthenticationDataRequest.php)
  - [AuthenticationDataResponse](lib/model/AuthenticationDataResponse.php)
  - [AuthenticationError](lib/model/AuthenticationError.php)
+ - [AuthenticationPatchRequest](lib/model/AuthenticationPatchRequest.php)
+ - [AuthenticationUpdateResponse](lib/model/AuthenticationUpdateResponse.php)
  - [BadRequestError](lib/model/BadRequestError.php)
  - [BankCardPayoutData](lib/model/BankCardPayoutData.php)
  - [BillingAddress](lib/model/BillingAddress.php)
@@ -135,6 +138,7 @@ composer install
  - [InvoiceRequest](lib/model/InvoiceRequest.php)
  - [Item](lib/model/Item.php)
  - [LimitInfoResponse](lib/model/LimitInfoResponse.php)
+ - [MapOfstringAndstring](lib/model/MapOfstringAndstring.php)
  - [MobileTokenRequest](lib/model/MobileTokenRequest.php)
  - [MobileTokenResponse](lib/model/MobileTokenResponse.php)
  - [NextSubscriptionPayment](lib/model/NextSubscriptionPayment.php)
@@ -184,7 +188,6 @@ composer install
  - [PayoutUpdateRequest](lib/model/PayoutUpdateRequest.php)
  - [PayoutUpdateResponse](lib/model/PayoutUpdateResponse.php)
  - [PayoutsList](lib/model/PayoutsList.php)
- - [PixAccountDetailsRequest](lib/model/PixAccountDetailsRequest.php)
  - [PixAccountDetailsResponse](lib/model/PixAccountDetailsResponse.php)
  - [Plan](lib/model/Plan.php)
  - [PlanDataList](lib/model/PlanDataList.php)
@@ -262,6 +265,7 @@ composer install
  - [UpdatedPlanData](lib/model/UpdatedPlanData.php)
  - [UpdatedSubscriptionData](lib/model/UpdatedSubscriptionData.php)
  - [UpdatedSubscriptionRecurringData](lib/model/UpdatedSubscriptionRecurringData.php)
+ - [AuthenticationConfirm3dsRequest](lib/model/AuthenticationConfirm3dsRequest.php)
  - [PaymentConfirm3dsRequest](lib/model/PaymentConfirm3dsRequest.php)
  - [PaymentExecuteRequest](lib/model/PaymentExecuteRequest.php)
  - [PaymentIncrementRequest](lib/model/PaymentIncrementRequest.php)

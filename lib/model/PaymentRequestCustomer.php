@@ -256,14 +256,6 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'first_name', the character length must be bigger than or equal to 1.";
         }
 
-        if (!is_null($this->container['full_name']) && (mb_strlen($this->container['full_name']) > 256)) {
-            $invalidProperties[] = "invalid value for 'full_name', the character length must be smaller than or equal to 256.";
-        }
-
-        if (!is_null($this->container['full_name']) && (mb_strlen($this->container['full_name']) < 1)) {
-            $invalidProperties[] = "invalid value for 'full_name', the character length must be bigger than or equal to 1.";
-        }
-
         if (!is_null($this->container['home_phone']) && (mb_strlen($this->container['home_phone']) > 18)) {
             $invalidProperties[] = "invalid value for 'home_phone', the character length must be smaller than or equal to 18.";
         }
@@ -294,14 +286,6 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['last_name']) && (mb_strlen($this->container['last_name']) < 1)) {
             $invalidProperties[] = "invalid value for 'last_name', the character length must be bigger than or equal to 1.";
-        }
-
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) > 18)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be smaller than or equal to 18.";
-        }
-
-        if (!is_null($this->container['phone']) && (mb_strlen($this->container['phone']) < 8)) {
-            $invalidProperties[] = "invalid value for 'phone', the character length must be bigger than or equal to 8.";
         }
 
         if (!is_null($this->container['user_agent']) && (mb_strlen($this->container['user_agent']) > 2048)) {
@@ -505,13 +489,6 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function setFullName($full_name)
     {
-        if (!is_null($full_name) && (mb_strlen($full_name) > 256)) {
-            throw new \InvalidArgumentException('invalid length for $full_name when calling PaymentRequestCustomer., must be smaller than or equal to 256.');
-        }
-        if (!is_null($full_name) && (mb_strlen($full_name) < 1)) {
-            throw new \InvalidArgumentException('invalid length for $full_name when calling PaymentRequestCustomer., must be bigger than or equal to 1.');
-        }
-
         $this->container['full_name'] = $full_name;
 
         return $this;
@@ -708,13 +685,6 @@ class PaymentRequestCustomer implements ModelInterface, ArrayAccess
      */
     public function setPhone($phone)
     {
-        if (!is_null($phone) && (mb_strlen($phone) > 18)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling PaymentRequestCustomer., must be smaller than or equal to 18.');
-        }
-        if (!is_null($phone) && (mb_strlen($phone) < 8)) {
-            throw new \InvalidArgumentException('invalid length for $phone when calling PaymentRequestCustomer., must be bigger than or equal to 8.');
-        }
-
         $this->container['phone'] = $phone;
 
         return $this;

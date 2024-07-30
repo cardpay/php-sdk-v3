@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
+class AuthenticationUpdateResponse implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PixAccountDetailsRequest';
+    protected static $swaggerModelName = 'AuthenticationUpdateResponse';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,7 +26,9 @@ class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'customer_identity' => 'string'
+        'operation' => 'string',
+        'merchant_order' => '\Cardpay\model\TransactionResponseMerchantOrder',
+        'payment_data' => '\Cardpay\model\ResponseUpdatedTransactionData'
     ];
 
     /**
@@ -35,7 +37,9 @@ class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'customer_identity' => null
+        'operation' => null,
+        'merchant_order' => null,
+        'payment_data' => null
     ];
 
     /**
@@ -65,7 +69,9 @@ class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'customer_identity' => 'customer_identity'
+        'operation' => 'operation',
+        'merchant_order' => 'merchant_order',
+        'payment_data' => 'payment_data'
     ];
 
     /**
@@ -74,7 +80,9 @@ class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'customer_identity' => 'setCustomerIdentity'
+        'operation' => 'setOperation',
+        'merchant_order' => 'setMerchantOrder',
+        'payment_data' => 'setPaymentData'
     ];
 
     /**
@@ -83,7 +91,9 @@ class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'customer_identity' => 'getCustomerIdentity'
+        'operation' => 'getOperation',
+        'merchant_order' => 'getMerchantOrder',
+        'payment_data' => 'getPaymentData'
     ];
 
     /**
@@ -127,8 +137,27 @@ class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
+    const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
+    const OPERATION_CONFIRM_3_DS = 'CONFIRM_3DS';
+    const OPERATION_EXECUTE = 'EXECUTE';
+    const OPERATION_INCREMENT = 'INCREMENT';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getOperationAllowableValues()
+    {
+        return [
+            self::OPERATION_CHANGE_STATUS,
+            self::OPERATION_CONFIRM_3_DS,
+            self::OPERATION_EXECUTE,
+            self::OPERATION_INCREMENT,
+        ];
+    }
     
 
     /**
@@ -146,7 +175,9 @@ class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['customer_identity'] = isset($data['customer_identity']) ? $data['customer_identity'] : null;
+        $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
+        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
+        $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
     }
 
     /**
@@ -158,9 +189,14 @@ class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['customer_identity'] === null) {
-            $invalidProperties[] = "'customer_identity' can't be null";
+        $allowedValues = $this->getOperationAllowableValues();
+        if (!is_null($this->container['operation']) && !in_array($this->container['operation'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value for 'operation', must be one of '%s'",
+                implode("', '", $allowedValues)
+            );
         }
+
         return $invalidProperties;
     }
 
@@ -177,25 +213,82 @@ class PixAccountDetailsRequest implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets customer_identity
+     * Gets operation
      *
      * @return string
      */
-    public function getCustomerIdentity()
+    public function getOperation()
     {
-        return $this->container['customer_identity'];
+        return $this->container['operation'];
     }
 
     /**
-     * Sets customer_identity
+     * Sets operation
      *
-     * @param string $customer_identity Customer identity
+     * @param string $operation `CHANGE_STATUS` value
      *
      * @return $this
      */
-    public function setCustomerIdentity($customer_identity)
+    public function setOperation($operation)
     {
-        $this->container['customer_identity'] = $customer_identity;
+        $allowedValues = $this->getOperationAllowableValues();
+        if (!is_null($operation) && !in_array($operation, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for 'operation', must be one of '%s'",
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['operation'] = $operation;
+
+        return $this;
+    }
+
+    /**
+     * Gets merchant_order
+     *
+     * @return \Cardpay\model\TransactionResponseMerchantOrder
+     */
+    public function getMerchantOrder()
+    {
+        return $this->container['merchant_order'];
+    }
+
+    /**
+     * Sets merchant_order
+     *
+     * @param \Cardpay\model\TransactionResponseMerchantOrder $merchant_order merchant_order
+     *
+     * @return $this
+     */
+    public function setMerchantOrder($merchant_order)
+    {
+        $this->container['merchant_order'] = $merchant_order;
+
+        return $this;
+    }
+
+    /**
+     * Gets payment_data
+     *
+     * @return \Cardpay\model\ResponseUpdatedTransactionData
+     */
+    public function getPaymentData()
+    {
+        return $this->container['payment_data'];
+    }
+
+    /**
+     * Sets payment_data
+     *
+     * @param \Cardpay\model\ResponseUpdatedTransactionData $payment_data payment_data
+     *
+     * @return $this
+     */
+    public function setPaymentData($payment_data)
+    {
+        $this->container['payment_data'] = $payment_data;
 
         return $this;
     }

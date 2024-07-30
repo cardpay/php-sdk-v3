@@ -32,6 +32,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         'customer' => '\Cardpay\model\PaymentRequestCustomer',
         'ewallet_account' => '\Cardpay\model\PaymentRequestEWalletAccount',
         'merchant_order' => '\Cardpay\model\PaymentRequestMerchantOrder',
+        'payment_by_invoice' => 'bool',
         'payment_data' => '\Cardpay\model\PaymentRequestPaymentData',
         'payment_method' => 'string',
         'payment_methods' => 'string[]',
@@ -50,6 +51,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         'customer' => null,
         'ewallet_account' => null,
         'merchant_order' => null,
+        'payment_by_invoice' => null,
         'payment_data' => null,
         'payment_method' => null,
         'payment_methods' => null,
@@ -89,6 +91,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         'customer' => 'customer',
         'ewallet_account' => 'ewallet_account',
         'merchant_order' => 'merchant_order',
+        'payment_by_invoice' => 'payment_by_invoice',
         'payment_data' => 'payment_data',
         'payment_method' => 'payment_method',
         'payment_methods' => 'payment_methods',
@@ -107,6 +110,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         'customer' => 'setCustomer',
         'ewallet_account' => 'setEwalletAccount',
         'merchant_order' => 'setMerchantOrder',
+        'payment_by_invoice' => 'setPaymentByInvoice',
         'payment_data' => 'setPaymentData',
         'payment_method' => 'setPaymentMethod',
         'payment_methods' => 'setPaymentMethods',
@@ -125,6 +129,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         'customer' => 'getCustomer',
         'ewallet_account' => 'getEwalletAccount',
         'merchant_order' => 'getMerchantOrder',
+        'payment_by_invoice' => 'getPaymentByInvoice',
         'payment_data' => 'getPaymentData',
         'payment_method' => 'getPaymentMethod',
         'payment_methods' => 'getPaymentMethods',
@@ -197,6 +202,7 @@ class PaymentRequest implements ModelInterface, ArrayAccess
         $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
         $this->container['ewallet_account'] = isset($data['ewallet_account']) ? $data['ewallet_account'] : null;
         $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
+        $this->container['payment_by_invoice'] = isset($data['payment_by_invoice']) ? $data['payment_by_invoice'] : null;
         $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
         $this->container['payment_method'] = isset($data['payment_method']) ? $data['payment_method'] : null;
         $this->container['payment_methods'] = isset($data['payment_methods']) ? $data['payment_methods'] : null;
@@ -390,6 +396,30 @@ class PaymentRequest implements ModelInterface, ArrayAccess
     public function setMerchantOrder($merchant_order)
     {
         $this->container['merchant_order'] = $merchant_order;
+
+        return $this;
+    }
+
+    /**
+     * Gets payment_by_invoice
+     *
+     * @return bool
+     */
+    public function getPaymentByInvoice()
+    {
+        return $this->container['payment_by_invoice'];
+    }
+
+    /**
+     * Sets payment_by_invoice
+     *
+     * @param bool $payment_by_invoice payment_by_invoice
+     *
+     * @return $this
+     */
+    public function setPaymentByInvoice($payment_by_invoice)
+    {
+        $this->container['payment_by_invoice'] = $payment_by_invoice;
 
         return $this;
     }

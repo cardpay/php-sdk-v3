@@ -29,9 +29,11 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         'acct_type' => 'string',
         'expiration' => 'string',
         'holder' => 'string',
+        'network_token' => 'bool',
         'pan' => 'string',
         'pin_code' => 'string',
-        'security_code' => 'string'
+        'security_code' => 'string',
+        'token_cryptogram' => 'string'
     ];
 
     /**
@@ -43,9 +45,11 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         'acct_type' => null,
         'expiration' => null,
         'holder' => null,
+        'network_token' => null,
         'pan' => null,
         'pin_code' => null,
-        'security_code' => null
+        'security_code' => null,
+        'token_cryptogram' => null
     ];
 
     /**
@@ -78,9 +82,11 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         'acct_type' => 'acct_type',
         'expiration' => 'expiration',
         'holder' => 'holder',
+        'network_token' => 'network_token',
         'pan' => 'pan',
         'pin_code' => 'pin_code',
-        'security_code' => 'security_code'
+        'security_code' => 'security_code',
+        'token_cryptogram' => 'token_cryptogram'
     ];
 
     /**
@@ -92,9 +98,11 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         'acct_type' => 'setAcctType',
         'expiration' => 'setExpiration',
         'holder' => 'setHolder',
+        'network_token' => 'setNetworkToken',
         'pan' => 'setPan',
         'pin_code' => 'setPinCode',
-        'security_code' => 'setSecurityCode'
+        'security_code' => 'setSecurityCode',
+        'token_cryptogram' => 'setTokenCryptogram'
     ];
 
     /**
@@ -106,9 +114,11 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         'acct_type' => 'getAcctType',
         'expiration' => 'getExpiration',
         'holder' => 'getHolder',
+        'network_token' => 'getNetworkToken',
         'pan' => 'getPan',
         'pin_code' => 'getPinCode',
-        'security_code' => 'getSecurityCode'
+        'security_code' => 'getSecurityCode',
+        'token_cryptogram' => 'getTokenCryptogram'
     ];
 
     /**
@@ -191,9 +201,11 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         $this->container['acct_type'] = isset($data['acct_type']) ? $data['acct_type'] : null;
         $this->container['expiration'] = isset($data['expiration']) ? $data['expiration'] : null;
         $this->container['holder'] = isset($data['holder']) ? $data['holder'] : null;
+        $this->container['network_token'] = isset($data['network_token']) ? $data['network_token'] : null;
         $this->container['pan'] = isset($data['pan']) ? $data['pan'] : null;
         $this->container['pin_code'] = isset($data['pin_code']) ? $data['pin_code'] : null;
         $this->container['security_code'] = isset($data['security_code']) ? $data['security_code'] : null;
+        $this->container['token_cryptogram'] = isset($data['token_cryptogram']) ? $data['token_cryptogram'] : null;
     }
 
     /**
@@ -350,6 +362,30 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets network_token
+     *
+     * @return bool
+     */
+    public function getNetworkToken()
+    {
+        return $this->container['network_token'];
+    }
+
+    /**
+     * Sets network_token
+     *
+     * @param bool $network_token network_token
+     *
+     * @return $this
+     */
+    public function setNetworkToken($network_token)
+    {
+        $this->container['network_token'] = $network_token;
+
+        return $this;
+    }
+
+    /**
      * Gets pan
      *
      * @return string
@@ -434,6 +470,30 @@ class PaymentRequestCard implements ModelInterface, ArrayAccess
         }
 
         $this->container['security_code'] = $security_code;
+
+        return $this;
+    }
+
+    /**
+     * Gets token_cryptogram
+     *
+     * @return string
+     */
+    public function getTokenCryptogram()
+    {
+        return $this->container['token_cryptogram'];
+    }
+
+    /**
+     * Sets token_cryptogram
+     *
+     * @param string $token_cryptogram token_cryptogram
+     *
+     * @return $this
+     */
+    public function setTokenCryptogram($token_cryptogram)
+    {
+        $this->container['token_cryptogram'] = $token_cryptogram;
 
         return $this;
     }

@@ -62,35 +62,37 @@ class PixAccountDetailsApi
     /**
      * Operation accountDetails
      *
-     * Get pix account details
+     * Get methods account details
      *
-     * @param  \Cardpay\model\PixAccountDetailsRequest $details_request detailsRequest (required)
+     * @param  \Cardpay\model\AccountDetailsRequest $details_request detailsRequest (required)
+     * @param  string $method method (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \Cardpay\model\PixAccountDetailsResponse
      */
-    public function accountDetails($details_request)
+    public function accountDetails($details_request, $method)
     {
-        list($response) = $this->accountDetailsWithHttpInfo($details_request);
+        list($response) = $this->accountDetailsWithHttpInfo($details_request, $method);
         return $response;
     }
 
     /**
      * Operation accountDetailsWithHttpInfo
      *
-     * Get pix account details
+     * Get methods account details
      *
-     * @param  \Cardpay\model\PixAccountDetailsRequest $details_request detailsRequest (required)
+     * @param  \Cardpay\model\AccountDetailsRequest $details_request detailsRequest (required)
+     * @param  string $method method (required)
      *
      * @throws \Cardpay\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \Cardpay\model\PixAccountDetailsResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function accountDetailsWithHttpInfo($details_request)
+    public function accountDetailsWithHttpInfo($details_request, $method)
     {
         $returnType = '\Cardpay\model\PixAccountDetailsResponse';
-        $request = $this->accountDetailsRequest($details_request);
+        $request = $this->accountDetailsRequest($details_request, $method);
 
         try {
             $options = $this->createHttpClientOption();
@@ -194,16 +196,17 @@ class PixAccountDetailsApi
     /**
      * Operation accountDetailsAsync
      *
-     * Get pix account details
+     * Get methods account details
      *
-     * @param  \Cardpay\model\PixAccountDetailsRequest $details_request detailsRequest (required)
+     * @param  \Cardpay\model\AccountDetailsRequest $details_request detailsRequest (required)
+     * @param  string $method method (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function accountDetailsAsync($details_request)
+    public function accountDetailsAsync($details_request, $method)
     {
-        return $this->accountDetailsAsyncWithHttpInfo($details_request)
+        return $this->accountDetailsAsyncWithHttpInfo($details_request, $method)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -214,17 +217,18 @@ class PixAccountDetailsApi
     /**
      * Operation accountDetailsAsyncWithHttpInfo
      *
-     * Get pix account details
+     * Get methods account details
      *
-     * @param  \Cardpay\model\PixAccountDetailsRequest $details_request detailsRequest (required)
+     * @param  \Cardpay\model\AccountDetailsRequest $details_request detailsRequest (required)
+     * @param  string $method method (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function accountDetailsAsyncWithHttpInfo($details_request)
+    public function accountDetailsAsyncWithHttpInfo($details_request, $method)
     {
         $returnType = '\Cardpay\model\PixAccountDetailsResponse';
-        $request = $this->accountDetailsRequest($details_request);
+        $request = $this->accountDetailsRequest($details_request, $method);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -266,12 +270,13 @@ class PixAccountDetailsApi
     /**
      * Create request for operation 'accountDetails'
      *
-     * @param  \Cardpay\model\PixAccountDetailsRequest $details_request detailsRequest (required)
+     * @param  \Cardpay\model\AccountDetailsRequest $details_request detailsRequest (required)
+     * @param  string $method method (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function accountDetailsRequest($details_request)
+    protected function accountDetailsRequest($details_request, $method)
     {
         // verify the required parameter 'details_request' is set
         if ($details_request === null || (is_array($details_request) && count($details_request) === 0)) {
@@ -279,8 +284,14 @@ class PixAccountDetailsApi
                 'Missing the required parameter $details_request when calling accountDetails'
             );
         }
+        // verify the required parameter 'method' is set
+        if ($method === null || (is_array($method) && count($method) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $method when calling accountDetails'
+            );
+        }
 
-        $resourcePath = '/api/account_details/pix';
+        $resourcePath = '/api/account_details/{method}';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -288,6 +299,14 @@ class PixAccountDetailsApi
         $multipart = false;
 
 
+        // path params
+        if ($method !== null) {
+            $resourcePath = str_replace(
+                '{' . 'method' . '}',
+                ObjectSerializer::toPathValue($method),
+                $resourcePath
+            );
+        }
 
         // body params
         $_tempBody = null;
