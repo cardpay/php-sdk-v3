@@ -140,6 +140,8 @@ class ClaimResponseSubscriptionData implements ModelInterface, ArrayAccess
     const STATUS_TO_COMPLETED = 'COMPLETED';
     const STATUS_TO_CARD_EXPIRED = 'CARD_EXPIRED';
     const STATUS_TO_ACTIVATION_FAILED = 'ACTIVATION_FAILED';
+    const STATUS_TO_UNPAID = 'UNPAID';
+    const STATUS_TO_WAITING = 'WAITING';
     
 
     
@@ -159,6 +161,8 @@ class ClaimResponseSubscriptionData implements ModelInterface, ArrayAccess
             self::STATUS_TO_COMPLETED,
             self::STATUS_TO_CARD_EXPIRED,
             self::STATUS_TO_ACTIVATION_FAILED,
+            self::STATUS_TO_UNPAID,
+            self::STATUS_TO_WAITING,
         ];
     }
     

@@ -36,7 +36,8 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'amount' => 'float',
         'retries' => 'int',
         'pricing_model' => 'string',
-        'quantity' => '\Cardpay\model\PlanQuantity[]'
+        'quantity' => '\Cardpay\model\PlanQuantity[]',
+        'subscription_decline_logic' => '\Cardpay\model\PlanSubscriptionDeclineLogic'
     ];
 
     /**
@@ -55,7 +56,8 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'amount' => null,
         'retries' => 'int32',
         'pricing_model' => null,
-        'quantity' => null
+        'quantity' => null,
+        'subscription_decline_logic' => null
     ];
 
     /**
@@ -95,7 +97,8 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'amount' => 'amount',
         'retries' => 'retries',
         'pricing_model' => 'pricing_model',
-        'quantity' => 'quantity'
+        'quantity' => 'quantity',
+        'subscription_decline_logic' => 'subscription_decline_logic'
     ];
 
     /**
@@ -114,7 +117,8 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'amount' => 'setAmount',
         'retries' => 'setRetries',
         'pricing_model' => 'setPricingModel',
-        'quantity' => 'setQuantity'
+        'quantity' => 'setQuantity',
+        'subscription_decline_logic' => 'setSubscriptionDeclineLogic'
     ];
 
     /**
@@ -133,7 +137,8 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'amount' => 'getAmount',
         'retries' => 'getRetries',
         'pricing_model' => 'getPricingModel',
-        'quantity' => 'getQuantity'
+        'quantity' => 'getQuantity',
+        'subscription_decline_logic' => 'getSubscriptionDeclineLogic'
     ];
 
     /**
@@ -243,6 +248,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         $this->container['retries'] = isset($data['retries']) ? $data['retries'] : null;
         $this->container['pricing_model'] = isset($data['pricing_model']) ? $data['pricing_model'] : null;
         $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
+        $this->container['subscription_decline_logic'] = isset($data['subscription_decline_logic']) ? $data['subscription_decline_logic'] : null;
     }
 
     /**
@@ -563,6 +569,30 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
     public function setQuantity($quantity)
     {
         $this->container['quantity'] = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Gets subscription_decline_logic
+     *
+     * @return \Cardpay\model\PlanSubscriptionDeclineLogic
+     */
+    public function getSubscriptionDeclineLogic()
+    {
+        return $this->container['subscription_decline_logic'];
+    }
+
+    /**
+     * Sets subscription_decline_logic
+     *
+     * @param \Cardpay\model\PlanSubscriptionDeclineLogic $subscription_decline_logic Subscription decline logic
+     *
+     * @return $this
+     */
+    public function setSubscriptionDeclineLogic($subscription_decline_logic)
+    {
+        $this->container['subscription_decline_logic'] = $subscription_decline_logic;
 
         return $this;
     }

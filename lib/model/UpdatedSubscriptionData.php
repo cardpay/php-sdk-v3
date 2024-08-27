@@ -195,6 +195,8 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
     const STATUS_COMPLETED = 'COMPLETED';
     const STATUS_CARD_EXPIRED = 'CARD_EXPIRED';
     const STATUS_ACTIVATION_FAILED = 'ACTIVATION_FAILED';
+    const STATUS_UNPAID = 'UNPAID';
+    const STATUS_WAITING = 'WAITING';
     const STATUS_TO_ACTIVE = 'ACTIVE';
     const STATUS_TO_INACTIVE = 'INACTIVE';
     const STATUS_TO_CANCELLED = 'CANCELLED';
@@ -203,6 +205,8 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
     const STATUS_TO_COMPLETED = 'COMPLETED';
     const STATUS_TO_CARD_EXPIRED = 'CARD_EXPIRED';
     const STATUS_TO_ACTIVATION_FAILED = 'ACTIVATION_FAILED';
+    const STATUS_TO_UNPAID = 'UNPAID';
+    const STATUS_TO_WAITING = 'WAITING';
     
 
     
@@ -222,6 +226,8 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
             self::STATUS_COMPLETED,
             self::STATUS_CARD_EXPIRED,
             self::STATUS_ACTIVATION_FAILED,
+            self::STATUS_UNPAID,
+            self::STATUS_WAITING,
         ];
     }
     
@@ -241,6 +247,8 @@ class UpdatedSubscriptionData implements ModelInterface, ArrayAccess
             self::STATUS_TO_COMPLETED,
             self::STATUS_TO_CARD_EXPIRED,
             self::STATUS_TO_ACTIVATION_FAILED,
+            self::STATUS_TO_UNPAID,
+            self::STATUS_TO_WAITING,
         ];
     }
     

@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, ArrayAccess
+class PlanSubscriptionDeclineLogic implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
       *
       * @var string
       */
-    protected static $swaggerModelName = 'SubscriptionUpdateRequestSubscriptionData';
+    protected static $swaggerModelName = 'PlanSubscriptionDeclineLogic';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,11 +26,9 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'amount' => 'float',
-        'next_payment_date' => '\DateTime',
-        'plan' => '\Cardpay\model\Plan',
-        'status_to' => 'string',
-        'units' => 'int'
+        'continue_retries' => 'bool',
+        'duration' => 'int',
+        'status_to' => 'string'
     ];
 
     /**
@@ -39,11 +37,9 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'amount' => null,
-        'next_payment_date' => 'date-time',
-        'plan' => null,
-        'status_to' => null,
-        'units' => 'int32'
+        'continue_retries' => null,
+        'duration' => 'int32',
+        'status_to' => null
     ];
 
     /**
@@ -73,11 +69,9 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
      * @var string[]
      */
     protected static $attributeMap = [
-        'amount' => 'amount',
-        'next_payment_date' => 'next_payment_date',
-        'plan' => 'plan',
-        'status_to' => 'status_to',
-        'units' => 'units'
+        'continue_retries' => 'continue_retries',
+        'duration' => 'duration',
+        'status_to' => 'status_to'
     ];
 
     /**
@@ -86,11 +80,9 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
      * @var string[]
      */
     protected static $setters = [
-        'amount' => 'setAmount',
-        'next_payment_date' => 'setNextPaymentDate',
-        'plan' => 'setPlan',
-        'status_to' => 'setStatusTo',
-        'units' => 'setUnits'
+        'continue_retries' => 'setContinueRetries',
+        'duration' => 'setDuration',
+        'status_to' => 'setStatusTo'
     ];
 
     /**
@@ -99,11 +91,9 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
      * @var string[]
      */
     protected static $getters = [
-        'amount' => 'getAmount',
-        'next_payment_date' => 'getNextPaymentDate',
-        'plan' => 'getPlan',
-        'status_to' => 'getStatusTo',
-        'units' => 'getUnits'
+        'continue_retries' => 'getContinueRetries',
+        'duration' => 'getDuration',
+        'status_to' => 'getStatusTo'
     ];
 
     /**
@@ -147,39 +137,8 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
         return self::$swaggerModelName;
     }
 
-    const STATUS_TO_ACTIVE = 'ACTIVE';
-    const STATUS_TO_INACTIVE = 'INACTIVE';
-    const STATUS_TO_CANCELLED = 'CANCELLED';
-    const STATUS_TO_PAST_DUE = 'PAST_DUE';
-    const STATUS_TO_PENDING = 'PENDING';
-    const STATUS_TO_COMPLETED = 'COMPLETED';
-    const STATUS_TO_CARD_EXPIRED = 'CARD_EXPIRED';
-    const STATUS_TO_ACTIVATION_FAILED = 'ACTIVATION_FAILED';
-    const STATUS_TO_UNPAID = 'UNPAID';
-    const STATUS_TO_WAITING = 'WAITING';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getStatusToAllowableValues()
-    {
-        return [
-            self::STATUS_TO_ACTIVE,
-            self::STATUS_TO_INACTIVE,
-            self::STATUS_TO_CANCELLED,
-            self::STATUS_TO_PAST_DUE,
-            self::STATUS_TO_PENDING,
-            self::STATUS_TO_COMPLETED,
-            self::STATUS_TO_CARD_EXPIRED,
-            self::STATUS_TO_ACTIVATION_FAILED,
-            self::STATUS_TO_UNPAID,
-            self::STATUS_TO_WAITING,
-        ];
-    }
     
 
     /**
@@ -197,11 +156,9 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
      */
     public function __construct(array $data = null)
     {
-        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
-        $this->container['next_payment_date'] = isset($data['next_payment_date']) ? $data['next_payment_date'] : null;
-        $this->container['plan'] = isset($data['plan']) ? $data['plan'] : null;
+        $this->container['continue_retries'] = isset($data['continue_retries']) ? $data['continue_retries'] : null;
+        $this->container['duration'] = isset($data['duration']) ? $data['duration'] : null;
         $this->container['status_to'] = isset($data['status_to']) ? $data['status_to'] : null;
-        $this->container['units'] = isset($data['units']) ? $data['units'] : null;
     }
 
     /**
@@ -213,12 +170,16 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
     {
         $invalidProperties = [];
 
-        $allowedValues = $this->getStatusToAllowableValues();
-        if (!is_null($this->container['status_to']) && !in_array($this->container['status_to'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value for 'status_to', must be one of '%s'",
-                implode("', '", $allowedValues)
-            );
+        if (!is_null($this->container['duration']) && ($this->container['duration'] > 6)) {
+            $invalidProperties[] = "invalid value for 'duration', must be smaller than or equal to 6.";
+        }
+
+        if (!is_null($this->container['duration']) && ($this->container['duration'] < 1)) {
+            $invalidProperties[] = "invalid value for 'duration', must be bigger than or equal to 1.";
+        }
+
+        if (!is_null($this->container['status_to']) && !preg_match("/WAITING/", $this->container['status_to'])) {
+            $invalidProperties[] = "invalid value for 'status_to', must be conform to the pattern /WAITING/.";
         }
 
         return $invalidProperties;
@@ -237,73 +198,57 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
 
 
     /**
-     * Gets amount
+     * Gets continue_retries
      *
-     * @return float
+     * @return bool
      */
-    public function getAmount()
+    public function getContinueRetries()
     {
-        return $this->container['amount'];
+        return $this->container['continue_retries'];
     }
 
     /**
-     * Sets amount
+     * Sets continue_retries
      *
-     * @param float $amount Set amount of repayment with dot as a decimal separator. Skip this attribute from request to repay the rest of subscription's amount and complete it. Mandatory for `REPAYMENT` operation only with exact payment amount.
+     * @param bool $continue_retries Continue retries
      *
      * @return $this
      */
-    public function setAmount($amount)
+    public function setContinueRetries($continue_retries)
     {
-        $this->container['amount'] = $amount;
+        $this->container['continue_retries'] = $continue_retries;
 
         return $this;
     }
 
     /**
-     * Gets next_payment_date
+     * Gets duration
      *
-     * @return \DateTime
+     * @return int
      */
-    public function getNextPaymentDate()
+    public function getDuration()
     {
-        return $this->container['next_payment_date'];
+        return $this->container['duration'];
     }
 
     /**
-     * Sets next_payment_date
+     * Sets duration
      *
-     * @param \DateTime $next_payment_date next_payment_date
+     * @param int $duration Duration in calendar months
      *
      * @return $this
      */
-    public function setNextPaymentDate($next_payment_date)
+    public function setDuration($duration)
     {
-        $this->container['next_payment_date'] = $next_payment_date;
 
-        return $this;
-    }
+        if (!is_null($duration) && ($duration > 6)) {
+            throw new \InvalidArgumentException('invalid value for $duration when calling PlanSubscriptionDeclineLogic., must be smaller than or equal to 6.');
+        }
+        if (!is_null($duration) && ($duration < 1)) {
+            throw new \InvalidArgumentException('invalid value for $duration when calling PlanSubscriptionDeclineLogic., must be bigger than or equal to 1.');
+        }
 
-    /**
-     * Gets plan
-     *
-     * @return \Cardpay\model\Plan
-     */
-    public function getPlan()
-    {
-        return $this->container['plan'];
-    }
-
-    /**
-     * Sets plan
-     *
-     * @param \Cardpay\model\Plan $plan Plan data to which the subscription will be changed
-     *
-     * @return $this
-     */
-    public function setPlan($plan)
-    {
-        $this->container['plan'] = $plan;
+        $this->container['duration'] = $duration;
 
         return $this;
     }
@@ -321,46 +266,18 @@ class SubscriptionUpdateRequestSubscriptionData implements ModelInterface, Array
     /**
      * Sets status_to
      *
-     * @param string $status_to Set status and action on subscription. Mandatory for `CHANGE_STATUS` operation only: `CANCELLED` - cancels and ends `INACTIVE` - **for scheduled only**; suspends `ACTIVE` - **for scheduled only**; resumes after suspend
+     * @param string $status_to The status that will be set for the subscription after exhausted all payment retry attempts
      *
      * @return $this
      */
     public function setStatusTo($status_to)
     {
-        $allowedValues = $this->getStatusToAllowableValues();
-        if (!is_null($status_to) && !in_array($status_to, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'status_to', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
+
+        if (!is_null($status_to) && (!preg_match("/WAITING/", $status_to))) {
+            throw new \InvalidArgumentException("invalid value for $status_to when calling PlanSubscriptionDeclineLogic., must conform to the pattern /WAITING/.");
         }
+
         $this->container['status_to'] = $status_to;
-
-        return $this;
-    }
-
-    /**
-     * Gets units
-     *
-     * @return int
-     */
-    public function getUnits()
-    {
-        return $this->container['units'];
-    }
-
-    /**
-     * Sets units
-     *
-     * @param int $units New quantity of subscription units
-     *
-     * @return $this
-     */
-    public function setUnits($units)
-    {
-        $this->container['units'] = $units;
 
         return $this;
     }

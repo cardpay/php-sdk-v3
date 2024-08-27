@@ -185,6 +185,8 @@ class SubscriptionFilterParameters implements ModelInterface, ArrayAccess
     const STATUS_COMPLETED = 'COMPLETED';
     const STATUS_CARD_EXPIRED = 'CARD_EXPIRED';
     const STATUS_ACTIVATION_FAILED = 'ACTIVATION_FAILED';
+    const STATUS_UNPAID = 'UNPAID';
+    const STATUS_WAITING = 'WAITING';
     const TYPE_ONECLICK = 'ONECLICK';
     const TYPE_SCHEDULED = 'SCHEDULED';
     const TYPE_INSTALLMENT = 'INSTALLMENT';
@@ -207,6 +209,8 @@ class SubscriptionFilterParameters implements ModelInterface, ArrayAccess
             self::STATUS_COMPLETED,
             self::STATUS_CARD_EXPIRED,
             self::STATUS_ACTIVATION_FAILED,
+            self::STATUS_UNPAID,
+            self::STATUS_WAITING,
         ];
     }
     

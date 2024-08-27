@@ -188,6 +188,8 @@ class AuthenticationData implements ModelInterface, ArrayAccess
     const STATUS_TERMINATED = 'TERMINATED';
     const STATUS_CHARGED_BACK = 'CHARGED_BACK';
     const STATUS_CHARGEBACK_RESOLVED = 'CHARGEBACK_RESOLVED';
+    const STATUS_UNPAID = 'UNPAID';
+    const STATUS_WAITING = 'WAITING';
     const TRANS_TYPE__01 = '01';
     const TRANS_TYPE__03 = '03';
     const TRANS_TYPE__10 = '10';
@@ -215,6 +217,8 @@ class AuthenticationData implements ModelInterface, ArrayAccess
             self::STATUS_TERMINATED,
             self::STATUS_CHARGED_BACK,
             self::STATUS_CHARGEBACK_RESOLVED,
+            self::STATUS_UNPAID,
+            self::STATUS_WAITING,
         ];
     }
     
