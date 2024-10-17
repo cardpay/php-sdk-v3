@@ -261,8 +261,8 @@ class AuthDataRequest implements ModelInterface, ArrayAccess
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be bigger than or equal to 0.";
         }
 
-        if (!is_null($this->container['installment_type']) && !preg_match("/IF|MF_HOLD/", $this->container['installment_type'])) {
-            $invalidProperties[] = "invalid value for 'installment_type', must be conform to the pattern /IF|MF_HOLD/.";
+        if (!is_null($this->container['installment_type']) && !preg_match("/^(IF|MF_HOLD)?$/", $this->container['installment_type'])) {
+            $invalidProperties[] = "invalid value for 'installment_type', must be conform to the pattern /^(IF|MF_HOLD)?$/.";
         }
 
         if (!is_null($this->container['note']) && (mb_strlen($this->container['note']) > 100)) {
@@ -455,8 +455,8 @@ class AuthDataRequest implements ModelInterface, ArrayAccess
     public function setInstallmentType($installment_type)
     {
 
-        if (!is_null($installment_type) && (!preg_match("/IF|MF_HOLD/", $installment_type))) {
-            throw new \InvalidArgumentException("invalid value for $installment_type when calling AuthDataRequest., must conform to the pattern /IF|MF_HOLD/.");
+        if (!is_null($installment_type) && (!preg_match("/^(IF|MF_HOLD)?$/", $installment_type))) {
+            throw new \InvalidArgumentException("invalid value for $installment_type when calling AuthDataRequest., must conform to the pattern /^(IF|MF_HOLD)?$/.");
         }
 
         $this->container['installment_type'] = $installment_type;

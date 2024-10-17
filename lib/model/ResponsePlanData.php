@@ -37,6 +37,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'retries' => 'int',
         'pricing_model' => 'string',
         'quantity' => '\Cardpay\model\PlanQuantity[]',
+        'retry' => '\Cardpay\model\PlanRetryResponse',
         'subscription_decline_logic' => '\Cardpay\model\PlanSubscriptionDeclineLogic'
     ];
 
@@ -57,6 +58,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'retries' => 'int32',
         'pricing_model' => null,
         'quantity' => null,
+        'retry' => null,
         'subscription_decline_logic' => null
     ];
 
@@ -98,6 +100,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'retries' => 'retries',
         'pricing_model' => 'pricing_model',
         'quantity' => 'quantity',
+        'retry' => 'retry',
         'subscription_decline_logic' => 'subscription_decline_logic'
     ];
 
@@ -118,6 +121,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'retries' => 'setRetries',
         'pricing_model' => 'setPricingModel',
         'quantity' => 'setQuantity',
+        'retry' => 'setRetry',
         'subscription_decline_logic' => 'setSubscriptionDeclineLogic'
     ];
 
@@ -138,6 +142,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         'retries' => 'getRetries',
         'pricing_model' => 'getPricingModel',
         'quantity' => 'getQuantity',
+        'retry' => 'getRetry',
         'subscription_decline_logic' => 'getSubscriptionDeclineLogic'
     ];
 
@@ -248,6 +253,7 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
         $this->container['retries'] = isset($data['retries']) ? $data['retries'] : null;
         $this->container['pricing_model'] = isset($data['pricing_model']) ? $data['pricing_model'] : null;
         $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
+        $this->container['retry'] = isset($data['retry']) ? $data['retry'] : null;
         $this->container['subscription_decline_logic'] = isset($data['subscription_decline_logic']) ? $data['subscription_decline_logic'] : null;
     }
 
@@ -569,6 +575,30 @@ class ResponsePlanData implements ModelInterface, ArrayAccess
     public function setQuantity($quantity)
     {
         $this->container['quantity'] = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Gets retry
+     *
+     * @return \Cardpay\model\PlanRetryResponse
+     */
+    public function getRetry()
+    {
+        return $this->container['retry'];
+    }
+
+    /**
+     * Sets retry
+     *
+     * @param \Cardpay\model\PlanRetryResponse $retry Retry
+     *
+     * @return $this
+     */
+    public function setRetry($retry)
+    {
+        $this->container['retry'] = $retry;
 
         return $this;
     }

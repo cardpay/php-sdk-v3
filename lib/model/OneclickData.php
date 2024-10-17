@@ -30,6 +30,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         'contract_number' => 'string',
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
+        'encrypted_data' => 'string',
         'filing' => '\Cardpay\model\RecurringRequestFiling',
         'generate_token' => 'bool',
         'hold_period' => 'int',
@@ -53,6 +54,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         'contract_number' => null,
         'currency' => null,
         'dynamic_descriptor' => null,
+        'encrypted_data' => null,
         'filing' => null,
         'generate_token' => null,
         'hold_period' => 'int32',
@@ -97,6 +99,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         'contract_number' => 'contract_number',
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
+        'encrypted_data' => 'encrypted_data',
         'filing' => 'filing',
         'generate_token' => 'generate_token',
         'hold_period' => 'hold_period',
@@ -120,6 +123,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         'contract_number' => 'setContractNumber',
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
+        'encrypted_data' => 'setEncryptedData',
         'filing' => 'setFiling',
         'generate_token' => 'setGenerateToken',
         'hold_period' => 'setHoldPeriod',
@@ -143,6 +147,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         'contract_number' => 'getContractNumber',
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
+        'encrypted_data' => 'getEncryptedData',
         'filing' => 'getFiling',
         'generate_token' => 'getGenerateToken',
         'hold_period' => 'getHoldPeriod',
@@ -256,6 +261,7 @@ class OneclickData implements ModelInterface, ArrayAccess
         $this->container['contract_number'] = isset($data['contract_number']) ? $data['contract_number'] : null;
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
+        $this->container['encrypted_data'] = isset($data['encrypted_data']) ? $data['encrypted_data'] : null;
         $this->container['filing'] = isset($data['filing']) ? $data['filing'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
         $this->container['hold_period'] = isset($data['hold_period']) ? $data['hold_period'] : null;
@@ -295,6 +301,14 @@ class OneclickData implements ModelInterface, ArrayAccess
 
         if (!is_null($this->container['dynamic_descriptor']) && (mb_strlen($this->container['dynamic_descriptor']) < 0)) {
             $invalidProperties[] = "invalid value for 'dynamic_descriptor', the character length must be bigger than or equal to 0.";
+        }
+
+        if (!is_null($this->container['encrypted_data']) && (mb_strlen($this->container['encrypted_data']) > 10000)) {
+            $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be smaller than or equal to 10000.";
+        }
+
+        if (!is_null($this->container['encrypted_data']) && (mb_strlen($this->container['encrypted_data']) < 0)) {
+            $invalidProperties[] = "invalid value for 'encrypted_data', the character length must be bigger than or equal to 0.";
         }
 
         if (!is_null($this->container['hold_period']) && ($this->container['hold_period'] > 168)) {
@@ -465,6 +479,37 @@ class OneclickData implements ModelInterface, ArrayAccess
         }
 
         $this->container['dynamic_descriptor'] = $dynamic_descriptor;
+
+        return $this;
+    }
+
+    /**
+     * Gets encrypted_data
+     *
+     * @return string
+     */
+    public function getEncryptedData()
+    {
+        return $this->container['encrypted_data'];
+    }
+
+    /**
+     * Sets encrypted_data
+     *
+     * @param string $encrypted_data The encrypted recurring credentials encoded in base64. *(for APPLEPAY payment method only)*
+     *
+     * @return $this
+     */
+    public function setEncryptedData($encrypted_data)
+    {
+        if (!is_null($encrypted_data) && (mb_strlen($encrypted_data) > 10000)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_data when calling OneclickData., must be smaller than or equal to 10000.');
+        }
+        if (!is_null($encrypted_data) && (mb_strlen($encrypted_data) < 0)) {
+            throw new \InvalidArgumentException('invalid length for $encrypted_data when calling OneclickData., must be bigger than or equal to 0.');
+        }
+
+        $this->container['encrypted_data'] = $encrypted_data;
 
         return $this;
     }

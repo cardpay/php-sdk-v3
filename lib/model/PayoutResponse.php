@@ -26,6 +26,7 @@ class PayoutResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
+        'additional_data' => 'map[string,string]',
         'card_account' => '\Cardpay\model\PayoutResponseCardAccount',
         'cryptocurrency_account' => '\Cardpay\model\PayoutResponseCryptocurrencyAccount',
         'customer' => '\Cardpay\model\PayoutResponseCustomer',
@@ -43,6 +44,7 @@ class PayoutResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
+        'additional_data' => null,
         'card_account' => null,
         'cryptocurrency_account' => null,
         'customer' => null,
@@ -81,6 +83,7 @@ class PayoutResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
+        'additional_data' => 'additional_data',
         'card_account' => 'card_account',
         'cryptocurrency_account' => 'cryptocurrency_account',
         'customer' => 'customer',
@@ -98,6 +101,7 @@ class PayoutResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
+        'additional_data' => 'setAdditionalData',
         'card_account' => 'setCardAccount',
         'cryptocurrency_account' => 'setCryptocurrencyAccount',
         'customer' => 'setCustomer',
@@ -115,6 +119,7 @@ class PayoutResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
+        'additional_data' => 'getAdditionalData',
         'card_account' => 'getCardAccount',
         'cryptocurrency_account' => 'getCryptocurrencyAccount',
         'customer' => 'getCustomer',
@@ -186,6 +191,7 @@ class PayoutResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
+        $this->container['additional_data'] = isset($data['additional_data']) ? $data['additional_data'] : null;
         $this->container['card_account'] = isset($data['card_account']) ? $data['card_account'] : null;
         $this->container['cryptocurrency_account'] = isset($data['cryptocurrency_account']) ? $data['cryptocurrency_account'] : null;
         $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
@@ -223,6 +229,30 @@ class PayoutResponse implements ModelInterface, ArrayAccess
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets additional_data
+     *
+     * @return map[string,string]
+     */
+    public function getAdditionalData()
+    {
+        return $this->container['additional_data'];
+    }
+
+    /**
+     * Sets additional_data
+     *
+     * @param map[string,string] $additional_data Arbitrary-formatted key-value structure
+     *
+     * @return $this
+     */
+    public function setAdditionalData($additional_data)
+    {
+        $this->container['additional_data'] = $additional_data;
+
+        return $this;
+    }
 
     /**
      * Gets card_account

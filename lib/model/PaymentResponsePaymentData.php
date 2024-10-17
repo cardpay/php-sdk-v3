@@ -40,6 +40,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'installments' => 'string',
         'invalid_data' => 'string[]',
         'is_3d' => 'bool',
+        'network_trans_id' => 'string',
         'note' => 'string',
         'postauth_status' => 'string',
         'rrn' => 'string',
@@ -68,6 +69,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'installments' => null,
         'invalid_data' => null,
         'is_3d' => null,
+        'network_trans_id' => null,
         'note' => null,
         'postauth_status' => null,
         'rrn' => null,
@@ -117,6 +119,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'installments' => 'installments',
         'invalid_data' => 'invalid_data',
         'is_3d' => 'is_3d',
+        'network_trans_id' => 'network_trans_id',
         'note' => 'note',
         'postauth_status' => 'postauth_status',
         'rrn' => 'rrn',
@@ -145,6 +148,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'installments' => 'setInstallments',
         'invalid_data' => 'setInvalidData',
         'is_3d' => 'setIs3d',
+        'network_trans_id' => 'setNetworkTransId',
         'note' => 'setNote',
         'postauth_status' => 'setPostauthStatus',
         'rrn' => 'setRrn',
@@ -173,6 +177,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         'installments' => 'getInstallments',
         'invalid_data' => 'getInvalidData',
         'is_3d' => 'getIs3d',
+        'network_trans_id' => 'getNetworkTransId',
         'note' => 'getNote',
         'postauth_status' => 'getPostauthStatus',
         'rrn' => 'getRrn',
@@ -313,6 +318,7 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
         $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
         $this->container['invalid_data'] = isset($data['invalid_data']) ? $data['invalid_data'] : null;
         $this->container['is_3d'] = isset($data['is_3d']) ? $data['is_3d'] : null;
+        $this->container['network_trans_id'] = isset($data['network_trans_id']) ? $data['network_trans_id'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
         $this->container['postauth_status'] = isset($data['postauth_status']) ? $data['postauth_status'] : null;
         $this->container['rrn'] = isset($data['rrn']) ? $data['rrn'] : null;
@@ -693,6 +699,30 @@ class PaymentResponsePaymentData implements ModelInterface, ArrayAccess
     public function setIs3d($is_3d)
     {
         $this->container['is_3d'] = $is_3d;
+
+        return $this;
+    }
+
+    /**
+     * Gets network_trans_id
+     *
+     * @return string
+     */
+    public function getNetworkTransId()
+    {
+        return $this->container['network_trans_id'];
+    }
+
+    /**
+     * Sets network_trans_id
+     *
+     * @param string $network_trans_id Network Reference Number of original transaction
+     *
+     * @return $this
+     */
+    public function setNetworkTransId($network_trans_id)
+    {
+        $this->container['network_trans_id'] = $network_trans_id;
 
         return $this;
     }

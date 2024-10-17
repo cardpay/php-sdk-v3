@@ -30,6 +30,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         'currency' => 'string',
         'dynamic_descriptor' => 'string',
         'generate_token' => 'bool',
+        'network_trans_id' => 'string',
         'note' => 'string'
     ];
 
@@ -43,6 +44,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         'currency' => null,
         'dynamic_descriptor' => null,
         'generate_token' => null,
+        'network_trans_id' => null,
         'note' => null
     ];
 
@@ -77,6 +79,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         'currency' => 'currency',
         'dynamic_descriptor' => 'dynamic_descriptor',
         'generate_token' => 'generate_token',
+        'network_trans_id' => 'network_trans_id',
         'note' => 'note'
     ];
 
@@ -90,6 +93,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         'currency' => 'setCurrency',
         'dynamic_descriptor' => 'setDynamicDescriptor',
         'generate_token' => 'setGenerateToken',
+        'network_trans_id' => 'setNetworkTransId',
         'note' => 'setNote'
     ];
 
@@ -103,6 +107,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         'currency' => 'getCurrency',
         'dynamic_descriptor' => 'getDynamicDescriptor',
         'generate_token' => 'getGenerateToken',
+        'network_trans_id' => 'getNetworkTransId',
         'note' => 'getNote'
     ];
 
@@ -170,6 +175,7 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
         $this->container['currency'] = isset($data['currency']) ? $data['currency'] : null;
         $this->container['dynamic_descriptor'] = isset($data['dynamic_descriptor']) ? $data['dynamic_descriptor'] : null;
         $this->container['generate_token'] = isset($data['generate_token']) ? $data['generate_token'] : null;
+        $this->container['network_trans_id'] = isset($data['network_trans_id']) ? $data['network_trans_id'] : null;
         $this->container['note'] = isset($data['note']) ? $data['note'] : null;
     }
 
@@ -318,6 +324,30 @@ class PayoutRequestPayoutData implements ModelInterface, ArrayAccess
     public function setGenerateToken($generate_token)
     {
         $this->container['generate_token'] = $generate_token;
+
+        return $this;
+    }
+
+    /**
+     * Gets network_trans_id
+     *
+     * @return string
+     */
+    public function getNetworkTransId()
+    {
+        return $this->container['network_trans_id'];
+    }
+
+    /**
+     * Sets network_trans_id
+     *
+     * @param string $network_trans_id Network Reference Number of original transaction
+     *
+     * @return $this
+     */
+    public function setNetworkTransId($network_trans_id)
+    {
+        $this->container['network_trans_id'] = $network_trans_id;
 
         return $this;
     }

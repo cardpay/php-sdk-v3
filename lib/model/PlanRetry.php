@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class PlanUpdateRequest implements ModelInterface, ArrayAccess
+class PlanRetry implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'PlanUpdateRequest';
+    protected static $swaggerModelName = 'PlanRetry';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,9 +26,11 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'request' => '\Cardpay\model\Request',
-        'operation' => 'string',
-        'plan_data' => '\Cardpay\model\PlanUpdateRequestPlanData'
+        'duration' => 'int',
+        'frequency' => 'int[]',
+        'mode' => 'string',
+        'retry_advice' => 'bool',
+        'schedule' => 'int[]'
     ];
 
     /**
@@ -37,9 +39,11 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'request' => null,
-        'operation' => null,
-        'plan_data' => null
+        'duration' => 'int32',
+        'frequency' => 'int32',
+        'mode' => null,
+        'retry_advice' => null,
+        'schedule' => 'int32'
     ];
 
     /**
@@ -69,9 +73,11 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'request' => 'request',
-        'operation' => 'operation',
-        'plan_data' => 'plan_data'
+        'duration' => 'duration',
+        'frequency' => 'frequency',
+        'mode' => 'mode',
+        'retry_advice' => 'retry_advice',
+        'schedule' => 'schedule'
     ];
 
     /**
@@ -80,9 +86,11 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'request' => 'setRequest',
-        'operation' => 'setOperation',
-        'plan_data' => 'setPlanData'
+        'duration' => 'setDuration',
+        'frequency' => 'setFrequency',
+        'mode' => 'setMode',
+        'retry_advice' => 'setRetryAdvice',
+        'schedule' => 'setSchedule'
     ];
 
     /**
@@ -91,9 +99,11 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'request' => 'getRequest',
-        'operation' => 'getOperation',
-        'plan_data' => 'getPlanData'
+        'duration' => 'getDuration',
+        'frequency' => 'getFrequency',
+        'mode' => 'getMode',
+        'retry_advice' => 'getRetryAdvice',
+        'schedule' => 'getSchedule'
     ];
 
     /**
@@ -137,8 +147,10 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    const OPERATION_CHANGE_STATUS = 'CHANGE_STATUS';
-    const OPERATION_RENAME = 'RENAME';
+    const MODE__DEFAULT = 'DEFAULT';
+    const MODE_INTERVAL = 'INTERVAL';
+    const MODE_CALENDAR = 'CALENDAR';
+    const MODE_NO_RETRY = 'NO_RETRY';
     
 
     
@@ -147,11 +159,13 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
      *
      * @return string[]
      */
-    public function getOperationAllowableValues()
+    public function getModeAllowableValues()
     {
         return [
-            self::OPERATION_CHANGE_STATUS,
-            self::OPERATION_RENAME,
+            self::MODE__DEFAULT,
+            self::MODE_INTERVAL,
+            self::MODE_CALENDAR,
+            self::MODE_NO_RETRY,
         ];
     }
     
@@ -171,9 +185,11 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['request'] = isset($data['request']) ? $data['request'] : null;
-        $this->container['operation'] = isset($data['operation']) ? $data['operation'] : null;
-        $this->container['plan_data'] = isset($data['plan_data']) ? $data['plan_data'] : null;
+        $this->container['duration'] = isset($data['duration']) ? $data['duration'] : null;
+        $this->container['frequency'] = isset($data['frequency']) ? $data['frequency'] : null;
+        $this->container['mode'] = isset($data['mode']) ? $data['mode'] : null;
+        $this->container['retry_advice'] = isset($data['retry_advice']) ? $data['retry_advice'] : null;
+        $this->container['schedule'] = isset($data['schedule']) ? $data['schedule'] : null;
     }
 
     /**
@@ -185,23 +201,22 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['request'] === null) {
-            $invalidProperties[] = "'request' can't be null";
+        if (!is_null($this->container['duration']) && ($this->container['duration'] > 30)) {
+            $invalidProperties[] = "invalid value for 'duration', must be smaller than or equal to 30.";
         }
-        if ($this->container['operation'] === null) {
-            $invalidProperties[] = "'operation' can't be null";
+
+        if (!is_null($this->container['duration']) && ($this->container['duration'] < 1)) {
+            $invalidProperties[] = "invalid value for 'duration', must be bigger than or equal to 1.";
         }
-        $allowedValues = $this->getOperationAllowableValues();
-        if (!is_null($this->container['operation']) && !in_array($this->container['operation'], $allowedValues, true)) {
+
+        $allowedValues = $this->getModeAllowableValues();
+        if (!is_null($this->container['mode']) && !in_array($this->container['mode'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
-                "invalid value for 'operation', must be one of '%s'",
+                "invalid value for 'mode', must be one of '%s'",
                 implode("', '", $allowedValues)
             );
         }
 
-        if ($this->container['plan_data'] === null) {
-            $invalidProperties[] = "'plan_data' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -218,82 +233,138 @@ class PlanUpdateRequest implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets request
+     * Gets duration
      *
-     * @return \Cardpay\model\Request
+     * @return int
      */
-    public function getRequest()
+    public function getDuration()
     {
-        return $this->container['request'];
+        return $this->container['duration'];
     }
 
     /**
-     * Sets request
+     * Sets duration
      *
-     * @param \Cardpay\model\Request $request Request
+     * @param int $duration Value of period time which is retry available for subscription in days. Mandatory, if mode = DEFAULT Possible values: min: 1 max: 30
      *
      * @return $this
      */
-    public function setRequest($request)
+    public function setDuration($duration)
     {
-        $this->container['request'] = $request;
+
+        if (!is_null($duration) && ($duration > 30)) {
+            throw new \InvalidArgumentException('invalid value for $duration when calling PlanRetry., must be smaller than or equal to 30.');
+        }
+        if (!is_null($duration) && ($duration < 1)) {
+            throw new \InvalidArgumentException('invalid value for $duration when calling PlanRetry., must be bigger than or equal to 1.');
+        }
+
+        $this->container['duration'] = $duration;
 
         return $this;
     }
 
     /**
-     * Gets operation
+     * Gets frequency
      *
-     * @return string
+     * @return int[]
      */
-    public function getOperation()
+    public function getFrequency()
     {
-        return $this->container['operation'];
+        return $this->container['frequency'];
     }
 
     /**
-     * Sets operation
+     * Sets frequency
      *
-     * @param string $operation `CHANGE_STATUS` value to initiate operation for status changing. `RENAME` value to initiate operation for plan renaming.
+     * @param int[] $frequency Intervals for initiating reties. Mandatory, if mode = INTERVAL Possible element values in array: min: 1 max: 30
      *
      * @return $this
      */
-    public function setOperation($operation)
+    public function setFrequency($frequency)
     {
-        $allowedValues = $this->getOperationAllowableValues();
-        if (!in_array($operation, $allowedValues, true)) {
+        $this->container['frequency'] = $frequency;
+
+        return $this;
+    }
+
+    /**
+     * Gets mode
+     *
+     * @return string
+     */
+    public function getMode()
+    {
+        return $this->container['mode'];
+    }
+
+    /**
+     * Sets mode
+     *
+     * @param string $mode Retry mode
+     *
+     * @return $this
+     */
+    public function setMode($mode)
+    {
+        $allowedValues = $this->getModeAllowableValues();
+        if (!is_null($mode) && !in_array($mode, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    "Invalid value for 'operation', must be one of '%s'",
+                    "Invalid value for 'mode', must be one of '%s'",
                     implode("', '", $allowedValues)
                 )
             );
         }
-        $this->container['operation'] = $operation;
+        $this->container['mode'] = $mode;
 
         return $this;
     }
 
     /**
-     * Gets plan_data
+     * Gets retry_advice
      *
-     * @return \Cardpay\model\PlanUpdateRequestPlanData
+     * @return bool
      */
-    public function getPlanData()
+    public function getRetryAdvice()
     {
-        return $this->container['plan_data'];
+        return $this->container['retry_advice'];
     }
 
     /**
-     * Sets plan_data
+     * Sets retry_advice
      *
-     * @param \Cardpay\model\PlanUpdateRequestPlanData $plan_data Plan data
+     * @param bool $retry_advice If value is true MAC recommendation will be applied, if false retry will be strictly according setting for retry Can be only for mode = INTERVAL (if not specified then default value is 'true')
      *
      * @return $this
      */
-    public function setPlanData($plan_data)
+    public function setRetryAdvice($retry_advice)
     {
-        $this->container['plan_data'] = $plan_data;
+        $this->container['retry_advice'] = $retry_advice;
+
+        return $this;
+    }
+
+    /**
+     * Gets schedule
+     *
+     * @return int[]
+     */
+    public function getSchedule()
+    {
+        return $this->container['schedule'];
+    }
+
+    /**
+     * Sets schedule
+     *
+     * @param int[] $schedule Intervals for initiating reties. Mandatory, if mode = CALENDAR Possible element values in array: min: 1 max: 30
+     *
+     * @return $this
+     */
+    public function setSchedule($schedule)
+    {
+        $this->container['schedule'] = $schedule;
 
         return $this;
     }

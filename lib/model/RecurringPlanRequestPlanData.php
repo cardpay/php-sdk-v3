@@ -34,6 +34,7 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         'pricing_model' => 'string',
         'quantity' => '\Cardpay\model\PlanQuantity[]',
         'retries' => 'int',
+        'retry' => '\Cardpay\model\PlanRetry',
         'subscription_decline_logic' => '\Cardpay\model\PlanSubscriptionDeclineLogic'
     ];
 
@@ -51,6 +52,7 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         'pricing_model' => null,
         'quantity' => null,
         'retries' => 'int32',
+        'retry' => null,
         'subscription_decline_logic' => null
     ];
 
@@ -89,6 +91,7 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         'pricing_model' => 'pricing_model',
         'quantity' => 'quantity',
         'retries' => 'retries',
+        'retry' => 'retry',
         'subscription_decline_logic' => 'subscription_decline_logic'
     ];
 
@@ -106,6 +109,7 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         'pricing_model' => 'setPricingModel',
         'quantity' => 'setQuantity',
         'retries' => 'setRetries',
+        'retry' => 'setRetry',
         'subscription_decline_logic' => 'setSubscriptionDeclineLogic'
     ];
 
@@ -123,6 +127,7 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         'pricing_model' => 'getPricingModel',
         'quantity' => 'getQuantity',
         'retries' => 'getRetries',
+        'retry' => 'getRetry',
         'subscription_decline_logic' => 'getSubscriptionDeclineLogic'
     ];
 
@@ -215,6 +220,7 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         $this->container['pricing_model'] = isset($data['pricing_model']) ? $data['pricing_model'] : null;
         $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
         $this->container['retries'] = isset($data['retries']) ? $data['retries'] : null;
+        $this->container['retry'] = isset($data['retry']) ? $data['retry'] : null;
         $this->container['subscription_decline_logic'] = isset($data['subscription_decline_logic']) ? $data['subscription_decline_logic'] : null;
     }
 
@@ -525,6 +531,30 @@ class RecurringPlanRequestPlanData implements ModelInterface, ArrayAccess
         }
 
         $this->container['retries'] = $retries;
+
+        return $this;
+    }
+
+    /**
+     * Gets retry
+     *
+     * @return \Cardpay\model\PlanRetry
+     */
+    public function getRetry()
+    {
+        return $this->container['retry'];
+    }
+
+    /**
+     * Sets retry
+     *
+     * @param \Cardpay\model\PlanRetry $retry Structure for establishing the logic of retries for subscription based on created plan
+     *
+     * @return $this
+     */
+    public function setRetry($retry)
+    {
+        $this->container['retry'] = $retry;
 
         return $this;
     }

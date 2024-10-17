@@ -32,7 +32,10 @@ class AuthenticationData implements ModelInterface, ArrayAccess
         'decline_code' => 'string',
         'decline_reason' => 'string',
         'id' => 'string',
+        'installment_type' => 'string',
+        'installments' => 'string',
         'invalid_data' => 'string[]',
+        'recurring_data' => '\Cardpay\model\RecurringResponseRecurringData',
         'status' => 'string',
         'three_d_secure' => '\Cardpay\model\ThreeDSecureResponse',
         'trans_type' => 'string',
@@ -51,7 +54,10 @@ class AuthenticationData implements ModelInterface, ArrayAccess
         'decline_code' => null,
         'decline_reason' => null,
         'id' => null,
+        'installment_type' => null,
+        'installments' => null,
         'invalid_data' => null,
+        'recurring_data' => null,
         'status' => null,
         'three_d_secure' => null,
         'trans_type' => null,
@@ -91,7 +97,10 @@ class AuthenticationData implements ModelInterface, ArrayAccess
         'decline_code' => 'decline_code',
         'decline_reason' => 'decline_reason',
         'id' => 'id',
+        'installment_type' => 'installment_type',
+        'installments' => 'installments',
         'invalid_data' => 'invalid_data',
+        'recurring_data' => 'recurring_data',
         'status' => 'status',
         'three_d_secure' => 'three_d_secure',
         'trans_type' => 'trans_type',
@@ -110,7 +119,10 @@ class AuthenticationData implements ModelInterface, ArrayAccess
         'decline_code' => 'setDeclineCode',
         'decline_reason' => 'setDeclineReason',
         'id' => 'setId',
+        'installment_type' => 'setInstallmentType',
+        'installments' => 'setInstallments',
         'invalid_data' => 'setInvalidData',
+        'recurring_data' => 'setRecurringData',
         'status' => 'setStatus',
         'three_d_secure' => 'setThreeDSecure',
         'trans_type' => 'setTransType',
@@ -129,7 +141,10 @@ class AuthenticationData implements ModelInterface, ArrayAccess
         'decline_code' => 'getDeclineCode',
         'decline_reason' => 'getDeclineReason',
         'id' => 'getId',
+        'installment_type' => 'getInstallmentType',
+        'installments' => 'getInstallments',
         'invalid_data' => 'getInvalidData',
+        'recurring_data' => 'getRecurringData',
         'status' => 'getStatus',
         'three_d_secure' => 'getThreeDSecure',
         'trans_type' => 'getTransType',
@@ -260,7 +275,10 @@ class AuthenticationData implements ModelInterface, ArrayAccess
         $this->container['decline_code'] = isset($data['decline_code']) ? $data['decline_code'] : null;
         $this->container['decline_reason'] = isset($data['decline_reason']) ? $data['decline_reason'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
+        $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
+        $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
         $this->container['invalid_data'] = isset($data['invalid_data']) ? $data['invalid_data'] : null;
+        $this->container['recurring_data'] = isset($data['recurring_data']) ? $data['recurring_data'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
         $this->container['three_d_secure'] = isset($data['three_d_secure']) ? $data['three_d_secure'] : null;
         $this->container['trans_type'] = isset($data['trans_type']) ? $data['trans_type'] : null;
@@ -452,6 +470,54 @@ class AuthenticationData implements ModelInterface, ArrayAccess
     }
 
     /**
+     * Gets installment_type
+     *
+     * @return string
+     */
+    public function getInstallmentType()
+    {
+        return $this->container['installment_type'];
+    }
+
+    /**
+     * Sets installment_type
+     *
+     * @param string $installment_type Installment type, 2 possible values: `IF` - issuer financed `MF_HOLD' - merchant financed. For installment subscription with hold rest amount.
+     *
+     * @return $this
+     */
+    public function setInstallmentType($installment_type)
+    {
+        $this->container['installment_type'] = $installment_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets installments
+     *
+     * @return string
+     */
+    public function getInstallments()
+    {
+        return $this->container['installments'];
+    }
+
+    /**
+     * Sets installments
+     *
+     * @param string $installments Number of total installment payments.
+     *
+     * @return $this
+     */
+    public function setInstallments($installments)
+    {
+        $this->container['installments'] = $installments;
+
+        return $this;
+    }
+
+    /**
      * Gets invalid_data
      *
      * @return string[]
@@ -471,6 +537,30 @@ class AuthenticationData implements ModelInterface, ArrayAccess
     public function setInvalidData($invalid_data)
     {
         $this->container['invalid_data'] = $invalid_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets recurring_data
+     *
+     * @return \Cardpay\model\RecurringResponseRecurringData
+     */
+    public function getRecurringData()
+    {
+        return $this->container['recurring_data'];
+    }
+
+    /**
+     * Sets recurring_data
+     *
+     * @param \Cardpay\model\RecurringResponseRecurringData $recurring_data Recurring data
+     *
+     * @return $this
+     */
+    public function setRecurringData($recurring_data)
+    {
+        $this->container['recurring_data'] = $recurring_data;
 
         return $this;
     }
