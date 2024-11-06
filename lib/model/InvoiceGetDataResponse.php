@@ -31,6 +31,8 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'expire_at' => '\DateTime',
         'id' => 'string',
         'initial_amount' => 'float',
+        'remaining_count' => 'int',
+        'reusable' => 'bool',
         'status' => 'string'
     ];
 
@@ -45,6 +47,8 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'expire_at' => 'date-time',
         'id' => null,
         'initial_amount' => null,
+        'remaining_count' => 'int32',
+        'reusable' => null,
         'status' => null
     ];
 
@@ -80,6 +84,8 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'expire_at' => 'expire_at',
         'id' => 'id',
         'initial_amount' => 'initial_amount',
+        'remaining_count' => 'remaining_count',
+        'reusable' => 'reusable',
         'status' => 'status'
     ];
 
@@ -94,6 +100,8 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'expire_at' => 'setExpireAt',
         'id' => 'setId',
         'initial_amount' => 'setInitialAmount',
+        'remaining_count' => 'setRemainingCount',
+        'reusable' => 'setReusable',
         'status' => 'setStatus'
     ];
 
@@ -108,6 +116,8 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         'expire_at' => 'getExpireAt',
         'id' => 'getId',
         'initial_amount' => 'getInitialAmount',
+        'remaining_count' => 'getRemainingCount',
+        'reusable' => 'getReusable',
         'status' => 'getStatus'
     ];
 
@@ -176,6 +186,8 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
         $this->container['expire_at'] = isset($data['expire_at']) ? $data['expire_at'] : null;
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
         $this->container['initial_amount'] = isset($data['initial_amount']) ? $data['initial_amount'] : null;
+        $this->container['remaining_count'] = isset($data['remaining_count']) ? $data['remaining_count'] : null;
+        $this->container['reusable'] = isset($data['reusable']) ? $data['reusable'] : null;
         $this->container['status'] = isset($data['status']) ? $data['status'] : null;
     }
 
@@ -325,6 +337,54 @@ class InvoiceGetDataResponse implements ModelInterface, ArrayAccess
     public function setInitialAmount($initial_amount)
     {
         $this->container['initial_amount'] = $initial_amount;
+
+        return $this;
+    }
+
+    /**
+     * Gets remaining_count
+     *
+     * @return int
+     */
+    public function getRemainingCount()
+    {
+        return $this->container['remaining_count'];
+    }
+
+    /**
+     * Sets remaining_count
+     *
+     * @param int $remaining_count Number of allowed payments by invoice.
+     *
+     * @return $this
+     */
+    public function setRemainingCount($remaining_count)
+    {
+        $this->container['remaining_count'] = $remaining_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets reusable
+     *
+     * @return bool
+     */
+    public function getReusable()
+    {
+        return $this->container['reusable'];
+    }
+
+    /**
+     * Sets reusable
+     *
+     * @param bool $reusable reusable
+     *
+     * @return $this
+     */
+    public function setReusable($reusable)
+    {
+        $this->container['reusable'] = $reusable;
 
         return $this;
     }

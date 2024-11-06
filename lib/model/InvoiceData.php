@@ -30,7 +30,9 @@ class InvoiceData implements ModelInterface, ArrayAccess
         'currency' => 'string',
         'expire_at' => '\DateTime',
         'installment_type' => 'string',
-        'installments' => 'int[]'
+        'installments' => 'int[]',
+        'reusable' => 'bool',
+        'reuse_count' => 'int'
     ];
 
     /**
@@ -43,7 +45,9 @@ class InvoiceData implements ModelInterface, ArrayAccess
         'currency' => null,
         'expire_at' => 'date-time',
         'installment_type' => null,
-        'installments' => 'int32'
+        'installments' => 'int32',
+        'reusable' => null,
+        'reuse_count' => 'int32'
     ];
 
     /**
@@ -77,7 +81,9 @@ class InvoiceData implements ModelInterface, ArrayAccess
         'currency' => 'currency',
         'expire_at' => 'expire_at',
         'installment_type' => 'installment_type',
-        'installments' => 'installments'
+        'installments' => 'installments',
+        'reusable' => 'reusable',
+        'reuse_count' => 'reuse_count'
     ];
 
     /**
@@ -90,7 +96,9 @@ class InvoiceData implements ModelInterface, ArrayAccess
         'currency' => 'setCurrency',
         'expire_at' => 'setExpireAt',
         'installment_type' => 'setInstallmentType',
-        'installments' => 'setInstallments'
+        'installments' => 'setInstallments',
+        'reusable' => 'setReusable',
+        'reuse_count' => 'setReuseCount'
     ];
 
     /**
@@ -103,7 +111,9 @@ class InvoiceData implements ModelInterface, ArrayAccess
         'currency' => 'getCurrency',
         'expire_at' => 'getExpireAt',
         'installment_type' => 'getInstallmentType',
-        'installments' => 'getInstallments'
+        'installments' => 'getInstallments',
+        'reusable' => 'getReusable',
+        'reuse_count' => 'getReuseCount'
     ];
 
     /**
@@ -171,6 +181,8 @@ class InvoiceData implements ModelInterface, ArrayAccess
         $this->container['expire_at'] = isset($data['expire_at']) ? $data['expire_at'] : null;
         $this->container['installment_type'] = isset($data['installment_type']) ? $data['installment_type'] : null;
         $this->container['installments'] = isset($data['installments']) ? $data['installments'] : null;
+        $this->container['reusable'] = isset($data['reusable']) ? $data['reusable'] : null;
+        $this->container['reuse_count'] = isset($data['reuse_count']) ? $data['reuse_count'] : null;
     }
 
     /**
@@ -188,6 +200,10 @@ class InvoiceData implements ModelInterface, ArrayAccess
         if ($this->container['currency'] === null) {
             $invalidProperties[] = "'currency' can't be null";
         }
+        if (!is_null($this->container['reuse_count']) && ($this->container['reuse_count'] < 1)) {
+            $invalidProperties[] = "invalid value for 'reuse_count', must be bigger than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -319,6 +335,59 @@ class InvoiceData implements ModelInterface, ArrayAccess
     public function setInstallments($installments)
     {
         $this->container['installments'] = $installments;
+
+        return $this;
+    }
+
+    /**
+     * Gets reusable
+     *
+     * @return bool
+     */
+    public function getReusable()
+    {
+        return $this->container['reusable'];
+    }
+
+    /**
+     * Sets reusable
+     *
+     * @param bool $reusable The flag that can be used for enabling payment link multiple times
+     *
+     * @return $this
+     */
+    public function setReusable($reusable)
+    {
+        $this->container['reusable'] = $reusable;
+
+        return $this;
+    }
+
+    /**
+     * Gets reuse_count
+     *
+     * @return int
+     */
+    public function getReuseCount()
+    {
+        return $this->container['reuse_count'];
+    }
+
+    /**
+     * Sets reuse_count
+     *
+     * @param int $reuse_count The number that customer can pay by this link. Default value 10
+     *
+     * @return $this
+     */
+    public function setReuseCount($reuse_count)
+    {
+
+        if (!is_null($reuse_count) && ($reuse_count < 1)) {
+            throw new \InvalidArgumentException('invalid value for $reuse_count when calling InvoiceData., must be bigger than or equal to 1.');
+        }
+
+        $this->container['reuse_count'] = $reuse_count;
 
         return $this;
     }

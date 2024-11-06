@@ -9,7 +9,7 @@ namespace Cardpay\model;
 use \ArrayAccess;
 use \Cardpay\ObjectSerializer;
 
-class InvoiceGetResponse implements ModelInterface, ArrayAccess
+class PaymentData implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -18,7 +18,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $swaggerModelName = 'InvoiceGetResponse';
+    protected static $swaggerModelName = 'PaymentData';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -26,11 +26,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'customer' => '\Cardpay\model\InvoiceCustomer',
-        'invoice_data' => '\Cardpay\model\InvoiceGetDataResponse',
-        'invoice_url' => 'string',
-        'merchant_order' => '\Cardpay\model\InvoiceMerchantOrder',
-        'payment_data' => '\Cardpay\model\PaymentData[]'
+        'id' => 'string'
     ];
 
     /**
@@ -39,11 +35,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $swaggerFormats = [
-        'customer' => null,
-        'invoice_data' => null,
-        'invoice_url' => null,
-        'merchant_order' => null,
-        'payment_data' => null
+        'id' => null
     ];
 
     /**
@@ -73,11 +65,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'customer' => 'customer',
-        'invoice_data' => 'invoice_data',
-        'invoice_url' => 'invoice_url',
-        'merchant_order' => 'merchant_order',
-        'payment_data' => 'payment_data'
+        'id' => 'id'
     ];
 
     /**
@@ -86,11 +74,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'customer' => 'setCustomer',
-        'invoice_data' => 'setInvoiceData',
-        'invoice_url' => 'setInvoiceUrl',
-        'merchant_order' => 'setMerchantOrder',
-        'payment_data' => 'setPaymentData'
+        'id' => 'setId'
     ];
 
     /**
@@ -99,11 +83,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'customer' => 'getCustomer',
-        'invoice_data' => 'getInvoiceData',
-        'invoice_url' => 'getInvoiceUrl',
-        'merchant_order' => 'getMerchantOrder',
-        'payment_data' => 'getPaymentData'
+        'id' => 'getId'
     ];
 
     /**
@@ -166,11 +146,7 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['customer'] = isset($data['customer']) ? $data['customer'] : null;
-        $this->container['invoice_data'] = isset($data['invoice_data']) ? $data['invoice_data'] : null;
-        $this->container['invoice_url'] = isset($data['invoice_url']) ? $data['invoice_url'] : null;
-        $this->container['merchant_order'] = isset($data['merchant_order']) ? $data['merchant_order'] : null;
-        $this->container['payment_data'] = isset($data['payment_data']) ? $data['payment_data'] : null;
+        $this->container['id'] = isset($data['id']) ? $data['id'] : null;
     }
 
     /**
@@ -182,15 +158,6 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['customer'] === null) {
-            $invalidProperties[] = "'customer' can't be null";
-        }
-        if ($this->container['invoice_data'] === null) {
-            $invalidProperties[] = "'invoice_data' can't be null";
-        }
-        if ($this->container['merchant_order'] === null) {
-            $invalidProperties[] = "'merchant_order' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -207,121 +174,25 @@ class InvoiceGetResponse implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets customer
-     *
-     * @return \Cardpay\model\InvoiceCustomer
-     */
-    public function getCustomer()
-    {
-        return $this->container['customer'];
-    }
-
-    /**
-     * Sets customer
-     *
-     * @param \Cardpay\model\InvoiceCustomer $customer Customer data
-     *
-     * @return $this
-     */
-    public function setCustomer($customer)
-    {
-        $this->container['customer'] = $customer;
-
-        return $this;
-    }
-
-    /**
-     * Gets invoice_data
-     *
-     * @return \Cardpay\model\InvoiceGetDataResponse
-     */
-    public function getInvoiceData()
-    {
-        return $this->container['invoice_data'];
-    }
-
-    /**
-     * Sets invoice_data
-     *
-     * @param \Cardpay\model\InvoiceGetDataResponse $invoice_data Invoice data
-     *
-     * @return $this
-     */
-    public function setInvoiceData($invoice_data)
-    {
-        $this->container['invoice_data'] = $invoice_data;
-
-        return $this;
-    }
-
-    /**
-     * Gets invoice_url
+     * Gets id
      *
      * @return string
      */
-    public function getInvoiceUrl()
+    public function getId()
     {
-        return $this->container['invoice_url'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets invoice_url
+     * Sets id
      *
-     * @param string $invoice_url Invoice URL
+     * @param string $id id
      *
      * @return $this
      */
-    public function setInvoiceUrl($invoice_url)
+    public function setId($id)
     {
-        $this->container['invoice_url'] = $invoice_url;
-
-        return $this;
-    }
-
-    /**
-     * Gets merchant_order
-     *
-     * @return \Cardpay\model\InvoiceMerchantOrder
-     */
-    public function getMerchantOrder()
-    {
-        return $this->container['merchant_order'];
-    }
-
-    /**
-     * Sets merchant_order
-     *
-     * @param \Cardpay\model\InvoiceMerchantOrder $merchant_order Merchant order data
-     *
-     * @return $this
-     */
-    public function setMerchantOrder($merchant_order)
-    {
-        $this->container['merchant_order'] = $merchant_order;
-
-        return $this;
-    }
-
-    /**
-     * Gets payment_data
-     *
-     * @return \Cardpay\model\PaymentData[]
-     */
-    public function getPaymentData()
-    {
-        return $this->container['payment_data'];
-    }
-
-    /**
-     * Sets payment_data
-     *
-     * @param \Cardpay\model\PaymentData[] $payment_data payment_data
-     *
-     * @return $this
-     */
-    public function setPaymentData($payment_data)
-    {
-        $this->container['payment_data'] = $payment_data;
+        $this->container['id'] = $id;
 
         return $this;
     }
