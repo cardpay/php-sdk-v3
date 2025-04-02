@@ -8,7 +8,7 @@ For more information, please visit [https://integration.cardpay.com](https://int
 
 ## Requirements
 
-- PHP 5.6 or later
+- PHP 7.2.5 or later
 - curl, json, openssl extensions
 
 ## Installation & Usage
